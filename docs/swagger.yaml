@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  version: 0.2.19
+  version: 0.2.16
   title: Vipps Invoice API
   description: >-
     # Welcome
@@ -95,10 +95,9 @@ info:
     The URL contains a *JWT* query parameter that is validated by the ISP. 
     The expiry time (i.e. TTL) is inside the JWT. 
 
-    Each invoice document has one or more mime types. The "HTTP way" of doing this is to use the 
-    `Accept` header when making the request. 
+    Each invoice document has one or more mime types. 
     This means that `GET /invoices/{invoiceId}/attachments/{attachmentId}` must include 
-    the `Accept` header that specifies the mime type to retrieve, i.e. document file type. 
+    the `mimeType` query parameter that specifies the mime type to retrieve, i.e. document file type. 
     The mime type is available to the IPP when listing all the documents, so it is not necessary to guess.
     
     ## Validating the JWT and the request
@@ -117,8 +116,10 @@ info:
     * `ALG` (algorithm): Encryption algorithm. Vipps will use **RS256**.
     
     
-    The APIs public key is required in order to validate the request. The public key
-    is provided by Vipps on demand through a secure channel. (**WIP**)
+    The APIs public key is required in order to validate the request. The 
+    public key is available as JSON Web Key (JWK) under the `/jwk` 
+    endpoint. 
+    It is suggested to Use a JWK library to parse and use the key.
     
     
     In addition to validating the JWT, the IPP/invoice hotel must ensure to validate the following:
@@ -147,6 +148,7 @@ tags:
       invoices on behalf of recipients.
 schemes:
   - https
+  - http
 paths:
   /recipients/tokens:
     post:
@@ -157,12 +159,6 @@ paths:
       description: >-
         Request a `recipientToken` by providing either the recipients Norwegian
         national identification or mobile number.
-
-        In the currently available test environment, two recipients are available:
-
-        1. `nin-no`: 12068100117, `msisdn`: 4796147256
-
-        2. `nin-no`: 07126200255, `msisdn`: 4796147257
       consumes:
         - application/json
       produces:
@@ -604,9 +600,9 @@ paths:
           description: The unique invoice id.
           required: true
           type: string
-        - in: header
-          name: Accept
-          description: "Prioritized list of preferred mime types. First found will be returned. E.g. Accept: application/pdf, text/html, application/xml"
+        - in: query
+          name: mimeType
+          description: "Mime type to retrieve. E.g. application/pdf"
           required: true
           type: string
       responses:
@@ -642,9 +638,9 @@ paths:
           description: The unique attachment id.
           required: true
           type: string
-        - in: header
-          name: Accept
-          description: "Prioritized list of preferred mime types. First found will be returned. E.g. Accept: application/pdf, text/html, application/xml"
+        - in: query
+          name: mimeType
+          description: "Mime type to retrieve. E.g. application/pdf"
           required: true
           type: string
       responses:
@@ -659,7 +655,28 @@ paths:
         '500':
           description: Server error. E.g. if JWT generation fails.
 
-          
+  '/jwk':
+    get:
+      description: "Get JSON Web Key Set. Use a JWK library to parse this into a public key."
+      tags:
+        - "JWK"
+      responses:
+        200:
+          description: "OK"
+          examples:
+            application/json:
+              keys:
+                - e: "AQAB"
+                  alg: "RS256"
+                  use: "sig"
+                  kid: "jwt"
+                  kty: "RSA"
+                  n: "5Dkax7lxzotIVx5DQidS..."
+          schema:
+            $ref: "#/definitions/JsonWebKeySet"
+        500:
+          description: "Internal server error"
+
 definitions:
   recipientToken:
     type: object
@@ -992,3 +1009,43 @@ definitions:
       error:
         type: string
         example: error message ...
+  JsonWebKeySet:  
+      title: "JSON Web Key Set"
+      type: "object"
+      properties:
+        keys:
+          type: "array"
+          items:
+            $ref: "#/definitions/JsonWebKey"
+  JsonWebKey:
+    title: "JSON Web Key"
+    type: "object"
+    properties:
+      keys:
+        type: "array"
+        items:
+          $ref: "#/definitions/JsonWebKey"
+      kty:
+        type: "string"
+      use:
+        type: "string"
+      kid:
+        type: "string"
+      alg:
+        type: "string"
+      crv:
+        type: "string"
+      x:
+        type: "string"
+      "y":
+        type: "string"
+      d:
+        type: "string"
+      "n":
+        type: "string"
+      e:
+        type: "string"
+      k:
+        type: "string"
+    required:
+      - kty
