@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  version: 0.2.16
+  version: 0.2.20
   title: Vipps Invoice API
   description: >-
     # Welcome
@@ -148,7 +148,6 @@ tags:
       invoices on behalf of recipients.
 schemes:
   - https
-  - http
 paths:
   /recipients/tokens:
     post:
@@ -159,6 +158,13 @@ paths:
       description: >-
         Request a `recipientToken` by providing either the recipients Norwegian
         national identification or mobile number.
+ 
+        In the currently available test environment, two recipients are available:
+
+        1. `nin-no`: 12068100117, `msisdn`: 4796147256
+
+        2. `nin-no`: 07126200255, `msisdn`: 4796147257
+
       consumes:
         - application/json
       produces:
