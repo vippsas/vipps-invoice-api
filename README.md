@@ -1,8 +1,13 @@
 # Vipps Invoice API
 
-This repo contains developer resources for the Vipps Invoice API. For more information about this product, "Vipps Regninger", please see: https://www.vipps.no/bedrift/vipps-faktura
+This repo contains developer resources for the Vipps Invoice API. For more information about this product, "Vipps Regninger", please see: https://www.vipps.no/bedrift/vipps-regninger
 
-**IMPORTANT:** This is a work in progress! Expect sudden, breaking changes :boom: The official, stable developer resources for Vipps is still https://vipps.no/developer
+**IMPORTANT:** This is a work in progress. Input is appreciated, either as issues, PRs, email. Pleasde note that the official, stable developer resources for Vipps is still https://vipps.no/developer
+
+Important dates:
+* Feature-complete version without APIM for test: 10th Aug​
+* Feature-complete version with APIM for test: 20th Aug​
+* Feature-complete version with APIM for production: 7th September
 
 See the main GitHub page for Vipps contact information, etc: https://github.com/vippsas  
 

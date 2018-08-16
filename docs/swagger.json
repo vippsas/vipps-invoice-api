@@ -18,8 +18,7 @@
     }
   ],
   "schemes": [
-    "https",
-    "http"
+    "https"
   ],
   "paths": {
     "/recipients/tokens": {
@@ -29,7 +28,7 @@
           "IPP"
         ],
         "summary": "Request a recipient token",
-        "description": "Request a `recipientToken` by providing either the recipients Norwegian national identification or mobile number.",
+        "description": "Request a `recipientToken` by providing either the recipients Norwegian national identification or mobile number.\nIn the currently available test environment, two recipients are available:\n1. `nin-no`: 12068100117, `msisdn`: 4796147256\n2. `nin-no`: 07126200255, `msisdn`: 4796147257",
         "consumes": [
           "application/json"
         ],
