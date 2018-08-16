@@ -1,25 +1,14 @@
 swagger: '2.0'
 info:
-  version: 0.2.20
+  version: 0.2.21
   title: Vipps Invoice API
   description: >-
     # Welcome
 
-    The api described by this document is currently under _very active_
-    development. Vipps has opened this API for selected partners, you, and we
-    are happy to receive your feedback.<br/>
-
-    Since this product is under development we want to point out that the API is
-    still subject to change and **breaking changes have to be expected**.
-
-    We nevertheless hope that early access to the API helps you and us to polish
-    the required functionality and to end up with a nice and usable workflow.
-
-    Since 0.1.8 we have done a major redesign, but wanted to share the Swagger
-    definition with you as soon as possible for input. This means that none of
-    the described endpoints are implemented. **Meaning that any testing of the
-    endpoints is currently not possible**. We will update the Swagger continously
-    as endpoints are implemented.
+    This is the API for Vipps Regninger. While we have worked closely with
+    selected partners, and believe that this is very close to production 
+    quality, we are more than happy to receive feedback, either with
+    GitHub's issue functionality, or by email.
 
     ## ISP and IPP?
 
@@ -87,53 +76,53 @@ info:
     filter the allowed payment methods according to Norwegian inkasso rules.
 
     ## Retrieving invoice documents (i.e. commercial invoice and attachments)
-    
-    The IPP should retrieve the *actual* document download URL on demand on behalf of its user. 
-    This is typically initiated when the user clicks on a download link in a UI. 
-    The user's request should first be made to a back-end system that in turn makes the authenticated 
-    request to this API to retrieve the *time-limited* URL to the actual document. 
-    The URL contains a *JWT* query parameter that is validated by the ISP. 
-    The expiry time (i.e. TTL) is inside the JWT. 
 
-    Each invoice document has one or more mime types. 
-    This means that `GET /invoices/{invoiceId}/attachments/{attachmentId}` must include 
-    the `mimeType` query parameter that specifies the mime type to retrieve, i.e. document file type. 
+    The IPP should retrieve the *actual* document download URL on demand on behalf of its user.
+    This is typically initiated when the user clicks on a download link in a UI.
+    The user's request should first be made to a back-end system that in turn makes the authenticated
+    request to this API to retrieve the *time-limited* URL to the actual document.
+    The URL contains a *JWT* query parameter that is validated by the ISP.
+    The expiry time (i.e. TTL) is inside the JWT.
+
+    Each invoice document has one or more mime types.
+    This means that `GET /invoices/{invoiceId}/attachments/{attachmentId}` must include
+    the `mimeType` query parameter that specifies the mime type to retrieve, i.e. document file type.
     The mime type is available to the IPP when listing all the documents, so it is not necessary to guess.
-    
+
     ## Validating the JWT and the request
-  
+
     The IPP is responsible for validating the JWT.
     The JWT contains the following relevant claims:
-    
+
     * `ISS` (issuer): Who is issuing the JWT. Typically `vipps-invoice-api`.
-    
+
     * `AUD` (audience): Something identifying the IPP.
-    
+
     * `SUB` (subject): The base URL for the document.
-    
+
     * `EXP` (expiration): A specific moment in time where the JWT becomes invalid.
-    
+
     * `ALG` (algorithm): Encryption algorithm. Vipps will use **RS256**.
-    
-    
-    The APIs public key is required in order to validate the request. The 
-    public key is available as JSON Web Key (JWK) under the `/jwk` 
-    endpoint. 
+
+
+    The APIs public key is required in order to validate the request. The
+    public key is available as JSON Web Key (JWK) under the `/jwk`
+    endpoint.
     It is suggested to Use a JWK library to parse and use the key.
-    
-    
+
+
     In addition to validating the JWT, the IPP/invoice hotel must ensure to validate the following:
-    
+
     * The expired timestamp is in the future. I.e. not expired.
-    
+
     * Make sure that the URL is valid. One approach is to return the `SUB` and ignore the actual path.
 
 
-    For details on JWT, use the [RFC](https://tools.ietf.org/html/rfc7519) or 
-    [jwt.io](https://www.jwt.io). The latter contains a list of pre-made libraries. 
-    We **highly** recommend using a pre-made library. It should at least validate the 
+    For details on JWT, use the [RFC](https://tools.ietf.org/html/rfc7519) or
+    [jwt.io](https://www.jwt.io). The latter contains a list of pre-made libraries.
+    We **highly** recommend using a pre-made library. It should at least validate the
     expiry time.
-    
+
 
 host: invoice-mt.vippsbedrift.no
 basePath: /v1
@@ -393,8 +382,8 @@ paths:
       tags:
         - ISP
       summary: Revoke an invoice.
-      description: >- 
-        Revoke an invoice. A revoked invoice is not shown to the recipient. 
+      description: >-
+        Revoke an invoice. A revoked invoice is not shown to the recipient.
         Invoices can be revoked if they currently are in the states `created`,
         `pending` or `rejected`. If an invoice has been `approved`, `deleted` or
         `expired` it cannot be revoked anymore.
@@ -419,7 +408,7 @@ paths:
           description: >-
             Unique identifier for the requested state transition, provided by
             the caller. This idempotency key is essential to guarantee idempotent
-            behaviour. 
+            behaviour.
 
             Do not use the same idempotency key for multiple transactions.
           required: true
@@ -438,7 +427,7 @@ paths:
       tags:
         - IPP
       summary: Change status to approved.
-      description: >- 
+      description: >-
         Mark an invoice as approved. Approved means that a recipient has actively
         approved the invoice and the IPP has/will initiate a payment.
 
@@ -465,7 +454,7 @@ paths:
           description: >-
             Unique identifier for the requested state transition, provided by
             the caller. This idempotency key is essential to guarantee idempotent
-            behaviour. 
+            behaviour.
 
             Do not use the same idempotency key for multiple transactions.
           required: true
@@ -524,7 +513,7 @@ paths:
           description: >-
             Unique identifier for the requested state transition, provided by
             the caller. This idempotency key is essential to guarantee idempotent
-            behaviour. 
+            behaviour.
 
             Do not use the same idempotency key for multiple transactions.
           required: true
@@ -575,7 +564,7 @@ paths:
           description: >-
             Unique identifier for the requested state transition, provided by
             the caller. This idempotency key is essential to guarantee idempotent
-            behaviour. 
+            behaviour.
 
             Do not use the same idempotency key for multiple transactions.
           required: true
@@ -589,7 +578,7 @@ paths:
             $ref: '#/definitions/Error'
         '404':
           description: Invoice not found
-          
+
   '/invoices/{invoiceId}/commercial-invoice':
     get:
       tags:
@@ -597,7 +586,7 @@ paths:
       summary: Get the commercial invoice document
       description: >-
         Returns a time-limited URL to the commercial invoice document for the given invoice. This URL typically points to a third-party invoice hotel that hosts the document.
-        The third-party is responsible for validating the JWT. 
+        The third-party is responsible for validating the JWT.
       produces:
         - application/json
       parameters:
@@ -622,15 +611,15 @@ paths:
           description: Invoice not found
         '500':
           description: Server error. E.g. if JWT generation fails.
-  
+
   '/invoices/{invoiceId}/attachments/{attachmentId}':
     get:
       tags:
         - IPP
       summary: Get a specific attachment for a specific invoice
       description: >-
-        Returns a time-limited URL to a single attachment for an invoice. 
-        This URL typically points to a third-party invoice hotel that hosts the document. The third-party is responsible for validating the JWT. 
+        Returns a time-limited URL to a single attachment for an invoice.
+        This URL typically points to a third-party invoice hotel that hosts the document. The third-party is responsible for validating the JWT.
       produces:
         - application/json
       parameters:
@@ -690,7 +679,7 @@ definitions:
       recipientToken:
         type: string
         example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
-        
+
   invoiceIn:
     type: object
     description: Invoice document which is sent to our servers.
@@ -763,7 +752,7 @@ definitions:
         description: >-
           Conceptually only one invoice, but it can have multiple representations.
           The issuer is advised to provide the commercial invoice in multiple
-          formats (i.e. different MIME types) if possible. This will make it easier 
+          formats (i.e. different MIME types) if possible. This will make it easier
           provide the user and IPP different ways of showing the invoice
         items:
           type: object
@@ -786,7 +775,7 @@ definitions:
         type: string
         description: URL to invoice issuer's logo
         example: 'https://www.example.com/logos/lister.png'
-  
+
   commercialInvoiceUrlOut:
     description: Generated URL for commercial invoice.
     type: object
@@ -794,7 +783,7 @@ definitions:
       url:
         type: string
         example: "https://invoice-hotel.example.org/123456-abcdef-7890.pdf?token=eyJh.TY3ODk.SflKxw_adQssw5c"
-  
+
   attachmentUrlOut:
     description: Generated URL for attachment.
     type: object
@@ -802,8 +791,8 @@ definitions:
       url:
         type: string
         example: "https://invoice-hotel.example.org/123456-abcdef-7890.pdf?token=eyJh.TY3ODk.SflKxw_adQssw5c"
-        
-  attachmentIn: 
+
+  attachmentIn:
     description: An incoming attachment related to an invoice
     type: object
     required:
@@ -813,7 +802,7 @@ definitions:
       title:
         type: string
         example: Ferry
-      urls: 
+      urls:
         type: array
         items:
           type: object
@@ -824,8 +813,8 @@ definitions:
             mimeType:
               type: string
               example: "application/pdf"
-              
-  attachmentOut: 
+
+  attachmentOut:
     description: A list of optional attachments related to an invoice
     type: object
     required:
@@ -833,13 +822,13 @@ definitions:
       - title
       - mimeTypes
     properties:
-      id: 
+      id:
         type: string
         example: 1
       title:
         type: string
         example: Ferry
-      mimeTypes: 
+      mimeTypes:
         type: array
         items:
           type: string
@@ -930,7 +919,7 @@ definitions:
         description: >-
           Conceptually only one invoice, but it can have multiple representations.
           The issuer is advised to provide the commercial invoice in multiple
-          formats (i.e. different MIME types) if possible. This will make it easier 
+          formats (i.e. different MIME types) if possible. This will make it easier
           provide the user and IPP different ways of showing the invoice.
         items:
           type: object
@@ -948,7 +937,7 @@ definitions:
                 https://invoice-hotel.example.org/123456-abcdef-7890.pdf
       attachments:
         type: array
-        description: Invoice attachments. 
+        description: Invoice attachments.
         items:
           $ref: '#/definitions/attachmentOut'
       issuerIconUrl:
@@ -1015,7 +1004,7 @@ definitions:
       error:
         type: string
         example: error message ...
-  JsonWebKeySet:  
+  JsonWebKeySet:
       title: "JSON Web Key Set"
       type: "object"
       properties:
