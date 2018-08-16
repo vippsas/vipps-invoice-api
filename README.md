@@ -4,7 +4,7 @@ This repo contains developer resources for the Vipps Invoice API. For more infor
 
 **IMPORTANT:** This is a work in progress. Input is appreciated, either as issues, PRs, email. Pleasde note that the official, stable developer resources for Vipps is still https://vipps.no/developer
 
-Important dates:
+Important dates (which _may_ change):
 * Feature-complete version without APIM for test: 10th Aug​
 * Feature-complete version with APIM for test: 20th Aug​
 * Feature-complete version with APIM for production: 7th September
