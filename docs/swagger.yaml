@@ -6,7 +6,7 @@ info:
     # Welcome
 
     This is the API for Vipps Regninger. While we have worked closely with
-    selected partners, and believe that this is very close to production 
+    selected partners, and believe that this is very close to production
     quality, we are more than happy to receive feedback, either with
     GitHub's issue functionality, or by email.
 
@@ -147,7 +147,7 @@ paths:
       description: >-
         Request a `recipientToken` by providing either the recipients Norwegian
         national identification or mobile number.
- 
+
         In the currently available test environment, two recipients are available:
 
         1. `nin-no`: 12068100117, `msisdn`: 4796147256
@@ -835,7 +835,11 @@ definitions:
           example: "application/pdf"
 
   invoiceOut:
-    description: Invoice document which is returned from our servers.
+    description: >-
+      Invoice document which is returned from our servers.
+      The `invoiceId` consists of the prefix `orgno-no` (for all
+      Norwegian organizations), the actual organization number and the
+      reference number for this invoice. 
     type: object
     properties:
       invoiceId:
@@ -879,9 +883,9 @@ definitions:
       minAmount:
         type: integer
         description: >-
-          Minimum allowed amount to pay by lowest subdivision(øre). If this is
+          Minimum allowed amount to pay by lowest subdivision (øre). If this is
           set, it indicates that this invoice can be paid with any amount
-          between andincluding minAmount and amount.
+          between and including `minAmount` and `amount .
         example: 25043
       subject:
         type: string
