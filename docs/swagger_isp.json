@@ -1,0 +1,729 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "0.2.23",
+    "title": "Vipps Invoice API",
+    "description": "# Welcome\nThis is the API for Vipps Regninger. While we have worked closely with selected partners, and believe that this is very close to production quality, we are more than happy to receive feedback, either with GitHub's issue functionality, or by email.\n## ISP and IPP?\nThroughout this specification we use the terms ISP and IPP to categorize two groups of users.\n* ISP, the invoice service providers, are all actors who submit invoices.\n  Either for themselves or on behalf of their clients.\n* IPP, the invoice payment providers, are all actors who handle invoices\n  for the invoice recipients and execute payments, e.g. banks, the vipps\n  app.\n\n# Core Functionality\n## Send, receive and pay invoices.\nSince version 0.1.8, we have changed the workflow. Previously, we followed the classical approach of working with batches. However, we wanted to simplify the workflow and be more explicit and have changed that approach in favour of a simple \\\"submit a single invoice\\\" approach. This means that invoices have to be posted one by one, each invoice in a separate http call.\nAlthough it might seem to be an \\\"inefficient\\\" approach, we believe that the benefits far outweight performance considerations. In addition, our tests have shown that the performance is well on par with a batch approach, if multiple threads are used to push invoices to our system.\nThe main benefits are that it becomes much easier to ensure and verify idempotency of the endpoint. We insert received invoices _synchronously_. In case of problems (5xx return codes or network issues), it is possible to just repeatedly submit invoices until a 2xx status code is returned. We guarantee that any invoice is exactly inserted once.\nThe validation of the invoice will still be an asynchronous process since we have no possibibility to guarantee or even estimate the response times for all required validation and risk checks we have to perform.\nTherefore, the invoice will be in a \\\"pending\\\" state once it is inserted. In this state the invoice will not be visible to anyone. First, when all validation steps are passed, the invoice will be shown to the recipients.\nISPs who provide the invoice will have to monitor the state. We provide two ways to do that.\n## Managing/Paying Invoices\nInvoice payment providers will mainly require to work with the resource `invoices` directly. The typical use case will be to fetch all invoices for a use/recipient, identified by his national identification number. This is provided by `GET: /invoices`.\nIf a user approves an invoice, the payment provider has to mark this individual invoice as processed so that the invoice is not displayed as an open invoice in other services.\n## Debt Collection\nAll invoices contain information about the _invoice type_, i.e. whether it is a regular invoice, reminder or other. This enables payment providers to filter the allowed payment methods according to Norwegian inkasso rules.\n## Retrieving invoice documents (i.e. commercial invoice and attachments)\nThe IPP should retrieve the *actual* document download URL on demand on behalf of its user. This is typically initiated when the user clicks on a download link in a UI. The user's request should first be made to a back-end system that in turn makes the authenticated request to this API to retrieve the *time-limited* URL to the actual document. The URL contains a *JWT* query parameter that is validated by the ISP. The expiry time (i.e. TTL) is inside the JWT.\nEach invoice document has one or more mime types. This means that `GET /invoices/{invoiceId}/attachments/{attachmentId}` must include the `mimeType` query parameter that specifies the mime type to retrieve, i.e. document file type. The mime type is available to the IPP when listing all the documents, so it is not necessary to guess.\n## Validating the JWT and the request\nThe IPP is responsible for validating the JWT. The JWT contains the following relevant claims:\n* `ISS` (issuer): Who is issuing the JWT. Typically `vipps-invoice-api`.\n* `AUD` (audience): Something identifying the IPP.\n* `SUB` (subject): The base URL for the document.\n* `EXP` (expiration): A specific moment in time where the JWT becomes invalid.\n* `ALG` (algorithm): Encryption algorithm. Vipps will use **RS256**.\n\nThe APIs public key is required in order to validate the request. The public key is available as JSON Web Key (JWK) under the `/jwk` endpoint. It is suggested to Use a JWK library to parse and use the key.\n\nIn addition to validating the JWT, the IPP/invoice hotel must ensure to validate the following:\n* The expired timestamp is in the future. I.e. not expired.\n* Make sure that the URL is valid. One approach is to return the `SUB` and ignore the actual path.\n\nFor details on JWT, use the [RFC](https://tools.ietf.org/html/rfc7519) or [jwt.io](https://www.jwt.io). The latter contains a list of pre-made libraries. We **highly** recommend using a pre-made library. It should at least validate the expiry time.\n# Changelog\n## New in 0.2.22\n* fix: the token returned from `GET:/recipients/tokens` is now returned\n  as a proper json document with the field `recipientToken`\n* extended the datamodel for errors. Error returned by the API will now\n  include the required fields `type` and `title` plus the optional fields\n  `detail` and `instance`. The content of the field is according to\n  [RFC7807](https://tools.ietf.org/html/rfc7807)"
+  },
+  "host": "invoice-mt.vippsbedrift.no",
+  "basePath": "/v1",
+  "tags": [
+    {
+      "name": "ISP",
+      "description": "Invoice Service Provider. Endpoints for those who send invoices on behalf of issuers."
+    }
+  ],
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/recipients/tokens": {
+      "post": {
+        "tags": [
+          "ISP"
+        ],
+        "summary": "Request a recipient token",
+        "description": "Request a `recipientToken` by providing either the recipients Norwegian national identification or mobile number.\nIn the currently available test environment, two recipients are available:\n1. `nin-no`: 12068100117, `msisdn`: 4796147256\n2. `nin-no`: 07126200255, `msisdn`: 4796147257",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "value",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RecipientResolve"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Recipient token",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "recipientToken": {
+                  "type": "string",
+                  "description": "the recipient token",
+                  "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MzQ1MDMwMjMsImlhdCI6MTUzNDUwMjEyMywiaXNzIjoidmlwcHNpbnZvaWNlLnZpcHBzLm5vL2FwaS92MS9yZWNpcGllbnRzL3Rva2VucyIsIm5iZiI6MTUzNDUwMjEyMywic3ViIjoibmluLW5vLjA3MTI2MjAwMjU1In0.z0yJY8MXO4rDOGTA743fh4BOdnnCoVZLmdzi_goBipU"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Recipient not Found"
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/invoices/{invoiceId}": {
+      "put": {
+        "tags": [
+          "ISP"
+        ],
+        "summary": "Send an invoice",
+        "description": "This endpoint adds the provided invoice to our system. To submit invoices into our system this endpoint has to be used.\nWe will accept any invoice as long as the body is well formed json. Any validation errors of the invoice are picked up by workers in the background and are reported back to the caller as a response body of the feed or GET:/invoices/{invoiceId}.\n\n## Idempotency\nThe endpoint is idempotent. If an invoice with the same unique identifiers (organisation number and invoice reference) is submitted and the invoice exists already in the system, it is rejected. Invoices cannot be changed.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "invoiceId",
+            "description": "The `invoiceId` must be constructed as `orgno-no.{issuerOrgno}.{invoiceRef}` where {invoiceRef} is a URL-safe reference that is unique for each issuer.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "A single invoice.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/invoiceIn"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "An invoice was successfully created."
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "Invalid JSON data"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "Conflict, a different invoice with this id already exists."
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "ISP"
+        ],
+        "summary": "Get a single invoice",
+        "description": "Returns a single invoice identified by its unique id. This is used to verify the state of an invoice, e.g. if it has been validated and now is available for recipients.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "invoiceId",
+            "description": "The unique invoice id.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/invoiceOut"
+            }
+          },
+          "404": {
+            "description": "Invoice not found"
+          }
+        }
+      }
+    },
+    "/invoices/{invoiceId}/status/revoked": {
+      "put": {
+        "tags": [
+          "ISP"
+        ],
+        "summary": "Revoke an invoice.",
+        "description": "Revoke an invoice. A revoked invoice is not shown to the recipient. Invoices can be revoked if they currently are in the states `created`, `pending` or `rejected`. If an invoice has been `approved`, `deleted` or `expired` it cannot be revoked anymore.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "invoiceId",
+            "in": "path",
+            "description": "The unique invoice id.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "If-Match",
+            "in": "header",
+            "description": "Property for optimistic concurrency control. Expects the etag of the last known invoice status. Status updates are only performed if the provided etag matches with the etag of the current status.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "description": "Unique identifier for the requested state transition, provided by the caller. This idempotency key is essential to guarantee idempotent behaviour.\nDo not use the same idempotency key for multiple transactions.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Invoice not found"
+          }
+        }
+      }
+    },
+    "/jwk": {
+      "get": {
+        "description": "Get JSON Web Key Set. Use a JWK library to parse this into a public key.",
+        "tags": [
+          "ISP"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "examples": {
+              "application/json": {
+                "keys": [
+                  {
+                    "e": "AQAB",
+                    "alg": "RS256",
+                    "use": "sig",
+                    "kid": "jwt",
+                    "kty": "RSA",
+                    "n": "5Dkax7lxzotIVx5DQidS..."
+                  }
+                ]
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/JsonWebKeySet"
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "recipientToken": {
+      "type": "object",
+      "properties": {
+        "recipientToken": {
+          "type": "string",
+          "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
+        }
+      }
+    },
+    "invoiceIn": {
+      "type": "object",
+      "description": "Invoice document which is sent to our servers.",
+      "required": [
+        "recipientToken",
+        "paymentInformation",
+        "due",
+        "amount",
+        "subject",
+        "invoiceType"
+      ],
+      "properties": {
+        "recipientToken": {
+          "type": "string",
+          "description": "token received is obtained by calling the endpoint to resolve a recipient"
+        },
+        "paymentInformation": {
+          "type": "object",
+          "required": [
+            "type",
+            "value",
+            "account"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "kid",
+                "message"
+              ],
+              "example": "kid"
+            },
+            "value": {
+              "type": "string",
+              "example": "1234567890128"
+            },
+            "account": {
+              "type": "string",
+              "example": "12345678903"
+            }
+          }
+        },
+        "invoiceType": {
+          "type": "string",
+          "enum": [
+            "invoice",
+            "paymentReminder",
+            "debtCollectionWarning",
+            "debtCollectionNotice",
+            "noticeOfLegalProceedings",
+            "debtCollectionReminder",
+            "creditNote"
+          ],
+          "example": "invoice"
+        },
+        "due": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When an invoice is due",
+          "example": "2023-03-13T16:00:00+01:00"
+        },
+        "amount": {
+          "type": "integer",
+          "description": "Amount by lowest subdivision(øre)",
+          "example": 25043
+        },
+        "minAmount": {
+          "type": "integer",
+          "description": "Minimum allowed amount to pay by lowest subdivision(øre)",
+          "example": 25043
+        },
+        "subject": {
+          "type": "string",
+          "description": "A textual subject for the receipient of the invoice",
+          "example": "Bompasseringer"
+        },
+        "issuerName": {
+          "type": "string",
+          "description": "Organization name of issuer",
+          "example": "Lister Bompengeselskap"
+        },
+        "commercialInvoice": {
+          "type": "array",
+          "description": "Conceptually only one invoice, but it can have multiple representations. The issuer is advised to provide the commercial invoice in multiple formats (i.e. different MIME types) if possible. This will make it easier provide the user and IPP different ways of showing the invoice",
+          "items": {
+            "type": "object",
+            "properties": {
+              "mimeType": {
+                "type": "string",
+                "description": "MIME type of commercial invoice document",
+                "example": "application/pdf"
+              },
+              "url": {
+                "type": "string",
+                "description": "URL of commercial invoice",
+                "example": "https://www.example.com/08fd5360-e218-4658-894f-4f37649e7df7/comminv.pdf"
+              }
+            }
+          }
+        },
+        "attachments": {
+          "type": "array",
+          "description": "Invoice attachments.",
+          "items": {
+            "$ref": "#/definitions/attachmentIn"
+          }
+        },
+        "issuerIconUrl": {
+          "type": "string",
+          "description": "URL to invoice issuer's logo",
+          "example": "https://www.example.com/logos/lister.png"
+        }
+      }
+    },
+    "commercialInvoiceUrlOut": {
+      "description": "Generated URL for commercial invoice.",
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string",
+          "example": "https://invoice-hotel.example.org/123456-abcdef-7890.pdf?token=eyJh.TY3ODk.SflKxw_adQssw5c"
+        }
+      }
+    },
+    "attachmentUrlOut": {
+      "description": "Generated URL for attachment.",
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string",
+          "example": "https://invoice-hotel.example.org/123456-abcdef-7890.pdf?token=eyJh.TY3ODk.SflKxw_adQssw5c"
+        }
+      }
+    },
+    "attachmentIn": {
+      "description": "An incoming attachment related to an invoice",
+      "type": "object",
+      "required": [
+        "title",
+        "urls"
+      ],
+      "properties": {
+        "title": {
+          "type": "string",
+          "example": "Ferry"
+        },
+        "urls": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "url": {
+                "type": "string",
+                "example": "https://invoice-hotel.example.org/invoice/42.pdf"
+              },
+              "mimeType": {
+                "type": "string",
+                "example": "application/pdf"
+              }
+            }
+          }
+        }
+      }
+    },
+    "attachmentOut": {
+      "description": "A list of optional attachments related to an invoice",
+      "type": "object",
+      "required": [
+        "id",
+        "title",
+        "mimeTypes"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": 1
+        },
+        "title": {
+          "type": "string",
+          "example": "Ferry"
+        },
+        "mimeTypes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "example": "application/pdf"
+          }
+        }
+      }
+    },
+    "invoiceOut": {
+      "description": "Invoice document which is returned from our servers. The `invoiceId` consists of the prefix `orgno-no` (for all Norwegian organizations), the actual organization number and the reference number for this invoice. ",
+      "type": "object",
+      "properties": {
+        "invoiceId": {
+          "type": "string",
+          "example": "orgno-no.999999999.20180001"
+        },
+        "paymentInformation": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "kid",
+                "message"
+              ],
+              "example": "kid"
+            },
+            "value": {
+              "type": "string",
+              "example": "1234567890128"
+            },
+            "account": {
+              "type": "string",
+              "example": "12345678903"
+            }
+          }
+        },
+        "invoiceType": {
+          "type": "string",
+          "enum": [
+            "invoice",
+            "paymentReminder",
+            "debtCollectionWarning",
+            "debtCollectionNotice",
+            "noticeOfLegalProceedings",
+            "debtCollectionReminder",
+            "creditNote"
+          ],
+          "example": "invoice"
+        },
+        "due": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When an invoice is due",
+          "example": "2023-03-13T16:00:00+01:00"
+        },
+        "amount": {
+          "type": "integer",
+          "description": "Amount by lowest subdivision(øre)",
+          "example": 25043
+        },
+        "minAmount": {
+          "type": "integer",
+          "description": "Minimum allowed amount to pay by lowest subdivision (øre). If this is set, it indicates that this invoice can be paid with any amount between and including `minAmount` and `amount .",
+          "example": 25043
+        },
+        "subject": {
+          "type": "string",
+          "description": "A textual subject for the receipient of the invoice",
+          "example": "Bompasseringer"
+        },
+        "issuerName": {
+          "type": "string",
+          "description": "Organization name of issuer",
+          "example": "Lister Bompengeselskap"
+        },
+        "recipient": {
+          "type": "object",
+          "properties": {
+            "identType": {
+              "type": "string",
+              "enum": [
+                "nin-no",
+                "msisdn"
+              ],
+              "description": "Identification type used when the invoice was issued. One of the supported identification types.",
+              "example": "msisdn"
+            },
+            "identValue": {
+              "type": "string",
+              "description": "The value used to identify the invoice recipient when the invoice was first issued.",
+              "example": 4740040040
+            },
+            "resolvedAt": {
+              "type": "string",
+              "format": "date-time",
+              "description": "When the recipient was resolved.",
+              "example": "2018-03-13T16:00:00Z"
+            }
+          }
+        },
+        "commercialInvoice": {
+          "type": "array",
+          "description": "Conceptually only one invoice, but it can have multiple representations. The issuer is advised to provide the commercial invoice in multiple formats (i.e. different MIME types) if possible. This will make it easier provide the user and IPP different ways of showing the invoice.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "mimeType": {
+                "type": "string",
+                "description": "MIME type of commercial invoice document",
+                "example": "application/pdf"
+              },
+              "url": {
+                "type": "string",
+                "description": "URL of the commercial invoice provided by the IPP. Not meant for direct use the specialized endpoint for retrieving a URL with a token.",
+                "example": "https://invoice-hotel.example.org/123456-abcdef-7890.pdf"
+              }
+            }
+          }
+        },
+        "attachments": {
+          "type": "array",
+          "description": "Invoice attachments.",
+          "items": {
+            "$ref": "#/definitions/attachmentOut"
+          }
+        },
+        "issuerIconUrl": {
+          "type": "string",
+          "description": "URL to invoice issuer's logo",
+          "example": "https://www.example.com/logos/lister.png"
+        },
+        "status": {
+          "type": "object",
+          "properties": {
+            "lastModified": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "state": {
+              "type": "string",
+              "enum": [
+                "pending",
+                "new",
+                "fetched",
+                "processed",
+                "deleted",
+                "rejected"
+              ],
+              "description": "Status of the invoice. Fetched means at least one payment provider has fetched the invoice. Processed means a payment provider has marked the invoice as processed."
+            },
+            "due": {
+              "type": "string",
+              "format": "date-time",
+              "description": "When the user has set the payment to be due"
+            },
+            "amount": {
+              "type": "integer",
+              "description": "Amount the user has set to be paid by lowest subdivision(øre)"
+            },
+            "etag": {
+              "type": "string",
+              "description": "System generated property used for optimistic concurrency control."
+            }
+          }
+        },
+        "created": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When an invoice was created",
+          "example": "2018-03-13T16:00:00+01:00"
+        }
+      }
+    },
+    "RecipientResolve": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "nin-no",
+            "msisdn"
+          ],
+          "description": "Currently resolving by the Norwegian national identification number (`nin-no`) and the mobile phone number (`msisdn`) is supported."
+        },
+        "value": {
+          "type": "string",
+          "description": "Either the Norwegian national identification number or the mobile phone number."
+        }
+      }
+    },
+    "Error": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "description": "A URI reference that identifies the problem type.",
+              "example": "https://vipps.no/invoice/v1/problems/invalid-invoice-id"
+            },
+            "title": {
+              "type": "string",
+              "description": "A short, human-readable summary of the problem type.",
+              "example": "The invoice id is invalid."
+            },
+            "detail": {
+              "type": "string",
+              "description": "A human-readable explanation specific to this occurrence of the problem.",
+              "example": "You tried to call the endpoint GET:/invoices/{invoiceId} with the invoice id **invoice-1**. This is invalid due to the following reasons: missing issuer ident-type, missing issuer ident-value."
+            },
+            "instance": {
+              "type": "string",
+              "description": "A URI reference that identifies the specific occurrence of the problem.  It may or may not yield further information if dereferenced."
+            }
+          }
+        }
+      }
+    },
+    "JsonWebKeySet": {
+      "title": "JSON Web Key Set",
+      "type": "object",
+      "properties": {
+        "keys": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/JsonWebKey"
+          }
+        }
+      }
+    },
+    "JsonWebKey": {
+      "title": "JSON Web Key",
+      "type": "object",
+      "properties": {
+        "keys": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/JsonWebKey"
+          }
+        },
+        "kty": {
+          "type": "string"
+        },
+        "use": {
+          "type": "string"
+        },
+        "kid": {
+          "type": "string"
+        },
+        "alg": {
+          "type": "string"
+        },
+        "crv": {
+          "type": "string"
+        },
+        "x": {
+          "type": "string"
+        },
+        "y": {
+          "type": "string"
+        },
+        "d": {
+          "type": "string"
+        },
+        "n": {
+          "type": "string"
+        },
+        "e": {
+          "type": "string"
+        },
+        "k": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "kty"
+      ]
+    }
+  }
+}

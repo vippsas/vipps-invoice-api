@@ -7,8 +7,8 @@ info:
 
     This is the API for Vipps Regninger. While we have worked closely with
     selected partners, and believe that this is very close to production
-    quality, we are more than happy to receive feedback, either with
-    GitHub's issue functionality, or by email.
+    quality, we are more than happy to receive feedback, either with GitHub's
+    issue functionality, or by email.
 
     ## ISP and IPP?
 
@@ -21,10 +21,6 @@ info:
       for the invoice recipients and execute payments, e.g. banks, the vipps
       app.
 
-    In this test environment all endpoints are available for everyone. When we
-    reach production a subset of the endpoints will be made available, based on
-    the role you have assigned. ISP, IPP or both.
-
     # Core Functionality
 
     ## Send, receive and pay invoices.
@@ -33,8 +29,7 @@ info:
     the classical approach of working with batches. However, we wanted to
     simplify the workflow and be more explicit and have changed that approach in
     favour of a simple \"submit a single invoice\" approach. This means that
-    invoices have to be posted one by one, each invoice in a separate http
-    call.
+    invoices have to be posted one by one, each invoice in a separate http call.
 
     Although it might seem to be an \"inefficient\" approach, we believe that
     the benefits far outweight performance considerations. In addition, our
@@ -77,22 +72,24 @@ info:
 
     ## Retrieving invoice documents (i.e. commercial invoice and attachments)
 
-    The IPP should retrieve the *actual* document download URL on demand on behalf of its user.
-    This is typically initiated when the user clicks on a download link in a UI.
-    The user's request should first be made to a back-end system that in turn makes the authenticated
-    request to this API to retrieve the *time-limited* URL to the actual document.
-    The URL contains a *JWT* query parameter that is validated by the ISP.
-    The expiry time (i.e. TTL) is inside the JWT.
+    The IPP should retrieve the *actual* document download URL on demand on
+    behalf of its user. This is typically initiated when the user clicks on a
+    download link in a UI. The user's request should first be made to a back-end
+    system that in turn makes the authenticated request to this API to retrieve
+    the *time-limited* URL to the actual document. The URL contains a *JWT*
+    query parameter that is validated by the ISP. The expiry time (i.e. TTL) is
+    inside the JWT.
 
-    Each invoice document has one or more mime types.
-    This means that `GET /invoices/{invoiceId}/attachments/{attachmentId}` must include
-    the `mimeType` query parameter that specifies the mime type to retrieve, i.e. document file type.
-    The mime type is available to the IPP when listing all the documents, so it is not necessary to guess.
+    Each invoice document has one or more mime types. This means that `GET
+    /invoices/{invoiceId}/attachments/{attachmentId}` must include the
+    `mimeType` query parameter that specifies the mime type to retrieve, i.e.
+    document file type. The mime type is available to the IPP when listing all
+    the documents, so it is not necessary to guess.
 
     ## Validating the JWT and the request
 
-    The IPP is responsible for validating the JWT.
-    The JWT contains the following relevant claims:
+    The IPP is responsible for validating the JWT. The JWT contains the
+    following relevant claims:
 
     * `ISS` (issuer): Who is issuing the JWT. Typically `vipps-invoice-api`.
 
@@ -100,28 +97,30 @@ info:
 
     * `SUB` (subject): The base URL for the document.
 
-    * `EXP` (expiration): A specific moment in time where the JWT becomes invalid.
+    * `EXP` (expiration): A specific moment in time where the JWT becomes
+    invalid.
 
     * `ALG` (algorithm): Encryption algorithm. Vipps will use **RS256**.
 
 
-    The APIs public key is required in order to validate the request. The
-    public key is available as JSON Web Key (JWK) under the `/jwk`
-    endpoint.
-    It is suggested to Use a JWK library to parse and use the key.
+    The APIs public key is required in order to validate the request. The public
+    key is available as JSON Web Key (JWK) under the `/jwk` endpoint. It is
+    suggested to Use a JWK library to parse and use the key.
 
 
-    In addition to validating the JWT, the IPP/invoice hotel must ensure to validate the following:
+    In addition to validating the JWT, the IPP/invoice hotel must ensure to
+    validate the following:
 
     * The expired timestamp is in the future. I.e. not expired.
 
-    * Make sure that the URL is valid. One approach is to return the `SUB` and ignore the actual path.
+    * Make sure that the URL is valid. One approach is to return the `SUB` and
+    ignore the actual path.
 
 
     For details on JWT, use the [RFC](https://tools.ietf.org/html/rfc7519) or
-    [jwt.io](https://www.jwt.io). The latter contains a list of pre-made libraries.
-    We **highly** recommend using a pre-made library. It should at least validate the
-    expiry time.
+    [jwt.io](https://www.jwt.io). The latter contains a list of pre-made
+    libraries. We **highly** recommend using a pre-made library. It should at
+    least validate the expiry time.
 
     # Changelog
 
@@ -133,15 +132,9 @@ info:
       include the required fields `type` and `title` plus the optional fields
       `detail` and `instance`. The content of the field is according to
       [RFC7807](https://tools.ietf.org/html/rfc7807)
-
-
 host: invoice-mt.vippsbedrift.no
 basePath: /v1
 tags:
-  - name: ISP
-    description: >-
-      Invoice Service Provider. Endpoints for those who send invoices on behalf
-      of issuers.
   - name: IPP
     description: >-
       Invoice Payment Provider. Endpoints for those who display and process
@@ -152,19 +145,18 @@ paths:
   /recipients/tokens:
     post:
       tags:
-        - ISP
         - IPP
       summary: Request a recipient token
       description: >-
         Request a `recipientToken` by providing either the recipients Norwegian
         national identification or mobile number.
 
-        In the currently available test environment, two recipients are available:
+        In the currently available test environment, two recipients are
+        available:
 
         1. `nin-no`: 12068100117, `msisdn`: 4796147256
 
         2. `nin-no`: 07126200255, `msisdn`: 4796147257
-
       consumes:
         - application/json
       produces:
@@ -184,7 +176,8 @@ paths:
               recipientToken:
                 type: string
                 description: the recipient token
-                example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MzQ1MDMwMjMsImlhdCI6MTUzNDUwMjEyMywiaXNzIjoidmlwcHNpbnZvaWNlLnZpcHBzLm5vL2FwaS92MS9yZWNpcGllbnRzL3Rva2VucyIsIm5iZiI6MTUzNDUwMjEyMywic3ViIjoibmluLW5vLjA3MTI2MjAwMjU1In0.z0yJY8MXO4rDOGTA743fh4BOdnnCoVZLmdzi_goBipU
+                example: >-
+                  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MzQ1MDMwMjMsImlhdCI6MTUzNDUwMjEyMywiaXNzIjoidmlwcHNpbnZvaWNlLnZpcHBzLm5vL2FwaS92MS9yZWNpcGllbnRzL3Rva2VucyIsIm5iZiI6MTUzNDUwMjEyMywic3ViIjoibmluLW5vLjA3MTI2MjAwMjU1In0.z0yJY8MXO4rDOGTA743fh4BOdnnCoVZLmdzi_goBipU
         '400':
           description: Bad Request
           schema:
@@ -307,75 +300,14 @@ paths:
                 type: string
                 example: Database error.
   '/invoices/{invoiceId}':
-    put:
-      tags:
-        - ISP
-      summary: Send an invoice
-      description: >-
-        This endpoint adds the provided invoice to our system. To submit
-        invoices into our system this endpoint has to be used.
-
-        We will accept any invoice as long as the body is well formed json. Any
-        validation errors of the invoice are picked up by workers in the
-        background and are reported back to the caller as a response body of the
-        feed or GET:/invoices/{invoiceId}.
-
-
-        ## Idempotency
-
-        The endpoint is idempotent. If an invoice with the same unique
-        identifiers (organisation number and invoice reference) is submitted and
-        the invoice exists already in the system, it is rejected. Invoices
-        cannot be changed.
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      parameters:
-        - in: path
-          name: invoiceId
-          description: >-
-            The `invoiceId` must be constructed as
-            `orgno-no.{issuerOrgno}.{invoiceRef}` where {invoiceRef} is a
-            URL-safe reference that is unique for each issuer.
-          required: true
-          type: string
-        - in: body
-          name: body
-          description: A single invoice.
-          required: true
-          schema:
-            $ref: '#/definitions/invoiceIn'
-      responses:
-        '200':
-          description: An invoice was successfully created.
-        '400':
-          description: Bad request
-          schema:
-            type: object
-            properties:
-              error:
-                type: string
-                example: Invalid JSON data
-        '409':
-          description: Conflict
-          schema:
-            type: object
-            properties:
-              error:
-                type: string
-                example: Conflict, a different invoice with this id already exists.
-        '500':
-          description: Internal server error
     get:
       tags:
         - IPP
-        - ISP
       summary: Get a single invoice
       description: >-
         Returns a single invoice identified by its unique id. This is used to
-        verify the state of an invoice, e.g. if it has been validated and now
-        is available for recipients.
+        verify the state of an invoice, e.g. if it has been validated and now is
+        available for recipients.
       consumes:
         - application/json
       produces:
@@ -393,62 +325,17 @@ paths:
             $ref: '#/definitions/invoiceOut'
         '404':
           description: Invoice not found
-  '/invoices/{invoiceId}/status/revoked':
-    put:
-      tags:
-        - ISP
-      summary: Revoke an invoice.
-      description: >-
-        Revoke an invoice. A revoked invoice is not shown to the recipient.
-        Invoices can be revoked if they currently are in the states `created`,
-        `pending` or `rejected`. If an invoice has been `approved`, `deleted` or
-        `expired` it cannot be revoked anymore.
-      produces:
-        - application/json
-      parameters:
-        - name: invoiceId
-          in: path
-          description: The unique invoice id.
-          required: true
-          type: string
-        - name: If-Match
-          in: header
-          description: >-
-            Property for optimistic concurrency control. Expects the etag of
-            the last known invoice status. Status updates are only performed if
-            the provided etag matches with the etag of the current status.
-          required: true
-          type: string
-        - name: Idempotency-Key
-          in: header
-          description: >-
-            Unique identifier for the requested state transition, provided by
-            the caller. This idempotency key is essential to guarantee idempotent
-            behaviour.
-
-            Do not use the same idempotency key for multiple transactions.
-          required: true
-          type: string
-      responses:
-        '201':
-          description: OK
-        '400':
-          description: Bad request
-          schema:
-            $ref: '#/definitions/Error'
-        '404':
-          description: Invoice not found
   '/invoices/{invoiceId}/status/approved':
     put:
       tags:
         - IPP
       summary: Change status to approved.
       description: >-
-        Mark an invoice as approved. Approved means that a recipient has actively
-        approved the invoice and the IPP has/will initiate a payment.
+        Mark an invoice as approved. Approved means that a recipient has
+        actively approved the invoice and the IPP has/will initiate a payment.
 
-        It is the responsibility of the IPP to set the status back to pending
-        if either the payment fails or the recipient cancels the payment.
+        It is the responsibility of the IPP to set the status back to pending if
+        either the payment fails or the recipient cancels the payment.
       produces:
         - application/json
       parameters:
@@ -460,17 +347,17 @@ paths:
         - name: If-Match
           in: header
           description: >-
-            Property for optimistic concurrency control. Expects the etag of
-            the last known invoice status. Status updates are only performed if
-            the provided etag matches with the etag of the current status.
+            Property for optimistic concurrency control. Expects the etag of the
+            last known invoice status. Status updates are only performed if the
+            provided etag matches with the etag of the current status.
           required: true
           type: string
         - name: Idempotency-Key
           in: header
           description: >-
             Unique identifier for the requested state transition, provided by
-            the caller. This idempotency key is essential to guarantee idempotent
-            behaviour.
+            the caller. This idempotency key is essential to guarantee
+            idempotent behaviour.
 
             Do not use the same idempotency key for multiple transactions.
           required: true
@@ -505,9 +392,10 @@ paths:
         - IPP
       summary: Change status to pending.
       description: >-
-        Mark an invoice as pending. For example if a payment fails or a recipient
-        decides to cancel a payment, the status can be set back to pending so
-        that the invoice becomes visible for the recipient and other IPPs again.
+        Mark an invoice as pending. For example if a payment fails or a
+        recipient decides to cancel a payment, the status can be set back to
+        pending so that the invoice becomes visible for the recipient and other
+        IPPs again.
       produces:
         - application/json
       parameters:
@@ -519,17 +407,17 @@ paths:
         - name: If-Match
           in: header
           description: >-
-            Property for optimistic concurrency control. Expects the etag of
-            the last known invoice status. Status updates are only performed if
-            the provided etag matches with the etag of the current status.
+            Property for optimistic concurrency control. Expects the etag of the
+            last known invoice status. Status updates are only performed if the
+            provided etag matches with the etag of the current status.
           required: true
           type: string
         - name: Idempotency-Key
           in: header
           description: >-
             Unique identifier for the requested state transition, provided by
-            the caller. This idempotency key is essential to guarantee idempotent
-            behaviour.
+            the caller. This idempotency key is essential to guarantee
+            idempotent behaviour.
 
             Do not use the same idempotency key for multiple transactions.
           required: true
@@ -570,17 +458,17 @@ paths:
         - name: If-Match
           in: header
           description: >-
-            Property for optimistic concurrency control. Expects the etag of
-            the last known invoice status. Status updates are only performed if
-            the provided etag matches with the etag of the current status.
+            Property for optimistic concurrency control. Expects the etag of the
+            last known invoice status. Status updates are only performed if the
+            provided etag matches with the etag of the current status.
           required: true
           type: string
         - name: Idempotency-Key
           in: header
           description: >-
             Unique identifier for the requested state transition, provided by
-            the caller. This idempotency key is essential to guarantee idempotent
-            behaviour.
+            the caller. This idempotency key is essential to guarantee
+            idempotent behaviour.
 
             Do not use the same idempotency key for multiple transactions.
           required: true
@@ -594,15 +482,16 @@ paths:
             $ref: '#/definitions/Error'
         '404':
           description: Invoice not found
-
   '/invoices/{invoiceId}/commercial-invoice':
     get:
       tags:
         - IPP
       summary: Get the commercial invoice document
       description: >-
-        Returns a time-limited URL to the commercial invoice document for the given invoice. This URL typically points to a third-party invoice hotel that hosts the document.
-        The third-party is responsible for validating the JWT.
+        Returns a time-limited URL to the commercial invoice document for the
+        given invoice. This URL typically points to a third-party invoice hotel
+        that hosts the document. The third-party is responsible for validating
+        the JWT.
       produces:
         - application/json
       parameters:
@@ -613,7 +502,7 @@ paths:
           type: string
         - in: query
           name: mimeType
-          description: "Mime type to retrieve. E.g. application/pdf"
+          description: Mime type to retrieve. E.g. application/pdf
           required: true
           type: string
       responses:
@@ -627,15 +516,15 @@ paths:
           description: Invoice not found
         '500':
           description: Server error. E.g. if JWT generation fails.
-
   '/invoices/{invoiceId}/attachments/{attachmentId}':
     get:
       tags:
         - IPP
       summary: Get a specific attachment for a specific invoice
       description: >-
-        Returns a time-limited URL to a single attachment for an invoice.
-        This URL typically points to a third-party invoice hotel that hosts the document. The third-party is responsible for validating the JWT.
+        Returns a time-limited URL to a single attachment for an invoice. This
+        URL typically points to a third-party invoice hotel that hosts the
+        document. The third-party is responsible for validating the JWT.
       produces:
         - application/json
       parameters:
@@ -651,7 +540,7 @@ paths:
           type: string
         - in: query
           name: mimeType
-          description: "Mime type to retrieve. E.g. application/pdf"
+          description: Mime type to retrieve. E.g. application/pdf
           required: true
           type: string
       responses:
@@ -665,29 +554,27 @@ paths:
           description: Invoice or attachment not found
         '500':
           description: Server error. E.g. if JWT generation fails.
-
-  '/jwk':
+  /jwk:
     get:
-      description: "Get JSON Web Key Set. Use a JWK library to parse this into a public key."
+      description: Get JSON Web Key Set. Use a JWK library to parse this into a public key.
       tags:
-        - "JWK"
+        - IPP
       responses:
-        200:
-          description: "OK"
+        '200':
+          description: OK
           examples:
             application/json:
               keys:
-                - e: "AQAB"
-                  alg: "RS256"
-                  use: "sig"
-                  kid: "jwt"
-                  kty: "RSA"
-                  n: "5Dkax7lxzotIVx5DQidS..."
+                - e: AQAB
+                  alg: RS256
+                  use: sig
+                  kid: jwt
+                  kty: RSA
+                  'n': 5Dkax7lxzotIVx5DQidS...
           schema:
-            $ref: "#/definitions/JsonWebKeySet"
-        500:
-          description: "Internal server error"
-
+            $ref: '#/definitions/JsonWebKeySet'
+        '500':
+          description: Internal server error
 definitions:
   recipientToken:
     type: object
@@ -695,7 +582,6 @@ definitions:
       recipientToken:
         type: string
         example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
-
   invoiceIn:
     type: object
     description: Invoice document which is sent to our servers.
@@ -766,10 +652,11 @@ definitions:
       commercialInvoice:
         type: array
         description: >-
-          Conceptually only one invoice, but it can have multiple representations.
-          The issuer is advised to provide the commercial invoice in multiple
-          formats (i.e. different MIME types) if possible. This will make it easier
-          provide the user and IPP different ways of showing the invoice
+          Conceptually only one invoice, but it can have multiple
+          representations. The issuer is advised to provide the commercial
+          invoice in multiple formats (i.e. different MIME types) if possible.
+          This will make it easier provide the user and IPP different ways of
+          showing the invoice
         items:
           type: object
           properties:
@@ -791,23 +678,22 @@ definitions:
         type: string
         description: URL to invoice issuer's logo
         example: 'https://www.example.com/logos/lister.png'
-
   commercialInvoiceUrlOut:
     description: Generated URL for commercial invoice.
     type: object
     properties:
       url:
         type: string
-        example: "https://invoice-hotel.example.org/123456-abcdef-7890.pdf?token=eyJh.TY3ODk.SflKxw_adQssw5c"
-
+        example: >-
+          https://invoice-hotel.example.org/123456-abcdef-7890.pdf?token=eyJh.TY3ODk.SflKxw_adQssw5c
   attachmentUrlOut:
     description: Generated URL for attachment.
     type: object
     properties:
       url:
         type: string
-        example: "https://invoice-hotel.example.org/123456-abcdef-7890.pdf?token=eyJh.TY3ODk.SflKxw_adQssw5c"
-
+        example: >-
+          https://invoice-hotel.example.org/123456-abcdef-7890.pdf?token=eyJh.TY3ODk.SflKxw_adQssw5c
   attachmentIn:
     description: An incoming attachment related to an invoice
     type: object
@@ -825,11 +711,10 @@ definitions:
           properties:
             url:
               type: string
-              example: "https://invoice-hotel.example.org/invoice/42.pdf"
+              example: 'https://invoice-hotel.example.org/invoice/42.pdf'
             mimeType:
               type: string
-              example: "application/pdf"
-
+              example: application/pdf
   attachmentOut:
     description: A list of optional attachments related to an invoice
     type: object
@@ -848,14 +733,12 @@ definitions:
         type: array
         items:
           type: string
-          example: "application/pdf"
-
+          example: application/pdf
   invoiceOut:
     description: >-
-      Invoice document which is returned from our servers.
-      The `invoiceId` consists of the prefix `orgno-no` (for all
-      Norwegian organizations), the actual organization number and the
-      reference number for this invoice. 
+      Invoice document which is returned from our servers. The `invoiceId`
+      consists of the prefix `orgno-no` (for all Norwegian organizations), the
+      actual organization number and the reference number for this invoice. 
     type: object
     properties:
       invoiceId:
@@ -922,7 +805,7 @@ definitions:
             description: >-
               Identification type used when the invoice was issued. One of the
               supported identification types.
-            example: 'msisdn'
+            example: msisdn
           identValue:
             type: string
             description: >-
@@ -937,10 +820,11 @@ definitions:
       commercialInvoice:
         type: array
         description: >-
-          Conceptually only one invoice, but it can have multiple representations.
-          The issuer is advised to provide the commercial invoice in multiple
-          formats (i.e. different MIME types) if possible. This will make it easier
-          provide the user and IPP different ways of showing the invoice.
+          Conceptually only one invoice, but it can have multiple
+          representations. The issuer is advised to provide the commercial
+          invoice in multiple formats (i.e. different MIME types) if possible.
+          This will make it easier provide the user and IPP different ways of
+          showing the invoice.
         items:
           type: object
           properties:
@@ -951,10 +835,10 @@ definitions:
             url:
               type: string
               description: >-
-                URL of the commercial invoice provided by the IPP. Not meant for direct use
-                the specialized endpoint for retrieving a URL with a token.
-              example: >-
-                https://invoice-hotel.example.org/123456-abcdef-7890.pdf
+                URL of the commercial invoice provided by the IPP. Not meant for
+                direct use the specialized endpoint for retrieving a URL with a
+                token.
+              example: 'https://invoice-hotel.example.org/123456-abcdef-7890.pdf'
       attachments:
         type: array
         description: Invoice attachments.
@@ -1007,13 +891,13 @@ definitions:
           - nin-no
           - msisdn
         description: >-
-          Currently resolving by the Norwegian national identification number (`nin-no`)
-          and the mobile phone number (`msisdn`) is supported.
+          Currently resolving by the Norwegian national identification number
+          (`nin-no`) and the mobile phone number (`msisdn`) is supported.
       value:
         type: string
         description: >-
-          Either the Norwegian national identification number or the mobile phone
-          number.
+          Either the Norwegian national identification number or the mobile
+          phone number.
   Error:
     type: object
     properties:
@@ -1023,61 +907,63 @@ definitions:
           type:
             type: string
             description: A URI reference that identifies the problem type.
-            example: https://vipps.no/invoice/v1/problems/invalid-invoice-id
+            example: 'https://vipps.no/invoice/v1/problems/invalid-invoice-id'
           title:
             type: string
-            description: A short, human-readable summary of the problem type.
+            description: 'A short, human-readable summary of the problem type.'
             example: The invoice id is invalid.
           detail:
             type: string
             description: >-
-              A human-readable explanation specific to this occurrence of the problem.
+              A human-readable explanation specific to this occurrence of the
+              problem.
             example: >-
-              You tried to call the endpoint GET:/invoices/{invoiceId} with
-              the invoice id **invoice-1**. This is invalid due to the following
+              You tried to call the endpoint GET:/invoices/{invoiceId} with the
+              invoice id **invoice-1**. This is invalid due to the following
               reasons: missing issuer ident-type, missing issuer ident-value.
           instance:
             type: string
             description: >-
               A URI reference that identifies the specific occurrence of the
-              problem.  It may or may not yield further information if dereferenced.
+              problem.  It may or may not yield further information if
+              dereferenced.
   JsonWebKeySet:
-      title: "JSON Web Key Set"
-      type: "object"
-      properties:
-        keys:
-          type: "array"
-          items:
-            $ref: "#/definitions/JsonWebKey"
-  JsonWebKey:
-    title: "JSON Web Key"
-    type: "object"
+    title: JSON Web Key Set
+    type: object
     properties:
       keys:
-        type: "array"
+        type: array
         items:
-          $ref: "#/definitions/JsonWebKey"
+          $ref: '#/definitions/JsonWebKey'
+  JsonWebKey:
+    title: JSON Web Key
+    type: object
+    properties:
+      keys:
+        type: array
+        items:
+          $ref: '#/definitions/JsonWebKey'
       kty:
-        type: "string"
+        type: string
       use:
-        type: "string"
+        type: string
       kid:
-        type: "string"
+        type: string
       alg:
-        type: "string"
+        type: string
       crv:
-        type: "string"
+        type: string
       x:
-        type: "string"
-      "y":
-        type: "string"
+        type: string
+      'y':
+        type: string
       d:
-        type: "string"
-      "n":
-        type: "string"
+        type: string
+      'n':
+        type: string
       e:
-        type: "string"
+        type: string
       k:
-        type: "string"
+        type: string
     required:
       - kty
