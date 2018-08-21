@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  version: 0.2.23
+  version: 0.2.24
   title: Vipps Invoice API
   description: >-
     # Welcome
@@ -70,6 +70,20 @@ info:
     is a regular invoice, reminder or other. This enables payment providers to
     filter the allowed payment methods according to Norwegian inkasso rules.
 
+    # Invoice states
+
+    | Name | Description |
+    |------|-------------|
+    | created | Invoice has been inserted, but not yet validated, and not yet shown to the recipient |
+    | rejected | Invoice could not be validated, and is rejected |
+    | pending | Invoice needs to be processed by the recipient |
+    | expired | Recipient did not process the invoice in time |
+    | approved | Invoice has been approved by recipient |
+    | deleted | Invoice has been deleted |
+    | revoked | Invoice has been revoked by the ISP |
+
+    See the `PUT:/invoices/{invoiceId}/status/*state*` methods for details about changing the `state`.
+
     ## Retrieving invoice documents (i.e. commercial invoice and attachments)
 
     The IPP should retrieve the *actual* document download URL on demand on
@@ -124,7 +138,15 @@ info:
 
     # Changelog
 
-    ## New in 0.2.22
+    ## 0.2.24
+
+    * * Corrected documentation of `state` for invoices, and some minor text tweaks.
+
+    ## 0.2.23
+
+    * Improved documentation for ìnvoiceId`.
+
+    ## 0.2.22
 
     * fix: the token returned from `GET:/recipients/tokens` is now returned
       as a proper json document with the field `recipientToken`
@@ -503,7 +525,7 @@ definitions:
     description: >-
       Invoice document which is returned from our servers. The `invoiceId`
       consists of the prefix `orgno-no` (for all Norwegian organizations), the
-      actual organization number and the reference number for this invoice. 
+      actual organization number and the reference number for this invoice.
     type: object
     properties:
       invoiceId:
