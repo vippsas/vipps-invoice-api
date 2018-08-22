@@ -11,4 +11,8 @@ Important dates (which _may_ change):
 
 See the main GitHub page for Vipps contact information, etc: https://github.com/vippsas  
 
-You can peruse the api-docs at https://vippsas.github.io/vipps-invoice-api/ and https://vippsas.github.io/vipps-invoice-api/redoc.html
+You can peruse the api-docs for ISP and IPP at:
+* https://vippsas.github.io/vipps-invoice-api/ipp.html
+* https://vippsas.github.io/vipps-invoice-api/isp.html
+* https://vippsas.github.io/vipps-invoice-api/redoc-ipp.html
+* https://vippsas.github.io/vipps-invoice-api/redoc-isp.html
