@@ -387,7 +387,6 @@ definitions:
           recipient
       paymentInformation:
         type: object
-        required:
           - type
           - value
           - account
