@@ -86,6 +86,7 @@ info:
     
     * `revoked`: Invoice has been revoked by the ISP.
 
+
     See the `PUT:/invoices/{invoiceId}/status/*state*` methods for details about changing the `state`.
 
     ## Retrieving invoice documents (i.e. commercial invoice and attachments)
