@@ -73,11 +73,17 @@ info:
     ## Invoice states
 
     * `created`: Invoice has been inserted, but not yet validated, and not yet shown to the recipient.
+    
     * `rejected`: Invoice could not be validated, and is rejected.
+    
     * `pending`: Invoice needs to be processed by the recipient.
+    
     * `expired`: Recipient did not process the invoice in time.
+    
     * `approved`: Invoice has been approved by recipient.
+    
     * `deleted`: Invoice has been deleted.
+    
     * `revoked`: Invoice has been revoked by the ISP.
 
     See the `PUT:/invoices/{invoiceId}/status/*state*` methods for details about changing the `state`.
