@@ -9,6 +9,8 @@ While we have worked closely with selected partners, and believe that this is
 _very_ close to production quality, we are more than happy to receive feedback,
 either with GitHub's issue functionality, or by email.
 
+Document version: 0.1.2.
+
 ## Technical API documentation
 
 Swagger/OAS API documentation is available on GitHub: https://github.com/vippsas/vipps-invoice-api
