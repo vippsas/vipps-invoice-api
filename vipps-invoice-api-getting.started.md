@@ -24,7 +24,7 @@ groups of users:
 for the invoice recipients and execute payments, e.g. banks, the Vipps
 app.
 
-# Core Functionality
+# Core functionality
 
 ## Send, receive and pay invoices.
 
@@ -56,7 +56,7 @@ validation steps are passed, will the invoice will be shown to the recipients.
 ISPs who provide the invoice will have to monitor the state. We provide two
 ways to do that.
 
-## Managing and Paying Invoices
+## Managing and paying invoices
 
 IPPs will mainly use the `invoices` resources directly. The typical use case
 will be to fetch all invoices for a recipient (user), identified by a national identification number. This is provided by `GET:/invoices`.
@@ -65,7 +65,7 @@ If a user approves an invoice, the payment provider has to mark this
 individual invoice as processed so that the invoice is not displayed as an
 open invoice in other services.
 
-## Debt Collection
+## Debt collection
 
 All invoices contain information about the _invoice type_, i.e. whether it
 is a regular invoice, reminder or other. This enables payment providers to
@@ -83,7 +83,7 @@ filter the allowed payment methods according to Norwegian debt collection laws.
 | 6 | `deleted` | Invoice has been deleted |
 | 7 | `revoked` | Invoice has been revoked by the ISP |
 
-## State Transitions
+## State transitions
 
 | # | From | To | Description |
 |---|------|----|-------------|
@@ -120,13 +120,13 @@ approach.
 
 #### Transitions
 
-##### `created` -> `pending`, `rejected` (transitions 1, 2)
+##### Transitions 1, 2: `created` -> `pending`, `rejected`
 The state transition from the initial state `created` is performed internally.
 Once an invoice is inserted into our system it will be picked up by a worker
 which validates the invoice and updates the status to either `rejected` or
 `pending` depending on the validation result.
 
-##### `created` -> `revoked` (transition 3)
+##### Transition 3: `created` -> `revoked`
 An ISP can revoke an invoice by calling `PUT:/invoices/{id}/status/{revoked}`
 (this endpoint is not yet in the API documentation).
 It could also be a `DELETE`, but then we have to distinguish a `DELETE` , hence we decided to use `PUT` verbs consistently.
@@ -144,17 +144,17 @@ IPPs fetch invoices for a recipient.
 
 #### Transitions
 
-#### `pending` -> `expired` (transition 4)
+#### Transition 4: `pending` -> `expired`
 Without any user action, the invoice will become `expired` after the _due date_
 plus a grace period of 14 days. An expired invoice _must not be paid_.
 
-#### `pending` -> `deleted` (transition 5)
+#### Transition 5: `pending` -> `deleted`
 A recipient can choose to delete an invoice. This is done by calling `PUT:/invoice/{id}/deleted`.
 As described above there is a potential ambiguity to distinguish this call from
 the endpoint to _revoke_ an invoice. As described above, we use `PUT` verbs
 consistently.
 
-#### `pending` -> `approved` (transition 6)
+#### Transition 6: `pending` -> `approved`
 If a recipient pays an invoice, the IPP should call `PUT:/invoices/{id}/status/approved`
 to mark the invoice as approved. It accepts two fields, `due` and `amount` as
 a payload in the request body.
@@ -165,7 +165,7 @@ invoice.
 
 If no further actions are taken, this is the final state of the invoice.
 
-#### `pending` -> `revoked` (transition 7)
+#### Transition 7: `pending` -> `revoked`
 As long as the invoice is pending, an ISP can still revoke an invoice. It will
 then disappear from the recipient's list of pending invoices.
 
@@ -188,18 +188,18 @@ the allowed range defined in the invoice.
 All transitions from the state `approved` can only be initiated by the IPP who
 set the status to `approved`. This limitation is required.
 
-#### `approved` -> `approved` (transition 8)
+#### Transition 8: `approved` -> `approved`
 
 If the IPP allows for changing the payment details of an approved invoice,
 the status can be updated by calling `PUT:/invoice/{id}/status/approved` again
 with the updated payment details.
 
-#### `approved` -> `pending` (transition 9)
+#### Transition 9: `approved` -> `pending`
 
 The user may want to change an `approved` invoice back to `pending`.
 This transition is not yet fully specified.
 
-#### `approved` -> `deleted` (transition 10)
+#### Transition 10: `approved` -> `deleted`
 
 A user may directly delete an already approved invoice if the IPP allows
 changing the payment. This is done by calling `PUT:/invoices/{id}/status/deleted`.
@@ -220,15 +220,19 @@ for the recipient.
 
 This is a final state and does not allow any further state transitions.
 
-# Retrieving invoice documents (i.e. commercial invoice and attachments)
+# Retrieving Invoice Documents
+
+Invoice documents may be additional invoice documentation,
+such as commercial invoices and attachments.
 
 The IPP should retrieve the *actual* document download URL on demand on
 behalf of its user. This is typically initiated when the user clicks on a
 download link in a UI. The user's request should first be made to a back-end
 system that in turn makes the authenticated request to this API to retrieve
-the *time-limited* URL to the actual document. The URL contains a *JWT*
-query parameter that is validated by the ISP. The expiry time (i.e. TTL) is
-inside the JWT.
+the *time-limited* URL to the actual document.
+
+The URL contains a *JWT* query parameter that is validated by the ISP.
+The expiry time (i.e. TTL) is inside the JWT.
 
 Each invoice document has one or more MIME types. This means that `GET:/invoices/{invoiceId}/attachments/{attachmentId}` must include the
 `mimeType` query parameter that specifies the mime type to retrieve, i.e.
@@ -246,7 +250,7 @@ following relevant claims:
 * `EXP` (expiration): A specific moment in time where the JWT becomes invalid.
 * `ALG` (algorithm): Encryption algorithm. Vipps will use **RS256**.
 
-The APIs public key is required in order to validate the request. The public
+The API's public key is required in order to validate the request. The public
 key is available as JSON Web Key (JWK) under the `/jwk` endpoint. It is
 suggested to Use a JWK library to parse and use the key.
 
