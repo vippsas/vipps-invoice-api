@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   version: 0.2.24
-  title: Vipps Invoice API
+  title: Vipps Invoice ISP API
   description: >-
     # Welcome
 
