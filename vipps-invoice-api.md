@@ -64,7 +64,9 @@ ways to do that.
 ## Managing and paying invoices
 
 IPPs will mainly use the `/invoices` resources directly. The typical use case
-will be to fetch all invoices for a recipient (user), identified by a national identification number. This is provided by `GET:/invoices`.
+will be to fetch all invoices for a recipient (user), identified by a national
+identification number. This is provided by
+[`GET:/invoices`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/get_invoices).
 
 If a user approves an invoice, the payment provider has to mark this
 individual invoice as processed so that the invoice is not displayed as an
