@@ -111,8 +111,8 @@ submit several invoices to the same recipient.
 | 1	   | `POST` | `/recipients/tokens` | The call will resolve the provided personal data and return a recipientToken if the recipient could be resolved. This token is used in the subsequent call. |
 | 2	   | `PUT`  | `/invoices/{invoiceId}` | The previously obtained _recipient token_ is used in the request body to identify the recipient. |
 
-See [POST://recipients/tokens](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/post_recipients_tokens)
-and [PUT:/invoices/{invoiceId}](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/put_invoices__invoiceId_).
+See [`POST://recipients/tokens`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/post_recipients_tokens)
+and [`PUT:/invoices/{invoiceId}`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/put_invoices__invoiceId_).
 
 ## Example 2: Fetch Invoices for Recipient
 
@@ -121,8 +121,8 @@ and [PUT:/invoices/{invoiceId}](https://vippsas.github.io/vipps-invoice-api/isp.
 | 1	   | `POST` | `/recipients/tokens` | The call will resolve the provided personal data and return a recipientToken if the recipient could be resolved. This token is used in the subsequent call. |
 | 2	   | `GET`  | `/invoices` | The previously obtained _recipient token_ is used as a header to fetch all invoices for the recipient. |
 
-See [POST://recipients/tokens](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/post_recipients_tokens)
-and [GET:/invoices](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/get_invoices).
+See [`POST://recipients/tokens`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/post_recipients_tokens)
+and [`GET:/invoices`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/get_invoices).
 
 # Retrieving Invoice Documents
 
@@ -217,7 +217,8 @@ which validates the invoice and updates the status to either `rejected` or
 `pending` depending on the validation result.
 
 ##### Transition 3: `created` -> `revoked`
-An ISP can revoke an invoice by calling [`PUT:/invoices/{id}/status/{revoked}`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/put_invoices__invoiceId__status_revoked)
+An ISP can revoke an invoice by calling
+[`PUT:/invoices/{id}/status/{revoked}`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/put_invoices__invoiceId__status_revoked)
 (this endpoint is not yet in the API documentation).
 It could also be a `DELETE`, but then we have to distinguish a `DELETE` , hence we decided to use `PUT` verbs consistently.
 
@@ -239,13 +240,15 @@ Without any user action, the invoice will become `expired` after the _due date_
 plus a grace period of 14 days. An expired invoice _must not be paid_.
 
 #### Transition 5: `pending` -> `deleted`
-A recipient can choose to delete an invoice. This is done by calling `PUT:/invoice/{id}/deleted`.
+A recipient can choose to delete an invoice. This is done by calling
+[`PUT:/invoice/{id}/deleted`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/put_invoices__invoiceId__status_deleted).
 As described above there is a potential ambiguity to distinguish this call from
 the endpoint to _revoke_ an invoice. As described above, we use `PUT` verbs
 consistently.
 
 #### Transition 6: `pending` -> `approved`
-If a recipient pays an invoice, the IPP should call `PUT:/invoices/{id}/status/approved`
+If a recipient pays an invoice, the IPP should call
+[`PUT:/invoices/{id}/status/approved`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/put_invoices__invoiceId__status_approved)
 to mark the invoice as approved. It accepts two fields, `due` and `amount` as
 a payload in the request body.
 
@@ -281,8 +284,9 @@ set the status to `approved`. This limitation is required.
 #### Transition 8: `approved` -> `approved`
 
 If the IPP allows for changing the payment details of an approved invoice,
-the status can be updated by calling `PUT:/invoice/{id}/status/approved` again
-with the updated payment details.
+the status can be updated by calling
+[`PUT:/invoice/{id}/status/approved`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/put_invoices__invoiceId__status_approved)
+again with the updated payment details.
 
 #### Transition 9: `approved` -> `pending`
 
@@ -292,7 +296,8 @@ This transition is not yet fully specified.
 #### Transition 10: `approved` -> `deleted`
 
 A user may directly delete an already approved invoice if the IPP allows
-changing the payment. This is done by calling `PUT:/invoices/{id}/status/deleted`.
+changing the payment. This is done by calling
+[`PUT:/invoices/{id}/status/deleted`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/put_invoices__invoiceId__status_deleted).
 Deleting an invoice from this state means that the linked payment was _not_
 executed and/or is stopped. It is the IPPs responsibility to ensure that.
 
