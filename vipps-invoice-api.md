@@ -20,7 +20,8 @@ Swagger/OAS API documentation is available on GitHub: https://github.com/vippsas
 Throughout this specification we use the terms ISP and IPP to categorize two
 groups of users:
 
-* ISP, the invoice _service_ providers, are all actors who submit invoices. Either for themselves or on behalf of their clients.
+* ISP, the invoice _service_ providers, are all actors who submit invoices.
+Either for themselves or on behalf of their clients.
 
 * IPP, the invoice _payment_ providers, are all actors who handle invoices
 for the invoice recipients and execute payments, e.g. banks, the Vipps
@@ -47,6 +48,8 @@ idempotency of the endpoint. We insert the received invoices _synchronously_. In
 case of problems (such as `HTTP 5XX` return codes or network issues), it is possible to
 simply repeatedly submit invoices until a `HTTP 2XX` status code is returned. We
 guarantee that any invoice is inserted exactly once.
+
+## Invoice validation
 
 The validation of the invoice will still be an asynchronous process since we
 have no possibility to guarantee, or even estimate ,the response times for
@@ -124,7 +127,7 @@ and [`PUT:/invoices/{invoiceId}`](https://vippsas.github.io/vipps-invoice-api/is
 See [`POST://recipients/tokens`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/post_recipients_tokens)
 and [`GET:/invoices`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/get_invoices).
 
-# Retrieving Invoice Documents
+# Retrieving invoice documents (attachments)
 
 Invoice documents may be additional invoice documentation,
 such as commercial invoices and attachments.
@@ -139,7 +142,8 @@ The URL contains a *JWT* query parameter that is validated by the ISP.
 The expiry time (i.e. TTL) is inside the JWT.
 
 Each invoice document has one or more MIME types. This means that
-`GET:/invoices/{invoiceId}/attachments/{attachmentId}` must include the
+[]`GET:/invoices/{invoiceId}/attachments/{attachmentId}`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/get_invoices__invoiceId__attachments__attachmentId_)
+must include the
 `mimeType` query parameter that specifies the mime type to retrieve, i.e.
 document file type. The mime type is available to the IPP when listing all
 the documents, so it is not necessary to guess.
