@@ -7,9 +7,9 @@ both as a product and API.
 
 Status: While we have worked closely with selected partners, and believe that this is
 _very_ close to production quality, we are more than happy to receive feedback,
-either with GitHub's issue functionality, or by email.
+either with GitHub's issue functionality, or by email to integration@vipps.no.
 
-Document version: 0.1.3.
+Document version: 0.1.4.
 
 ## Technical API documentation
 
@@ -217,7 +217,7 @@ which validates the invoice and updates the status to either `rejected` or
 `pending` depending on the validation result.
 
 ##### Transition 3: `created` -> `revoked`
-An ISP can revoke an invoice by calling `PUT:/invoices/{id}/status/{revoked}`
+An ISP can revoke an invoice by calling `[PUT:/invoices/{id}/status/{revoked}](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/put_invoices__invoiceId__status_revoked)`
 (this endpoint is not yet in the API documentation).
 It could also be a `DELETE`, but then we have to distinguish a `DELETE` , hence we decided to use `PUT` verbs consistently.
 
