@@ -142,7 +142,7 @@ The URL contains a *JWT* query parameter that is validated by the ISP.
 The expiry time (i.e. TTL) is inside the JWT.
 
 Each invoice document has one or more MIME types. This means that
-[]`GET:/invoices/{invoiceId}/attachments/{attachmentId}`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/get_invoices__invoiceId__attachments__attachmentId_)
+[`GET:/invoices/{invoiceId}/attachments/{attachmentId}`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/get_invoices__invoiceId__attachments__attachmentId_)
 must include the
 `mimeType` query parameter that specifies the mime type to retrieve, i.e.
 document file type. The mime type is available to the IPP when listing all
@@ -160,12 +160,16 @@ following relevant claims:
 * `ALG` (algorithm): Encryption algorithm. Vipps will use **RS256**.
 
 The API's public key is required in order to validate the request. The public
-key is available as JSON Web Key (JWK) under the `/jwk` endpoint. It is
+key is available as JSON Web Key (JWK) under the
+[`GET:/jwk`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/get_jwk)
+endpoint. It is
 suggested to Use a JWK library to parse and use the key.
 
 In addition to validating the JWT, the IPP/invoice hotel must ensure to
 validate the following:
+
 * The expired timestamp is in the future. I.e. not expired.
+
 * Make sure that the URL is valid. One approach is to return the `SUB` and
 ignore the actual path.
 
