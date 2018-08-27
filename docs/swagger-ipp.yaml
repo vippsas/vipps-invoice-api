@@ -77,7 +77,7 @@ paths:
         Request a `recipientToken` by providing either the recipients Norwegian
         national identification or mobile number.
 
-        We have created a few test user, please contact inrtegration@vipps.no
+        We have created a few test user, please contact integration@vipps.no
         to get details for your test user.
       consumes:
         - application/json
