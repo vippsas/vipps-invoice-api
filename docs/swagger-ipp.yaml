@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  version: 0.2.25
+  version: 0.2.26
   title: Vipps Invoice IPP API
   description: >-
 
@@ -33,6 +33,10 @@ info:
 
 
     # Changelog
+
+    ## 0.2.26
+
+    * Updated information about test users.
 
     ## 0.2.25
 
@@ -73,12 +77,8 @@ paths:
         Request a `recipientToken` by providing either the recipients Norwegian
         national identification or mobile number.
 
-        In the currently available test environment, two recipients are
-        available:
-
-        1. `nin-no`: 12068100117, `msisdn`: 4796147256
-
-        2. `nin-no`: 07126200255, `msisdn`: 4796147257
+        We have created a few test user, please contact inrtegration@vipps.no
+        to get details for your test user.
       consumes:
         - application/json
       produces:
