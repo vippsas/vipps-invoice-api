@@ -33,10 +33,8 @@ app.
 
 "Vipps Regninger" replaces the batch processing in "Vipps Faktura" with
 a more speedy per-invoice processing, with improved status and progress for
-each individual invoice
-
-This means that invoices have to be posted one by one, each invoice in a
-separate HTTP call.
+each individual invoice. This means that invoices have to be posted one by one,
+each invoice in a separate HTTP call. 
 
 Although it may at first seem to be an inefficient approach, we believe that
 the benefits far outweigh performance considerations. In addition, our
