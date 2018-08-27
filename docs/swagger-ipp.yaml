@@ -59,6 +59,17 @@ info:
       `detail` and `instance`. The content of the field is according to
       [RFC7807](https://tools.ietf.org/html/rfc7807)
 host: invoice-mt.vippsbedrift.no
+securityDefinitions:
+   # X-API-Key: abcdef12345
+   APIKeyHeader:
+     type: apiKey
+     in: header
+     name: X-API-Key
+   # /path?api_key=abcdef12345
+   APIKeyQueryParam:
+     type: apiKey
+     in: query
+     name: api_key
 basePath: /v1
 tags:
   - name: IPP
