@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  version: 0.2.25
+  version: 0.2.27
   title: Vipps Invoice ISP API
   description: >-
 
@@ -33,6 +33,10 @@ info:
 
 
     # Changelog
+
+    ## 0.2.27
+
+    * Fix: Replaced `new` with `created`.
 
     ## 0.2.26
 
