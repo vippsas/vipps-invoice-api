@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
-  version: 0.2.28
   title: Vipps Invoice ISP API
+  version: '0.3.0'
   description: >-
 
     This is the API for Vipps Regninger. While we have worked closely with
@@ -33,6 +33,10 @@ info:
 
 
     # Changelog
+
+    ## 0.3.0
+
+    * * Updated authentication info for APIM (manual "merge").
 
     ## 0.2.28
 
@@ -66,48 +70,59 @@ info:
       include the required fields `type` and `title` plus the optional fields
       `detail` and `instance`. The content of the field is according to
       [RFC7807](https://tools.ietf.org/html/rfc7807)
-host: invoice-mt.vippsbedrift.no
-basePath: /v1
+host: apitest.vipps.no
+basePath: /vipps-isp/v1
 tags:
   - name: ISP
-    description: >-
-      Invoice Service Provider. Endpoints for those who send invoices on behalf
-      of issuers.
+    description: Invoice Service Provider. Endpoints for those who send invoices on behalf of issuers.
 schemes:
   - https
+securityDefinitions:
+  apiKeyHeader:
+    type: apiKey
+    name: Ocp-Apim-Subscription-Key
+    in: header
+  apiKeyQuery:
+    type: apiKey
+    name: subscription-key
+    in: query
+security:
+  - apiKeyHeader: []
+  - apiKeyQuery: []
 paths:
   /recipients/tokens:
     post:
-      tags:
-        - ISP
-      summary: Request a recipient token
       description: >-
         Request a `recipientToken` by providing either the recipients Norwegian
         national identification or mobile number.
 
-        We have created a few test user, please contact integration@vipps.no
+        We have created a few test users, please contact integration@vipps.no
         to get details for your test user.
-      consumes:
-        - application/json
-      produces:
-        - application/json
+      operationId: Request_Recipient_Token_v1
+      summary: Request recipient token
+      tags:
+        - ISP
       parameters:
-        - in: body
-          name: value
+        - name: Authorization
+          in: header
+          description: >-
+            Authorization token is obtained from Access Token service call based
+            on the `client_id` and `client_secret` of the registered application.
           required: true
+          type: string
+          enum:
+            - bearer <access_token>
+        - name: recipientResolve
+          in: body
           schema:
             $ref: '#/definitions/RecipientResolve'
+      consumes:
+        - application/json
       responses:
         '200':
           description: Recipient token
           schema:
-            type: object
-            properties:
-              recipientToken:
-                type: string
-                description: the recipient token
-                example: >-
-                  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MzQ1MDMwMjMsImlhdCI6MTUzNDUwMjEyMywiaXNzIjoidmlwcHNpbnZvaWNlLnZpcHBzLm5vL2FwaS92MS9yZWNpcGllbnRzL3Rva2VucyIsIm5iZiI6MTUzNDUwMjEyMywic3ViIjoibmluLW5vLjA3MTI2MjAwMjU1In0.z0yJY8MXO4rDOGTA743fh4BOdnnCoVZLmdzi_goBipU
+            $ref: '#/definitions/RecipientsTokensPost200ApplicationJsonResponse'
         '400':
           description: Bad Request
           schema:
@@ -118,20 +133,18 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/Error'
+      produces:
+        - application/json
   '/invoices/{invoiceId}':
     put:
-      tags:
-        - ISP
-      summary: Send an invoice
       description: >-
         This endpoint adds the provided invoice to our system. To submit
         invoices into our system this endpoint has to be used.
 
-        We will accept any invoice as long as the body is well formed json. Any
+        We will accept any invoice as long as the body is well formed JSON. Any
         validation errors of the invoice are picked up by workers in the
         background and are reported back to the caller as a response body of the
-        feed or GET:/invoices/{invoiceId}.
-
+        feed or `GET:/invoices/{invoiceId}`.
 
         ## Idempotency
 
@@ -139,64 +152,74 @@ paths:
         identifiers (organisation number and invoice reference) is submitted and
         the invoice exists already in the system, it is rejected. Invoices
         cannot be changed.
-      consumes:
-        - application/json
-      produces:
-        - application/json
+      operationId: Send_Invoice_v1
+      summary: Send invoice
+      tags:
+        - ISP
       parameters:
-        - in: path
-          name: invoiceId
+        - name: invoiceId
+          in: path
           description: >-
             The `invoiceId` must be constructed as
             `orgno-no.{issuerOrgno}.{invoiceRef}` where {invoiceRef} is a
             URL-safe reference that is unique for each issuer.
           required: true
           type: string
-        - in: body
-          name: body
-          description: A single invoice.
+        - name: Authorization
+          in: header
+          description: >-
+            Authorization token is obtained from Access Token service call based
+            on the client_id and client_secret of the registered application.
           required: true
+          type: string
+          enum:
+            - bearer <access_token>
+        - name: invoiceIn
+          in: body
           schema:
             $ref: '#/definitions/invoiceIn'
+          description: A single invoice.
+      consumes:
+        - application/json
       responses:
         '200':
           description: An invoice was successfully created.
         '400':
           description: Bad request
           schema:
-            type: object
-            properties:
-              error:
-                type: string
-                example: Invalid JSON data
+            $ref: '#/definitions/InvoicesInvoiceIdPut400ApplicationJsonResponse'
         '409':
           description: Conflict
           schema:
-            type: object
-            properties:
-              error:
-                type: string
-                example: 'Conflict, a different invoice with this id already exists.'
+            $ref: '#/definitions/InvoicesInvoiceIdPut409ApplicationJsonResponse'
         '500':
           description: Internal server error
+      produces:
+        - application/json
     get:
-      tags:
-        - ISP
-      summary: Get a single invoice
       description: >-
         Returns a single invoice identified by its unique id. This is used to
         verify the state of an invoice, e.g. if it has been validated and now is
         available for recipients.
-      consumes:
-        - application/json
-      produces:
-        - application/json
+      operationId: Get_Single_Invoice_v1
+      summary: Get single invoice
+      tags:
+        - ISP
       parameters:
-        - in: path
-          name: invoiceId
+        - name: invoiceId
+          in: path
           description: The unique invoice id.
           required: true
           type: string
+        - name: Authorization
+          in: header
+          description: >-
+            Authorization token is obtained from Access Token service call based
+            on the `client_id` and `client_secret` of the registered application.
+          required: true
+          type: string
+          enum:
+            - bearer <access_token>
       responses:
         '200':
           description: OK
@@ -204,18 +227,19 @@ paths:
             $ref: '#/definitions/invoiceOut'
         '404':
           description: Invoice not found
+      produces:
+        - application/json
   '/invoices/{invoiceId}/status/revoked':
     put:
-      tags:
-        - ISP
-      summary: Revoke an invoice.
       description: >-
         Revoke an invoice. A revoked invoice is not shown to the recipient.
         Invoices can be revoked if they currently are in the states `created`,
         `pending` or `rejected`. If an invoice has been `approved`, `deleted` or
         `expired` it cannot be revoked anymore.
-      produces:
-        - application/json
+      operationId: Revoke_Invoice_v1
+      summary: Revoke invoice
+      tags:
+        - ISP
       parameters:
         - name: invoiceId
           in: path
@@ -240,6 +264,15 @@ paths:
             Do not use the same idempotency key for multiple transactions.
           required: true
           type: string
+        - name: Authorization
+          in: header
+          description: >-
+            Authorization token is obtained from Access Token service call based
+            on the `client_id` and `client_secret` of the registered application.
+          required: true
+          type: string
+          enum:
+            - bearer <access_token>
       responses:
         '201':
           description: OK
@@ -249,27 +282,8 @@ paths:
             $ref: '#/definitions/Error'
         '404':
           description: Invoice not found
-  /jwk:
-    get:
-      description: Get JSON Web Key Set. Use a JWK library to parse this into a public key.
-      tags:
-        - ISP
-      responses:
-        '200':
-          description: OK
-          examples:
-            application/json:
-              keys:
-                - e: AQAB
-                  alg: RS256
-                  use: sig
-                  kid: jwt
-                  kty: RSA
-                  'n': 5Dkax7lxzotIVx5DQidS...
-          schema:
-            $ref: '#/definitions/JsonWebKeySet'
-        '500':
-          description: Internal server error
+      produces:
+        - application/json
 definitions:
   recipientToken:
     type: object
@@ -327,14 +341,14 @@ definitions:
         type: string
         format: date-time
         description: When an invoice is due
-        example: '2023-03-13T16:00:00+01:00'
+        example: '2023-03-13T15:00:00+00:00'
       amount:
         type: integer
-        description: Amount by lowest subdivision(øre)
+        description: Amount by lowest subdivision (øre)
         example: 25043
       minAmount:
         type: integer
-        description: Minimum allowed amount to pay by lowest subdivision(øre)
+        description: Minimum allowed amount to pay by lowest subdivision (øre)
         example: 25043
       subject:
         type: string
@@ -351,7 +365,7 @@ definitions:
           representations. The issuer is advised to provide the commercial
           invoice in multiple formats (i.e. different MIME types) if possible.
           This will make it easier provide the user and IPP different ways of
-          showing the invoice
+          showing the invoice.
         items:
           type: object
           properties:
@@ -469,7 +483,7 @@ definitions:
         type: string
         format: date-time
         description: When an invoice is due
-        example: '2023-03-13T16:00:00+01:00'
+        example: '2023-03-13T15:00:00+00:00'
       amount:
         type: integer
         description: Amount by lowest subdivision(øre)
@@ -479,7 +493,7 @@ definitions:
         description: >-
           Minimum allowed amount to pay by lowest subdivision (øre). If this is
           set, it indicates that this invoice can be paid with any amount
-          between and including `minAmount` and `amount .
+          between and including `minAmount` and `amount`.
         example: 25043
       subject:
         type: string
@@ -552,13 +566,12 @@ definitions:
           state:
             type: string
             enum:
-              - created
-              - rejected
               - pending
-              - expired
-              - approved
+              - created
+              - fetched
+              - processed
               - deleted
-              - revoked
+              - rejected
             description: >-
               Status of the invoice. Fetched means at least one payment provider
               has fetched the invoice. Processed means a payment provider has
@@ -577,7 +590,7 @@ definitions:
         type: string
         format: date-time
         description: When an invoice was created
-        example: '2018-03-13T16:00:00+01:00'
+        example: '2018-03-13T15:00:00+00:00'
   RecipientResolve:
     type: object
     properties:
@@ -614,7 +627,7 @@ definitions:
               A human-readable explanation specific to this occurrence of the
               problem.
             example: >-
-              You tried to call the endpoint GET:/invoices/{invoiceId} with the
+              You tried to call the endpoint `GET:/invoices/{invoiceId}` with the
               invoice id **invoice-1**. This is invalid due to the following
               reasons: missing issuer ident-type, missing issuer ident-value.
           instance:
@@ -663,3 +676,23 @@ definitions:
         type: string
     required:
       - kty
+  RecipientsTokensPost200ApplicationJsonResponse:
+    type: object
+    properties:
+      recipientToken:
+        type: string
+        description: the recipient token
+        example: >-
+          eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MzQ1MDMwMjMsImlhdCI6MTUzNDUwMjEyMywiaXNzIjoidmlwcHNpbnZvaWNlLnZpcHBzLm5vL2FwaS92MS9yZWNpcGllbnRzL3Rva2VucyIsIm5iZiI6MTUzNDUwMjEyMywic3ViIjoibmluLW5vLjA3MTI2MjAwMjU1In0.z0yJY8MXO4rDOGTA743fh4BOdnnCoVZLmdzi_goBipU
+  InvoicesInvoiceIdPut400ApplicationJsonResponse:
+    type: object
+    properties:
+      error:
+        type: string
+        example: Invalid JSON data
+  InvoicesInvoiceIdPut409ApplicationJsonResponse:
+    type: object
+    properties:
+      error:
+        type: string
+        example: 'Conflict, a different invoice with this id already exists.'
