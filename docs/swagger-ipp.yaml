@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Vipps Invoice IPP API
-  version: '0.3.0'
+  version: '0.3.1'
   description: >-
     This is the API for Vipps Regninger. While we have worked closely with
     selected partners, and believe that this is very close to production
@@ -32,6 +32,10 @@ info:
 
 
     # Changelog
+
+    ## 0.3.1
+
+    * Text updates.
 
     ## 0.3.0
 
@@ -100,7 +104,7 @@ paths:
       parameters:
         - name: Authorization
           in: header
-          description: Authorization token is obtained from Access Token service call based on the client_id and client_secret of the registered application.
+          description: Authorization token is obtained from Access Token service call based on the `client_id` and `client_secret` of the registered application.
           required: true
           type: string
           enum:
@@ -159,7 +163,7 @@ paths:
           type: string
         - name: Authorization
           in: header
-          description: Authorization token is obtained from Access Token service call based on the client_id and client_secret of the registered application.
+          description: Authorization token is obtained from Access Token service call based on the `client_id` and `client_secret` of the registered application.
           required: true
           type: string
           enum:
@@ -245,7 +249,7 @@ paths:
           type: string
         - name: Authorization
           in: header
-          description: Authorization token is obtained from Access Token service call based on the client_id and client_secret of the registered application.
+          description: Authorization token is obtained from Access Token service call based on the `client_id` and `client_secret` of the registered application.
           required: true
           type: string
           enum:
@@ -288,7 +292,7 @@ paths:
           type: string
         - name: Authorization
           in: header
-          description: Authorization token is obtained from Access Token service call based on the client_id and client_secret of the registered application.
+          description: Authorization token is obtained from Access Token service call based on the `client_id` and `client_secret` of the registered application.
           required: true
           type: string
           enum:
@@ -337,7 +341,7 @@ paths:
           type: string
         - name: Authorization
           in: header
-          description: Authorization token is obtained from Access Token service call based on the client_id and client_secret of the registered application.
+          description: Authorization token is obtained from Access Token service call based on the `client_id` and `client_secret` of the registered application.
           required: true
           type: string
           enum:
@@ -383,7 +387,7 @@ paths:
           type: string
         - name: Authorization
           in: header
-          description: Authorization token is obtained from Access Token service call based on the client_id and client_secret of the registered application.
+          description: Authorization token is obtained from Access Token service call based on the `client_id` and `client_secret` of the registered application.
           required: true
           type: string
           enum:
@@ -419,7 +423,7 @@ paths:
           type: string
         - name: Authorization
           in: header
-          description: Authorization token is obtained from Access Token service call based on the client_id and client_secret of the registered application.
+          description: Authorization token is obtained from Access Token service call based on the `client_id` and `client_secret` of the registered application.
           required: true
           type: string
           enum:
@@ -462,7 +466,7 @@ paths:
           type: string
         - name: Authorization
           in: header
-          description: Authorization token is obtained from Access Token service call based on the client_id and client_secret of the registered application.
+          description: Authorization token is obtained from Access Token service call based on the `client_id` and `client_secret` of the registered application.
           required: true
           type: string
           enum:
