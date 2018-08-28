@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  version: 0.2.26
+  version: 0.2.27
   title: Vipps Invoice IPP API
   description: >-
 
@@ -33,6 +33,10 @@ info:
 
 
     # Changelog
+
+    ## 0.2.28
+
+    * Fix: Replaced `new` with `created`.
 
     ## 0.2.26
 
@@ -140,14 +144,17 @@ paths:
           type: string
           description: >-
             **Not yet implemented!** Filter invoices by state. Default is
-            "open", which returns both "new" and "fetched" invoices.
+            "open", which returns both `created` and `fetched` invoices.
           enum:
             - all
             - open
-            - new
-            - fetched
-            - processed
+            - created
+            - rejected
+            - pending
+            - expired
+            - approved
             - deleted
+            - revoked
       responses:
         '200':
           description: OK
@@ -193,14 +200,17 @@ paths:
           type: string
           description: >-
             **Not yet implemented!** Filter invoices by state. Default is
-            "open", which returns both "new" and "fetched" invoices.
+            "open", which returns both `created` and `fetched` invoices.
           enum:
             - all
             - open
-            - new
-            - fetched
-            - processed
+            - created
+            - rejected
+            - pending
+            - expired
+            - approved
             - deleted
+            - revoked
       responses:
         '200':
           description: OK

@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  version: 0.2.27
+  version: 0.2.28
   title: Vipps Invoice ISP API
   description: >-
 
@@ -33,6 +33,10 @@ info:
 
 
     # Changelog
+
+    ## 0.2.28
+
+    * Fix: Replaced `new` with `created`, also for endpoints not implemented yet.
 
     ## 0.2.27
 
@@ -548,12 +552,13 @@ definitions:
           state:
             type: string
             enum:
-              - pending
-              - new
-              - fetched
-              - processed
-              - deleted
+              - created
               - rejected
+              - pending
+              - expired
+              - approved
+              - deleted
+              - revoked
             description: >-
               Status of the invoice. Fetched means at least one payment provider
               has fetched the invoice. Processed means a payment provider has
