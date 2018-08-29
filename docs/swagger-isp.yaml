@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Vipps Invoice ISP API
-  version: '0.3.0'
+  version: '0.3.1'
   description: >-
 
     This is the API for Vipps Regninger. While we have worked closely with
@@ -33,6 +33,10 @@ info:
 
 
     # Changelog
+
+    ## 0.3.1
+
+    * Text clarification
 
     ## 0.3.0
 
@@ -143,8 +147,7 @@ paths:
 
         We will accept any invoice as long as the body is well formed JSON. Any
         validation errors of the invoice are picked up by workers in the
-        background and are reported back to the caller as a response body of the
-        feed or `GET:/invoices/{invoiceId}`.
+        background and available with `GET:/invoices/{invoiceId}`.
 
         ## Idempotency
 

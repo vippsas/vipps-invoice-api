@@ -34,7 +34,7 @@ app.
 "Vipps Regninger" replaces the batch processing in "Vipps Faktura" with
 a more speedy per-invoice processing, with improved status and progress for
 each individual invoice. This means that invoices have to be posted one by one,
-each invoice in a separate HTTP call. 
+each invoice in a separate HTTP call.
 
 Although it may at first seem to be an inefficient approach, we believe that
 the benefits far outweigh performance considerations. In addition, our
@@ -103,16 +103,16 @@ To submit an invoice to our system, the client first has to obtain a _recipient 
 by issuing a `POST` request to `/recipients/tokens`. This token can then be used
 in the request body to `PUT` an invoice to `/invoices`.
 
-To ensure GDPR compliance, the token has a limited time to live, currently 15
-minutes. Until it's expiry, clients are free to cache the token and reuse it to
+To ensure GDPR compliance, the token has a limited time to live, currently _15
+minutes_. Until it's expiry, clients are free to cache the token and reuse it to
 submit several invoices to the same recipient.
 
 ## Example 1: Send Invoice
 
 | Step | Method | Endpoint | Description |
 |------|--------|----------|-------------|
-| 1	   | `POST` | `/recipients/tokens` | The call will resolve the provided personal data and return a recipientToken if the recipient could be resolved. This token is used in the subsequent call. |
-| 2	   | `PUT`  | `/invoices/{invoiceId}` | The previously obtained _recipient token_ is used in the request body to identify the recipient. |
+| 1	   | `POST` | `/recipients/tokens` | The call will resolve the provided personal data and return a `recipientToken` if the recipient could be resolved. This token is used in the subsequent call. |
+| 2	   | `PUT`  | `/invoices/{invoiceId}` | The previously obtained `recipientToken` is used in the request body to identify the recipient. |
 
 See [`POST://recipients/tokens`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/post_recipients_tokens)
 and [`PUT:/invoices/{invoiceId}`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/put_invoices__invoiceId_).
@@ -126,6 +126,10 @@ and [`PUT:/invoices/{invoiceId}`](https://vippsas.github.io/vipps-invoice-api/is
 
 See [`POST://recipients/tokens`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/post_recipients_tokens)
 and [`GET:/invoices`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/get_invoices).
+
+## National identity number, or MSISDN, not available
+
+Vipps requires either national identity number or MSISDN.
 
 # Retrieving invoice documents (attachments)
 
