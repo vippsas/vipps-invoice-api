@@ -187,7 +187,7 @@ the very least validate the expiry time.
 
 # Detailed information about invoice states and transitions
 
-[Invoice states](images/invoice-states.png)
+![Invoice states](images/invoice-states.png)
 
 ## State transitions
 
