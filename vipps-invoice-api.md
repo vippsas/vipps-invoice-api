@@ -143,18 +143,6 @@ download link in a UI. The user's request should first be made to a backend
 system that in turn makes the authenticated request to this API to retrieve
 the *time-limited* URL to the actual document.
 
-## Typical flow
-
-1. An invoice is sent with [`PUT:/invoices/{invoiceId}`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/put_invoices__invoiceId_),
-containing the "commercial invoice" attachment, with an URL like `http://invoicehotel.example.org/093891280/091238912830.pdf`
-The URL sent when creating an invoice should be valid as long as possible (more than 12 months is good).
-The validity will be controlled with the JWT appended.
-
-2. Sometime later, the end user clicks on "show invoice" in the app. The
-[`GET:/invoices`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/get_invoices)
-request returns a response with the URL and a JWT appended.
-The returned URL would be something like `http://invoicehotel.example.org/093891280/091238912830.pdf?token=[jwt token]`.
-
 The URL contains a JWT query parameter that is validated by the ISP.
 The expiry time (i.e. TTL) is inside the JWT.
 
@@ -167,6 +155,18 @@ listing all the documents, so it is not necessary to guess.
 PDF is a commonly used MIME type, which can be displayed in most contexts.
 
 There is currently no limitation to the length of the URL.
+
+## Typical flow
+
+1. An invoice is sent with [`PUT:/invoices/{invoiceId}`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/put_invoices__invoiceId_),
+containing the "commercial invoice" attachment, with an URL like `http://invoicehotel.example.org/093891280/091238912830.pdf`
+The URL sent when creating an invoice should be valid as long as possible (more than 12 months is good).
+The validity will be controlled with the JWT appended.
+
+2. Sometime later, the end user clicks on "show invoice" in the app. The
+[`GET:/invoices`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/get_invoices)
+request returns a response with the URL and a JWT appended.
+The returned URL would be something like `http://invoicehotel.example.org/093891280/091238912830.pdf?token=[jwt token]`.
 
 ## Validating the JWT and the request
 
