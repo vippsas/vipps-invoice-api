@@ -36,7 +36,7 @@ info:
 
     ## 0.3.1
 
-    * Text clarification
+    * Added `/jwk` (again).
 
     ## 0.3.0
 
@@ -287,6 +287,27 @@ paths:
           description: Invoice not found
       produces:
         - application/json
+  /jwk:
+    get:
+      description: Get JSON Web Key Set. Use a JWK library to parse this into a public key.
+      tags:
+        - ISP
+      responses:
+        '200':
+          description: OK
+          examples:
+            application/json:
+              keys:
+                - e: AQAB
+                  alg: RS256
+                  use: sig
+                  kid: jwt
+                  kty: RSA
+                  'n': 5Dkax7lxzotIVx5DQidS...
+          schema:
+            $ref: '#/definitions/JsonWebKeySet'
+        '500':
+          description: Internal server error
 definitions:
   recipientToken:
     type: object
