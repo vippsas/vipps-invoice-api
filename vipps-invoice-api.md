@@ -9,7 +9,7 @@ Status: While we have worked closely with selected partners, and believe that th
 _very_ close to production quality, we are more than happy to receive feedback,
 either with GitHub's issue functionality, or by email to integration@vipps.no.
 
-Document version: 0.1.4.
+Document version: 0.1.5.
 
 ## Technical API documentation
 
@@ -121,15 +121,16 @@ and [`PUT:/invoices/{invoiceId}`](https://vippsas.github.io/vipps-invoice-api/is
 
 | Step | Method | Endpoint | Description |
 |------|--------|----------|-------------|
-| 1	   | `POST` | `/recipients/tokens` | The call will resolve the provided personal data and return a recipientToken if the recipient could be resolved. This token is used in the subsequent call. |
-| 2	   | `GET`  | `/invoices` | The previously obtained _recipient token_ is used as a header to fetch all invoices for the recipient. |
+| 1	   | `POST` | `/recipients/tokens` | The call will resolve the provided personal data and return a `recipientToken` if the recipient could be resolved. This token is used in the subsequent call. |
+| 2	   | `GET`  | `/invoices` | The previously obtained `recipientToken` is used as a header to fetch all invoices for the recipient. |
 
 See [`POST://recipients/tokens`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/post_recipients_tokens)
 and [`GET:/invoices`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/get_invoices).
 
 ## National identity number, or MSISDN, not available
 
-Vipps requires either national identity number or MSISDN.
+Vipps requires either national identity number or MSISDN for
+[`POST://recipients/tokens`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/post_recipients_tokens).
 
 # Retrieving invoice documents (attachments)
 
@@ -152,6 +153,8 @@ must include the
 document file type. The mime type is available to the IPP when listing all
 the documents, so it is not necessary to guess.
 
+PDF is a commonly used MIME type, which can be displayed in most contexts.
+
 ## Validating the JWT and the request
 
 The IPP is responsible for validating the JWT. The JWT contains the
@@ -166,13 +169,12 @@ following relevant claims:
 The API's public key is required in order to validate the request. The public
 key is available as JSON Web Key (JWK) under the
 [`GET:/jwk`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/get_jwk)
-endpoint. It is
-suggested to Use a JWK library to parse and use the key.
+endpoint. It is suggested to Use a JWK library to parse and use the key.
 
 In addition to validating the JWT, the IPP/invoice hotel must ensure to
 validate the following:
 
-* The expired timestamp is in the future. I.e. not expired.
+* The expired timestamp is in the future. i.e. not expired.
 
 * Make sure that the URL is valid. One approach is to return the `SUB` and
 ignore the actual path.
@@ -184,6 +186,8 @@ the very least validate the expiry time.
 
 
 # Detailed information about invoice states and transitions
+
+[Invoice states](images/Vimages/invoice-states.png)
 
 ## State transitions
 
