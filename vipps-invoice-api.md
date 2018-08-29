@@ -7,9 +7,9 @@ both as a product and API.
 
 Status: While we have worked closely with selected partners, and believe that this is
 _very_ close to production quality, we are more than happy to receive feedback,
-either with GitHub's issue functionality, or by email to integration@vipps.no.
+either with GitHub's issue functionality, pull requests, or by email to integration@vipps.no.
 
-Document version: 0.1.7.
+Document version: 0.1.78
 
 ## Technical API documentation
 
@@ -182,7 +182,10 @@ following relevant claims:
 The API's public key is required in order to validate the request. The public
 key is available as JSON Web Key (JWK) under the
 [`GET:/jwk`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/get_jwk)
-endpoint. It is suggested to Use a JWK library to parse and use the key.
+endpoint.
+
+It is **highly** recommend using a pre-made library. It should at
+the very least validate the expiry time.
 
 In addition to validating the JWT, the IPP/invoice hotel must ensure to
 validate the following:
@@ -194,9 +197,7 @@ ignore the actual path.
 
 For details on JWT, use the [RFC](https://tools.ietf.org/html/rfc7519) or
 [jwt.io](https://www.jwt.io). The latter contains a list of pre-made
-libraries. We **highly** recommend using a pre-made library. It should at
-the very least validate the expiry time.
-
+libraries.
 
 # Detailed information about invoice states and transitions
 
@@ -225,36 +226,35 @@ the very least validate the expiry time.
 
 ### State 1: Created
 
-The start state of an invoice is `created`. Invoices we receive are directly
+The start state of an invoice is `created`. Invoices received are directly
 inserted into the database with only minimal validation performed on the provided
 request body.
 
-This way, we decouple the ingestion from the actual validation and can keep the
-workload on the ingesting endpoints low so that we can achieve fast response
+This way, the ingestion is decoupled from the actual validation and can keep the
+workload on the ingesting endpoints low, so that we can achieve fast response
 times.
 
 The actual validation will potentially include many calls to external services
-where we cannot make any guarantees about response times. So we need this async
-approach.
+where, and response times can not be guaranteed.
+This asynchronous approach is required.
 
 #### Transitions
 
 ##### Transitions 1, 2: `created` -> `pending`, `rejected`
 The state transition from the initial state `created` is performed internally.
-Once an invoice is inserted into our system it will be picked up by a worker
+Once an invoice is inserted, it will be picked up by a worker
 which validates the invoice and updates the status to either `rejected` or
 `pending` depending on the validation result.
 
 ##### Transition 3: `created` -> `revoked`
 An ISP can revoke an invoice by calling
 [`PUT:/invoices/{id}/status/{revoked}`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/put_invoices__invoiceId__status_revoked)
-(this endpoint is not yet in the API documentation).
-It could also be a `DELETE`, but then we have to distinguish a `DELETE` , hence we decided to use `PUT` verbs consistently.
+It _could_ have been a `DELETE`, but we decided to use `PUT` verbs consistently.
 
 ### State 2: Rejected
 
 If the validation has failed, the invoice ends up in the `rejected` state. This is
-an end state and means that the invoice was not accepted into our system and is
+an end state, and means that the invoice was not accepted into our system and is
 never shown to any recipient. This is a final state and does not allow any further state transitions.
 
 ### State 3: Pending
@@ -278,8 +278,8 @@ consistently.
 #### Transition 6: `pending` -> `approved`
 If a recipient pays an invoice, the IPP should call
 [`PUT:/invoices/{id}/status/approved`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/put_invoices__invoiceId__status_approved)
-to mark the invoice as approved. It accepts two fields, `due` and `amount` as
-a payload in the request body.
+to mark the invoice as `approved.` It accepts two fields, `due` and `amount` as
+payload in the request body.
 
 These two fields indicate when the payment is scheduled and the amount of the
 scheduled payment. The amount must be within the valid amount specified in the
@@ -288,27 +288,28 @@ invoice.
 If no further actions are taken, this is the final state of the invoice.
 
 #### Transition 7: `pending` -> `revoked`
-As long as the invoice is pending, an ISP can still revoke an invoice. It will
-then disappear from the recipient's list of pending invoices.
+As long as the invoice is `pending`, an ISP can still revoke an invoice by calling
+[`PUT:/invoices/{id}/status/revoked`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Revoke_Invoice_v1)
+The invoice will then disappear from the recipient's list of pending invoices.
 
 ## State 4: Expired
 
 If a pending invoice is not processed by the recipient, it will be set to `expired`
-after the due date plus the grace period has passed.
+after the due date plus the grace period of 14 days has passed.
 
 This is a final state and does not allow any further state transitions.
 
 ## State 5: Approved
 
-An approved invoice means that the recipient has actively approved the invoice
+An `approved` invoice means that the recipient has actively approved the invoice
 by scheduling a payment through an IPP. The payment has to be scheduled within
 the allowed time, latest at the due date and the scheduled amount has to be within
 the allowed range defined in the invoice.
 
 ### Transitions
 
-All transitions from the state `approved` can only be initiated by the IPP who
-set the status to `approved`. This limitation is required.
+All transitions from the state `approved` can only be initiated by the same IPP
+that set the status to `approved`. This limitation is required.
 
 #### Transition 8: `approved` -> `approved`
 
@@ -320,7 +321,7 @@ again with the updated payment details.
 #### Transition 9: `approved` -> `pending`
 
 The user may want to change an `approved` invoice back to `pending`.
-This transition is not yet fully specified.
+_This transition is not yet fully specified._
 
 #### Transition 10: `approved` -> `deleted`
 
@@ -332,8 +333,8 @@ executed and/or is stopped. It is the IPPs responsibility to ensure that.
 
 ## State 6: Deleted
 
-The invoice has been deleted by the recipient. A deleted invoice can still be
-shown to a recipient once we support queries to display old/historical invoices.
+The invoice has been deleted by the recipient. A `deleted` invoice can still be
+shown to a recipient once queries to display old/historical invoices are supported.
 
 This is a final state and does not allow any further state transitions.
 
