@@ -9,7 +9,7 @@ Status: While we have worked closely with selected partners, and believe that th
 _very_ close to production quality, we are more than happy to receive feedback,
 either with GitHub's issue functionality, or by email to integration@vipps.no.
 
-Document version: 0.1.5.
+Document version: 0.1.6.
 
 ## Technical API documentation
 
