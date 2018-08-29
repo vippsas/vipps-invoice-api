@@ -170,7 +170,7 @@ The URL sent when creating an invoice should be valid as long as possible (more 
 The validity will be controlled with the JWT appended.
 
 2. Sometime later, the end user clicks on "show invoice" in the app. The
-[`GET:/invoices`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/get_invoices)
+[`GET:/invoices/{invoiceid}`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/Get_Single_Invoice_v1)
 request returns a response with the URL and a JWT appended.
 The returned URL would be something like `http://invoicehotel.example.org/093891280/091238912830.pdf?token=[jwt token]`.
 
