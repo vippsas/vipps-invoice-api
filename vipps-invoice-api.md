@@ -9,11 +9,17 @@ Status: While we have worked closely with selected partners, and believe that th
 _very_ close to production quality, we are more than happy to receive feedback,
 either with GitHub's issue functionality, pull requests, or by email to integration@vipps.no.
 
-Document version: 0.1.78
+Document version: 0.1.9
 
 ## Technical API documentation
 
 Swagger/OAS API documentation is available on GitHub: https://github.com/vippsas/vipps-invoice-api
+
+## Other API documentation
+
+See
+[Getting Started](https://github.com/vippsas/vipps-ecom-api/blob/master/vipps-ecom-api-getting-started.md)
+for the Vipps eCommerce API for general information about the Vipps Developer Portal.
 
 ## Terminology: ISP and IPP
 
