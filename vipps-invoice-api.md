@@ -117,6 +117,18 @@ submit several invoices to the same recipient.
 See [`POST://recipients/tokens`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/post_recipients_tokens)
 and [`PUT:/invoices/{invoiceId}`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/put_invoices__invoiceId_).
 
+The URL sent when creating an invoice should be valid as long as possible (more than 12 months is good).
+The validity will be controlled with the JWT appended. The flow is the following:
+
+1. An invoice is sent, containing the "commercial invoice" with an URL like http://invoicehotel.example.org/093891280/091238912830.pdf
+
+2. Some time later, the end user clicks on "show invoice" in the app. The
+[`GET:/invoices`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/get_invoices)
+request (see below) returns a response with the URL with a JWT appended.
+The returned URL would be something like `http://invoicehotel.example.org/093891280/091238912830.pdf?token=[jwt token]`.
+
+The JWT-token will contain an expiry timestamp that should be validated by the invoice hotel.
+
 ## Example 2: Fetch Invoices for Recipient
 
 | Step | Method | Endpoint | Description |
@@ -139,7 +151,7 @@ such as commercial invoices and attachments.
 
 The IPP should retrieve the *actual* document download URL on demand on
 behalf of its user. This is typically initiated when the user clicks on a
-download link in a UI. The user's request should first be made to a back-end
+download link in a UI. The user's request should first be made to a backend
 system that in turn makes the authenticated request to this API to retrieve
 the *time-limited* URL to the actual document.
 
@@ -148,12 +160,13 @@ The expiry time (i.e. TTL) is inside the JWT.
 
 Each invoice document has one or more MIME types. This means that
 [`GET:/invoices/{invoiceId}/attachments/{attachmentId}`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/get_invoices__invoiceId__attachments__attachmentId_)
-must include the
-`mimeType` query parameter that specifies the mime type to retrieve, i.e.
-document file type. The mime type is available to the IPP when listing all
-the documents, so it is not necessary to guess.
+must include the `mimeType` query parameter that specifies the mime type to
+retrieve, i.e. document file type. The MIME type is available to the IPP when
+listing all the documents, so it is not necessary to guess.
 
 PDF is a commonly used MIME type, which can be displayed in most contexts.
+
+There is currently no limitation to the length of the URL.
 
 ## Validating the JWT and the request
 
