@@ -274,7 +274,7 @@ libraries.
 
 # Detailed information about invoice states and transitions
 
-![Invoice States](state-machine.svg)
+![Invoice States](images/state-machine.svg)
 
 ## State transitions
 
