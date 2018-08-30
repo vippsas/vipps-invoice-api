@@ -1,6 +1,6 @@
 # Vipps Invoice API
 
-**Document version: 0.2.1**
+**Document version: 0.2.2**
 
 This is the API documentation for [**Vipps Regninger**]( https://www.vipps.no/bedrift/vipps-regninger).
 
@@ -146,7 +146,7 @@ HTTP 200 OK
   "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1Ni <continued>"
 }
 ```
-Every request to the API needs to have an *authorization header* with the generated token.
+Every request* to the API needs to have an *authorization header* with the generated token.
 *(NOTE: This is not possible to add when using "Try out" feature on the Swagger documentation on GitHub).*
 
 The header in the request to this API should look like this:
@@ -160,6 +160,8 @@ in the request body to `PUT` an invoice to `/invoices`.
 ℹ Please note that this assumes that you have already authenticated with the 
 API token - which is not to be confused with the recipient token.
 
+\* except the `/jwk` endpoint 
+  
 ## Recipient token 
 
 In addition to the general access token for the API, you need to create a
@@ -256,6 +258,8 @@ The API's public key is required in order to validate the request. The public
 key is available as JSON Web Key (JWK) under the
 [`GET:/jwk`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/get_jwk)
 endpoint.
+
+❗ **Please note that the `/jwk` endpoint does not require authentication.**
 
 It is **highly** recommended to use a pre-made library. 
 The library should at least help with validating the expiry time.
