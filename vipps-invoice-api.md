@@ -9,7 +9,7 @@ Status: While we have worked closely with selected partners, and believe that th
 _very_ close to production quality, we are more than happy to receive feedback,
 either with GitHub's issue functionality, pull requests, or by email to integration@vipps.no.
 
-Document version: 0.1.9
+Document version: 0.1.10
 
 ## Technical API documentation
 
@@ -96,6 +96,8 @@ filter the allowed payment methods according to Norwegian debt collection laws.
 
 # Authentication and authorization
 
+## Data protection
+
 Vipps has to ensure compliance with governing regulations, including GDPR
 compliance. This means we have to make sure that Vipps:
 
@@ -112,6 +114,12 @@ in the request body to `PUT` an invoice to `/invoices`.
 To ensure GDPR compliance, the token has a limited time to live, currently _15
 minutes_. Until it's expiry, clients are free to cache the token and reuse it to
 submit several invoices to the same recipient.
+
+## Tokens for APIM and Vipps Regninger
+
+There are two tokens to retrieve: 1. APIM access token 2. Vipps Regning Recipient token.
+1. APIM access token: Needed to call any Vipps API via APIM: `https://apitest.vipps.no/accesstoken/get`
+2. Vipps Regning Recipient Token: Needed to send/view invoices for a particular customer: `https://apitest.vipps.no/vipps-ipp/v1/recipients/tokens`
 
 ## Example 1: Send Invoice
 
