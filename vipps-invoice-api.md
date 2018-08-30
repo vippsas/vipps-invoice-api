@@ -121,6 +121,10 @@ There are two tokens to retrieve: 1. APIM access token 2. Vipps Regning Recipien
 1. APIM access token: Needed to call any Vipps API via APIM: `https://apitest.vipps.no/accesstoken/get`
 2. Vipps Regning Recipient Token: Needed to send/view invoices for a particular customer: `https://apitest.vipps.no/vipps-ipp/v1/recipients/tokens`
 
+See
+[Getting Started](https://github.com/vippsas/vipps-ecom-api/blob/master/vipps-ecom-api-getting-started.md)
+for the Vipps eCommerce API for general information about the Vipps Developer Portal.
+
 ## Example 1: Send Invoice
 
 | Step | Method | Endpoint                | Description                                                                                                                                                   |
