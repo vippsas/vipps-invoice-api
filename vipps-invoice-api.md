@@ -6,7 +6,10 @@ This is the API documentation for [**Vipps Regninger**]( https://www.vipps.no/be
 
 **Status:** 🛠 While we have worked closely with selected partners, and believe that this is
 _very_ close to production quality, we are more than happy to receive feedback,
-either with GitHub's issue functionality, pull requests, or by email to integration@vipps.no.
+either with GitHub's built-in functionality for
+[issue](https://github.com/vippsas/vipps-invoice-api/issues),
+[pull requests](https://github.com/vippsas/vipps-invoice-api/pulls),
+or contact us at integration@vipps.no.
 
 Document version: 0.2.5.
 
