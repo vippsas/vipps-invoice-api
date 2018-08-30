@@ -1,6 +1,6 @@
 # Vipps Invoice API
 
-**Document version: 0.2.0**
+**Document version: 0.2.1**
 
 This is the API documentation for [**Vipps Regninger**]( https://www.vipps.no/bedrift/vipps-regninger).
 
@@ -30,8 +30,7 @@ This is where you create keys to the API.
 
 A *valid access token* is required in order to call this API. The API is provided by 
 a service called API Management in Azure. Think of it as the gateway to this API.
-To get a token, follow [the guide for Vipps eCommerce API]
-(https://github.com/vippsas/vipps-ecom-api/blob/master/vipps-ecom-api.md)
+To get a token, follow [the guide for Vipps eCommerce API](https://github.com/vippsas/vipps-ecom-api/blob/master/vipps-ecom-api.md)
 
 ℹ This process can be confusing, so read the guide. More details on how to use the 
 token is provided later in this documentation.
@@ -124,18 +123,42 @@ compliance. This means we have to make sure that Vipps:
 The first thing that is required is to get the access token to the API. This is described
 in the [external documentation section](#external-documentation).
 
-Every request to the API needs to have an *authorization header* with the generated token.
-> (NOTE: This is not possible to add when using the Swagger documentation on GitHub).
+Shortly summarized, you will have to make the following request:
 
-The header should look like this:
-> `Authorization: bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1Ni <continued>`
+```http
+POST https://<<hostname>>/accessToken/get
+client_id: <ClientID>
+client_secret: <ClientSecret>
+Ocp-Apim-Subscription-Key: <Ocp-Apim-Subscription-Key>
+```
+
+Which will return:
+
+```http
+HTTP 200 OK
+{
+  "token_type": "Bearer",
+  "expires_in": "86398",
+  "ext_expires_in": "0",
+  "expires_on": "1495271273",
+  "not_before": "1495184574",
+  "resource": "00000002-0000-0000-c000-000000000000",
+  "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1Ni <continued>"
+}
+```
+Every request to the API needs to have an *authorization header* with the generated token.
+*(NOTE: This is not possible to add when using "Try out" feature on the Swagger documentation on GitHub).*
+
+The header in the request to this API should look like this:
+
+`Authorization: bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1Ni <continued>`
 
 To submit an invoice to our system, the client first has to obtain a _recipient token_
 by issuing a `POST` request to `/recipients/tokens`. This token can then be used
 in the request body to `PUT` an invoice to `/invoices`.
 
-> ℹ Please note that this assumes that you have already authenticated with the 
-> API token - which is not to be confused with the recipient token.
+ℹ Please note that this assumes that you have already authenticated with the 
+API token - which is not to be confused with the recipient token.
 
 ## Recipient token 
 
