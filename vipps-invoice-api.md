@@ -84,15 +84,15 @@ filter the allowed payment methods according to Norwegian debt collection laws.
 
 # Invoice states
 
-| # | State | Description |
-|---|------|-------------|
-| 1 | `created` | Invoice has been inserted, but not yet validated, and not yet shown to the recipient |
-| 2 | `rejected` | Invoice could not be validated, and is rejected |
-| 3 | `pending` | Invoice needs to be processed by the recipient |
-| 4 | `expired` | Recipient did not process the invoice in time |
-| 5 | `approved` | Invoice has been approved by recipient |
-| 6 | `deleted` | Invoice has been deleted |
-| 7 | `revoked` | Invoice has been revoked by the ISP |
+| #   | State      | Description                                                                          |
+| --- | ---------- | ------------------------------------------------------------------------------------ |
+| 1   | `created`  | Invoice has been inserted, but not yet validated, and not yet shown to the recipient |
+| 2   | `rejected` | Invoice could not be validated, and is rejected                                      |
+| 3   | `pending`  | Invoice needs to be processed by the recipient                                       |
+| 4   | `expired`  | Recipient did not process the invoice in time                                        |
+| 5   | `approved` | Invoice has been approved by recipient                                               |
+| 6   | `deleted`  | Invoice has been deleted                                                             |
+| 7   | `revoked`  | Invoice has been revoked by the ISP                                                  |
 
 # Authentication and authorization
 
@@ -123,20 +123,20 @@ There are two tokens to retrieve: 1. APIM access token 2. Vipps Regning Recipien
 
 ## Example 1: Send Invoice
 
-| Step | Method | Endpoint | Description |
-|------|--------|----------|-------------|
-| 1	   | `POST` | `/recipients/tokens` | The call will resolve the provided personal data and return a `recipientToken` if the recipient could be resolved. This token is used in the subsequent call. |
-| 2	   | `PUT`  | `/invoices/{invoiceId}` | The previously obtained `recipientToken` is used in the request body to identify the recipient. |
+| Step | Method | Endpoint                | Description                                                                                                                                                   |
+| ---- | ------ | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1    | `POST` | `/recipients/tokens`    | The call will resolve the provided personal data and return a `recipientToken` if the recipient could be resolved. This token is used in the subsequent call. |
+| 2    | `PUT`  | `/invoices/{invoiceId}` | The previously obtained `recipientToken` is used in the request body to identify the recipient.                                                               |
 
 See [`POST://recipients/tokens`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/post_recipients_tokens)
 and [`PUT:/invoices/{invoiceId}`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/put_invoices__invoiceId_).
 
 ## Example 2: Fetch Invoices for Recipient
 
-| Step | Method | Endpoint | Description |
-|------|--------|----------|-------------|
-| 1	   | `POST` | `/recipients/tokens` | The call will resolve the provided personal data and return a `recipientToken` if the recipient could be resolved. This token is used in the subsequent call. |
-| 2	   | `GET`  | `/invoices` | The previously obtained `recipientToken` is used as a header to fetch all invoices for the recipient. |
+| Step | Method | Endpoint             | Description                                                                                                                                                   |
+| ---- | ------ | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1    | `POST` | `/recipients/tokens` | The call will resolve the provided personal data and return a `recipientToken` if the recipient could be resolved. This token is used in the subsequent call. |
+| 2    | `GET`  | `/invoices`          | The previously obtained `recipientToken` is used as a header to fetch all invoices for the recipient.                                                         |
 
 See [`POST://recipients/tokens`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/post_recipients_tokens)
 and [`GET:/invoices`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/get_invoices).
@@ -215,26 +215,26 @@ libraries.
 
 # Detailed information about invoice states and transitions
 
-![Invoice states](images/invoice-states.png)
+![Invoice States](state-machine.svg)
 
 ## State transitions
 
-| # | From       | To         | Description |
-|---|------------|------------|-------------|
-| 1 | `created`  | `pending`  | Successfully validated |
-| 2 |            | `rejected` | Validation failed|
-| 3 |            | `revoked`  | The invoice has been deleted by the ISP |
-| - | `rejected` | --         | Final state |
-| 4 | `pending`  | `expired`  | After grace period, the invoice cannot be modified |
-| 5 |            | `deleted`  | The recipient deleted the invoice |
-| 6 |            | `approved` | The recipient approved invoice and payment is scheduled |
-| 7 |            | `revoked`  | The invoice has been deleted by the ISP |
-| - | `expired`  | --         | Final state |
-| 8 | `approved` | `approved` | The recipient has updated the payment details |
-| 9 |            | `pending`  | The recipient has stopped the payment |
-| 10 |           | `deleted`  | Virtual transition composed of 9 + 5 |
-| - | `deleted`  | --         | Final state |
-| - | `revoked`  | --         | Final state |
+| #   | From       | To         | Description                                             |
+| --- | ---------- | ---------- | ------------------------------------------------------- |
+| 1   | `created`  | `pending`  | Successfully validated                                  |
+| 2   |            | `rejected` | Validation **failed**                                       |
+| 3   |            | `revoked`  | The invoice has been deleted by the ISP                 |
+| -   | `rejected` | --         | Final state                                             |
+| 4   | `pending`  | `expired`  | After grace period, the invoice cannot be modified      |
+| 5   |            | `deleted`  | The recipient deleted the invoice                       |
+| 6   |            | `approved` | The recipient approved invoice and payment is scheduled |
+| 7   |            | `revoked`  | The invoice has been deleted by the ISP                 |
+| -   | `expired`  | --         | Final state                                             |
+| 8   | `approved` | `approved` | The recipient has updated the payment details           |
+| 9   |            | `pending`  | The recipient has stopped the payment                   |
+| 10  |            | `deleted`  | Virtual transition composed of 9 + 5                    |
+| -   | `deleted`  | --         | Final state                                             |
+| -   | `revoked`  | --         | Final state                                             |
 
 ## Detailed state descriptions
 
