@@ -207,7 +207,30 @@ libraries.
 
 # Detailed information about invoice states and transitions
 
-![Invoice states](images/invoice-states.png)
+![Invoice States](https://g.gravizo.com/svg?
+  digraph G {
+    graph [size=10 label="Invoice state machine"]
+    aize ="4,4";
+    edge [dir=forward]
+
+    node [shape = circle; label = created]; SCR;
+    node [shape = doublecircle; label = revoked]; SRV;
+    node [shape = doublecircle; label = rejected]; SRJ;
+    node [shape = doublecircle; label = expired]; SEP;
+    node [shape = circle; label = pending]; SPN;
+    node [shape = circle; label = approved]; SAP;
+    node [shape = doublecircle; label = deleted]; SDL;
+
+    SCR  ->  SRJ [ label = "T1" ];
+    SCR  ->  SRV [ label = "T2" ];
+    SCR  ->  SPN [ label = "T3" ];
+    SPN  ->  SRV [ label = "T2" ];
+    SPN  ->  SEP [ label = "T4" ];
+    SPN  ->  SAP [ label = "T5" ];
+    SAP  ->  SAP [ label = "T6" ];
+    SAP  ->  SDL [ label = "T7" ];
+  }
+)
 
 ## State transitions
 
