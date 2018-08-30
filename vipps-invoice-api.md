@@ -429,5 +429,7 @@ This is a final state and does not allow any further state transitions.
 
 # Questions or comments?
 
-Please use GitHub's issue functionality or submit pull requests at https://github.com/vippsas/vipps-invoice-api,
+Please use GitHub's built-in functionality for
+[issue](https://github.com/vippsas/vipps-invoice-api/issues),
+[pull requests](https://github.com/vippsas/vipps-invoice-api/pulls),
 or contact us at integration@vipps.no.
