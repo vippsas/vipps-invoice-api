@@ -1,6 +1,6 @@
 # Vipps Invoice API
 
-**Document version: 0.2.3**
+**Document version: 0.2.4**
 
 This is the API documentation for [**Vipps Regninger**]( https://www.vipps.no/bedrift/vipps-regninger).
 
@@ -153,19 +153,19 @@ The header in the request to this API should look like this:
 
 `Authorization: bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1Ni <continued>`
 
-To submit an invoice to our system, the client first has to obtain a _recipient token_
-by issuing a `POST` request to `/recipients/tokens`. This token can then be used
-in the request body to `PUT` an invoice to `/invoices`.
-
-ℹ Please note that this assumes that you have already authenticated with the 
-API token - which is not to be confused with the recipient token.
-
 \* except the `/jwk` endpoint 
   
 ## Recipient token 
 
 In addition to the general access token for the API, you need to create a
 token for the recipient. 
+
+To submit an invoice to our system, the client first has to obtain a _recipient token_
+by issuing a `POST` request to `/recipients/tokens`. This token can then be used
+in the request body to `PUT` an invoice to `/invoices`.
+
+ℹ Please note that this assumes that you have already authenticated with the 
+API token - which is not to be confused with the recipient token.
 
 To ensure GDPR compliance, the token has a limited time to live, currently _15
 minutes_. Until it's expiry, clients are free to cache the token and reuse it to
