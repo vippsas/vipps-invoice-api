@@ -1,6 +1,6 @@
 # Vipps Invoice API
 
-**Document version: 0.2.2**
+**Document version: 0.2.3**
 
 This is the API documentation for [**Vipps Regninger**]( https://www.vipps.no/bedrift/vipps-regninger).
 
@@ -126,7 +126,7 @@ in the [external documentation section](#external-documentation).
 Shortly summarized, you will have to make the following request:
 
 ```http
-POST https://<<hostname>>/accessToken/get
+POST https://apitest.vipps.no/accesstoken/get
 client_id: <ClientID>
 client_secret: <ClientSecret>
 Ocp-Apim-Subscription-Key: <Ocp-Apim-Subscription-Key>
