@@ -63,13 +63,13 @@ info:
 
     ## 0.2.23
 
-    * Improved documentation for ìnvoiceId`.
+    * Improved documentation for `invoiceId`.
 
     ## 0.2.22
 
-    * fix: the token returned from `GET:/recipients/tokens` is now returned
-      as a proper json document with the field `recipientToken`
-    * extended the datamodel for errors. Error returned by the API will now
+    * Fix: The token returned from `GET:/recipients/tokens` is now returned
+      as a proper JSON document with the field `recipientToken`
+    * Extended the datamodel for errors. Error returned by the API will now
       include the required fields `type` and `title` plus the optional fields
       `detail` and `instance`. The content of the field is according to
       [RFC7807](https://tools.ietf.org/html/rfc7807)

@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Vipps Invoice ISP API
-  version: '0.3.1'
+  version: '0.3.2'
   description: >-
 
     This is the API for Vipps Regninger. While we have worked closely with
@@ -34,13 +34,17 @@ info:
 
     # Changelog
 
+    ## 0.3.2
+
+    * Improved `HTTP 409` description for `PUT:/invoice/{invoiceId}`
+
     ## 0.3.1
 
     * Added `/jwk` (again).
 
     ## 0.3.0
 
-    * * Updated authentication info for APIM (manual "merge").
+    * Updated authentication info for APIM (manual "merge").
 
     ## 0.2.28
 
@@ -64,13 +68,13 @@ info:
 
     ## 0.2.23
 
-    * Improved documentation for ìnvoiceId`.
+    * Improved documentation for `invoiceId`.
 
     ## 0.2.22
 
-    * fix: the token returned from `GET:/recipients/tokens` is now returned
-      as a proper json document with the field `recipientToken`
-    * extended the datamodel for errors. Error returned by the API will now
+    * Fix: The token returned from `GET:/recipients/tokens` is now returned
+      as a proper JSON document with the field `recipientToken`
+    * Extended the datamodel for errors. Error returned by the API will now
       include the required fields `type` and `title` plus the optional fields
       `detail` and `instance`. The content of the field is according to
       [RFC7807](https://tools.ietf.org/html/rfc7807)
@@ -192,7 +196,7 @@ paths:
           schema:
             $ref: '#/definitions/InvoicesInvoiceIdPut400ApplicationJsonResponse'
         '409':
-          description: Conflict
+          description: A different invoice with this id already exists.
           schema:
             $ref: '#/definitions/InvoicesInvoiceIdPut409ApplicationJsonResponse'
         '500':
