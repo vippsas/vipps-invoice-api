@@ -13,7 +13,7 @@ See the main GitHub page for Vipps contact information, etc: https://github.com/
 
 # API documentation for ISP and IPP
 
-[vipps-invoice-api.md](https://github.com/vippsas/vipps-invoice-api/blob/master/vipps-invoice-api.md)
+The main API documentaion is [vipps-invoice-api.md](https://github.com/vippsas/vipps-invoice-api/blob/master/vipps-invoice-api.md). This is frequently updated, and issues and PRs are welcome.
 
 ## ISP: Invoice Service Provider
 
