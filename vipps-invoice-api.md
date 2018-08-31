@@ -193,11 +193,11 @@ submit several invoices to the same recipient.
 | 1    | [`POST://recipients/tokens`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Request_Recipient_Token_v1)    | The call will resolve the provided personal data and return a `recipientToken` if the recipient could be resolved. This token is used in the subsequent call(s). |
 | 2    | [`PUT:/invoices/{invoiceId}`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Send_Invoice_v1) | The previously obtained `recipientToken` is used in the request body to identify the recipient.  |
 
-[`PUT:/invoices/{invoiceId}`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Send_Invoice_v1) endpoint is idempotent. The idempotency key is the invoiceId. The endpoint may be called multiple times, but the invoice is inserted exactly once only. The endpoint will return a 200 status code if the invoice was inserted, a 200 if the invoice is already in the system and the contents are equal, and 409 if the invoice exists but the contents are not equal.
+[`PUT:/invoices/{invoiceId}`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Send_Invoice_v1) endpoint is idempotent. The idempotency key is the `invoiceId`. The endpoint may be called multiple times, but the invoice is inserted exactly once only. The endpoint will return a 200 status code if the invoice was inserted, a 200 if the invoice is already in the system and the contents are equal, and `409` if the invoice exists but the contents are not equal.
 
 Invoices are never updated/modified. If in doubt, an invoice has to be fetched and the content must be compared by the client.
 
-For ISPs who send invoices it means that they call the endpoint as many times as they want, until they get a 200 response, indicating that the invoice has been received.
+For ISPs who send invoices it means that they call the endpoint as many times as they want, until they get a `200` response, indicating that the invoice has been received.
 
 ## Example 2: Fetch invoices for recipient
 
