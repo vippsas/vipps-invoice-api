@@ -13,9 +13,18 @@ See the main GitHub page for Vipps contact information, etc: https://github.com/
 
 # API documentation for ISP and IPP
 
-* [vipps-invoice-api.md](https://github.com/vippsas/vipps-invoice-api/blob/master/vipps-invoice-api.md)
+[vipps-invoice-api.md](https://github.com/vippsas/vipps-invoice-api/blob/master/vipps-invoice-api.md)
+
+## ISP: Invoice Service Provider
+
+Invoice _Service_ Providers: Actors who submit invoices. Either for themselves or on behalf of their clients. 
 
 * https://vippsas.github.io/vipps-invoice-api/ipp.html
-* https://vippsas.github.io/vipps-invoice-api/isp.html
 * https://vippsas.github.io/vipps-invoice-api/redoc-ipp.html
+
+## IPP: Invoice Payment Provider
+
+Invoice _Payment_ Providers: Actors who handle invoices for the invoice recipients and execute payments, e.g. banks, the Vipps app.
+
+* https://vippsas.github.io/vipps-invoice-api/isp.html
 * https://vippsas.github.io/vipps-invoice-api/redoc-isp.html
