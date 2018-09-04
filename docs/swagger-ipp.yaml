@@ -1,78 +1,15 @@
 swagger: '2.0'
 info:
   title: Vipps Invoice IPP API
-  version: '0.3.2'
+  version: '0.3.3'
   description: >-
     This is the API for Vipps Regninger. While we have worked closely with
     selected partners, and believe that this is very close to production
     quality, we are more than happy to receive feedback, either with GitHub's
     issue functionality, or by email.
 
-    # API documentation
+    Please see https://github.com/vippsas/vipps-invoice-api for documentation
 
-    Please see https://github.com/vippsas/vipps-invoice-api/blob/master/vipp-invoice-api.md
-
-    # Invoice states
-
-    * `created`: Invoice has been inserted, but not yet validated, and not yet shown to the recipient.
-
-    * `rejected`: Invoice could not be validated, and is rejected.
-
-    * `pending`: Invoice needs to be processed by the recipient.
-
-    * `expired`: Recipient did not process the invoice in time.
-
-    * `approved`: Invoice has been approved by recipient.
-
-    * `deleted`: Invoice has been deleted.
-
-    * `revoked`: Invoice has been revoked by the ISP.
-
-    See the `PUT:/invoices/{invoiceId}/status/{state}` methods for details about changing the `state`.
-
-
-    # Changelog
-
-    ## 0.3.2
-
-    * Added `/jwk` (again).
-
-    ## 0.3.1
-
-    * Text updates.
-
-    ## 0.3.0
-
-    * Updated authentication info for APIM (manual "merge").
-
-    ## 0.2.28
-
-    * Fix: Replaced `new` with `created`.
-
-    ## 0.2.26
-
-    * Updated information about test users.
-
-    ## 0.2.25
-
-    * Replaced introduction text with link to documentation.
-
-    ## 0.2.24
-
-    * * Corrected documentation of `state` for invoices, and some minor text tweaks.
-
-    ## 0.2.23
-
-    * Improved documentation for `invoiceId`.
-
-    ## 0.2.22
-
-    * Fix: The token returned from `GET:/recipients/tokens` is now returned
-      as a proper JSON document with the field `recipientToken`
-    * Extended the datamodel for errors. Error returned by the API will now
-      include the required fields `type` and `title` plus the optional fields
-      `detail` and `instance`. The content of the field is according to
-      [RFC7807](https://tools.ietf.org/html/rfc7807)
 host: apitest.vipps.no
 basePath: /vipps-ipp/v1
 tags:
