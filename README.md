@@ -26,8 +26,8 @@ Invoice _Service_ Providers: Actors who submit invoices. Either for themselves o
 
 Invoice _Payment_ Providers: Actors who handle invoices for the invoice recipients and execute payments, e.g. banks, the Vipps app.
 
-* https://vippsas.github.io/vipps-invoice-api/isp.html
-* https://vippsas.github.io/vipps-invoice-api/redoc-isp.html
+* https://vippsas.github.io/vipps-invoice-api/ipp.html
+* https://vippsas.github.io/vipps-invoice-api/redoc-ipp.html
 
 # Building JSON files
 
