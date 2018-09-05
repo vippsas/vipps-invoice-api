@@ -1,6 +1,6 @@
 {
   "info": {
-    "version": "0.3.3", 
+    "version": "0.3.4", 
     "description": "This is the API for Vipps Regninger. While we have worked closely with selected partners, and believe that this is very close to production quality, we are more than happy to receive feedback, either with GitHub's issue functionality, or by email.\nPlease see https://github.com/vippsas/vipps-invoice-api for documentation", 
     "title": "Vipps Invoice IPP API"
   }, 
@@ -105,6 +105,18 @@
             "description": "Internal server error"
           }
         }, 
+        "parameters": [
+          {
+            "required": true, 
+            "description": "Authorization token is obtained from Access Token service call based on the `client_id` and `client_secret` of the registered application.", 
+            "in": "header", 
+            "enum": [
+              "bearer <access_token>"
+            ], 
+            "type": "string", 
+            "name": "Authorization"
+          }
+        ], 
         "description": "Get JSON Web Key Set. Use a JWK library to parse this into a public key."
       }
     }, 
