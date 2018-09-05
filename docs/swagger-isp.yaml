@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Vipps Invoice ISP API
-  version: '0.3.3'
+  version: '0.3.4'
   description: >-
 
     This is the API for Vipps Regninger. While we have worked closely with
@@ -229,6 +229,16 @@ paths:
       description: Get JSON Web Key Set. Use a JWK library to parse this into a public key.
       tags:
         - ISP
+      parameters:
+        - name: Authorization
+          in: header
+          description: >-
+            Authorization token is obtained from Access Token service call based
+            on the `client_id` and `client_secret` of the registered application.
+          required: true
+          type: string
+          enum:
+            - bearer <access_token>
       responses:
         '200':
           description: OK
