@@ -1,6 +1,6 @@
 # Vipps Invoice API
 
-This repo contains developer resources for the Vipps Invoice API. For more information about this product, "Vipps Regninger", please see: https://www.vipps.no/bedrift/vipps-regninger
+This repo contains developer resources for the Vipps Invoice API. For more information, see [Vipps Regninger](https://www.vipps.no/bedrift/vipps-regninger)
 
 **IMPORTANT:** This is a work in progress. Input is appreciated, either as issues, PRs, email. Pleasde note that the official, stable developer resources for Vipps is still https://vipps.no/developer
 
