@@ -168,6 +168,12 @@ The header in the request to this API should look like this:
 ```http
 Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1Ni <continued>
 ```
+Please note that the JWK is _only_ used for validating the JWT.
+
+**IMPORTANT:** We are currently working on the logic around caching of the JWK, and possibly
+using multiple keys with specified expiration time. We will update this
+section ASAP. For the time being, the JWK can be ached for 10 minutes.
+Please see also: https://openid.net/specs/openid-connect-core-1_0.html#RotateSigKeys
 
 ## Recipient token
 
