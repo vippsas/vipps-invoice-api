@@ -12,7 +12,7 @@ Please use GitHub's built-in functionality for
 [pull requests](https://github.com/vippsas/vipps-invoice-api/pulls),
 or contact us at integration@vipps.no.
 
-Document version: 0.2.6.
+Document version: 0.2.7.
 
 ## External documentation
 
@@ -238,6 +238,8 @@ retrieve, i.e. document file type. The MIME type is available to the IPP when
 listing all the documents. This allows the IPP to present it in multiple ways.
 
 PDF is a commonly used MIME type, which can be displayed in most contexts.
+
+The Vipps app will display PDFs for now, but this may change at a later time.
 
 There is currently no limitation to the length of the URL.
 
