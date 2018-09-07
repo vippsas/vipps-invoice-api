@@ -1,9 +1,10 @@
 # Vipps Invoice API
 
 This repository contains developer resources for the Vipps Invoice API.
-For more information, see [Vipps Regninger](https://www.vipps.no/bedrift/vipps-regninger)
+For more information, see [Vipps Regninger](https://www.vipps.no/bedrift/vipps-regninger).
 
-**IMPORTANT:** This is a work in progress. Input is appreciated, either as issues, PRs, email. Pleasde note that the official, stable developer resources for Vipps is still https://vipps.no/developer
+**IMPORTANT:** This is a work in progress. Input is appreciated, either as issues, PRs, email.
+Please note that the official, stable developer resources for Vipps is still https://vipps.no/developer
 
 Important dates (which _may_ change):
 * Feature-complete version without APIM for test: 10th Aug​
@@ -38,16 +39,17 @@ Invoice _Payment_ Providers: Actors who handle invoices for the invoice recipien
 
 # Building JSON files
 
-After updating the yaml files you can convert them to JSON by running the yaml2json.py script. If you do not have the pyyaml dependency installed you can either do this with a package manager or
-install it using pip
+After updating the YAML files you can convert them to JSON by running the `yaml2json.py` script.
+If you do not have the `pyyaml` dependency installed you can either do this with a package manager or
+install it using `pip`.
 
-    pip install -r requirements.txt # Will install all requirements
+```pip install -r requirements.txt # Will install all requirements```
 
-# Changelog
+# Swagger changelog
 
 ## 0.3.3
 
-* Moved verbose documentation out of swagger files
+* Moved verbose documentation out of Swagger files
 
 ## 0.3.2
 
