@@ -1,6 +1,7 @@
 # Vipps Invoice API
 
-This repo contains developer resources for the Vipps Invoice API. For more information, see [Vipps Regninger](https://www.vipps.no/bedrift/vipps-regninger)
+This repository contains developer resources for the Vipps Invoice API.
+For more information, see [Vipps Regninger](https://www.vipps.no/bedrift/vipps-regninger)
 
 **IMPORTANT:** This is a work in progress. Input is appreciated, either as issues, PRs, email. Pleasde note that the official, stable developer resources for Vipps is still https://vipps.no/developer
 
@@ -9,7 +10,13 @@ Important dates (which _may_ change):
 * Feature-complete version with APIM for test: ~20th~ 28th Aug (see [issues](https://github.com/vippsas/vipps-invoice-api/issues))
 * Feature-complete version with APIM for production: ~7th~ 10th September (tentative)
 
-See the main GitHub page for Vipps contact information, etc: https://github.com/vippsas  
+See the Vipps Developers repository for
+a "getting started" guide,
+information about product activation,
+contact information,
+contribution guidelines,
+etc:
+https://github.com/vippsas/vipps-developers  
 
 # API documentation for ISP and IPP
 
@@ -17,7 +24,7 @@ The main API documentaion is [vipps-invoice-api.md](https://github.com/vippsas/v
 
 ## ISP: Invoice Service Provider
 
-Invoice _Service_ Providers: Actors who submit invoices. Either for themselves or on behalf of their clients. 
+Invoice _Service_ Providers: Actors who submit invoices. Either for themselves or on behalf of their clients.
 
 * https://vippsas.github.io/vipps-invoice-api/isp.html
 * https://vippsas.github.io/vipps-invoice-api/redoc-isp.html
