@@ -47,6 +47,13 @@ install it using `pip`.
 
 # Swagger changelog
 
+## 0.3.4
+
+* Bugfix: ISPs are only allowed to fetch their own invoices
+* Bugfix: Resolving recipients with MSISDN now works
+* Bugfix: `/invoices/count` returns the correct number of invoices
+* Bugfix: Authorization to revoke invoice is properly parsed
+
 ## 0.3.3
 
 * Moved verbose documentation out of Swagger files
