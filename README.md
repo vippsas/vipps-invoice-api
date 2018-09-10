@@ -50,7 +50,7 @@ install it using `pip`.
 ## 0.3.4
 
 * Bugfix: ISPs are only allowed to fetch their own invoices
-* Bugfix: Resolving recipients with MSISDN now works
+* Bugfix: Resolving recipients with MSISDN now works (MSISDN is now required)
 * Bugfix: `/invoices/count` returns the correct number of invoices
 * Bugfix: Authorization to revoke invoice is properly parsed
 
