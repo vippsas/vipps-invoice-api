@@ -29,7 +29,7 @@ This test user can receive invoices, and approve, etc:
 
 | customerId | NIN (fødselsnummer) | MSISDN (phone number) | First name | Last name | Owner |
 | ---------- | ------------------- | --------------------- | ---------- | --------- | ----- |
-| 10003301	 | 01032300371.        | 4797777776            | Willhelm Fos | Kluvstad | Common |
+| 10003301	 | 01032300371         | 4797777776            | Willhelm Fos | Kluvstad | Common |
 
 ## ISP: Invoice Service Provider
 
