@@ -168,7 +168,7 @@ The header in the request to this API should look like this:
 ```http
 Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1Ni <continued>
 ```
-Please note that the JWK is _only_ used for validating the JWT.
+Please note that the `JWK` is _only_ used for validating the `JWT`.
 See [The API's public key: JWK (JSON Web Key)](#the-apis-public-key-jwk-json-web-key) for more details.
 
 ## Recipient token
@@ -224,8 +224,8 @@ download link in a UI. The user's request should first be made to a backend
 system that in turn makes the authenticated request to this API to retrieve
 the *time-limited* URL to the actual document.
 
-The URL contains a JWT query parameter that is validated by the ISP.
-The expiry time (`EXP`) is inside the JWT.
+The URL contains a `JWT` query parameter that is validated by the ISP.
+The expiry time (`EXP`) is inside the `JWT`.
 
 Each invoice document has one or more MIME types. This means that
 [`GET:/invoices/{invoiceId}/attachments/{attachmentId}`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/Get_Attachment_For_Invoice_v1)
@@ -244,41 +244,48 @@ There is currently no limitation to the length of the URL.
 1. An invoice is sent with [`PUT:/invoices/{invoiceId}`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Send_Invoice_v1),
 containing the "commercial invoice" attachment, with an URL like `https://invoice-hotel.example.org/123456-abcdef-7890.pdf`
 The URL sent by the ISP when creating an invoice should be valid as long as possible (more than 12 months is good).
-The validity will be controlled with the JWT appended.
+The validity will be controlled with the `JWT` appended.
 
 2. Sometime later, the end user clicks on "show invoice" in the app or online bank. The
 [`GET:/invoices/{invoiceid}`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/Get_Single_Invoice_v1)
-request returns a response with the URL and a JWT appended.
+request returns a response with the URL and a `JWT` appended.
 The returned URL would be something like `https://invoice-hotel.example.org/123456-abcdef-7890.pdf?token=[jwt_token_goes_here]`.
 
 3. The app or online bank will redirect the user to the document. Most likely the user
 will have a browser opened that loads the document.
 
 4. The IPP/invoice hotel will receive the request directly from the end user's device,
-and will need to validate the JWT token before sending the document data.
+and will need to validate the `JWT` token before sending the document data.
 
-5. If the JWT is valid, the user is sent the document data (e.g. the PDF).
+5. If the `JWT` is valid, the user is sent the document data (e.g. the PDF).
 
 ## Validating the JSON Web Token (JWT) and the request
 
-The IPP/invoice hotel is responsible for validating the JWT before returning the document.
+The IPP/invoice hotel is responsible for validating the `JWT` before returning the document.
 
 Vipps has chosen a modern standard for validating tokens with keys, and
 this is the same method used by Microsoft Azure, on which Vipps is built.
+See also: [JSON Web Token Best Current Practices draft-ietf-oauth-jwt-bcp-03](https://tools.ietf.org/html/draft-ietf-oauth-jwt-bcp-03).
 
-The JSON Web Token (JWT) contains the following relevant claims:
+The JSON Web Token (`JWT`) contains the following relevant claims:
 
-* `ISS` (issuer): Who is issuing the JWT. Typically `vipps-invoice-api`.
+* `ISS` (issuer): Who is issuing the `JWT`. Typically `vipps-invoice-api`.
 * `AUD` (audience): Something identifying the IPP.
 * `SUB` (subject): The base URL for the document.
-* `EXP` (expiration): A specific moment in time where the JWT becomes invalid.
+* `EXP` (expiration): A specific moment in time where the `JWT` becomes invalid.
 * `ALG` (algorithm): Encryption algorithm. Vipps uses RS256.
 
 ## The API's public key: JWK (JSON Web Key)
 
-The API's public key is required in order to validate the request and the JWT.
-The public key is available as an array of JSON Web Keys (JWK):
+The API's public key is required in order to validate the request and the `JWT`.
+The public key is available as an array of JSON Web Keys (`JWK`):
 [`GET:/jwk`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/get_jwk).
+
+**IMPORTANT:** We are currently working on the logic around caching of the `JWK`,
+and aim to use two keys: One primary key and one secondary key.
+There is no immediate plan to change the `JWK`, and the key can be cached for 10 minutes.
+See also:
+[OpenID Connect Core 1.0: Rotation of Asymmetric Signing Keys](https://openid.net/specs/openid-connect-core-1_0.html#RotateSigKeys).
 
 The response is as follows:
 
@@ -302,14 +309,7 @@ validating the `JWT`.
 In this case, the `keys` array will will contain another, valid `JWK`.
 Should a call fail, a new call may be performed immediately with the new key.
 
-For the time being, the `JWK`may be cached for 10 minutes, and
-
-**IMPORTANT:** We are currently working on the logic around caching of the JWK,
-and aim to use two keys: One primary key and one secondary key.
-There is no immediate plan to change the `JWK`, and the key can be cached for 10 minutes.
-Please see also: https://openid.net/specs/openid-connect-core-1_0.html#RotateSigKeys
-
-Pseudo-code for validating the JWT:
+Pseudo-code for validating the `JWT`:
 
 ```java
 function IsValidJWT(jwt) {
