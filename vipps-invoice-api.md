@@ -325,7 +325,7 @@ function IsValidJWT(jwt) {
   }
 
   // No key could validate the JWT
-  throw ValidationException()
+  return false
 }
 ```
 
