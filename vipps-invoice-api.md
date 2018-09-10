@@ -12,7 +12,7 @@ Please use GitHub's built-in functionality for
 [pull requests](https://github.com/vippsas/vipps-invoice-api/pulls),
 or contact us at integration@vipps.no.
 
-Document version: 0.2.7.
+Document version: 0.2.8.
 
 ## External documentation
 
@@ -169,11 +169,7 @@ The header in the request to this API should look like this:
 Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1Ni <continued>
 ```
 Please note that the JWK is _only_ used for validating the JWT.
-
-**IMPORTANT:** We are currently working on the logic around caching of the JWK, and possibly
-using multiple keys with specified expiration time. We will update this
-section ASAP. For the time being, the JWK can be cached for 10 minutes.
-Please see also: https://openid.net/specs/openid-connect-core-1_0.html#RotateSigKeys
+See [The API's public key: JWK (JSON Web Key)](#the-apis-public-key-jwk-json-web-key) for more details.
 
 ## Recipient token
 
@@ -305,6 +301,13 @@ Vipps _may_ rotate keys, which may result in a `JWK` not being usable for
 validating the `JWT`.
 In this case, the `keys` array will will contain another, valid `JWK`.
 Should a call fail, a new call may be performed immediately with the new key.
+
+For the time being, the `JWK`may be cached for 10 minutes, and
+
+**IMPORTANT:** We are currently working on the logic around caching of the JWK,
+and aim to use two keys: One primary key and one secondary key.
+There is no immediate plan to change the `JWK`, and the key can be cached for 10 minutes.
+Please see also: https://openid.net/specs/openid-connect-core-1_0.html#RotateSigKeys
 
 Pseudo-code for validating the JWT:
 
