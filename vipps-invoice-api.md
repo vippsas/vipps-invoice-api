@@ -278,7 +278,7 @@ The JSON Web Token (JWT) contains the following relevant claims:
 * `EXP` (expiration): A specific moment in time where the JWT becomes invalid.
 * `ALG` (algorithm): Encryption algorithm. Vipps uses RS256.
 
-## The API's public key: JWK (JSON Web Token)
+## The API's public key: JWK (JSON Web Key)
 
 The API's public key is required in order to validate the request and the JWT.
 The public key is available as an array of JSON Web Keys (JWK):
