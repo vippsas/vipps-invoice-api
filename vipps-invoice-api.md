@@ -12,7 +12,7 @@ Please use GitHub's built-in functionality for
 [pull requests](https://github.com/vippsas/vipps-invoice-api/pulls),
 or contact us at integration@vipps.no.
 
-Document version: 0.2.8.
+Document version: 0.2.9.
 
 ## External documentation
 
@@ -340,8 +340,9 @@ the IPP/invoice hotel must ensure to validate the following:
 * Make sure that the URL is valid. One approach is to return the `SUB` and
 ignore the actual path.
 
-For details on JWT, see the [RFC](https://tools.ietf.org/html/rfc7519) or
+For details on JWT, see the [RFC 7519](https://tools.ietf.org/html/rfc7519) or
 [jwt.io](https://www.jwt.io). The latter contains a list of pre-made libraries.
+[RFC 7517](https://tools.ietf.org/html/rfc7517) covers JWK.
 
 # Detailed information about invoice states and transitions
 
