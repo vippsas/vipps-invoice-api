@@ -267,7 +267,10 @@ and will need to validate the JWT token before sending the document data.
 
 The IPP/invoice hotel is responsible for validating the JWT before returning the document.
 
-The JWT contains the following relevant claims:
+Vipps has chosen a modern standard for validating tokens with keys, and
+this is the same method used by Microsoft Azure, on which Vipps is built.
+
+The JSON Web Token (JWT) contains the following relevant claims:
 
 * `ISS` (issuer): Who is issuing the JWT. Typically `vipps-invoice-api`.
 * `AUD` (audience): Something identifying the IPP.
@@ -275,15 +278,55 @@ The JWT contains the following relevant claims:
 * `EXP` (expiration): A specific moment in time where the JWT becomes invalid.
 * `ALG` (algorithm): Encryption algorithm. Vipps uses RS256.
 
-The API's public key is required in order to validate the request. The public
-key is available as JSON Web Key (JWK) under the
-[`GET:/jwk`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/get_jwk)
-endpoint. Please note that the `/jwk` endpoint does not require authentication.
+## The API's public key: JWK (JSON Web Token)
+
+The API's public key is required in order to validate the request and the JWT.
+The public key is available as an array of JSON Web Keys (JWK):
+[`GET:/jwk`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/get_jwk).
+
+The response is as follows:
+
+```json
+{
+  "keys": [
+    {
+      "e": "AQAB",
+      "alg": "RS256",
+      "use": "sig",
+      "kid": "jwt",
+      "kty": "RSA",
+      "n": "5Dkax7lxzotIVx5DQidS..."
+    }
+  ]
+}
+```
+
+Vipps _may_ rotate keys, which may result in a `JWK` not being usable for
+validating the `JWT`.
+In this case, the `keys` array will will contain another, valid `JWK`.
+Should a call fail, a new call may be performed immediately with the new key.
+
+Pseudo-code for validating the JWT:
+
+```java
+function IsValidJWT(jwt) {
+  JWK[] keys = getKeysFromVipps()
+
+  for each key in keys {
+    if validate(jwt, key) {
+        return true
+    }
+  }
+
+  // No key could validate the JWT
+  throw ValidationException()
+}
+```
 
 It is _highly_ recommended to use a pre-made library.
 The library should at least help with validating the expiry time.
 
-In addition to validating the JWT's authenticity and basic properties,
+In addition to validating the `JWT`'s authenticity and basic properties,
 the IPP/invoice hotel must ensure to validate the following:
 
 * The expiration timestamp is in the future. i.e. not expired.
