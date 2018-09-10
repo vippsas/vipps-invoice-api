@@ -23,6 +23,14 @@ https://github.com/vippsas/vipps-developers
 
 The main API documentaion is [vipps-invoice-api.md](https://github.com/vippsas/vipps-invoice-api/blob/master/vipps-invoice-api.md). This is frequently updated, and issues and PRs are welcome.
 
+## Test users
+
+This test user can receive invoices, and approve, etc:
+
+| customerId | NIN (fødselsnummer) | MSISDN (phone number) | First name | Last name | Owner |
+| ---------- | ------------------- | --------------------- | ---------- | --------- | ----- |
+| 10003301	 | 01032300371.        | 4797777776            | Willhelm Fos | Kluvstad | Common |
+
 ## ISP: Invoice Service Provider
 
 Invoice _Service_ Providers: Actors who submit invoices. Either for themselves or on behalf of their clients.
