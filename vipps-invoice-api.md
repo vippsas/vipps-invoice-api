@@ -12,7 +12,7 @@ Please use GitHub's built-in functionality for
 [pull requests](https://github.com/vippsas/vipps-invoice-api/pulls),
 or contact us at integration@vipps.no.
 
-Document version: 0.2.10.
+Document version: 0.2.11.
 
 ## External documentation
 
@@ -33,9 +33,6 @@ A valid access token is required in order to call this API. This API is provided
 a service called API Management in Azure - think of it as the gateway to the API.
 To get a token, follow
 [the guide for Vipps eCommerce API](https://github.com/vippsas/vipps-ecom-api/blob/master/vipps-ecom-api.md)
-
-This process can be confusing, so please read the guide. More details on how to use the
-token is provided later in this documentation.
 
 ## Terminology
 
@@ -114,6 +111,25 @@ filter the allowed payment methods according to Norwegian debt collection laws.
 | 7 | `revoked`  | Invoice has been revoked by the ISP                                                  |
 
 See the detailed state descriptions, and state transitions, at the end of this document.
+
+# HTTP responses
+
+This API returns the following HTTP statuses in the responses:
+
+| HTTP status         | Description                                 |
+| ------------------- | ------------------------------------------- |
+| `200 OK`            | Request successful                          |
+| `201 Created`       | Request successful, resource created        |
+| `204 No Content`    | Request successful, but empty result        |
+| `400 Bad Request`   | Invalid request, see the error for details  |
+| `401 Unauthorized`  | Invalid credentials                         |
+| `403 Forbidden`     | Authentication ok, but credentials lacks authorization  |
+| `404 Not Found`     | The resource was not found  |
+| `409 Conflict`      | Unsuccessful due to conflicting resource   |
+| `429 Too Many Requests`  | There is currently a limit of max 20 calls per second    |
+| `500 Server Error`  | An internal Vipps problem.                  |
+
+All error responses contains an `error` object in the body, with details of the problem.
 
 # Authentication and authorization
 
