@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Vipps Invoice ISP API
-  version: '0.3.4'
+  version: '0.3.6'
   description: >-
 
     This is the API for Vipps Regninger. While we have worked closely with
@@ -70,6 +70,8 @@ paths:
             $ref: '#/definitions/Error'
         '404':
           description: Recipient not Found
+        '429':
+          description: Rate limit exceeded
         '500':
           description: Internal Server Error
           schema:
@@ -132,6 +134,8 @@ paths:
           description: A different invoice with this id already exists.
           schema:
             $ref: '#/definitions/InvoicesInvoiceIdPut409ApplicationJsonResponse'
+        '429':
+          description: Rate limit exceeded
         '500':
           description: Internal server error
       produces:
@@ -167,6 +171,8 @@ paths:
             $ref: '#/definitions/invoiceOut'
         '404':
           description: Invoice not found
+        '429':
+          description: Rate limit exceeded
       produces:
         - application/json
   '/invoices/{invoiceId}/status/revoked':
@@ -222,6 +228,8 @@ paths:
             $ref: '#/definitions/Error'
         '404':
           description: Invoice not found
+        '429':
+          description: Rate limit exceeded
       produces:
         - application/json
   /jwk:
@@ -253,6 +261,8 @@ paths:
                   'n': 5Dkax7lxzotIVx5DQidS...
           schema:
             $ref: '#/definitions/JsonWebKeySet'
+        '429':
+          description: Rate limit exceeded
         '500':
           description: Internal server error
 definitions:

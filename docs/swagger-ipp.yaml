@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Vipps Invoice IPP API
-  version: '0.3.5'
+  version: '0.3.6'
   description: >-
     This is the API for Vipps Regninger. While we have worked closely with
     selected partners, and believe that this is very close to production
@@ -67,6 +67,8 @@ paths:
             $ref: '#/definitions/Error'
         '404':
           description: Recipient not Found
+        '429':
+          description: Rate limit exceeded
         '500':
           description: Internal Server Error
           schema:
@@ -120,6 +122,8 @@ paths:
           description: Bad request
           schema:
             $ref: '#/definitions/Error'
+        '429':
+          description: Rate limit exceeded
         '500':
           description: Internal server error
           schema:
@@ -169,6 +173,8 @@ paths:
           description: Bad request
           schema:
             $ref: '#/definitions/Error'
+        '429':
+          description: Rate limit exceeded
         '500':
           description: Internal server error
           schema:
@@ -202,6 +208,8 @@ paths:
             $ref: '#/definitions/invoiceOut'
         '404':
           description: Invoice not found
+        '429':
+          description: Rate limit exceeded
       produces:
         - application/json
   '/invoices/{invoiceId}/status/approved':
@@ -253,6 +261,8 @@ paths:
             $ref: '#/definitions/Error'
         '404':
           description: Invoice not found
+        '429':
+          description: Rate limit exceeded
       produces:
         - application/json
   '/invoices/{invoiceId}/status/pending':
@@ -296,6 +306,8 @@ paths:
             $ref: '#/definitions/Error'
         '404':
           description: Invoice not found
+        '429':
+          description: Rate limit exceeded
       produces:
         - application/json
   '/invoices/{invoiceId}/status/deleted':
@@ -342,6 +354,8 @@ paths:
             $ref: '#/definitions/Error'
         '404':
           description: Invoice not found
+        '429':
+          description: Rate limit exceeded
       produces:
         - application/json
   '/invoices/{invoiceId}/commercial-invoice':
@@ -378,6 +392,8 @@ paths:
           description: Not allowed to access the invoice
         '404':
           description: Invoice not found
+        '429':
+          description: Rate limit exceeded
         '500':
           description: Server error. E.g. if JWT generation fails.
       produces:
@@ -421,6 +437,8 @@ paths:
           description: Not allowed to access the invoice or attachment
         '404':
           description: Invoice or attachment not found
+        '429':
+          description: Rate limit exceeded
         '500':
           description: Server error. E.g. if JWT generation fails.
       produces:
@@ -454,6 +472,8 @@ paths:
                   'n': 5Dkax7lxzotIVx5DQidS...
           schema:
             $ref: '#/definitions/JsonWebKeySet'
+        '429':
+          description: Rate limit exceeded
         '500':
           description: Internal server error
 definitions:
