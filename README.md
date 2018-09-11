@@ -55,6 +55,10 @@ install it using `pip`.
 
 # Swagger changelog
 
+## 0.3.7
+
+* Bugfix: ISPs can now fetch their own invoices 
+
 ## 0.3.6 
 
 * `HTTP 429 Too Many Requests` added to endpoints.
