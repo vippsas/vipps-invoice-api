@@ -12,7 +12,7 @@ Please use GitHub's built-in functionality for
 [pull requests](https://github.com/vippsas/vipps-invoice-api/pulls),
 or contact us at integration@vipps.no.
 
-Document version: 0.2.12.
+Document version: 0.2.13.
 
 ## External documentation
 
@@ -274,6 +274,10 @@ will have a browser opened that loads the document.
 and will need to validate the JWT token before sending the document data.
 
 5. If the JWT is valid, the user is sent the document data (e.g. the PDF).
+
+ It is up to the invoice hotel how long the documents are available.
+ This depends on the invoice hotel's agreement with the invoice issuer,
+ and can be 18 months, 10 years or something else.
 
 ## Validating the JSON Web Token (JWT) and the request
 
