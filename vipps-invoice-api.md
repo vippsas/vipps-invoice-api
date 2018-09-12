@@ -12,7 +12,7 @@ Please use GitHub's built-in functionality for
 [pull requests](https://github.com/vippsas/vipps-invoice-api/pulls),
 or contact us at integration@vipps.no.
 
-Document version: 0.2.13.
+Document version: 0.2.14.
 
 ## External documentation
 
@@ -224,26 +224,43 @@ For ISPs who send invoices it means that they call the endpoint as many times as
 | 1    | [`POST:/recipients/tokens`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Request_Recipient_Token_v1) | The call will resolve the provided personal data and return a `recipientToken` if the recipient could be resolved. This token is used in the subsequent call(s). |
 | 2    | [`GET:/invoices`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/List_Invoices_v1).   | The previously obtained `recipientToken` is used as a header to fetch all invoices for the recipient.                                                         |
 
+### Get APIM token
 ~~~~
--- Get apim token
 POST https://apitest.vipps.no/accessToken/get
 Ocp-Apim-Subscription-Key : ***
 client_secret : ***
 client_id : ***
 
-{"token_type":"Bearer","expires_in":"86398","ext_expires_in":"0","expires_on":"1536840154","not_before":"1536753455",
-"resource":"00000002-0000-0000-c000-00000000000","access_token":"***"}
+{
+  "token_type":"Bearer",
+  "expires_in":"86398",
+  "ext_expires_in":"0",
+  "expires_on":"1536840154",
+  "not_before":"1536753455",
+  "resource":"00000002-0000-0000-c000-00000000000",
+  "access_token":"***"
+}
+~~~~
 
--- Get recipient token
+### Get recipient token
+
+~~~~
 POST https://apitest.vipps.no/vipps-ipp/v1/recipients/tokens
 Authorization : ***
 Ocp-Apim-Subscription-Key : ***
-{"type": "nin-no", "value":"010298******"}
+{
+  "type": "nin-no",
+  "value":"010298******"
+}
+{
+  "recipientToken":"***"
+}
+~~~~
 
-{"recipientToken":"***"}
+### Get invoices
 
--- Get invoices
-https://apitest.vipps.no/vipps-ipp/v1/invoices
+~~~~
+GET https://apitest.vipps.no/vipps-ipp/v1/invoices
 Authorization : ***
 Ocp-Apim-Subscription-Key : ***
 vippsinvoice-recipienttoken : ***
@@ -294,6 +311,7 @@ vippsinvoice-recipienttoken : ***
   "created": ""
 }
 ~~~~
+
 ## National identity number (NIN), or phone number (MSISDN), not available
 
 Vipps requires either NIN or MSISDN for
