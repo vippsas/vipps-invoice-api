@@ -23,7 +23,7 @@ https://github.com/vippsas/vipps-developers
 
 # API documentation for ISP and IPP
 
-The main API documentaion is [vipps-invoice-api.md](https://github.com/vippsas/vipps-invoice-api/blob/master/vipps-invoice-api.md). This is [frequently updated[(https://github.com/vippsas/vipps-invoice-api/commits/master/vipps-invoice-api.md), and issues and PRs are welcome.
+The main API documentaion is [vipps-invoice-api.md](https://github.com/vippsas/vipps-invoice-api/blob/master/vipps-invoice-api.md). This is [frequently updated](https://github.com/vippsas/vipps-invoice-api/commits/master/vipps-invoice-api.md), and issues and PRs are welcome.
 
 ## Test users
 
