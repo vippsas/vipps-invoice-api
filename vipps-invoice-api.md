@@ -224,6 +224,10 @@ For ISPs who send invoices it means that they call the endpoint as many times as
 | 1    | [`POST:/recipients/tokens`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Request_Recipient_Token_v1) | The call will resolve the provided personal data and return a `recipientToken` if the recipient could be resolved. This token is used in the subsequent call(s). |
 | 2    | [`GET:/invoices`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/List_Invoices_v1).   | The previously obtained `recipientToken` is used as a header to fetch all invoices for the recipient.                                                         |
 
+## Example 3: Get invoices, with complete requests and responses
+
+The examples below are complete `request` and `response`examples, detailing the above examples.
+
 ### Get APIM token
 ~~~~
 POST https://apitest.vipps.no/accessToken/get
