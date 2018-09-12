@@ -224,6 +224,76 @@ For ISPs who send invoices it means that they call the endpoint as many times as
 | 1    | [`POST:/recipients/tokens`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Request_Recipient_Token_v1) | The call will resolve the provided personal data and return a `recipientToken` if the recipient could be resolved. This token is used in the subsequent call(s). |
 | 2    | [`GET:/invoices`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/List_Invoices_v1).   | The previously obtained `recipientToken` is used as a header to fetch all invoices for the recipient.                                                         |
 
+~~~~
+-- Get apim token
+POST https://apitest.vipps.no/accessToken/get
+Ocp-Apim-Subscription-Key : ***
+client_secret : ***
+client_id : ***
+
+{"token_type":"Bearer","expires_in":"86398","ext_expires_in":"0","expires_on":"1536840154","not_before":"1536753455",
+"resource":"00000002-0000-0000-c000-00000000000","access_token":"***"}
+
+-- Get recipient token
+POST https://apitest.vipps.no/vipps-ipp/v1/recipients/tokens
+Authorization : ***
+Ocp-Apim-Subscription-Key : ***
+{"type": "nin-no", "value":"010298******"}
+
+{"recipientToken":"***"}
+
+-- Get invoices
+https://apitest.vipps.no/vipps-ipp/v1/invoices
+Authorization : ***
+Ocp-Apim-Subscription-Key : ***
+vippsinvoice-recipienttoken : ***
+
+[{
+  "invoiceId": "orgno-no.123123123.047770296",
+  "paymentInformation": {
+    "type": "kid",
+    "value": "1234567890128",
+    "account": "12345678903"
+  },
+  "invoiceType": "invoice",
+  "due": "2023-03-13T16:00:00+01:00",
+  "amount": 25043,
+  "minAmount": 25043,
+  "subject": "Bompasseringer",
+  "issuerName": "Lister Bompengeselskap",
+  "recipient": {
+    "identType": "nin-no",
+    "identValue": "310362******",
+    "resolvedAt": "2018-08-30T09:11:19Z"
+  },
+  "commercialInvoice": [
+    {
+      "mimeType": "application/pdf",
+      "url": "https://www.example.com/08fd5360-e218-4658-894f-4f37649e7df7/comminv.pdf"
+    }
+  ],
+  "attachments": [
+    {
+      "id": "1",
+      "title": "Ferry",
+      "mimeTypes": [
+        "application/pdf"
+      ]
+    }
+  ],
+  "issuerIconUrl": "https://www.example.com/logos/lister.png",
+  "status": {
+    "created": "2018-08-30T09:11:19Z",
+    "state": "pending",
+    "etag": "0300536c-0000-0000-0000-5b87b4b70000",
+    "createdBy": {
+      "actorId": "",
+      "appId": ""
+    }
+  },
+  "created": ""
+}
+~~~~
 ## National identity number (NIN), or phone number (MSISDN), not available
 
 Vipps requires either NIN or MSISDN for
