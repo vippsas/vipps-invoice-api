@@ -9,7 +9,7 @@ Please note that the official, stable developer resources for Vipps is still htt
 Important dates (which _may_ change):
 * Feature-complete version without APIM for test: 10th Aug​
 * Feature-complete version with APIM for test: ~20th~ 28th Aug (see [issues](https://github.com/vippsas/vipps-invoice-api/issues))
-* Feature-complete version with APIM for production: ~7th~ 11th September (tentative)
+* Feature-complete version _of the API_ with APIM authentication for production: ~7th~ 12th September (tentative)
 
 See the Vipps Developers repository for
 a "getting started" guide,
