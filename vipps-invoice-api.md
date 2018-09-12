@@ -12,7 +12,7 @@ Please use GitHub's built-in functionality for
 [pull requests](https://github.com/vippsas/vipps-invoice-api/pulls),
 or contact us at integration@vipps.no.
 
-Document version: 0.2.15.
+Document version: 0.2.16.
 
 ## External documentation
 
@@ -133,7 +133,7 @@ All error responses contains an `error` object in the body, with details of the 
 
 \*: The limit is cautiously set quite low in the production environment, as we want to 
 monitor performance closely before increasing the limit. 
-We count HTTP requests per `client_id`.
+We count HTTP requests per `client_id` and product (ISP and IPP).
 For now, all HTTP requests are counted and rate-limited. 
 We have previously requested data from integrators about volume, times, etc, 
 but only received this from one integrator. 
