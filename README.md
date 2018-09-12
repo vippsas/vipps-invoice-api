@@ -10,7 +10,7 @@ Important dates (which _may_ change):
 * Feature-complete version without APIM for test: 10th Aug​
 * Feature-complete version with APIM for test: ~20th~ 28th Aug (see [issues](https://github.com/vippsas/vipps-invoice-api/issues))
 * Feature-complete version _of the API_ with APIM authentication for production: ~7th~ 12th September
-* Production access for integrators: 12th September
+* Production access for integrators: 13th September
 * Vipps Regninger visible in the Vipps app: _"soon"_ (no public date for this yet)
 
 See the Vipps Developers repository for
