@@ -23,7 +23,7 @@ Swagger/OAS API documentation is available on GitHub: https://github.com/vippsas
 ### Getting access to the Vipps Developer Portal
 
 See
-[the getting started guide](https://github.com/vippsas/vipps-ecom-api/blob/master/vipps-ecom-api-getting-started.md)
+[the getting started guide](https://github.com/vippsas/vipps-developers/blob/master/vipps-developer-portal-getting-started.md)
 for the Vipps eCommerce API for general information about the Vipps Developer Portal.
 This is where you create keys to the API.
 
