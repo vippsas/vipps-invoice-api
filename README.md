@@ -59,7 +59,7 @@ install it using `pip`.
 
 ## 0.3.7
 
-* Corrected `state` for invoices in Swagger. 
+* Corrected `state` for invoices in Swagger: `[pending, approved, deleted, created, rejected, expired, revoked]
 
 ## 0.3.6 
 
