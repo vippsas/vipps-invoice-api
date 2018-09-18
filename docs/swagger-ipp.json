@@ -964,11 +964,6 @@
                 "type": "string",
                 "description": "MIME type of commercial invoice document",
                 "example": "application/pdf"
-              },
-              "url": {
-                "type": "string",
-                "description": "URL of the commercial invoice provided by the IPP. Not meant for direct use the specialized endpoint for retrieving a URL with a token.",
-                "example": "https://invoice-hotel.example.org/123456-abcdef-7890.pdf"
               }
             }
           }
