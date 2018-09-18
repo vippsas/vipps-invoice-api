@@ -57,6 +57,10 @@ install it using `pip`.
 
 # Swagger changelog
 
+## 0.3.7
+
+* Corrected `state` for invoices in Swagger. 
+
 ## 0.3.6 
 
 * `HTTP 429 Too Many Requests` added to endpoints.
