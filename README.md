@@ -63,6 +63,7 @@ install it using `pip`.
 
 ## 0.3.7
 
+* Corrected `state` for invoices in Swagger: `[pending, approved, deleted, created, rejected, expired, revoked]
 * Bugfix: ISPs can now fetch their own invoices 
 
 ## 0.3.6 
