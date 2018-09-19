@@ -57,6 +57,10 @@ install it using `pip`.
 
 # Swagger changelog
 
+## 0.3.8
+
+* Removed URL to commercial invoice in invoiceOut.
+
 ## 0.3.7
 
 * Bugfix: ISPs can now fetch their own invoices 
