@@ -12,7 +12,7 @@ Please use GitHub's built-in functionality for
 [pull requests](https://github.com/vippsas/vipps-invoice-api/pulls),
 or contact us at integration@vipps.no.
 
-Document version: 0.2.11.
+Document version: 0.2.16.
 
 ## External documentation
 
@@ -23,7 +23,7 @@ Swagger/OAS API documentation is available on GitHub: https://github.com/vippsas
 ### Getting access to the Vipps Developer Portal
 
 See
-[the getting started guide](https://github.com/vippsas/vipps-ecom-api/blob/master/vipps-ecom-api-getting-started.md)
+[the getting started guide](https://github.com/vippsas/vipps-developers/blob/master/vipps-developer-portal-getting-started.md)
 for the Vipps eCommerce API for general information about the Vipps Developer Portal.
 This is where you create keys to the API.
 
@@ -126,10 +126,18 @@ This API returns the following HTTP statuses in the responses:
 | `403 Forbidden`     | Authentication ok, but credentials lacks authorization  |
 | `404 Not Found`     | The resource was not found  |
 | `409 Conflict`      | Unsuccessful due to conflicting resource   |
-| `429 Too Many Requests`  | There is currently a limit of max 20 calls per second    |
+| `429 Too Many Requests`  | There is currently a limit of max 20 calls per second\*  |
 | `500 Server Error`  | An internal Vipps problem.                  |
 
 All error responses contains an `error` object in the body, with details of the problem.
+
+\*: The limit is cautiously set quite low in the production environment, as we want to 
+monitor performance closely before increasing the limit. 
+We count HTTP requests per `client_id` and product (ISP and IPP).
+For now, all HTTP requests are counted and rate-limited. 
+We have previously requested data from integrators about volume, times, etc, 
+but only received this from one integrator. 
+If you are able to provide data for your solution, please let us know.
 
 # Authentication and authorization
 
@@ -224,6 +232,98 @@ For ISPs who send invoices it means that they call the endpoint as many times as
 | 1    | [`POST:/recipients/tokens`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Request_Recipient_Token_v1) | The call will resolve the provided personal data and return a `recipientToken` if the recipient could be resolved. This token is used in the subsequent call(s). |
 | 2    | [`GET:/invoices`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/List_Invoices_v1).   | The previously obtained `recipientToken` is used as a header to fetch all invoices for the recipient.                                                         |
 
+## Example 3: Get invoices, with complete requests and responses
+
+The examples below are complete `request` and `response`examples, detailing the above examples.
+
+### Get APIM token
+~~~~
+POST https://apitest.vipps.no/accessToken/get
+Ocp-Apim-Subscription-Key : ***
+client_secret : ***
+client_id : ***
+
+{
+  "token_type":"Bearer",
+  "expires_in":"86398",
+  "ext_expires_in":"0",
+  "expires_on":"1536840154",
+  "not_before":"1536753455",
+  "resource":"00000002-0000-0000-c000-00000000000",
+  "access_token":"***"
+}
+~~~~
+
+### Get recipient token
+
+~~~~
+POST https://apitest.vipps.no/vipps-ipp/v1/recipients/tokens
+Authorization : ***
+Ocp-Apim-Subscription-Key : ***
+{
+  "type": "nin-no",
+  "value":"010298******"
+}
+{
+  "recipientToken":"***"
+}
+~~~~
+
+### Get invoices
+
+~~~~
+GET https://apitest.vipps.no/vipps-ipp/v1/invoices
+Authorization : ***
+Ocp-Apim-Subscription-Key : ***
+vippsinvoice-recipienttoken : ***
+
+[{
+  "invoiceId": "orgno-no.123123123.047770296",
+  "paymentInformation": {
+    "type": "kid",
+    "value": "1234567890128",
+    "account": "12345678903"
+  },
+  "invoiceType": "invoice",
+  "due": "2023-03-13T16:00:00+01:00",
+  "amount": 25043,
+  "minAmount": 25043,
+  "subject": "Bompasseringer",
+  "issuerName": "Lister Bompengeselskap",
+  "recipient": {
+    "identType": "nin-no",
+    "identValue": "310362******",
+    "resolvedAt": "2018-08-30T09:11:19Z"
+  },
+  "commercialInvoice": [
+    {
+      "mimeType": "application/pdf",
+      "url": "https://www.example.com/08fd5360-e218-4658-894f-4f37649e7df7/comminv.pdf"
+    }
+  ],
+  "attachments": [
+    {
+      "id": "1",
+      "title": "Ferry",
+      "mimeTypes": [
+        "application/pdf"
+      ]
+    }
+  ],
+  "issuerIconUrl": "https://www.example.com/logos/lister.png",
+  "status": {
+    "created": "2018-08-30T09:11:19Z",
+    "state": "pending",
+    "etag": "0300536c-0000-0000-0000-5b87b4b70000",
+    "createdBy": {
+      "actorId": "",
+      "appId": ""
+    }
+  },
+  "created": ""
+}
+~~~~
+
 ## National identity number (NIN), or phone number (MSISDN), not available
 
 Vipps requires either NIN or MSISDN for
@@ -274,6 +374,10 @@ will have a browser opened that loads the document.
 and will need to validate the JWT token before sending the document data.
 
 5. If the JWT is valid, the user is sent the document data (e.g. the PDF).
+
+ It is up to the invoice hotel how long the documents are available.
+ This depends on the invoice hotel's agreement with the invoice issuer,
+ and can be 18 months, 10 years or something else.
 
 ## Validating the JSON Web Token (JWT) and the request
 

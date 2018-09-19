@@ -9,7 +9,9 @@ Please note that the official, stable developer resources for Vipps is still htt
 Important dates (which _may_ change):
 * Feature-complete version without APIM for test: 10th Aug​
 * Feature-complete version with APIM for test: ~20th~ 28th Aug (see [issues](https://github.com/vippsas/vipps-invoice-api/issues))
-* Feature-complete version with APIM for production: ~7th~ 11th September (tentative)
+* Feature-complete version _of the API_ with APIM authentication for production: ~7th~ 12th September
+* Production access for integrators: 13th September
+* Vipps Regninger visible in the Vipps app: _"soon"_ (no public date for this yet)
 
 See the Vipps Developers repository for
 a "getting started" guide,
@@ -21,7 +23,7 @@ https://github.com/vippsas/vipps-developers
 
 # API documentation for ISP and IPP
 
-The main API documentaion is [vipps-invoice-api.md](https://github.com/vippsas/vipps-invoice-api/blob/master/vipps-invoice-api.md). This is frequently updated, and issues and PRs are welcome.
+The main API documentaion is [vipps-invoice-api.md](https://github.com/vippsas/vipps-invoice-api/blob/master/vipps-invoice-api.md). This is [frequently updated](https://github.com/vippsas/vipps-invoice-api/commits/master/vipps-invoice-api.md), and issues and PRs are welcome.
 
 ## Test users
 
