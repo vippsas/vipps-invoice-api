@@ -12,7 +12,7 @@ Please use GitHub's built-in functionality for
 [pull requests](https://github.com/vippsas/vipps-invoice-api/pulls),
 or contact us at integration@vipps.no.
 
-Document version: 0.2.16.
+Document version: 0.2.17.
 
 ## External documentation
 
@@ -131,12 +131,12 @@ This API returns the following HTTP statuses in the responses:
 
 All error responses contains an `error` object in the body, with details of the problem.
 
-\*: The limit is cautiously set quite low in the production environment, as we want to 
-monitor performance closely before increasing the limit. 
+\*: The limit is cautiously set quite low in the production environment, as we want to
+monitor performance closely before increasing the limit.
 We count HTTP requests per `client_id` and product (ISP and IPP).
-For now, all HTTP requests are counted and rate-limited. 
-We have previously requested data from integrators about volume, times, etc, 
-but only received this from one integrator. 
+For now, all HTTP requests are counted and rate-limited.
+We have previously requested data from integrators about volume, times, etc,
+but only received this from one integrator.
 If you are able to provide data for your solution, please let us know.
 
 # Authentication and authorization
@@ -184,7 +184,7 @@ HTTP 200 OK
 }
 ```
 
-Every request to the API, except the `/jwk` endpoint, needs to have an `Authorization` header with the generated token.
+Every request to the API, _including_ the `/jwk` endpoint, needs to have an `Authorization` header with the generated token.
 *(NOTE: The `/jwk` endpoint is not possible to use with the "Try out" feature in the Swagger documentation on GitHub).*
 
 The header in the request to this API should look like this:
