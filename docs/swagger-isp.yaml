@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Vipps Invoice ISP API
-  version: '0.3.9'
+  version: '0.3.10'
   description: >-
 
     This is the API for Vipps Regninger. While we have worked closely with
@@ -130,6 +130,10 @@ paths:
           description: Bad request
           schema:
             $ref: '#/definitions/InvoicesInvoiceIdPut400ApplicationJsonResponse'
+        '403':
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/Error'
         '409':
           description: A different invoice with this id already exists.
           schema:
@@ -571,6 +575,12 @@ definitions:
           etag:
             type: string
             description: System generated property used for optimistic concurrency control.
+          problems:
+            description: A list of problems causing the invoice to be rejected. (only for state 'rejected')
+            type: array
+            required: false
+            items:
+              $ref: '#/definitions/Error'
       created:
         type: string
         format: date-time

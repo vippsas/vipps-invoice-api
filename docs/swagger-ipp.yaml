@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Vipps Invoice IPP API
-  version: '0.3.9'
+  version: '0.3.10'
   description: >-
     This is the API for Vipps Regninger. While we have worked closely with
     selected partners, and believe that this is very close to production
@@ -215,6 +215,9 @@ paths:
       description: |-
         Mark an invoice as approved. Approved means that a recipient has actively approved the invoice and the IPP has/will initiate a payment.
         It is the responsibility of the IPP to set the status back to pending if either the payment fails or the recipient cancels the payment.
+        Amount and due date is validated. 
+        Amount is required. If the original invoice specified an minimum amount, the amount must be at least that amount. Otherwise the amount can be anything.
+        The due date must be between "now" and one year into the future. 
       operationId: Change_Status_To_Approved_v1
       summary: Change status to approved
       tags:
@@ -748,13 +751,18 @@ definitions:
           due:
             type: string
             format: date-time
-            description: When the user has set the payment to be due
+            description: When the user has set the payment to be due (only for state 'approved')
           amount:
             type: integer
-            description: Amount the user has set to be paid by lowest subdivision(øre)
+            description: Amount the user has set to be paid by lowest subdivision (øre) (only for state 'approved')
           etag:
             type: string
             description: System generated property used for optimistic concurrency control.
+          problems:
+            description: A list of problems causing the invoice to be rejected. (only for state 'rejected')
+            type: array
+            items:
+              $ref: '#/definitions/Error'
       created:
         type: string
         format: date-time
