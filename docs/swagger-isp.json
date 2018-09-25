@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Vipps Invoice ISP API",
-    "version": "0.3.8",
+    "version": "0.3.9",
     "description": "\nThis is the API for Vipps Regninger. While we have worked closely with selected partners, and believe that this is very close to production quality, we are more than happy to receive feedback, either with GitHub's issue functionality, or by email.\nPlease see https://github.com/vippsas/vipps-invoice-api for documentation"
   },
   "host": "apitest.vipps.no",
@@ -610,6 +610,24 @@
               "format": "date-time",
               "description": "When the recipient was resolved.",
               "example": "2018-03-13T16:00:00Z"
+            }
+          }
+        },
+        "providerId": {
+          "type": "object",
+          "properties": {
+            "identType": {
+              "type": "string",
+              "enum": [
+                "orgno-no"
+              ],
+              "description": "Identification type of the invoice provider.",
+              "example": "orgno-no"
+            },
+            "identValue": {
+              "type": "string",
+              "description": "The value used to identify the invoice provider.",
+              "example": 999999999
             }
           }
         },
