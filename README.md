@@ -65,6 +65,10 @@ install it using `pip`.
 
 # Swagger changelog
 
+## 0.3.10
+
+* Clarification: Added 'problems' to invoice status and HTTP 403 for create invoice
+
 ## 0.3.9
 
 * Added providerId to invoiceOut.
