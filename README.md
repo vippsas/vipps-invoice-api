@@ -33,6 +33,14 @@ This test user can receive invoices, and approve, etc:
 | ---------- | ------------------- | --------------------- | ---------- | --------- | ----- |
 | 10003301	 | 01032300371         | 4797777776            | Willhelm Fos | Kluvstad | Common |
 
+## Test issuers
+
+The service validates that the account belongs to the issuer ([KAR](https://www.finansnorge.no/aktuelt/presentasjoner/bankenes-felles-konto--og-adresseregister-kar/)). Make sure that that you use a valid pair when testing.
+
+| Name               | Org. number | Account number |
+| ------------------ |------------ | -------------- |
+| Vipps Teknologi AS | 918130047   | 15038366383    |
+
 ## ISP: Invoice Service Provider
 
 Invoice _Service_ Providers: Actors who submit invoices. Either for themselves or on behalf of their clients.
