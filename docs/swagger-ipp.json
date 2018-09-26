@@ -758,12 +758,12 @@
         },
         "amount": {
           "type": "integer",
-          "description": "Amount by lowest subdivision (\u00f8re)",
+          "description": "Amount by lowest subdivision (øre)",
           "example": 25043
         },
         "minAmount": {
           "type": "integer",
-          "description": "Minimum allowed amount to pay by lowest subdivision (\u00f8re). If this is set, it indicates that this invoice can be paid with any amount between and including `minAmount` and `amount`.",
+          "description": "Minimum allowed amount to pay by lowest subdivision (øre). If this is set, it indicates that this invoice can be paid with any amount between and including `minAmount` and `amount`.",
           "example": 25043
         },
         "subject": {
@@ -872,7 +872,7 @@
             },
             "amount": {
               "type": "integer",
-              "description": "Amount the user has set to be paid by lowest subdivision (\u00f8re) (only for state 'approved')"
+              "description": "Amount the user has set to be paid by lowest subdivision (øre) (only for state 'approved')"
             },
             "etag": {
               "type": "string",
@@ -1050,7 +1050,7 @@
         },
         "amount": {
           "type": "integer",
-          "description": "Amount the user has set to be paid by lowest subdivision (\u00f8re)",
+          "description": "Amount the user has set to be paid by lowest subdivision (øre)",
           "example": 25043
         }
       },
