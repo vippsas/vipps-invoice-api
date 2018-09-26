@@ -327,15 +327,6 @@
     }
   },
   "definitions": {
-    "recipientToken": {
-      "type": "object",
-      "properties": {
-        "recipientToken": {
-          "type": "string",
-          "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
-        }
-      }
-    },
     "invoiceIn": {
       "type": "object",
       "description": "Invoice document which is sent to our servers.",
@@ -399,12 +390,12 @@
         },
         "amount": {
           "type": "integer",
-          "description": "Amount by lowest subdivision (øre)",
+          "description": "Amount by lowest subdivision (\u00f8re)",
           "example": 25043
         },
         "minAmount": {
           "type": "integer",
-          "description": "Minimum allowed amount to pay by lowest subdivision (øre)",
+          "description": "Minimum allowed amount to pay by lowest subdivision (\u00f8re)",
           "example": 25043
         },
         "subject": {
@@ -450,26 +441,6 @@
         }
       }
     },
-    "commercialInvoiceUrlOut": {
-      "description": "Generated URL for commercial invoice.",
-      "type": "object",
-      "properties": {
-        "url": {
-          "type": "string",
-          "example": "https://invoice-hotel.example.org/123456-abcdef-7890.pdf?token=eyJh.TY3ODk.SflKxw_adQssw5c"
-        }
-      }
-    },
-    "attachmentUrlOut": {
-      "description": "Generated URL for attachment.",
-      "type": "object",
-      "properties": {
-        "url": {
-          "type": "string",
-          "example": "https://invoice-hotel.example.org/123456-abcdef-7890.pdf?token=eyJh.TY3ODk.SflKxw_adQssw5c"
-        }
-      }
-    },
     "attachmentIn": {
       "description": "An incoming attachment related to an invoice",
       "type": "object",
@@ -511,7 +482,7 @@
       "properties": {
         "id": {
           "type": "string",
-          "example": 1
+          "example": "1"
         },
         "title": {
           "type": "string",
@@ -576,12 +547,12 @@
         },
         "amount": {
           "type": "integer",
-          "description": "Amount by lowest subdivision(øre)",
+          "description": "Amount by lowest subdivision(\u00f8re)",
           "example": 25043
         },
         "minAmount": {
           "type": "integer",
-          "description": "Minimum allowed amount to pay by lowest subdivision (øre). If this is set, it indicates that this invoice can be paid with any amount between and including `minAmount` and `amount`.",
+          "description": "Minimum allowed amount to pay by lowest subdivision (\u00f8re). If this is set, it indicates that this invoice can be paid with any amount between and including `minAmount` and `amount`.",
           "example": 25043
         },
         "subject": {
@@ -609,7 +580,7 @@
             "identValue": {
               "type": "string",
               "description": "The value used to identify the invoice recipient when the invoice was first issued.",
-              "example": 4740040040
+              "example": "4740040040"
             },
             "resolvedAt": {
               "type": "string",
@@ -633,7 +604,7 @@
             "identValue": {
               "type": "string",
               "description": "The value used to identify the invoice provider.",
-              "example": 999999999
+              "example": "999999999"
             }
           }
         },
@@ -689,7 +660,7 @@
             },
             "amount": {
               "type": "integer",
-              "description": "Amount the user has set to be paid by lowest subdivision(øre)"
+              "description": "Amount the user has set to be paid by lowest subdivision(\u00f8re)"
             },
             "etag": {
               "type": "string",
@@ -698,7 +669,6 @@
             "problems": {
               "description": "A list of problems causing the invoice to be rejected. (only for state 'rejected')",
               "type": "array",
-              "required": false,
               "items": {
                 "$ref": "#/definitions/Error"
               }
