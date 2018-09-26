@@ -270,12 +270,6 @@ paths:
         '500':
           description: Internal server error
 definitions:
-  recipientToken:
-    type: object
-    properties:
-      recipientToken:
-        type: string
-        example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
   invoiceIn:
     type: object
     description: Invoice document which is sent to our servers.
@@ -372,22 +366,6 @@ definitions:
         type: string
         description: URL to invoice issuer's logo
         example: 'https://www.example.com/logos/lister.png'
-  commercialInvoiceUrlOut:
-    description: Generated URL for commercial invoice.
-    type: object
-    properties:
-      url:
-        type: string
-        example: >-
-          https://invoice-hotel.example.org/123456-abcdef-7890.pdf?token=eyJh.TY3ODk.SflKxw_adQssw5c
-  attachmentUrlOut:
-    description: Generated URL for attachment.
-    type: object
-    properties:
-      url:
-        type: string
-        example: >-
-          https://invoice-hotel.example.org/123456-abcdef-7890.pdf?token=eyJh.TY3ODk.SflKxw_adQssw5c
   attachmentIn:
     description: An incoming attachment related to an invoice
     type: object
@@ -419,7 +397,7 @@ definitions:
     properties:
       id:
         type: string
-        example: 1
+        example: "1"
       title:
         type: string
         example: Ferry
@@ -505,7 +483,7 @@ definitions:
             description: >-
               The value used to identify the invoice recipient when the invoice
               was first issued.
-            example: 4740040040
+            example: "4740040040"
           resolvedAt:
             type: string
             format: date-time
@@ -523,7 +501,7 @@ definitions:
           identValue:
             type: string
             description: The value used to identify the invoice provider.
-            example: 999999999
+            example: "999999999"
       commercialInvoice:
         type: array
         description: >-
@@ -578,7 +556,6 @@ definitions:
           problems:
             description: A list of problems causing the invoice to be rejected. (only for state 'rejected')
             type: array
-            required: false
             items:
               $ref: '#/definitions/Error'
       created:

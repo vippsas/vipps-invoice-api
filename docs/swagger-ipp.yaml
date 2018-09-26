@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Vipps Invoice IPP API
-  version: '0.3.10'
+  version: '0.3.11'
   description: >-
     This is the API for Vipps Regninger. While we have worked closely with
     selected partners, and believe that this is very close to production
@@ -166,7 +166,7 @@ paths:
           schema:
             $ref: '#/definitions/InvoicesCountGet200ApplicationJsonResponse'
           examples:
-            application/json: '42'
+            application/json: 42
         '400':
           description: Bad request
           schema:
@@ -478,100 +478,6 @@ paths:
         '500':
           description: Internal server error
 definitions:
-  recipientToken:
-    type: object
-    properties:
-      recipientToken:
-        type: string
-        example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
-  invoiceIn:
-    type: object
-    description: Invoice document which is sent to our servers.
-    required:
-      - recipientToken
-      - paymentInformation
-      - due
-      - amount
-      - subject
-      - invoiceType
-    properties:
-      recipientToken:
-        type: string
-        description: token received is obtained by calling the endpoint to resolve a recipient
-      paymentInformation:
-        type: object
-        required:
-          - type
-          - value
-          - account
-        properties:
-          type:
-            type: string
-            enum:
-              - kid
-              - message
-            example: kid
-          value:
-            type: string
-            example: '1234567890128'
-          account:
-            type: string
-            example: '12345678903'
-      invoiceType:
-        type: string
-        enum:
-          - invoice
-          - paymentReminder
-          - debtCollectionWarning
-          - debtCollectionNotice
-          - noticeOfLegalProceedings
-          - debtCollectionReminder
-          - creditNote
-        example: invoice
-      due:
-        type: string
-        format: date-time
-        description: When an invoice is due
-        example: '2023-03-13T15:00:00+00:00'
-      amount:
-        type: integer
-        description: Amount by lowest subdivision(øre)
-        example: 25043
-      minAmount:
-        type: integer
-        description: Minimum allowed amount to pay by lowest subdivision(øre)
-        example: 25043
-      subject:
-        type: string
-        description: A textual subject for the receipient of the invoice
-        example: Bompasseringer
-      issuerName:
-        type: string
-        description: Organization name of issuer
-        example: Lister Bompengeselskap
-      commercialInvoice:
-        type: array
-        description: Conceptually only one invoice, but it can have multiple representations. The issuer is advised to provide the commercial invoice in multiple formats (i.e. different MIME types) if possible. This will make it easier provide the user and IPP different ways of showing the invoice
-        items:
-          type: object
-          properties:
-            mimeType:
-              type: string
-              description: MIME type of commercial invoice document
-              example: application/pdf
-            url:
-              type: string
-              description: URL of commercial invoice
-              example: 'https://www.example.com/08fd5360-e218-4658-894f-4f37649e7df7/comminv.pdf'
-      attachments:
-        type: array
-        description: Invoice attachments
-        items:
-          $ref: '#/definitions/attachmentIn'
-      issuerIconUrl:
-        type: string
-        description: URL to invoice issuer's logo
-        example: 'https://www.example.com/logos/lister.png'
   commercialInvoiceUrlOut:
     description: Generated URL for commercial invoice
     type: object
@@ -586,27 +492,6 @@ definitions:
       url:
         type: string
         example: 'https://invoice-hotel.example.org/123456-abcdef-7890.pdf?token=eyJh.TY3ODk.SflKxw_adQssw5c'
-  attachmentIn:
-    description: An incoming attachment related to an invoice
-    type: object
-    required:
-      - title
-      - urls
-    properties:
-      title:
-        type: string
-        example: Ferry
-      urls:
-        type: array
-        items:
-          type: object
-          properties:
-            url:
-              type: string
-              example: 'https://invoice-hotel.example.org/invoice/42.pdf'
-            mimeType:
-              type: string
-              example: application/pdf
   attachmentOut:
     description: A list of optional attachments related to an invoice
     type: object
@@ -617,7 +502,7 @@ definitions:
     properties:
       id:
         type: string
-        example: 1
+        example: "1"
       title:
         type: string
         example: Ferry
@@ -693,7 +578,7 @@ definitions:
           identValue:
             type: string
             description: The value used to identify the invoice recipient when the invoice was first issued.
-            example: 4740040040
+            example: "4740040040"
           resolvedAt:
             type: string
             format: date-time
@@ -711,7 +596,7 @@ definitions:
           identValue:
             type: string
             description: The value used to identify the invoice provider.
-            example: 999999999
+            example: "999999999"
       commercialInvoice:
         type: array
         description: 'Conceptually only one invoice, but it can have multiple representations. The issuer is advised to provide the commercial invoice in multiple formats (i.e. different MIME types) if possible. This will make it easier provide the user and IPP different ways of showing the invoice.'
