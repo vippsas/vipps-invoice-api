@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Vipps Invoice ISP API
-  version: '0.3.10'
+  version: '0.3.11'
   description: >-
 
     This is the API for Vipps Regninger. While we have worked closely with
@@ -535,14 +535,15 @@ definitions:
           state:
             type: string
             enum:
-              - pending
               - created
               - rejected
+              - pending
+              - expired
               - approved
               - deleted
-              - expired
+              - revoked
             description: >-
-              Status of the invoice. 
+              Status of the invoice.
           due:
             type: string
             format: date-time
