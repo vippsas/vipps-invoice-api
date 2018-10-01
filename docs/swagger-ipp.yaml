@@ -254,8 +254,8 @@ paths:
       consumes:
         - application/json
       responses:
-        '201':
-          description: OK
+        '204':
+          description: OK (no content)
         '400':
           description: Bad request
           schema:
