@@ -12,7 +12,7 @@ Please use GitHub's built-in functionality for
 [pull requests](https://github.com/vippsas/vipps-invoice-api/pulls),
 or contact us at integration@vipps.no.
 
-Document version: 0.2.17.
+Document version: 0.2.18.
 
 ## External documentation
 
@@ -531,7 +531,7 @@ IPPs fetch invoices for a recipient.
 #### Transitions
 
 **Transition 4: `pending` -> `expired`**
-Without any user action, the invoice will become `expired` after the _due date_
+Without any user action, the invoice will become `expired` after the _due_ timestamp.
 
 plus a grace period of 14 days. An expired invoice _must not be paid_.
 
@@ -565,7 +565,7 @@ The invoice will then disappear from the recipient's list of pending invoices.
 ## State 4: Expired
 
 If a pending invoice is not processed by the recipient, it will be set to `expired`
-after the due date plus the grace period of 14 days has passed.
+after the due timestamp plus the grace period of 14 days has passed.
 
 This is a final state and does not allow any further state transitions.
 
@@ -573,7 +573,7 @@ This is a final state and does not allow any further state transitions.
 
 An `approved` invoice means that the recipient has actively approved the invoice
 by scheduling a payment through an IPP. The payment has to be scheduled within
-the allowed time, latest at the due date and the scheduled amount has to be within
+the allowed time, latest at the due timestamp and the scheduled amount has to be within
 the allowed range defined in the invoice.
 
 ### Transitions
