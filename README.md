@@ -65,6 +65,10 @@ install it using `pip`.
 
 # Swagger changelog
 
+## 0.3.11
+
+* Add `HTTP 401` to all operations and specify API-M specific error response
+
 ## 0.3.10
 
 * Clarification: Added 'problems' to invoice status and HTTP 403 for create invoice
