@@ -68,6 +68,10 @@ paths:
           description: Bad Request
           schema:
             $ref: '#/definitions/Error'
+        '401': 
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/MsError'
         '404':
           description: Recipient not Found
         '429':
@@ -130,6 +134,10 @@ paths:
           description: Bad request
           schema:
             $ref: '#/definitions/InvoicesInvoiceIdPut400ApplicationJsonResponse'
+        '401': 
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/MsError'
         '403':
           description: Forbidden
           schema:
@@ -173,6 +181,10 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/invoiceOut'
+        '401': 
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/MsError'
         '404':
           description: Invoice not found
         '429':
@@ -224,14 +236,24 @@ paths:
           enum:
             - bearer <access_token>
       responses:
-        '201':
-          description: OK
+        '204':
+          description: OK (no content)
         '400':
           description: Bad request
           schema:
             $ref: '#/definitions/Error'
+        '401': 
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/MsError'
         '404':
           description: Invoice not found
+          schema:
+            $ref: '#/definitions/Error' 
+        '409':
+          description: Conflict
+          schema:
+            $ref: '#/definitions/Error' 
         '429':
           description: Rate limit exceeded
       produces:
@@ -265,6 +287,10 @@ paths:
                   'n': 5Dkax7lxzotIVx5DQidS...
           schema:
             $ref: '#/definitions/JsonWebKeySet'
+        '401': 
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/MsError'
         '429':
           description: Rate limit exceeded
         '500':
@@ -669,3 +695,21 @@ definitions:
       error:
         type: string
         example: 'Conflict, a different invoice with this id already exists.'
+  MsError:
+    type: object
+    properties:
+      responseInfo:
+        type: object
+        properties:
+          responseCode:
+            type: integer
+            example: 401
+          responseMessage:
+            type: string
+            example: "IDX10503: Signature validation failed. Keys tried ..." 
+      result:
+        type: object
+        properties:
+          message:
+            type: string
+            example: "IDX10503: Signature validation failed. Keys tried: ..."

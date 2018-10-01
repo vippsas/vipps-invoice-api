@@ -65,17 +65,21 @@ install it using `pip`.
 
 # Swagger changelog
 
+## 0.3.11
+
+* Add `HTTP 401` to all operations and specify API-M specific error response
+
 ## 0.3.10
 
-* Clarification: Added 'problems' to invoice status and HTTP 403 for create invoice
+* Clarification: Added 'problems' to invoice status and `HTTP 403` for create invoice
 
 ## 0.3.9
 
-* Added providerId to invoiceOut.
+* Added `providerId` to `invoiceOut`.
 
 ## 0.3.8
 
-* Removed URL to commercial invoice in invoiceOut.
+* Removed URL to commercial invoice in `invoiceOut`.
 
 ## 0.3.7
 
