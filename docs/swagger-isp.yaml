@@ -232,6 +232,12 @@ paths:
             $ref: '#/definitions/Error'
         '404':
           description: Invoice not found
+          schema:
+            $ref: '#/definitions/Error' 
+        '409':
+          description: Conflict
+          schema:
+            $ref: '#/definitions/Error' 
         '429':
           description: Rate limit exceeded
       produces:
