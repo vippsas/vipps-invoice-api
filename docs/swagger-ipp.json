@@ -382,6 +382,12 @@
           "404": {
             "description": "Invoice not found"
           },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
           "429": {
             "description": "Rate limit exceeded"
           }
@@ -451,6 +457,12 @@
           "404": {
             "description": "Invoice not found"
           },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
           "429": {
             "description": "Rate limit exceeded"
           }
@@ -519,6 +531,12 @@
           },
           "404": {
             "description": "Invoice not found"
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           },
           "429": {
             "description": "Rate limit exceeded"
