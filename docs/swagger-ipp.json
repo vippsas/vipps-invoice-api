@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Vipps Invoice IPP API",
-    "version": "0.3.11",
+    "version": "0.3.12",
     "description": "This is the API for Vipps Regninger. While we have worked closely with selected partners, and believe that this is very close to production quality, we are more than happy to receive feedback, either with GitHub's issue functionality, or by email.\nPlease see https://github.com/vippsas/vipps-invoice-api for documentation"
   },
   "host": "apitest.vipps.no",
@@ -49,7 +49,7 @@
           {
             "name": "Authorization",
             "in": "header",
-            "description": "Authorization token is obtained from Access Token service call based on the `client_id` and `client_secret` of the registered application.",
+            "description": "Authorization token is obtained from Access Token API: https://github.com/vippsas/vipps-accesstoken-api",
             "required": true,
             "type": "string",
             "enum": [
@@ -74,16 +74,16 @@
               "$ref": "#/definitions/RecipientsTokensPost200ApplicationJsonResponse"
             }
           },
-          "401": {
-            "description": "Unauthorized",
-            "schema": {
-              "$ref": "#/definitions/MsError"
-            }
-          },
           "400": {
             "description": "Bad Request",
             "schema": {
               "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/MsError"
             }
           },
           "404": {
@@ -137,7 +137,7 @@
           {
             "name": "Authorization",
             "in": "header",
-            "description": "Authorization token is obtained from Access Token service call based on the `client_id` and `client_secret` of the registered application.",
+            "description": "Authorization token is obtained from Access Token API: https://github.com/vippsas/vipps-accesstoken-api",
             "required": true,
             "type": "string",
             "enum": [
@@ -215,7 +215,7 @@
           {
             "name": "Authorization",
             "in": "header",
-            "description": "Authorization token is obtained from Access Token service call based on the `client_id` and `client_secret` of the registered application.",
+            "description": "Authorization token is obtained from Access Token API: https://github.com/vippsas/vipps-accesstoken-api",
             "required": true,
             "type": "string",
             "enum": [
@@ -279,7 +279,7 @@
           {
             "name": "Authorization",
             "in": "header",
-            "description": "Authorization token is obtained from Access Token service call based on the `client_id` and `client_secret` of the registered application.",
+            "description": "Authorization token is obtained from Access Token API: https://github.com/vippsas/vipps-accesstoken-api",
             "required": true,
             "type": "string",
             "enum": [
@@ -314,7 +314,7 @@
     },
     "/invoices/{invoiceId}/status/approved": {
       "put": {
-        "description": "Mark an invoice as approved. Approved means that a recipient has actively approved the invoice and the IPP has/will initiate a payment.\nIt is the responsibility of the IPP to set the status back to pending if either the payment fails or the recipient cancels the payment.\nAmount and due date is validated. \nAmount is required. If the original invoice specified an minimum amount, the amount must be at least that amount. Otherwise the amount can be anything.\nThe due date must be between \"now\" and one year into the future. ",
+        "description": "Mark an invoice as approved. Approved means that a recipient has actively approved the invoice and the IPP has/will initiate a payment.\nIt is the responsibility of the IPP to set the status back to pending if either the payment fails or the recipient cancels the payment.\nAmount and due date is validated.\nAmount is required. If the original invoice specified an minimum amount, the amount must be at least that amount. Otherwise the amount can be anything.\nThe due date must be between \"now\" and one year into the future.",
         "operationId": "Change_Status_To_Approved_v1",
         "summary": "Change status to approved",
         "tags": [
@@ -345,7 +345,7 @@
           {
             "name": "Authorization",
             "in": "header",
-            "description": "Authorization token is obtained from Access Token service call based on the `client_id` and `client_secret` of the registered application.",
+            "description": "Authorization token is obtained from Access Token API: https://github.com/vippsas/vipps-accesstoken-api",
             "required": true,
             "type": "string",
             "enum": [
@@ -424,7 +424,7 @@
           {
             "name": "Authorization",
             "in": "header",
-            "description": "Authorization token is obtained from Access Token service call based on the `client_id` and `client_secret` of the registered application.",
+            "description": "Authorization token is obtained from Access Token API: https://github.com/vippsas/vipps-accesstoken-api",
             "required": true,
             "type": "string",
             "enum": [
@@ -493,7 +493,7 @@
           {
             "name": "Authorization",
             "in": "header",
-            "description": "Authorization token is obtained from Access Token service call based on the `client_id` and `client_secret` of the registered application.",
+            "description": "Authorization token is obtained from Access Token API: https://github.com/vippsas/vipps-accesstoken-api",
             "required": true,
             "type": "string",
             "enum": [
@@ -555,7 +555,7 @@
           {
             "name": "Authorization",
             "in": "header",
-            "description": "Authorization token is obtained from Access Token service call based on the `client_id` and `client_secret` of the registered application.",
+            "description": "Authorization token is obtained from Access Token API: https://github.com/vippsas/vipps-accesstoken-api",
             "required": true,
             "type": "string",
             "enum": [
@@ -627,7 +627,7 @@
           {
             "name": "Authorization",
             "in": "header",
-            "description": "Authorization token is obtained from Access Token service call based on the `client_id` and `client_secret` of the registered application.",
+            "description": "Authorization token is obtained from Access Token API: https://github.com/vippsas/vipps-accesstoken-api",
             "required": true,
             "type": "string",
             "enum": [
@@ -676,7 +676,7 @@
           {
             "name": "Authorization",
             "in": "header",
-            "description": "Authorization token is obtained from Access Token service call based on the `client_id` and `client_secret` of the registered application.",
+            "description": "Authorization token is obtained from Access Token API: https://github.com/vippsas/vipps-accesstoken-api",
             "required": true,
             "type": "string",
             "enum": [

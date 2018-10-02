@@ -12,7 +12,7 @@ Please use GitHub's built-in functionality for
 [pull requests](https://github.com/vippsas/vipps-invoice-api/pulls),
 or contact us at integration@vipps.no.
 
-Document version: 0.2.18.
+Document version: 0.2.19.
 
 ## External documentation
 
@@ -31,8 +31,51 @@ This is where you create keys to the API.
 
 A valid access token is required in order to call this API. This API is provided by
 a service called API Management in Azure - think of it as the gateway to the API.
-To get a token, follow
-[the guide for Vipps eCommerce API](https://github.com/vippsas/vipps-ecom-api/blob/master/vipps-ecom-api.md)
+
+The documentation for the Vipps Access Token API is at:
+https://github.com/vippsas/vipps-accesstoken-api.
+
+Shortly summarized, you will have to make the following request
+(`client_id`, `client_secret` and `Ocp-Apim-Subscription-Key` placeholders must be replaced with real values):
+
+```http
+POST https://apitest.vipps.no/api/access-token/jwt-token HTTP/1.1
+Host: apitest.vipps.no
+Content-Type: application/json
+Ocp-Apim-Subscription-Key: <Ocp-Apim-Subscription-Key>
+
+{
+	"client_id":"<client_id>",
+	"client_secret":"<client_secret>",
+	"resource":"https://testapivipps.no/vippsas/invoice-isp-service
+}
+
+```
+
+The `resource` must be either `https://testapivipps.no/vippsas/invoice-isp-service` or `https://testapivipps.no/vippsas/invoice-ipp-service`.
+
+The request above will return a response similar to this, with the `access_token`:
+
+```http
+HTTP 200 OK
+{
+  "token_type": "Bearer",
+  "expires_in": "86398",
+  "ext_expires_in": "0",
+  "expires_on": "1495271273",
+  "not_before": "1495184574",
+  "resource": "00000002-0000-0000-c000-000000000000",
+  "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1Ni <continued>"
+}
+```
+
+Every request to the API needs to have an `Authorization` header with the generated token.
+
+The header in the request to this API should look like this:
+
+```http
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1Ni <continued>
+```
 
 ## Terminology
 

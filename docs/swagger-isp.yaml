@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Vipps Invoice ISP API
-  version: '0.3.11'
+  version: '0.3.12'
   description: >-
 
     This is the API for Vipps Regninger. While we have worked closely with
@@ -46,9 +46,7 @@ paths:
       parameters:
         - name: Authorization
           in: header
-          description: >-
-            Authorization token is obtained from Access Token service call based
-            on the `client_id` and `client_secret` of the registered application.
+          description: 'Authorization token is obtained from Access Token API: https://github.com/vippsas/vipps-accesstoken-api'
           required: true
           type: string
           enum:
@@ -68,7 +66,7 @@ paths:
           description: Bad Request
           schema:
             $ref: '#/definitions/Error'
-        '401': 
+        '401':
           description: Unauthorized
           schema:
             $ref: '#/definitions/MsError'
@@ -113,9 +111,7 @@ paths:
           type: string
         - name: Authorization
           in: header
-          description: >-
-            Authorization token is obtained from Access Token service call based
-            on the client_id and client_secret of the registered application.
+          description: Authorization token is obtained from Access Token API: https://github.com/vippsas/vipps-accesstoken-api
           required: true
           type: string
           enum:
@@ -134,7 +130,7 @@ paths:
           description: Bad request
           schema:
             $ref: '#/definitions/InvoicesInvoiceIdPut400ApplicationJsonResponse'
-        '401': 
+        '401':
           description: Unauthorized
           schema:
             $ref: '#/definitions/MsError'
@@ -169,9 +165,7 @@ paths:
           type: string
         - name: Authorization
           in: header
-          description: >-
-            Authorization token is obtained from Access Token service call based
-            on the `client_id` and `client_secret` of the registered application.
+          description: Authorization token is obtained from Access Token API: https://github.com/vippsas/vipps-accesstoken-api
           required: true
           type: string
           enum:
@@ -181,7 +175,7 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/invoiceOut'
-        '401': 
+        '401':
           description: Unauthorized
           schema:
             $ref: '#/definitions/MsError'
@@ -228,9 +222,7 @@ paths:
           type: string
         - name: Authorization
           in: header
-          description: >-
-            Authorization token is obtained from Access Token service call based
-            on the `client_id` and `client_secret` of the registered application.
+          description: Authorization token is obtained from Access Token API: https://github.com/vippsas/vipps-accesstoken-api
           required: true
           type: string
           enum:
@@ -242,18 +234,18 @@ paths:
           description: Bad request
           schema:
             $ref: '#/definitions/Error'
-        '401': 
+        '401':
           description: Unauthorized
           schema:
             $ref: '#/definitions/MsError'
         '404':
           description: Invoice not found
           schema:
-            $ref: '#/definitions/Error' 
+            $ref: '#/definitions/Error'
         '409':
           description: Conflict
           schema:
-            $ref: '#/definitions/Error' 
+            $ref: '#/definitions/Error'
         '429':
           description: Rate limit exceeded
       produces:
@@ -266,9 +258,7 @@ paths:
       parameters:
         - name: Authorization
           in: header
-          description: >-
-            Authorization token is obtained from Access Token service call based
-            on the `client_id` and `client_secret` of the registered application.
+          description: Authorization token is obtained from Access Token API: https://github.com/vippsas/vipps-accesstoken-api
           required: true
           type: string
           enum:
@@ -287,7 +277,7 @@ paths:
                   'n': 5Dkax7lxzotIVx5DQidS...
           schema:
             $ref: '#/definitions/JsonWebKeySet'
-        '401': 
+        '401':
           description: Unauthorized
           schema:
             $ref: '#/definitions/MsError'
@@ -706,7 +696,7 @@ definitions:
             example: 401
           responseMessage:
             type: string
-            example: "IDX10503: Signature validation failed. Keys tried ..." 
+            example: "IDX10503: Signature validation failed. Keys tried ..."
       result:
         type: object
         properties:

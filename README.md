@@ -65,6 +65,10 @@ install it using `pip`.
 
 # Swagger changelog
 
+## 0.3.12
+
+* Added Access Token API info: https://github.com/vippsas/vipps-accesstoken-api
+
 ## 0.3.11
 
 * Add `HTTP 401` to all operations and specify API-M specific error response
@@ -84,9 +88,9 @@ install it using `pip`.
 ## 0.3.7
 
 * Corrected `state` for invoices in Swagger: `[pending, approved, deleted, created, rejected, expired, revoked]
-* Bugfix: ISPs can now fetch their own invoices 
+* Bugfix: ISPs can now fetch their own invoices
 
-## 0.3.6 
+## 0.3.6
 
 * `HTTP 429 Too Many Requests` added to endpoints.
 
