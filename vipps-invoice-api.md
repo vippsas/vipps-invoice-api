@@ -52,7 +52,7 @@ Ocp-Apim-Subscription-Key: <Ocp-Apim-Subscription-Key>
 
 ```
 
-The `resource` must be either `https://testapivipps.no/vippsas/invoice-isp-service` or `https://testapivipps.no/vippsas/invoice-ipp-service`.
+The `resource` must be a valid Vipps product resource.
 
 The request above will return a response similar to this, with the `access_token`:
 
