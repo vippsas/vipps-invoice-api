@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Vipps Invoice IPP API
-  version: '0.3.11'
+  version: '0.3.12'
   description: >-
     This is the API for Vipps Regninger. While we have worked closely with
     selected partners, and believe that this is very close to production
@@ -61,7 +61,7 @@ paths:
           description: Recipient token
           schema:
             $ref: '#/definitions/RecipientsTokensPost200ApplicationJsonResponse'
-        '401': 
+        '401':
           description: Unauthorized
           schema:
             $ref: '#/definitions/MsError'
@@ -125,7 +125,7 @@ paths:
           description: Bad request
           schema:
             $ref: '#/definitions/Error'
-        '401': 
+        '401':
           description: Unauthorized
           schema:
             $ref: '#/definitions/MsError'
@@ -179,7 +179,7 @@ paths:
           description: Bad request
           schema:
             $ref: '#/definitions/Error'
-        '401': 
+        '401':
           description: Unauthorized
           schema:
             $ref: '#/definitions/MsError'
@@ -216,7 +216,7 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/invoiceOut'
-        '401': 
+        '401':
           description: Unauthorized
           schema:
             $ref: '#/definitions/MsError'
@@ -231,9 +231,9 @@ paths:
       description: |-
         Mark an invoice as approved. Approved means that a recipient has actively approved the invoice and the IPP has/will initiate a payment.
         It is the responsibility of the IPP to set the status back to pending if either the payment fails or the recipient cancels the payment.
-        Amount and due date is validated. 
+        Amount and due date is validated.
         Amount is required. If the original invoice specified an minimum amount, the amount must be at least that amount. Otherwise the amount can be anything.
-        The due date must be between "now" and one year into the future. 
+        The due date must be between "now" and one year into the future.
       operationId: Change_Status_To_Approved_v1
       summary: Change status to approved
       tags:
@@ -276,7 +276,7 @@ paths:
           description: Bad request
           schema:
             $ref: '#/definitions/Error'
-        '401': 
+        '401':
           description: Unauthorized
           schema:
             $ref: '#/definitions/MsError'
@@ -285,7 +285,7 @@ paths:
         '409':
           description: Conflict
           schema:
-            $ref: '#/definitions/Error'   
+            $ref: '#/definitions/Error'
         '429':
           description: Rate limit exceeded
       produces:
@@ -329,7 +329,7 @@ paths:
           description: Bad request
           schema:
             $ref: '#/definitions/Error'
-        '401': 
+        '401':
           description: Unauthorized
           schema:
             $ref: '#/definitions/MsError'
@@ -338,7 +338,7 @@ paths:
         '409':
           description: Conflict
           schema:
-            $ref: '#/definitions/Error'   
+            $ref: '#/definitions/Error'
         '429':
           description: Rate limit exceeded
       produces:
@@ -385,7 +385,7 @@ paths:
           description: Bad request
           schema:
             $ref: '#/definitions/Error'
-        '401': 
+        '401':
           description: Unauthorized
           schema:
             $ref: '#/definitions/MsError'
@@ -394,7 +394,7 @@ paths:
         '409':
           description: Conflict
           schema:
-            $ref: '#/definitions/Error'   
+            $ref: '#/definitions/Error'
         '429':
           description: Rate limit exceeded
       produces:
@@ -429,7 +429,7 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/commercialInvoiceUrlOut'
-        '401': 
+        '401':
           description: Unauthorized
           schema:
             $ref: '#/definitions/MsError'
@@ -478,7 +478,7 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/attachmentUrlOut'
-        '401': 
+        '401':
           description: Unauthorized
           schema:
             $ref: '#/definitions/MsError'
@@ -521,7 +521,7 @@ paths:
                   'n': 5Dkax7lxzotIVx5DQidS...
           schema:
             $ref: '#/definitions/JsonWebKeySet'
-        '401': 
+        '401':
           description: Unauthorized
           schema:
             $ref: '#/definitions/MsError'
@@ -830,7 +830,7 @@ definitions:
             example: 401
           responseMessage:
             type: string
-            example: "IDX10503: Signature validation failed. Keys tried ..." 
+            example: "IDX10503: Signature validation failed. Keys tried ..."
       result:
         type: object
         properties:
