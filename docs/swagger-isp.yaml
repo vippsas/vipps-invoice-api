@@ -345,8 +345,8 @@ definitions:
       due:
         type: string
         format: date-time
-        description: When an invoice is due
-        example: '2023-03-13T15:00:00+00:00'
+        description: When an invoice is due. Due has to be formatted according to RFC3339 and be at least the current day at start of day and at most 1 year in the future.
+        example: '2019-10-02T15:00:00Z'
       amount:
         type: integer
         description: Amount by lowest subdivision (øre)
