@@ -139,57 +139,67 @@ We have previously requested data from integrators about volume, times, etc,
 but only received this from one integrator.
 If you are able to provide data for your solution, please let us know.
 
-# Vipps Invoice ISP Postman Collection
+# Postman
 
-## Step 1 - Import Postman Collection
-1. Copy the contents of  ```vipps-invoice-isp-api-postman-collection``` 
-2. Open Postman and click ```Import``` in the upper left corner.
-3. Select the ```Paste Raw Text``` tab and ans paste in the collection
+[Postman](https://www.getpostman.com/
+is a common tool for working with REST APIs. We offer a
+[Postman Collection](https://www.getpostman.com/collection)
+for Vipps Regninger to make development easier.
 
-You should now see the full API collection in your ```Collections``` window.
+By following the steps below, you can make calls to all the Vipps Regninger
+endpoints, and see the full `request` and `response` for each call.
 
-## Step 2 - Import Postman Environment
-1. Copy the contents of ```Invoice-ISP-postman-environment```
-2. Open Postman and click ```Import``` in the upper left corner.
-3. Select the ```Paste Raw Text``` tab and paste in the environment
+## Setup
 
-## Step 3 - Setup Postman Environment
-1. Click the eye icon in the top right corner.
-2. In the dropdown window, click ```Edit``` in the top right corner.
-3. Fill in the ``` Current Value``` for the following fields to get started. 
-    * product-key
-    * client-id
-    * client-secret
+### Step 1: Import the Postman Collection
+1. Click `Import` in the upper left corner.
+2. Import the `vipps-invoice-isp-api-postman-collection.json` file (you can also use `Paste Raw Text`)
 
-Each recipient is identified by a NIN, this is set manually in the request body of ```Request Recipient Token```
+You should now see the full API collection in your `Collections` window.
 
-```
+### Step 2: Import the Postman Environment
+1. Click `Import` in the upper left corner.
+2. Import the `vipps-invoice-isp-api-postman-environment.json` file (you can also use `Paste Raw Text`)
+
+### Step 3: Setup Postman Environment
+1. Click the "eye" icon in the top right corner.
+2. In the dropdown window, click `Edit` in the top right corner.
+3. Fill in the `Current Value` for the following fields to get started.
+    * `product-key`
+    * `client-id`
+    * `client-secret`
+
+Each recipient is identified by a NIN, this is set manually in the request body of `Request Recipient Token`
+
+```json
 {
   "type": "nin-no",
   "value": "<Insert NIN>"
 }
 ```
 
-You can use [this](#test-users) user for testing 
+You can use [this](#test-users) user for testing purposes.
 
 ## InvoiceId
 
-The invoiceId must be constructed as orgno-no.{issuerOrgno}.{invoiceRef} where {invoiceRef} is a URL-safe reference that is unique for each issuer.
+The `invoiceId` must be constructed as `orgno-no.{issuerOrgno}.{invoiceRef}` where `{invoiceRef}` is a URL-safe reference that is unique for each issuer.
 
-The invoiceId for the supplied test issuer would then be: ```orgno-no.918130047.{url}``` for the sake of testing, ```{url}```could just be a random number, e.g ```orgno-no.918130047.0000```
-
+The `invoiceId` for the supplied test issuer would then be: `orgno-no.918130047.{url}`.
+Please note that the organization numbner is validated using
+[modulus 11](https://www.brreg.no/om-oss-nn/oppgavene-vare/registera-vare/om-einingsregisteret/organisasjonsnummeret/).
+For the sake of testing, `{url}` could just be a random number, e.g `orgno-no.918130047.0000`.
 
 ### Variable Overview
 
 | Name | Located | Set | Value |
 | ---- | ------- | --- | ----- |
 | product-key | In developer portal under 'Your Subscriptions' | By user | 32 char String |
-| client-id | In developer portal under 'Applications' | By user | 36 char String | 
-| client-secret | In developer portal under 'Applications' | By user | String | 
-| access-token | Postman Tests | When 'Fetch authorization Token' is sent | String | 
+| client-id | In developer portal under 'Applications' | By user | 36 char String |
+| client-secret | In developer portal under 'Applications' | By user | String |
+| access-token | Postman Tests | When 'Fetch authorization Token' is sent | String |
 | recipient-token | Postman Tests | When 'Request recipient token' is sent | String |
-| etag | Postman Tests | When 'Get single invoice' is sent | String | 
-| idempotency-key | Postman Tests | When 'Get single invoice' is sent | String | 
+| etag | Postman Tests | When 'Get single invoice' is sent | String |
+| idempotency-key | Postman Tests | When 'Get single invoice' is sent | String |
 
 
 ### Test users
