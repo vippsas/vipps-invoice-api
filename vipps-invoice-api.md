@@ -145,6 +145,9 @@ If you are able to provide data for your solution, please let us know.
 is a common tool for working with REST APIs. We offer a
 [Postman Collection](https://www.getpostman.com/collection)
 for Vipps Regninger to make development easier.
+See the
+[Postman documentation](https://www.getpostman.com/docs/)
+for more information about using Postman.
 
 By following the steps below, you can make calls to all the Vipps Regninger
 endpoints, and see the full `request` and `response` for each call.
