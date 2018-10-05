@@ -51,7 +51,7 @@ The invoiceId for the supplied test issuer would then be: ```orgno-no.918130047.
 | idempotency-key | Postman Tests | When 'Get single invoice' is sent | String | 
 | invoice-id | Postman Tests | When 'Get single invoice' is sent | String |
 | mime-type | Postman Tests | When 'Get single invoice' is sent | String |
-| attachment-id | Postman Tests | When 'Get single invoice' is sent | 
+| attachment-id | Postman Tests | When 'Get single invoice' is sent | String |
 
 ### Postman Tests
 Most of the environment variables will be set/updated automatically throughout the calls. Most of the variables will be updated with the ```Get Single Invoice``` call. This call requires an invoice-id in the URL and this has to be set manually.
