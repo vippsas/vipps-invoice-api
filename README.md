@@ -13,6 +13,8 @@ Important dates (which _may_ change):
 * Production access for integrators: September 13
 * Vipps Regninger visible in the Vipps app: September 27 (for whitelisted users)
 
+For the full rolout plan: Please contact us.
+
 See the Vipps Developers repository for
 a "getting started" guide,
 information about product activation,
