@@ -1,0 +1,346 @@
+{
+	"info": {
+		"_postman_id": "f66f948d-ed28-4732-ac15-68c870135ece",
+		"name": "Vipps Invoice ISP API",
+		"description": "\nThis is the API for Vipps Regninger. While we have worked closely with selected partners, and believe that this is very close to production quality, we are more than happy to receive feedback, either with GitHub's issue functionality, or by email.\nPlease see https://github.com/vippsas/vipps-invoice-api for documentation",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "accesstoken",
+			"item": [
+				{
+					"name": "Fetch authorization token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e005d2c2-0a51-4254-86e7-726185ba6428",
+								"type": "text/javascript",
+								"exec": [
+									"pm.environment.set(\"access-token\", pm.response.json().access_token);"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json;charset=UTF-8"
+							},
+							{
+								"key": "Ocp-apim-subscription-key",
+								"value": "{{product-key}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"client_id\":\"{{client-id}}\",\n\t\"client_secret\":\"{{client-secret}}\",\n\t\"resource\":\"https://testapivipps.no/vippsas/invoice-isp-service\"\n}"
+						},
+						"url": {
+							"raw": "https://apitest.vipps.no/api/access-token/jwt-token",
+							"protocol": "https",
+							"host": [
+								"apitest",
+								"vipps",
+								"no"
+							],
+							"path": [
+								"api",
+								"access-token",
+								"jwt-token"
+							]
+						},
+						"description": "Authorization token API endpoint helps to get the JWT Bearer token that needs to be passed in every API request in the authorization header. The merchant application use the API to get a JWT access token. JWT access token is a base 64 encoded string value that must be aquire first before making any Vipps api calls"
+					},
+					"response": []
+				}
+			],
+			"description": "Folder for accesstoken"
+		},
+		{
+			"name": "recipients",
+			"item": [
+				{
+					"name": "Request recipient token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e36a878b-e8f3-4020-9ab7-f0365b505417",
+								"type": "text/javascript",
+								"exec": [
+									"pm.environment.set(\"recipient-token\", pm.response.json().recipientToken);"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{access-token}}"
+							},
+							{
+								"key": "Ocp-apim-subscription-key",
+								"value": "{{product-key}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"type\": \"nin-no\",\n  \"value\": \"<Insert NIN>\"\n}"
+						},
+						"url": {
+							"raw": "https://apitest.vipps.no/vipps-isp/v1/recipients/tokens",
+							"protocol": "https",
+							"host": [
+								"apitest",
+								"vipps",
+								"no"
+							],
+							"path": [
+								"vipps-isp",
+								"v1",
+								"recipients",
+								"tokens"
+							]
+						},
+						"description": "Request a `recipientToken` by providing either the recipients Norwegian national identification or mobile number.\nWe have created a few test users, please contact integration@vipps.no to get details for your test user."
+					},
+					"response": []
+				}
+			],
+			"description": "Folder for recipients"
+		},
+		{
+			"name": "invoices",
+			"item": [
+				{
+					"name": "Send invoice",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Ocp-Apim-Subscription-Key",
+								"value": "{{product-key}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{access-token}}"
+							},
+							{
+								"key": "",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"recipientToken\": \"{{recipient-token}}\",\n  \"paymentInformation\": {\n    \"type\": \"kid\",\n    \"value\": \"1234567890128\",\n    \"account\": \"12345678903\"\n  },\n  \"invoiceType\": \"invoice\",\n  \"due\": \"2023-03-13T15:00:00+00:00\",\n  \"amount\": 25043,\n  \"minAmount\": 25043,\n  \"subject\": \"Kebab\",\n  \"issuerName\": \"Bislett Kebab\",\n  \"commercialInvoice\": [\n    {\n      \"mimeType\": \"application/pdf\",\n      \"url\": \"https://www.example.com/08fd5360-e218-4658-894f-4f37649e7df7/comminv.pdf\"\n    }\n  ],\n  \"attachments\": [\n    {\n      \"title\": \"Ferry\",\n      \"urls\": [\n        {\n          \"url\": \"https://invoice-hotel.example.org/invoice/42.pdf\",\n          \"mimeType\": \"application/pdf\"\n        }\n      ]\n    }\n  ],\n  \"issuerIconUrl\": \"https://www.example.com/logos/lister.png\"\n}"
+						},
+						"url": {
+							"raw": "https://apitest.vipps.no/vipps-isp/v1/invoices/:invoiceId",
+							"protocol": "https",
+							"host": [
+								"apitest",
+								"vipps",
+								"no"
+							],
+							"path": [
+								"vipps-isp",
+								"v1",
+								"invoices",
+								":invoiceId"
+							],
+							"variable": [
+								{
+									"key": "invoiceId",
+									"value": ""
+								}
+							]
+						},
+						"description": "This endpoint adds the provided invoice to our system. To submit invoices into our system this endpoint has to be used.\nWe will accept any invoice as long as the body is well formed JSON. Any validation errors of the invoice are picked up by workers in the background and available with `GET:/invoices/{invoiceId}`.\n## Idempotency\nThe endpoint is idempotent. If an invoice with the same unique identifiers (organisation number and invoice reference) is submitted and the invoice exists already in the system, it is rejected. Invoices cannot be changed."
+					},
+					"response": []
+				},
+				{
+					"name": "Revoke invoice",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "If-Match",
+								"value": "{{etag}}"
+							},
+							{
+								"key": "Idempotency-Key",
+								"value": "{{idempotency-key}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{access-token}}"
+							},
+							{
+								"key": "Ocp-Apim-Subscription-Key",
+								"value": "{{product-key}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "https://apitest.vipps.no/vipps-isp/v1/invoices/:invoiceId/status/revoked",
+							"protocol": "https",
+							"host": [
+								"apitest",
+								"vipps",
+								"no"
+							],
+							"path": [
+								"vipps-isp",
+								"v1",
+								"invoices",
+								":invoiceIdstatus",
+								"revoked"
+							],
+							"variable": [
+								{
+									"key": "invoiceIdstatus",
+									"value": ""
+								}
+							]
+						},
+						"description": "Revoke an invoice. A revoked invoice is not shown to the recipient. Invoices can be revoked if they currently are in the states `created`, `pending` or `rejected`. If an invoice has been `approved`, `deleted` or `expired` it cannot be revoked anymore."
+					},
+					"response": []
+				},
+				{
+					"name": "Get single invoice",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "fabf4aa7-a56c-4611-96d1-9b7c12a78271",
+								"type": "text/javascript",
+								"exec": [
+									"pm.environment.set(\"etag\", pm.response.json().status.etag);",
+									"pm.environment.set(\"idempotency-key\", pm.response.json().status.idempotencyKey);",
+									"",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{access-token}}"
+							},
+							{
+								"key": "Ocp-Apim-Subscription-Key",
+								"value": "{{product-key}}"
+							},
+							{
+								"key": "",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "https://apitest.vipps.no/vipps-isp/v1/invoices/:invoiceId",
+							"protocol": "https",
+							"host": [
+								"apitest",
+								"vipps",
+								"no"
+							],
+							"path": [
+								"vipps-isp",
+								"v1",
+								"invoices",
+								":invoiceId"
+							],
+							"variable": [
+								{
+									"key": "invoiceId",
+									"value": ""
+								}
+							]
+						},
+						"description": "Returns a single invoice identified by its unique id. This is used to verify the state of an invoice, e.g. if it has been validated and now is available for recipients."
+					},
+					"response": []
+				}
+			],
+			"description": "Folder for invoices"
+		},
+		{
+			"name": "jwk",
+			"item": [
+				{
+					"name": "Get JWK",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{access-token}}"
+							},
+							{
+								"key": "Ocp-Apim-Subscription-Key",
+								"value": "{{product-key}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "https://apitest.vipps.no/vipps-isp/v1/jwk",
+							"protocol": "https",
+							"host": [
+								"apitest",
+								"vipps",
+								"no"
+							],
+							"path": [
+								"vipps-isp",
+								"v1",
+								"jwk"
+							]
+						},
+						"description": "Get JSON Web Key Set. Use a JWK library to parse this into a public key."
+					},
+					"response": []
+				}
+			],
+			"description": "Folder for jwk"
+		}
+	]
+}
