@@ -141,7 +141,7 @@ If you are able to provide data for your solution, please let us know.
 
 # Postman
 
-[Postman](https://www.getpostman.com/
+[Postman](https://www.getpostman.com/)
 is a common tool for working with REST APIs. We offer a
 [Postman Collection](https://www.getpostman.com/collection)
 for Vipps Regninger to make development easier.
@@ -156,13 +156,13 @@ endpoints, and see the full `request` and `response` for each call.
 
 ### Step 1: Import the Postman Collection
 1. Click `Import` in the upper left corner.
-2. Import the `vipps-invoice-isp-api-postman-collection.json` file (you can also use `Paste Raw Text`)
+2. Import the [`vipps-invoice-isp-api-postman-collection.json`](https://raw.githubusercontent.com/vippsas/vipps-invoice-api/master/tools/vipps-invoice-isp-api-postman-collection.json) file (you can also use `Paste Raw Text`)
 
 You should now see the full API collection in your `Collections` window.
 
 ### Step 2: Import the Postman Environment
 1. Click `Import` in the upper left corner.
-2. Import the `vipps-invoice-isp-api-postman-environment.json` file (you can also use `Paste Raw Text`)
+2. Import the [`vipps-invoice-isp-api-postman-environment.json`](https://raw.githubusercontent.com/vippsas/vipps-invoice-api/master/tools/vipps-invoice-isp-api-postman-environment.json) file (you can also use `Paste Raw Text`)
 
 ### Step 3: Setup Postman Environment
 1. Click the "eye" icon in the top right corner.
@@ -172,12 +172,12 @@ You should now see the full API collection in your `Collections` window.
     * `client-id`
     * `client-secret`
 
-Each recipient is identified by a NIN, this is set manually in the request body of `Request Recipient Token`
+Each recipient is identified by a NIN. This is set manually in the request body of `Request Recipient Token`:
 
 ```json
 {
   "type": "nin-no",
-  "value": "<Insert NIN>"
+  "value": "<Insert 11-digit Norwegian NIN>"
 }
 ```
 
@@ -185,33 +185,37 @@ You can use [this](#test-users) user for testing purposes.
 
 ## InvoiceId
 
-The `invoiceId` must be constructed as `orgno-no.{issuerOrgno}.{invoiceRef}` where `{invoiceRef}` is a URL-safe reference that is unique for each issuer.
+The `invoiceId` must be constructed as `orgno-no.{issuerOrgno}.{invoiceRef}`
+where `{invoiceRef}` is a URL-safe reference that is unique for each issuer.
+Base64 encoding of the `invoiceRef` is one way to make it URL-safe (but also increases the length).
 
-The `invoiceId` for the supplied test issuer would then be: `orgno-no.918130047.{url}`.
+The `invoiceId` for the supplied test issuer with organization number `918130047` would then be: `orgno-no.918130047.{invoiceRef}`.
+For the sake of testing, `{invoiceRef}` could be a random number like `256203221`,
+resulting in this `invoiceId`: `orgno-no.918130047.256203221`.
+
 Please note that the organization numbner is validated using
 [modulus 11](https://www.brreg.no/om-oss-nn/oppgavene-vare/registera-vare/om-einingsregisteret/organisasjonsnummeret/).
-For the sake of testing, `{url}` could just be a random number, e.g `orgno-no.918130047.0000`.
 
 ### Variable Overview
 
-| Name | Located | Set | Value |
-| ---- | ------- | --- | ----- |
-| product-key | In developer portal under 'Your Subscriptions' | By user | 32 char String |
-| client-id | In developer portal under 'Applications' | By user | 36 char String |
-| client-secret | In developer portal under 'Applications' | By user | String |
-| access-token | Postman Tests | When 'Fetch authorization Token' is sent | String |
-| recipient-token | Postman Tests | When 'Request recipient token' is sent | String |
-| etag | Postman Tests | When 'Get single invoice' is sent | String |
-| idempotency-key | Postman Tests | When 'Get single invoice' is sent | String |
+| Name            | Located                                        | Set                            | Value          |
+| --------------- | ---------------------------------------------- | ------------------------------ | -------------- |
+| product-key     | In developer portal under 'Your Subscriptions' | By user                        | 32 char String |
+| client-id       | In developer portal under 'Applications'       | By user                        | 36 char String |
+| client-secret   | In developer portal under 'Applications'       | By user                        | String         |
+| access-token    | Postman Tests                                  | By 'Fetch authorization token' | String         |
+| recipient-token | Postman Tests                                  | By 'Request recipient token'   | String         |
+| etag            | Postman Tests                                  | By 'Get single invoice'        | String         |
+| idempotency-key | Postman Tests                                  | By 'Get single invoice'        | String         |
 
 
 ### Test users
 
 This test user can receive invoices, and approve, etc:
 
-| customerId | NIN (fødselsnummer) | MSISDN (phone number) | First name | Last name | Owner |
-| ---------- | ------------------- | --------------------- | ---------- | --------- | ----- |
-| 10003301	 | 01032300371         | 4797777776            | Willhelm Fos | Kluvstad | Common |
+| customerId | NIN (fødselsnummer) | MSISDN (phone number) | First name   | Last name | Owner |
+| ---------- | ------------------- | --------------------- | ------------ | --------- | ----- |
+| 10003301	 | 01032300371         | 4797777776            | Willhelm Fos | Kluvstad  | Common |
 
 ### Test issuers
 
@@ -253,7 +257,7 @@ This is due to some technical details of the backend solutions.
 
 The request above will return a response similar to this, with the `access_token`:
 
-```http
+```json
 HTTP 200 OK
 {
   "token_type": "Bearer",
@@ -267,7 +271,6 @@ HTTP 200 OK
 ```
 
 Every request to the API, _including_ the `/jwk` endpoint, needs to have an `Authorization` header with the generated token.
-*(NOTE: The `/jwk` endpoint is not possible to use with the "Try out" feature in the Swagger documentation on GitHub).*
 
 The header in the request to this API should look like this:
 
@@ -279,16 +282,15 @@ See [The API's public key: JWK (JSON Web Key)](#the-apis-public-key-jwk-json-web
 
 ## Recipient token
 
-In addition to the general `access_token` for the API, you need to create a
-`recipientToken` for the recipient.
-
-To submit an invoice, the client first has to obtain a `recipientToken` with
+To submit an invoice, the client needs both an `access_token` (described above), and a `recipientToken`.
+The `recipientToken` is obtained by calling
 [`POST://recipients/tokens`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Request_Recipient_Token_v1).
-This token can then be used in the request body to
-[`PUT:/invoices/{invoiceId}`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Send_Invoice_v1).
+This `recipientToken` can then be used in the request body to
+[`PUT:/invoices/{invoiceId}`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Send_Invoice_v1)
+to the specified recipient.
 
-Please note that this assumes that you have already authenticated with the
-API `access_token` - which is not to be confused with the `recipientToken`.
+Please note that the calls above assumes that you have already authenticated with the
+API `access_token`. See the [Postman](#postman) section for examples, etc.
 
 To ensure GDPR compliance, the `recipientToken` has a limited time to live, currently _15
 minutes_. Until it's expiry, clients are free to cache the token and re-use it to
