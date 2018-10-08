@@ -1,8 +1,8 @@
 # Vipps Invoice API
 
-This is the API documentation for [**Vipps Regninger**]( https://www.vipps.no/bedrift/vipps-regninger).
+This is the API documentation for [**Vipps Regninger**](https://www.vipps.no/bedrift/vipps-regninger).
 
-*Please note that Vipps Regninger supersedes the older Vipps Faktura, both as a product and API.*
+_Please note that Vipps Regninger supersedes the older Vipps Faktura, both as a product and API._
 
 **Status:** 🛠 While we have worked closely with selected partners, and believe that this is
 _very_ close to production quality, we are more than happy to receive feedback.
@@ -36,21 +36,21 @@ To get a token, follow
 
 ## Terminology
 
-| Term |  Description                                    |
-|:-----|:----------------------------------------------- |
-| ISP         | The invoice _service_ providers: Actors who submit invoices. Either for themselves or on behalf of their clients.  |
-| IPP         | The invoice _payment_ providers: Actors who handle invoices for the invoice recipients and execute payments, e.g. banks, the Vipps app. |
-| Recipient   | The end user that receives invoices, and pays them through the IPP.  |
-| NIN         | A national identification number, e.g. SSN in Norway ("fødselsnummer", 11 digits).   |
+| Term        | Description                                                                                                                                                                                                                  |
+| :---------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ISP         | The invoice _service_ providers: Actors who submit invoices. Either for themselves or on behalf of their clients.                                                                                                            |
+| IPP         | The invoice _payment_ providers: Actors who handle invoices for the invoice recipients and execute payments, e.g. banks, the Vipps app.                                                                                      |
+| Recipient   | The end user that receives invoices, and pays them through the IPP.                                                                                                                                                          |
+| NIN         | A national identification number, e.g. SSN in Norway ("fødselsnummer", 11 digits).                                                                                                                                           |
 | MSISDN      | A number uniquely identifying a subscription in a GSM or a UMTS mobile network. Simply put, it is the mapping of the telephone number to the SIM card in a mobile phone. See [MSISDN](https://en.wikipedia.org/wiki/MSISDN). |
-| Actor       | An ISP, IPP or invoice recipient. |
-| Idempotency | The property of endpoints to be called multiple times without changing the result beyond the initial application. |
+| Actor       | An ISP, IPP or invoice recipient.                                                                                                                                                                                            |
+| Idempotency | The property of endpoints to be called multiple times without changing the result beyond the initial application.                                                                                                            |
 
 # Core functionality
 
 ## Send, receive and pay invoices
 
-*Vipps Regninger* replaces the batch processing in *Vipps Faktura* with
+_Vipps Regninger_ replaces the batch processing in _Vipps Faktura_ with
 a more speedy per-invoice processing, with improved status and progress for
 each individual invoice. This means that invoices have to be posted one by one
 in separate HTTP calls.
@@ -72,7 +72,7 @@ We guarantee that any correctly received invoice is inserted exactly once.
 
 ## Invoice validation
 
-The validation of the invoice will still be an *asynchronous* process since we
+The validation of the invoice will still be an _asynchronous_ process since we
 have no possibility to guarantee, or even estimate, the response times for
 all required validation and risk check to be performed.
 
@@ -100,15 +100,15 @@ filter the allowed payment methods according to Norwegian debt collection laws.
 
 # Invoice states
 
-| # | State      | Description                                                                          |
-|:--|:-----------|:-------------------------------------------------------------------------------------|
-| 1 | `created`  | Invoice has been inserted, but not yet validated, and not yet shown to the recipient |
-| 2 | `rejected` | Invoice could not be validated, and is rejected                                      |
-| 3 | `pending`  | Invoice needs to be processed by the recipient                                       |
-| 4 | `expired`  | Recipient did not process the invoice in time                                        |
-| 5 | `approved` | Invoice has been approved by recipient                                               |
-| 6 | `deleted`  | Invoice has been deleted                                                             |
-| 7 | `revoked`  | Invoice has been revoked by the ISP                                                  |
+| #   | State      | Description                                                                          |
+| :-- | :--------- | :----------------------------------------------------------------------------------- |
+| 1   | `created`  | Invoice has been inserted, but not yet validated, and not yet shown to the recipient |
+| 2   | `rejected` | Invoice could not be validated, and is rejected                                      |
+| 3   | `pending`  | Invoice needs to be processed by the recipient                                       |
+| 4   | `expired`  | Recipient did not process the invoice in time                                        |
+| 5   | `approved` | Invoice has been approved by recipient                                               |
+| 6   | `deleted`  | Invoice has been deleted                                                             |
+| 7   | `revoked`  | Invoice has been revoked by the ISP                                                  |
 
 See the detailed state descriptions, and state transitions, at the end of this document.
 
@@ -116,18 +116,18 @@ See the detailed state descriptions, and state transitions, at the end of this d
 
 This API returns the following HTTP statuses in the responses:
 
-| HTTP status         | Description                                 |
-| ------------------- | ------------------------------------------- |
-| `200 OK`            | Request successful                          |
-| `201 Created`       | Request successful, resource created        |
-| `204 No Content`    | Request successful, but empty result        |
-| `400 Bad Request`   | Invalid request, see the error for details  |
-| `401 Unauthorized`  | Invalid credentials                         |
-| `403 Forbidden`     | Authentication ok, but credentials lacks authorization  |
-| `404 Not Found`     | The resource was not found  |
-| `409 Conflict`      | Unsuccessful due to conflicting resource   |
-| `429 Too Many Requests`  | There is currently a limit of max 20 calls per second\*  |
-| `500 Server Error`  | An internal Vipps problem.                  |
+| HTTP status             | Description                                             |
+| ----------------------- | ------------------------------------------------------- |
+| `200 OK`                | Request successful                                      |
+| `201 Created`           | Request successful, resource created                    |
+| `204 No Content`        | Request successful, but empty result                    |
+| `400 Bad Request`       | Invalid request, see the error for details              |
+| `401 Unauthorized`      | Invalid credentials                                     |
+| `403 Forbidden`         | Authentication ok, but credentials lacks authorization  |
+| `404 Not Found`         | The resource was not found                              |
+| `409 Conflict`          | Unsuccessful due to conflicting resource                |
+| `429 Too Many Requests` | There is currently a limit of max 20 calls per second\* |
+| `500 Server Error`      | An internal Vipps problem.                              |
 
 All error responses contains an `error` object in the body, with details of the problem.
 
@@ -155,22 +155,31 @@ endpoints, and see the full `request` and `response` for each call.
 ## Setup
 
 ### Step 1: Import the Postman Collection
+
 1. Click `Import` in the upper left corner.
-2. Import the [`vipps-invoice-isp-api-postman-collection.json`](https://raw.githubusercontent.com/vippsas/vipps-invoice-api/master/tools/vipps-invoice-isp-api-postman-collection.json) file (you can also use `Paste Raw Text`)
+2. Import the ISP or the IPP collection file (you can also use `Paste Raw Text`):
+
+- [`vipps-invoice-isp-api-postman-collection.json`](https://raw.githubusercontent.com/vippsas/vipps-invoice-api/master/tools/vipps-invoice-isp-api-postman-collection.json)
+- [`vipps-invoice-ipp-api-postman-collection.json`](https://raw.githubusercontent.com/vippsas/vipps-invoice-api/master/tools/vipps-invoice-ipp-api-postman-collection.json)
 
 You should now see the full API collection in your `Collections` window.
 
 ### Step 2: Import the Postman Environment
+
 1. Click `Import` in the upper left corner.
-2. Import the [`vipps-invoice-isp-api-postman-environment.json`](https://raw.githubusercontent.com/vippsas/vipps-invoice-api/master/tools/vipps-invoice-isp-api-postman-environment.json) file (you can also use `Paste Raw Text`)
+2. Import the ISP or IPP environment file (you can also use `Paste Raw Text`):
+
+- [`vipps-invoice-isp-api-postman-environment.json`](https://raw.githubusercontent.com/vippsas/vipps-invoice-api/master/tools/vipps-invoice-isp-api-postman-environment.json)
+- [`vipps-invoice-ipp-api-postman-environment.json`](https://raw.githubusercontent.com/vippsas/vipps-invoice-api/master/tools/vipps-invoice-ipp-api-postman-environment.json)
 
 ### Step 3: Setup Postman Environment
+
 1. Click the "eye" icon in the top right corner.
 2. In the dropdown window, click `Edit` in the top right corner.
 3. Fill in the `Current Value` for the following fields to get started.
-    * `product-key`
-    * `client-id`
-    * `client-secret`
+   - `product-key`
+   - `client-id`
+   - `client-secret`
 
 Each recipient is identified by a NIN. This is set manually in the request body of `Request Recipient Token`:
 
@@ -198,31 +207,49 @@ Please note that the organization numbner is validated using
 
 ### Variable Overview
 
-| Name            | Located                                        | Set                            | Value          |
-| --------------- | ---------------------------------------------- | ------------------------------ | -------------- |
-| product-key     | In developer portal under 'Your Subscriptions' | By user                        | 32 char String |
-| client-id       | In developer portal under 'Applications'       | By user                        | 36 char String |
-| client-secret   | In developer portal under 'Applications'       | By user                        | String         |
-| access-token    | Postman Tests                                  | By 'Fetch authorization token' | String         |
-| recipient-token | Postman Tests                                  | By 'Request recipient token'   | String         |
-| etag            | Postman Tests                                  | By 'Get single invoice'        | String         |
-| idempotency-key | Postman Tests                                  | By 'Get single invoice'        | String         |
+Following is an overview of the different variables in the Postman environments. There are som differences in the IPP and ISP APIs which requires slightly different ennvironments - indicated by the `IPP Exclusive` column.
 
+| Name             | Located                                        |  Set                                     | IPP Exclusive |
+| ---------------- | ---------------------------------------------- | ---------------------------------------- | ------------- |
+| product-key      | In developer portal under 'Your Subscriptions' | By user                                  | No            |
+| client-id        | In developer portal under 'Applications'       | By user                                  | No            |
+| client-secret    | In developer portal under 'Applications'       | By user                                  | No            |
+| access-token     | Postman Tests                                  | When 'Fetch authorization Token' is sent | No            |
+| recipient-token  | Postman Tests                                  |  When 'Request recipient token' is sent  | No            |
+| etag             |  Postman Tests                                 | When 'Get single invoice' is sent        | No            |
+| idempotency-key  | Postman Tests                                  | When 'Get single invoice' is sent        | No            |
+| invoice-id       | Postman Tests                                  |  When 'Get single invoice' is sent       | Yes           |
+| mime-type        | Postman Tests                                  | When 'Get single invoice' is sent        | Yes           |
+| attachment-id    | Postman Tests                                  | When 'Get single invoice' is sent        | Yes           |
+
+### Postman Tests
+
+Most of the environment variables will be set/updated automatically throughout the calls. Most of the variables will be updated with the `Get Single Invoice` call. This call requires an invoice-id in the URL and this has to be set manually.
+
+For the variables to work correctly, please send a `Get Single Invoice` call after all `PUT` operations to update the environment variables to the correct value.
+
+#### Put operations
+
+`Change status to approved`
+
+`Change status to pending`
+
+`Delete invoice`
 
 ### Test users
 
 This test user can receive invoices, and approve, etc:
 
-| customerId | NIN (fødselsnummer) | MSISDN (phone number) | First name   | Last name | Owner |
-| ---------- | ------------------- | --------------------- | ------------ | --------- | ----- |
-| 10003301	 | 01032300371         | 4797777776            | Willhelm Fos | Kluvstad  | Common |
+| customerId | NIN (fødselsnummer) | MSISDN (phone number) | First name   | Last name | Owner  |
+| ---------- | ------------------- | --------------------- | ------------ | --------- | ------ |
+| 10003301   | 01032300371         | 4797777776            | Willhelm Fos | Kluvstad  | Common |
 
 ### Test issuers
 
 The service validates that the account belongs to the issuer ([KAR](https://www.finansnorge.no/aktuelt/presentasjoner/bankenes-felles-konto--og-adresseregister-kar/)). Make sure that that you use a valid pair when testing.
 
 | Name               | Org. number | Account number |
-| ------------------ |------------ | -------------- |
+| ------------------ | ----------- | -------------- |
 | Vipps Teknologi AS | 918130047   | 15038366383    |
 
 # Authentication and authorization
@@ -231,11 +258,11 @@ Vipps has to ensure compliance with governing regulations, including
 [GDPR](https://ec.europa.eu/info/law/law-topic/data-protection_en).
 This means that we have to make sure that Vipps:
 
-* Does not provide information about client, explicitly or implicitly, to unauthorised entities.
-* Does not store information accidentally received, which we are not authorised to see.
-* Propagate changes quickly if a user opts out or in to Vipps Regninger.
-* Does not store personal information, i.e. invoices, which we do not have the right to see.
-* Minimize the time we have any unauthorized data; i.e. we have to delete invoices we cannot validate.
+- Does not provide information about client, explicitly or implicitly, to unauthorised entities.
+- Does not store information accidentally received, which we are not authorised to see.
+- Propagate changes quickly if a user opts out or in to Vipps Regninger.
+- Does not store personal information, i.e. invoices, which we do not have the right to see.
+- Minimize the time we have any unauthorized data; i.e. we have to delete invoices we cannot validate.
 
 ## API access token
 
@@ -277,6 +304,7 @@ The header in the request to this API should look like this:
 ```http
 Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1Ni <continued>
 ```
+
 Please note that the JWK is _only_ used for validating the JWT.
 See [The API's public key: JWK (JSON Web Key)](#the-apis-public-key-jwk-json-web-key) for more details.
 
@@ -298,10 +326,10 @@ submit several invoices to the same recipient.
 
 ## Example 1: Send invoice
 
-| Step | Endpoint     | Description                   |
-| -----| -------------| ----------------------------- |
-| 1    | [`POST://recipients/tokens`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Request_Recipient_Token_v1)    | The call will resolve the provided personal data and return a `recipientToken` if the recipient could be resolved. This token is used in the subsequent call(s). |
-| 2    | [`PUT:/invoices/{invoiceId}`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Send_Invoice_v1) | The previously obtained `recipientToken` is used in the request body to identify the recipient.  |
+| Step | Endpoint                                                                                                           | Description                                                                                                                                                      |
+| ---- | ------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1    | [`POST://recipients/tokens`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Request_Recipient_Token_v1) | The call will resolve the provided personal data and return a `recipientToken` if the recipient could be resolved. This token is used in the subsequent call(s). |
+| 2    | [`PUT:/invoices/{invoiceId}`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Send_Invoice_v1)           | The previously obtained `recipientToken` is used in the request body to identify the recipient.                                                                  |
 
 [`PUT:/invoices/{invoiceId}`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Send_Invoice_v1) endpoint is idempotent. The idempotency key is the `invoiceId`. The endpoint may be called multiple times, but the invoice is inserted exactly once only. The endpoint will return a 200 status code if the invoice was inserted, a 200 if the invoice is already in the system and the contents are equal, and `409` if the invoice exists but the contents are not equal.
 
@@ -311,17 +339,18 @@ For ISPs who send invoices it means that they call the endpoint as many times as
 
 ## Example 2: Fetch invoices for recipient
 
-| Step | Endpoint     | Description                   |
-| -----| -------------| ----------------------------- |
+| Step | Endpoint                                                                                                          | Description                                                                                                                                                      |
+| ---- | ----------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 1    | [`POST:/recipients/tokens`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Request_Recipient_Token_v1) | The call will resolve the provided personal data and return a `recipientToken` if the recipient could be resolved. This token is used in the subsequent call(s). |
-| 2    | [`GET:/invoices`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/List_Invoices_v1).   | The previously obtained `recipientToken` is used as a header to fetch all invoices for the recipient.                                                         |
+| 2    | [`GET:/invoices`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/List_Invoices_v1).                    | The previously obtained `recipientToken` is used as a header to fetch all invoices for the recipient.                                                            |
 
 ## Example 3: Get invoices, with complete requests and responses
 
 The examples below are complete `request` and `response`examples, detailing the above examples.
 
 ### Get APIM token
-~~~~
+
+```
 POST https://apitest.vipps.no/accessToken/get
 Ocp-Apim-Subscription-Key : ***
 client_secret : ***
@@ -336,11 +365,11 @@ client_id : ***
   "resource":"00000002-0000-0000-c000-00000000000",
   "access_token":"***"
 }
-~~~~
+```
 
 ### Get recipient token
 
-~~~~
+```
 POST https://apitest.vipps.no/vipps-ipp/v1/recipients/tokens
 Authorization : ***
 Ocp-Apim-Subscription-Key : ***
@@ -351,11 +380,11 @@ Ocp-Apim-Subscription-Key : ***
 {
   "recipientToken":"***"
 }
-~~~~
+```
 
 ### Get invoices
 
-~~~~
+```
 GET https://apitest.vipps.no/vipps-ipp/v1/invoices
 Authorization : ***
 Ocp-Apim-Subscription-Key : ***
@@ -406,7 +435,7 @@ vippsinvoice-recipienttoken : ***
   },
   "created": ""
 }
-~~~~
+```
 
 ## National identity number (NIN), or phone number (MSISDN), not available
 
@@ -418,11 +447,11 @@ Vipps requires either NIN or MSISDN for
 Invoice documents may be additional invoice documentation, such as
 commercial invoices and attachments.
 
-The IPP should retrieve the *actual* document download URL on-demand on
+The IPP should retrieve the _actual_ document download URL on-demand on
 behalf of its user. This is typically initiated when the user clicks on a
 download link in a UI. The user's request should first be made to a backend
 system that in turn makes the authenticated request to this API to retrieve
-the *time-limited* URL to the actual document.
+the _time-limited_ URL to the actual document.
 
 The URL contains a JWT query parameter that is validated by the ISP.
 The expiry time (`EXP`) is inside the JWT.
@@ -442,26 +471,26 @@ There is currently no limitation to the length of the URL.
 ## Typical flow
 
 1. An invoice is sent with [`PUT:/invoices/{invoiceId}`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Send_Invoice_v1),
-containing the "commercial invoice" attachment, with an URL like `https://invoice-hotel.example.org/123456-abcdef-7890.pdf`
-The URL sent by the ISP when creating an invoice should be valid as long as possible (more than 12 months is good).
-The validity will be controlled with the JWT appended.
+   containing the "commercial invoice" attachment, with an URL like `https://invoice-hotel.example.org/123456-abcdef-7890.pdf`
+   The URL sent by the ISP when creating an invoice should be valid as long as possible (more than 12 months is good).
+   The validity will be controlled with the JWT appended.
 
 2. Sometime later, the end user clicks on "show invoice" in the app or online bank. The
-[`GET:/invoices/{invoiceid}`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/Get_Single_Invoice_v1)
-request returns a response with the URL and a JWT appended.
-The returned URL would be something like `https://invoice-hotel.example.org/123456-abcdef-7890.pdf?token=[jwt_token_goes_here]`.
+   [`GET:/invoices/{invoiceid}`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/Get_Single_Invoice_v1)
+   request returns a response with the URL and a JWT appended.
+   The returned URL would be something like `https://invoice-hotel.example.org/123456-abcdef-7890.pdf?token=[jwt_token_goes_here]`.
 
 3. The app or online bank will redirect the user to the document. Most likely the user
-will have a browser opened that loads the document.
+   will have a browser opened that loads the document.
 
 4. The IPP/invoice hotel will receive the request directly from the end user's device,
-and will need to validate the JWT token before sending the document data.
+   and will need to validate the JWT token before sending the document data.
 
 5. If the JWT is valid, the user is sent the document data (e.g. the PDF).
 
- It is up to the invoice hotel how long the documents are available.
- This depends on the invoice hotel's agreement with the invoice issuer,
- and can be 18 months, 10 years or something else.
+It is up to the invoice hotel how long the documents are available.
+This depends on the invoice hotel's agreement with the invoice issuer,
+and can be 18 months, 10 years or something else.
 
 ## Validating the JSON Web Token (JWT) and the request
 
@@ -473,11 +502,11 @@ See also: [JSON Web Token Best Current Practices draft-ietf-oauth--bcp-03](https
 
 The JSON Web Token (JWT) contains the following relevant claims:
 
-* `ISS` (issuer): Who is issuing the JWT. Typically `vipps.invoice.api`.
-* `AUD` (audience): Something identifying the IPP.
-* `SUB` (subject): The base URL for the document.
-* `EXP` (expiration): A specific moment in time where the JWT becomes invalid.
-* `ALG` (algorithm): Encryption algorithm. Vipps uses RS256.
+- `ISS` (issuer): Who is issuing the JWT. Typically `vipps.invoice.api`.
+- `AUD` (audience): Something identifying the IPP.
+- `SUB` (subject): The base URL for the document.
+- `EXP` (expiration): A specific moment in time where the JWT becomes invalid.
+- `ALG` (algorithm): Encryption algorithm. Vipps uses RS256.
 
 ## The API's public key: JWK (JSON Web Key)
 
@@ -539,10 +568,10 @@ The library should at least help with validating the expiry time.
 In addition to validating the JWT's authenticity and basic properties,
 the IPP/invoice hotel must ensure to validate the following:
 
-* The expiration timestamp is in the future. i.e. not expired.
+- The expiration timestamp is in the future. i.e. not expired.
 
-* Make sure that the URL is valid. One approach is to return the `SUB` and
-ignore the actual path.
+- Make sure that the URL is valid. One approach is to return the `SUB` and
+  ignore the actual path.
 
 For details on JWT, see the [RFC 7519](https://tools.ietf.org/html/rfc7519) or
 [jwt.io](https://www.jwt.io). The latter contains a list of pre-made libraries.
@@ -554,22 +583,22 @@ For details on JWT, see the [RFC 7519](https://tools.ietf.org/html/rfc7519) or
 
 ## State transitions
 
-| #  | From       | To         | Description                                             |
-| --- | --------- | ---------- | ------------------------------------------------------- |
-| 1  | `created`  | `pending`  | Successfully validated                                  |
-| 2  |            | `rejected` | Validation **failed**                                   |
-| 3  |            | `revoked`  | The invoice has been deleted by the ISP                 |
-| -  | `rejected` | --         | Final state                                             |
-| 4  | `pending`  | `expired`  | After grace period, the invoice cannot be modified      |
-| 5  |            | `deleted`  | The recipient deleted the invoice                       |
-| 6  |            | `approved` | The recipient approved invoice and payment is scheduled |
-| 7  |            | `revoked`  | The invoice has been deleted by the ISP                 |
-| -  | `expired`  | --         | Final state                                             |
-| 8  | `approved` | `approved` | The recipient has updated the payment details           |
-| 9  |            | `pending`  | The recipient has stopped the payment                   |
-| 10 |            | `deleted`  | Virtual transition composed of 9 + 5                    |
-| -  | `deleted`  | --         | Final state                                             |
-| -  | `revoked`  | --         | Final state                                             |
+| #   | From       | To         | Description                                             |
+| --- | ---------- | ---------- | ------------------------------------------------------- |
+| 1   | `created`  | `pending`  | Successfully validated                                  |
+| 2   |            | `rejected` | Validation **failed**                                   |
+| 3   |            | `revoked`  | The invoice has been deleted by the ISP                 |
+| -   | `rejected` | --         | Final state                                             |
+| 4   | `pending`  | `expired`  | After grace period, the invoice cannot be modified      |
+| 5   |            | `deleted`  | The recipient deleted the invoice                       |
+| 6   |            | `approved` | The recipient approved invoice and payment is scheduled |
+| 7   |            | `revoked`  | The invoice has been deleted by the ISP                 |
+| -   | `expired`  | --         | Final state                                             |
+| 8   | `approved` | `approved` | The recipient has updated the payment details           |
+| 9   |            | `pending`  | The recipient has stopped the payment                   |
+| 10  |            | `deleted`  | Virtual transition composed of 9 + 5                    |
+| -   | `deleted`  | --         | Final state                                             |
+| -   | `revoked`  | --         | Final state                                             |
 
 ## Detailed state descriptions
 
