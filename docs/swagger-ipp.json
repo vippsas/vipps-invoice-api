@@ -314,7 +314,7 @@
     },
     "/invoices/{invoiceId}/status/approved": {
       "put": {
-        "description": "Mark an invoice as approved. Approved means that a recipient has actively approved the invoice and the IPP has/will initiate a payment.\nIt is the responsibility of the IPP to set the status back to pending if either the payment fails or the recipient cancels the payment.\nAmount and due date is validated. \nAmount is required. If the original invoice specified an minimum amount, the amount must be at least that amount. Otherwise the amount can be anything.\nThe due date must be between \"now\" and one year into the future. ",
+        "description": "Mark an invoice as approved. Approved means that a recipient has actively approved the invoice and the IPP has/will initiate a payment.\nIt is the responsibility of the IPP to set the status back to pending if either the payment fails or the recipient cancels the payment.\nAmount and due date is validated.\nAmount is required. If the original invoice specified an minimum amount, the amount must be at least that amount. Otherwise the amount can be anything.\nThe due date must be between \"now\" and one year into the future.",
         "operationId": "Change_Status_To_Approved_v1",
         "summary": "Change status to approved",
         "tags": [

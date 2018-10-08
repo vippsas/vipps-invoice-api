@@ -46,7 +46,7 @@ paths:
       parameters:
         - name: Authorization
           in: header
-          description: ''Authorization token is obtained from Access Token API: https://github.com/vippsas/vipps-accesstoken-api''
+          description: 'Authorization token is obtained from Access Token API: https://github.com/vippsas/vipps-accesstoken-api'
           required: true
           type: string
           enum:
@@ -106,7 +106,7 @@ paths:
           description: >-
             The `invoiceId` must be constructed as
             `orgno-no.{issuerOrgno}.{invoiceRef}` where {invoiceRef} is a
-            URL-safe reference that is unique for each issuer.
+            URL-safe reference that is unique for each issuer. Maximum length of the invoiceId is 200 characters.
           required: true
           type: string
         - name: Authorization

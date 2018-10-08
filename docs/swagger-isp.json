@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Vipps Invoice ISP API",
-    "version": "0.3.11",
+    "version": "0.3.12",
     "description": "\nThis is the API for Vipps Regninger. While we have worked closely with selected partners, and believe that this is very close to production quality, we are more than happy to receive feedback, either with GitHub's issue functionality, or by email.\nPlease see https://github.com/vippsas/vipps-invoice-api for documentation"
   },
   "host": "apitest.vipps.no",
@@ -49,7 +49,7 @@
           {
             "name": "Authorization",
             "in": "header",
-            "description": "Authorization token is obtained from Access Token service call based on the `client_id` and `client_secret` of the registered application.",
+            "description": "Authorization token is obtained from Access Token API: https://github.com/vippsas/vipps-accesstoken-api",
             "required": true,
             "type": "string",
             "enum": [
@@ -116,14 +116,14 @@
           {
             "name": "invoiceId",
             "in": "path",
-            "description": "The `invoiceId` must be constructed as `orgno-no.{issuerOrgno}.{invoiceRef}` where {invoiceRef} is a URL-safe reference that is unique for each issuer.",
+            "description": "The `invoiceId` must be constructed as `orgno-no.{issuerOrgno}.{invoiceRef}` where {invoiceRef} is a URL-safe reference that is unique for each issuer. Maximum length of the invoiceId is 200 characters.",
             "required": true,
             "type": "string"
           },
           {
             "name": "Authorization",
             "in": "header",
-            "description": "Authorization token is obtained from Access Token service call based on the client_id and client_secret of the registered application.",
+            "description": "Authorization token is obtained from Access Token API: https://github.com/vippsas/vipps-accesstoken-api",
             "required": true,
             "type": "string",
             "enum": [
@@ -199,7 +199,7 @@
           {
             "name": "Authorization",
             "in": "header",
-            "description": "Authorization token is obtained from Access Token service call based on the `client_id` and `client_secret` of the registered application.",
+            "description": "Authorization token is obtained from Access Token API: https://github.com/vippsas/vipps-accesstoken-api",
             "required": true,
             "type": "string",
             "enum": [
@@ -265,7 +265,7 @@
           {
             "name": "Authorization",
             "in": "header",
-            "description": "Authorization token is obtained from Access Token service call based on the `client_id` and `client_secret` of the registered application.",
+            "description": "Authorization token is obtained from Access Token API: https://github.com/vippsas/vipps-accesstoken-api",
             "required": true,
             "type": "string",
             "enum": [
@@ -320,7 +320,7 @@
           {
             "name": "Authorization",
             "in": "header",
-            "description": "Authorization token is obtained from Access Token service call based on the `client_id` and `client_secret` of the registered application.",
+            "description": "Authorization token is obtained from Access Token API: https://github.com/vippsas/vipps-accesstoken-api",
             "required": true,
             "type": "string",
             "enum": [
@@ -424,8 +424,8 @@
         "due": {
           "type": "string",
           "format": "date-time",
-          "description": "When an invoice is due. Due has to be formatted according to RFC3339 and be at least the current day at start of day and at most 1 year in the future.",
-          "example": "2019-10-02T15:00:00Z"
+          "description": "When an invoice is due",
+          "example": "2023-03-13T15:00:00+00:00"
         },
         "amount": {
           "type": "integer",
