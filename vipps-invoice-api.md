@@ -152,6 +152,21 @@ for more information about using Postman.
 By following the steps below, you can make calls to all the Vipps Regninger
 endpoints, and see the full `request` and `response` for each call.
 
+## ISP Request Flow
+1. ```Fetch Authorization Token``` to set the ```{{access-token}}``` variable.
+2. ```Request Recipient Token``` to set the ```{{recepient-token}}``` variable.
+3. ```Send Invoice```
+4. ```Revoke Invoice```
+* ```Get Single Invoice``` can be called on any existing invoice.
+
+## IPP Request Flow
+1. ```Fetch Authorization Token``` to set the ```{{access-token}}``` variable.
+2. ```Request Recipient Token``` to set the ```{{recepient-token}}``` variable.
+3. ```List Invoices```, ```Count Invoices For a User``` and ```Get a Single Invoice``` can all be called when ```{{recipient-token}}``` variable is set.
+4. ```Change Status to Approved```, ```Change Status to Pending``` and ```Delete Invoice``` requires ```{{invoice-id}}```, ```{{etag}}``` and ```{{idempotency-key}}```. These variables will be set when the ```Get Single Invoice``` call is sent.
+
+5. ```Get Commercial Invoice Document``` and ```Get Attachment for Invoice``` requires ```{{invoice-id}}``` and ```{{mime-type}}```. These variables will be set when the ```Get Single Invoice``` call is sent.
+
 ## Setup
 
 ### Step 1: Import the Postman Collection
