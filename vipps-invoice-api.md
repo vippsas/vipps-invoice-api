@@ -152,21 +152,6 @@ for more information about using Postman.
 By following the steps below, you can make calls to all the Vipps Regninger
 endpoints, and see the full `request` and `response` for each call.
 
-## ISP Request Flow
-1. ```Fetch Authorization Token``` to set the ```{{access-token}}``` variable.
-2. ```Request Recipient Token``` to set the ```{{recepient-token}}``` variable.
-3. ```Send Invoice```
-4. ```Revoke Invoice```
-* ```Get Single Invoice``` can be called on any existing invoice.
-
-## IPP Request Flow
-1. ```Fetch Authorization Token``` to set the ```{{access-token}}``` variable.
-2. ```Request Recipient Token``` to set the ```{{recepient-token}}``` variable.
-3. ```List Invoices```, ```Count Invoices For a User``` and ```Get a Single Invoice``` can all be called when ```{{recipient-token}}``` variable is set.
-4. ```Change Status to Approved```, ```Change Status to Pending``` and ```Delete Invoice``` requires ```{{invoice-id}}```, ```{{etag}}``` and ```{{idempotency-key}}```. These variables will be set when the ```Get Single Invoice``` call is sent.
-
-5. ```Get Commercial Invoice Document``` and ```Get Attachment for Invoice``` requires ```{{invoice-id}}``` and ```{{mime-type}}```. These variables will be set when the ```Get Single Invoice``` call is sent.
-
 ## Setup
 
 ### Step 1: Import the Postman Collection
@@ -205,51 +190,7 @@ Each recipient is identified by a NIN. This is set manually in the request body 
 }
 ```
 
-You can use [this](#test-users) user for testing purposes.
-
-## InvoiceId
-
-The `invoiceId` must be constructed as `orgno-no.{issuerOrgno}.{invoiceRef}`
-where `{invoiceRef}` is a URL-safe reference that is unique for each issuer.
-Base64 encoding of the `invoiceRef` is one way to make it URL-safe (but also increases the length).
-
-The `invoiceId` for the supplied test issuer with organization number `918130047` would then be: `orgno-no.918130047.{invoiceRef}`.
-For the sake of testing, `{invoiceRef}` could be a random number like `256203221`,
-resulting in this `invoiceId`: `orgno-no.918130047.256203221`.
-
-Please note that the organization numbner is validated using
-[modulus 11](https://www.brreg.no/om-oss-nn/oppgavene-vare/registera-vare/om-einingsregisteret/organisasjonsnummeret/).
-
-### Variable Overview
-
-Following is an overview of the different variables in the Postman environments. There are som differences in the IPP and ISP APIs which requires slightly different ennvironments - indicated by the `IPP Exclusive` column.
-
-| Name             | Located                                        |  Set                                     | IPP Exclusive |
-| ---------------- | ---------------------------------------------- | ---------------------------------------- | ------------- |
-| product-key      | In developer portal under 'Your Subscriptions' | By user                                  | No            |
-| client-id        | In developer portal under 'Applications'       | By user                                  | No            |
-| client-secret    | In developer portal under 'Applications'       | By user                                  | No            |
-| access-token     | Postman Tests                                  | When 'Fetch authorization Token' is sent | No            |
-| recipient-token  | Postman Tests                                  |  When 'Request recipient token' is sent  | No            |
-| etag             |  Postman Tests                                 | When 'Get single invoice' is sent        | No            |
-| idempotency-key  | Postman Tests                                  | When 'Get single invoice' is sent        | No            |
-| invoice-id       | Postman Tests                                  |  When 'Get single invoice' is sent       | Yes           |
-| mime-type        | Postman Tests                                  | When 'Get single invoice' is sent        | Yes           |
-| attachment-id    | Postman Tests                                  | When 'Get single invoice' is sent        | Yes           |
-
-### Postman Tests
-
-Most of the environment variables will be set/updated automatically throughout the calls. Most of the variables will be updated with the `Get Single Invoice` call. This call requires an invoice-id in the URL and this has to be set manually.
-
-For the variables to work correctly, please send a `Get Single Invoice` call after all `PUT` operations to update the environment variables to the correct value.
-
-#### Put operations
-
-`Change status to approved`
-
-`Change status to pending`
-
-`Delete invoice`
+## Test users and issuers
 
 ### Test users
 
@@ -266,6 +207,67 @@ The service validates that the account belongs to the issuer ([KAR](https://www.
 | Name               | Org. number | Account number |
 | ------------------ | ----------- | -------------- |
 | Vipps Teknologi AS | 918130047   | 15038366383    |
+
+
+## ISP Request Flow
+1. ```Fetch Authorization Token``` to set the ```{{access-token}}``` variable.
+2. ```Request Recipient Token``` to set the ```{{recepient-token}}``` variable.
+3. ```Send Invoice```
+4. ```Revoke Invoice```
+* ```Get Single Invoice``` can be called on any existing invoice.
+
+## IPP Request Flow
+1. ```Fetch Authorization Token``` to set the ```{{access-token}}``` variable.
+2. ```Request Recipient Token``` to set the ```{{recepient-token}}``` variable.
+3. ```List Invoices```, ```Count Invoices For a User``` and ```Get a Single Invoice``` can all be called when ```{{recipient-token}}``` variable is set.
+4. ```Change Status to Approved```, ```Change Status to Pending``` and ```Delete Invoice``` requires ```{{invoice-id}}```, ```{{etag}}``` and ```{{idempotency-key}}```. These variables will be set when the ```Get Single Invoice``` call is sent.
+5. ```Get Commercial Invoice Document``` and ```Get Attachment for Invoice``` requires ```{{invoice-id}}``` and ```{{mime-type}}```. These variables will be set when the ```Get Single Invoice``` call is sent.
+
+### Postman Tests
+
+Most of the environment variables will be set/updated automatically throughout the calls. Most of the variables will be updated with the `Get Single Invoice` call. This call requires an invoice-id in the URL and this has to be set manually.
+
+For the variables to work correctly, please send a `Get Single Invoice` call after all `PUT` operations to update the environment variables to the correct value.
+
+#### Put operations
+
+`Change status to approved`
+
+`Change status to pending`
+
+`Delete invoice`
+
+# InvoiceId and variables
+
+## InvoiceId
+
+The `invoiceId` must be constructed as `orgno-no.{issuerOrgno}.{invoiceRef}`
+where `{invoiceRef}` is a URL-safe reference that is unique for each issuer.
+Base64 encoding of the `invoiceRef` is one way to make it URL-safe (but also increases the length).
+
+The `invoiceId` for the supplied test issuer with organization number `918130047` would then be: `orgno-no.918130047.{invoiceRef}`.
+For the sake of testing, `{invoiceRef}` could be a random number like `256203221`,
+resulting in this `invoiceId`: `orgno-no.918130047.256203221`.
+
+Please note that the organization numbner is validated using
+[modulus 11](https://www.brreg.no/om-oss-nn/oppgavene-vare/registera-vare/om-einingsregisteret/organisasjonsnummeret/).
+
+## Variable Overview
+
+Following is an overview of the different variables in the Postman environments. There are som differences in the IPP and ISP APIs which requires slightly different ennvironments - indicated by the `IPP Exclusive` column.
+
+| Name             | Located                                        |  Set                                     | IPP Exclusive |
+| ---------------- | ---------------------------------------------- | ---------------------------------------- | ------------- |
+| product-key      | In developer portal under 'Your Subscriptions' | By user                                  | No            |
+| client-id        | In developer portal under 'Applications'       | By user                                  | No            |
+| client-secret    | In developer portal under 'Applications'       | By user                                  | No            |
+| access-token     | Postman Tests                                  | When 'Fetch authorization Token' is sent | No            |
+| recipient-token  | Postman Tests                                  |  When 'Request recipient token' is sent  | No            |
+| etag             | Postman Tests                                  | When 'Get single invoice' is sent        | No            |
+| idempotency-key  | Postman Tests                                  | When 'Get single invoice' is sent        | No            |
+| invoice-id       | Postman Tests                                  | When 'Get single invoice' is sent        | Yes           |
+| mime-type        | Postman Tests                                  | When 'Get single invoice' is sent        | Yes           |
+| attachment-id    | Postman Tests                                  | When 'Get single invoice' is sent        | Yes           |
 
 # Authentication and authorization
 
