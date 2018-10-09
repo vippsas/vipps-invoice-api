@@ -67,6 +67,10 @@ install it using `pip`.
 
 # Swagger changelog
 
+## 0.3.13
+
+* Added validation info on invoiceId and urls.
+
 ## 0.3.12
 
 * Added validation info to description of `due`
