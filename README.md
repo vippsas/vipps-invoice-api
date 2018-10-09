@@ -67,6 +67,10 @@ install it using `pip`.
 
 # Swagger changelog
 
+## 0.3.14
+
+* Added recipient token to get invoice, get commercial invoice and get attachment.
+
 ## 0.3.13
 
 * Added validation info on invoiceId and urls.
