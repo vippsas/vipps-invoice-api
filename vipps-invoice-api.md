@@ -12,7 +12,7 @@ Please use GitHub's built-in functionality for
 [pull requests](https://github.com/vippsas/vipps-invoice-api/pulls),
 or contact us at integration@vipps.no.
 
-Document version: 0.2.18.
+Document version: 0.2.19.
 
 ## External documentation
 
@@ -502,7 +502,7 @@ See also: [JSON Web Token Best Current Practices draft-ietf-oauth--bcp-03](https
 
 The JSON Web Token (JWT) contains the following relevant claims:
 
-- `ISS` (issuer): Who is issuing the JWT. Typically `vipps.invoice.api`.
+- `ISS` (issuer): Who is issuing the JWT.E.g. `vipps.invoice.api`.
 - `AUD` (audience): Something identifying the IPP.
 - `SUB` (subject): The base URL for the document.
 - `EXP` (expiration): A specific moment in time where the JWT becomes invalid.
