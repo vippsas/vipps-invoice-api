@@ -106,7 +106,7 @@ paths:
           description: >-
             The `invoiceId` must be constructed as
             `orgno-no.{issuerOrgno}.{invoiceRef}` where {invoiceRef} is a
-            URL-safe reference that is unique for each issuer. Maximum length of the invoiceId is 200 characters.
+            URL-safe reference that is unique for each issuer. Maximum length of the invoiceId is 200 bytes (i.e. 200 characters if the invoice id is in ascii).
           required: true
           type: string
         - name: Authorization
@@ -335,8 +335,8 @@ definitions:
       due:
         type: string
         format: date-time
-        description: When an invoice is due
-        example: '2023-03-13T15:00:00+00:00'
+        description: When an invoice is due. Due has to be formatted according to RFC3339 and be at least the current day at start of day and at most 1 year in the future.
+        example: '2019-10-02T15:00:00Z'
       amount:
         type: integer
         description: Amount by lowest subdivision (øre)
@@ -370,7 +370,7 @@ definitions:
               example: application/pdf
             url:
               type: string
-              description: URL of commercial invoice
+              description: URL of commercial invoice. It is required to use the https-protocol.
               example: >-
                 https://www.example.com/08fd5360-e218-4658-894f-4f37649e7df7/comminv.pdf
       attachments:
@@ -398,6 +398,7 @@ definitions:
           type: object
           properties:
             url:
+              description: An URL to the attachment. It is required to use the https-protocol.
               type: string
               example: 'https://invoice-hotel.example.org/invoice/42.pdf'
             mimeType:
@@ -462,7 +463,7 @@ definitions:
         type: string
         format: date-time
         description: When an invoice is due
-        example: '2023-03-13T15:00:00+00:00'
+        example: '2019-10-02T15:00:00Z'
       amount:
         type: integer
         description: Amount by lowest subdivision(øre)
