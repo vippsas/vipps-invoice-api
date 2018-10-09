@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Vipps Invoice IPP API
-  version: '0.3.13'
+  version: '0.3.14'
   description: >-
     This is the API for Vipps Regninger. While we have worked closely with
     selected partners, and believe that this is very close to production
@@ -202,6 +202,11 @@ paths:
         - name: invoiceId
           in: path
           description: The unique invoice id.
+          required: true
+          type: string
+        - name: vippsinvoice-recipienttoken
+          in: header
+          description: Recipient token. Issued by vipps.
           required: true
           type: string
         - name: Authorization
@@ -417,6 +422,11 @@ paths:
           description: Mime type to retrieve. E.g. application/pdf
           required: true
           type: string
+        - name: vippsinvoice-recipienttoken
+          in: header
+          description: Recipient token. Issued by vipps.
+          required: true
+          type: string
         - name: Authorization
           in: header
           description: Authorization token is obtained from Access Token service call based on the `client_id` and `client_secret` of the registered application.
@@ -464,6 +474,11 @@ paths:
         - name: mimeType
           in: query
           description: Mime type to retrieve. E.g. application/pdf
+          required: true
+          type: string
+        - name: vippsinvoice-recipienttoken
+          in: header
+          description: Recipient token. Issued by vipps.
           required: true
           type: string
         - name: Authorization
