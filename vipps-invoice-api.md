@@ -12,11 +12,11 @@ Please use GitHub's built-in functionality for
 [pull requests](https://github.com/vippsas/vipps-invoice-api/pulls),
 or contact us at integration@vipps.no.
 
-Document version: 0.2.19.
+Document version: 0.2.20.
 
-#Overview
+# Overview
 
-##Table of contents
+## Table of contents
 
 - [Overview](#overview)
   * [External documentation](#external-documentation)
@@ -74,8 +74,6 @@ Document version: 0.2.19.
   * [State 6: Deleted](#state-6--deleted)
   * [State 7: Revoked](#state-7--revoked)
 - [Questions or comments?](#questions-or-comments-)
-
-<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
 
 ## External documentation
 
