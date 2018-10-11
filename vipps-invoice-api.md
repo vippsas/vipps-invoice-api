@@ -12,7 +12,7 @@ Please use GitHub's built-in functionality for
 [pull requests](https://github.com/vippsas/vipps-invoice-api/pulls),
 or contact us at integration@vipps.no.
 
-Document version: 0.2.20.
+Document version: 0.2.21.
 
 # Overview
 
@@ -106,6 +106,14 @@ To get a token, follow
 | MSISDN      | A number uniquely identifying a subscription in a GSM or a UMTS mobile network. Simply put, it is the mapping of the telephone number to the SIM card in a mobile phone. See [MSISDN](https://en.wikipedia.org/wiki/MSISDN). |
 | Actor       | An ISP, IPP or invoice recipient.                                                                                                                                                                                            |
 | Idempotency | The property of endpoints to be called multiple times without changing the result beyond the initial application.                                                                                                            |
+
+## Time format and time zones
+
+We use the [RFC-3339](https://www.ietf.org/rfc/rfc3339.txt) format, which is a profile of _ISO 8601_. This format includes time zone information. As an IPP/ISP this means that date and time sent to the API *must* be specify the time zone. Having time zone information implies that the API can work with date and time in a consistent and predictable manner. Internally the RFC-3339 time format is stored relative to UTC. 
+
+`1986-03-24T09:30:00.52Z` is in UTC time (denoted by the Z), while `1986-03-24T10:30:00.52+01:00` is the same time specificed with2 a time zone. The two examples specify the exact same point in time.
+
+There are several benefits to this approach. It deals with daylight saving time, leap seconds and all other things that can cause edge cases when working with date and time. 
 
 # Core functionality
 
