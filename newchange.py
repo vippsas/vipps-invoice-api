@@ -1,5 +1,8 @@
 #!/bin/env python
 
+# USAGE (Mac OS X): python3 newchange.py "Description of the change"
+# USAGE (Linux): ./newchange.py "Description of the change"
+
 import re
 import sys
 import yaml
@@ -7,11 +10,12 @@ import json
 import os
 
 if len(sys.argv) != 2:
-    print('Usage: python3 newchange.py <change description>')
+    print('Usage: python3 newchange.py "<change description>"')
     sys.exit(2)
 
 change_description = sys.argv[1]
 
+print('Reading current version from README.md ...')
 readme = open('README.md', 'r')
 readme_content = readme.read()
 readme.close()
@@ -33,12 +37,9 @@ rx = re.compile('# Swagger changelog\s', re.MULTILINE)
 new_changelog = f'## {next_version}\n\n* {change_description}'
 readme_new_changelog = readme_content.replace('# Swagger changelog', f'# Swagger changelog\n\n{new_changelog}')
 
-#print(readme_new_changelog)
-
-print(f'\nUpdating README.md with new changelog:\n\n {new_changelog}')
-readme = open('README.md', 'w')
-readme.write(readme_new_changelog)
-readme.close()
+print(f'\nUpdating README.md with new changelog:\n\n {new_changelog}\n')
+with open('README.md', 'w') as fp:
+    fp.write(readme_new_changelog)
 
 print(f'Updating the Swagger YAML-files with new version {next_version}')
 # ISP
@@ -63,4 +64,5 @@ isp_json = open("docs/swagger-isp.json", "w", encoding="utf-8")
 ipp_json.write(json.dumps(ipp_yaml, indent=2, ensure_ascii=False))
 isp_json.write(json.dumps(isp_yaml, indent=2, ensure_ascii=False))
 
+print('Creating a new local git-commit with the new change ...')
 os.system(f'git add . && git commit -m "New version {next_version}: {change_description}"')
