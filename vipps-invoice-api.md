@@ -137,9 +137,9 @@ The validation of the invoice will still be an _asynchronous_ process since we
 have no possibility to guarantee, or even estimate, the response times for
 all required validation and risk check to be performed.
 
-Therefore, the invoice will be in a `pending` state once it is inserted.
+Therefore, the invoice will be in a `created` state once it is inserted.
 In this state the invoice will not be visible to anyone. Only after all
-validation steps are passed, will the invoice will be shown to the recipients.
+validation steps are passed, will the invoice be in a `pending` state and shown to the recipients.
 ISPs who provide the invoice will have to monitor the state.
 
 ## Managing and paying invoices
@@ -305,6 +305,7 @@ For the variables to work correctly, please send a `Get Single Invoice` call aft
 The `invoiceId` must be constructed as `orgno-no.{issuerOrgno}.{invoiceRef}`
 where `{invoiceRef}` is a URL-safe reference that is unique for each issuer.
 Base64 encoding of the `invoiceRef` is one way to make it URL-safe (but also increases the length).
+The maximal length of the complete `invoiceId` is 200 bytes, i.e. 200 characters if it consists of only ascii characters.
 
 The `invoiceId` for the supplied test issuer with organization number `918130047` would then be: `orgno-no.918130047.{invoiceRef}`.
 For the sake of testing, `{invoiceRef}` could be a random number like `256203221`,
@@ -323,7 +324,7 @@ Following is an overview of the different variables in the Postman environments.
 | client-id        | In developer portal under 'Applications'       | By user                                  | No            |
 | client-secret    | In developer portal under 'Applications'       | By user                                  | No            |
 | access-token     | Postman Tests                                  | When 'Fetch authorization Token' is sent | No            |
-| recipient-token  | Postman Tests                                  |  When 'Request recipient token' is sent  | No            |
+| recipient-token  | Postman Tests                                  | When 'Request recipient token' is sent  | No            |
 | etag             | Postman Tests                                  | When 'Get single invoice' is sent        | No            |
 | idempotency-key  | Postman Tests                                  | When 'Get single invoice' is sent        | No            |
 | invoice-id       | Postman Tests                                  | When 'Get single invoice' is sent        | Yes           |
@@ -476,7 +477,7 @@ vippsinvoice-recipienttoken : ***
     "account": "12345678903"
   },
   "invoiceType": "invoice",
-  "due": "2023-03-13T16:00:00+01:00",
+  "due": "2019-03-13T16:00:00+01:00",
   "amount": 25043,
   "minAmount": 25043,
   "subject": "Bompasseringer",
@@ -486,10 +487,13 @@ vippsinvoice-recipienttoken : ***
     "identValue": "310362******",
     "resolvedAt": "2018-08-30T09:11:19Z"
   },
+  "providerId": {
+    "identType": "orgno-no",
+    "identValue": "123123123"
+  },
   "commercialInvoice": [
     {
-      "mimeType": "application/pdf",
-      "url": "https://www.example.com/08fd5360-e218-4658-894f-4f37649e7df7/comminv.pdf"
+      "mimeType": "application/pdf"
     }
   ],
   "attachments": [
