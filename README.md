@@ -67,6 +67,10 @@ install it using `pip`.
 
 # Swagger changelog
 
+## 0.3.15
+
+* Correction of the HTTP statuscode of status changes
+
 ## 0.3.14
 
 * Added recipient token to get invoice, get commercial invoice and get attachment.

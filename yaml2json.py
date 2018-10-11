@@ -1,5 +1,6 @@
 #!/bin/env python
-import yaml, json
+import yaml
+import json
 
 isp_yaml = yaml.safe_load(open("docs/swagger-isp.yaml", "r", encoding="utf-8"))
 ipp_yaml = yaml.safe_load(open("docs/swagger-ipp.yaml", "r", encoding="utf-8"))
