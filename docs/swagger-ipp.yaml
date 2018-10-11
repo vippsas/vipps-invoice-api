@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Vipps Invoice IPP API
-  version: '0.3.14'
+  version: '0.3.15'
   description: >-
     This is the API for Vipps Regninger. While we have worked closely with
     selected partners, and believe that this is very close to production
