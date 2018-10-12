@@ -1,72 +1,90 @@
 {
-  "id": "6fbe1850-4665-47ae-8edb-353a289ed260",
-  "name": "Invoice ISP",
-  "values": [
-    {
-      "key": "product-key",
-      "value": "",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
-      "enabled": true
-    },
-    {
-      "key": "access-token",
-      "value": "",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
-      "enabled": true
-    },
-    {
-      "key": "recipient-token",
-      "value": "",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
-      "enabled": true
-    },
-    {
-      "key": "etag",
-      "value": "",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
-      "enabled": true
-    },
-    {
-      "key": "client-id",
-      "value": "",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
-      "enabled": true
-    },
-    {
-      "key": "client-secret",
-      "value": "",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
-      "enabled": true
-    },
-    {
-      "key": "idempotency-key",
-      "value": "",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
-      "enabled": true
-    }
-  ],
-  "_postman_variable_scope": "environment",
-  "_postman_exported_at": "2018-10-04T10:33:30.706Z",
-  "_postman_exported_using": "Postman/6.3.0"
+	"id": "8fdcf8a7-9ee6-4a44-83bd-699419724c64",
+	"name": "ISP TEST",
+	"values": [
+		{
+			"key": "access-token-key",
+			"value": "",
+			"description": {
+				"content": "",
+				"type": "text/plain"
+			},
+			"enabled": true
+		},
+		{
+			"key": "client-secret",
+			"value": "",
+			"description": {
+				"content": "",
+				"type": "text/plain"
+			},
+			"enabled": true
+		},
+		{
+			"key": "client-id",
+			"value": "",
+			"description": {
+				"content": "",
+				"type": "text/plain"
+			},
+			"enabled": true
+		},
+		{
+			"key": "subscription-key",
+			"value": "",
+			"description": {
+				"content": "",
+				"type": "text/plain"
+			},
+			"enabled": true
+		},
+		{
+			"key": "access-token",
+			"value": "",
+			"description": {
+				"content": "",
+				"type": "text/plain"
+			},
+			"enabled": true
+		},
+		{
+			"key": "recipient-token",
+			"value": "",
+			"description": {
+				"content": "",
+				"type": "text/plain"
+			},
+			"enabled": true
+		},
+		{
+			"key": "etag",
+			"value": "",
+			"description": {
+				"content": "",
+				"type": "text/plain"
+			},
+			"enabled": true
+		},
+		{
+			"key": "TEST-URL",
+			"value": "https://apitest.vipps.no/vipps-isp/v1/",
+			"description": {
+				"content": "",
+				"type": "text/plain"
+			},
+			"enabled": true
+		},
+		{
+			"key": "idempotency-key",
+			"value": "",
+			"description": {
+				"content": "",
+				"type": "text/plain"
+			},
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2018-10-12T07:13:03.535Z",
+	"_postman_exported_using": "Postman/6.4.2"
 }

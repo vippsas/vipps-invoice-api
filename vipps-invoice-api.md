@@ -246,11 +246,24 @@ You should now see the full API collection in your `Collections` window.
 1. Click the "eye" icon in the top right corner.
 2. In the dropdown window, click `Edit` in the top right corner.
 3. Fill in the `Current Value` for the following fields to get started.
-   - `product-key`
+   - `access-token-key`
+   - `subscription-key`
    - `client-id`
    - `client-secret`
 
-Each recipient is identified by a NIN. This is set manually in the request body of `Request Recipient Token`:
+Detailed guide on where to find the key values:
+[Getting started guide](https://github.com/vippsas/vipps-developers/blob/master/vipps-developer-portal-getting-started.md#step-4).
+
+Each recipient is identified by a MSISDN. This is set manually in the request body of `Request Recipient Token`:
+
+```json
+{
+  "type": "msisdn",
+  "value": "<Insert 10-digit phone number>"
+}
+```
+
+Alternatively, use a NIN to identify each recipient:
 
 ```json
 {
@@ -259,7 +272,7 @@ Each recipient is identified by a NIN. This is set manually in the request body 
 }
 ```
 
-## Test users and issuers
+By default, both MSISDN and NIN requests are pre-populated with the test user information below. 
 
 ### Test users
 
@@ -296,7 +309,7 @@ The service validates that the account belongs to the issuer ([KAR](https://www.
 
 Most of the environment variables will be set/updated automatically throughout the calls. Most of the variables will be updated with the `Get Single Invoice` call. This call requires an invoice-id in the URL and this has to be set manually.
 
-For the variables to work correctly, please send a `Get Single Invoice` call after all `PUT` operations to update the environment variables to the correct value.
+For the variables to work correctly, please send a `Get Single Invoice` call after all `PUT` operations (except `Send Invoice`) to update the environment variables to the correct value.
 
 #### Put operations
 
@@ -305,6 +318,8 @@ For the variables to work correctly, please send a `Get Single Invoice` call aft
 `Change status to pending`
 
 `Delete invoice`
+
+`Revoke invoice`
 
 # InvoiceId and variables
 
@@ -319,7 +334,7 @@ The `invoiceId` for the supplied test issuer with organization number `918130047
 For the sake of testing, `{invoiceRef}` could be a random number like `256203221`,
 resulting in this `invoiceId`: `orgno-no.918130047.256203221`.
 
-Please note that the organization numbner is validated using
+Please note that the organization number is validated using
 [modulus 11](https://www.brreg.no/om-oss-nn/oppgavene-vare/registera-vare/om-einingsregisteret/organisasjonsnummeret/).
 
 ## Variable Overview
@@ -328,16 +343,19 @@ Following is an overview of the different variables in the Postman environments.
 
 | Name             | Located                                        |  Set                                     | IPP Exclusive |
 | ---------------- | ---------------------------------------------- | ---------------------------------------- | ------------- |
-| product-key      | In developer portal under 'Your Subscriptions' | By user                                  | No            |
+| access-token-key | In developer portal under 'Your Subscriptions' | By user | No |
+| subscription-key      | In developer portal under 'Your Subscriptions' | By user                                  | No            |
 | client-id        | In developer portal under 'Applications'       | By user                                  | No            |
 | client-secret    | In developer portal under 'Applications'       | By user                                  | No            |
 | access-token     | Postman Tests                                  | When 'Fetch authorization Token' is sent | No            |
 | recipient-token  | Postman Tests                                  | When 'Request recipient token' is sent  | No            |
 | etag             | Postman Tests                                  | When 'Get single invoice' is sent        | No            |
-| idempotency-key  | Postman Tests                                  | When 'Get single invoice' is sent        | No            |
+| idempotency-key  | Pre-request Script | When all `PUT` calls are sent | No |
+| TEST-URL | Default in Environment | Default | No|
 | invoice-id       | Postman Tests                                  | When 'Get single invoice' is sent        | Yes           |
 | mime-type        | Postman Tests                                  | When 'Get single invoice' is sent        | Yes           |
 | attachment-id    | Postman Tests                                  | When 'Get single invoice' is sent        | Yes           |
+
 
 # Authentication and authorization
 
@@ -418,7 +436,7 @@ submit several invoices to the same recipient.
 | 1    | [`POST://recipients/tokens`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Request_Recipient_Token_v1) | The call will resolve the provided personal data and return a `recipientToken` if the recipient could be resolved. This token is used in the subsequent call(s). |
 | 2    | [`PUT:/invoices/{invoiceId}`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Send_Invoice_v1)           | The previously obtained `recipientToken` is used in the request body to identify the recipient.                                                                  |
 
-[`PUT:/invoices/{invoiceId}`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Send_Invoice_v1) endpoint is idempotent. The idempotency key is the `invoiceId`. The endpoint may be called multiple times, but the invoice is inserted exactly once only. The endpoint will return a 200 status code if the invoice was inserted, a 200 if the invoice is already in the system and the contents are equal, and `409` if the invoice exists but the contents are not equal.
+[`PUT:/invoices/{invoiceId}`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Send_Invoice_v1) endpoint is idempotent. The idempotency key is a unique, user generated id. The endpoint may be called multiple times, but the invoice is inserted exactly once only. The endpoint will return a 200 status code if the invoice was inserted, a 200 if the invoice is already in the system and the contents are equal, and `409` if the invoice exists but the contents are not equal.
 
 Invoices are never updated/modified. If in doubt, an invoice has to be fetched and the content must be compared by the client.
 
