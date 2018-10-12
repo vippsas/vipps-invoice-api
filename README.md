@@ -67,6 +67,10 @@ install it using `pip`.
 
 # Swagger changelog
 
+## 0.3.16
+
+* Add info about logo requirements
+
 ## 0.3.15
 
 * Correction of the HTTP statuscode of status changes

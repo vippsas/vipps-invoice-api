@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Vipps Invoice ISP API
-  version: '0.3.15'
+  version: '0.3.16'
   description: >-
 
     This is the API for Vipps Regninger. While we have worked closely with
@@ -385,7 +385,11 @@ definitions:
           $ref: '#/definitions/attachmentIn'
       issuerIconUrl:
         type: string
-        description: URL to invoice issuer's logo
+        description: >-
+          URL to invoice issuer's logo. The URL must use the https-protocol and not contain any tracking-scripts or user-tracking parameters.
+          Supported image formats: SVG (Scalable Vector Graphics) and PNG (Portable Network Graphics). 
+          Minimum size: 82x82 pixels
+          Maximum size: 512x512 pixels
         example: 'https://www.example.com/logos/lister.png'
   attachmentIn:
     description: An incoming attachment related to an invoice
