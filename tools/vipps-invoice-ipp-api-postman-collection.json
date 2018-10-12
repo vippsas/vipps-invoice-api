@@ -330,12 +330,12 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{TEST-URL}}invoices/orgno-no.918130047.8665",
+							"raw": "{{TEST-URL}}invoices/orgno-no.{issuerOrgno}.{invoiceRef}",
 							"host": [
 								"{{TEST-URL}}invoices"
 							],
 							"path": [
-								"orgno-no.918130047.8665"
+								"orgno-no.{issuerOrgno}.{invoiceRef}"
 							]
 						},
 						"description": "Returns a single invoice identified by its unique id. This is used to verify the state of an invoice, e.g. if it has been validated and now is available for recipients."
