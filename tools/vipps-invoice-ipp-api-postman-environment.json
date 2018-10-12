@@ -1,95 +1,113 @@
 {
-  "id": "e1b15ce1-2e49-48c5-b465-8d68a48c30fa",
-  "name": "Invoice IPP",
-  "values": [
-    {
-      "key": "client-id",
-      "value": "",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
-      "enabled": true
-    },
-    {
-      "key": "client-secret",
-      "value": "",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
-      "enabled": true
-    },
-    {
-      "key": "product-key",
-      "value": "",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
-      "enabled": true
-    },
-    {
-      "key": "access-token",
-      "value": "",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
-      "enabled": true
-    },
-    {
-      "key": "recipient-token",
-      "value": "",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
-      "enabled": true
-    },
-    {
-      "key": "etag",
-      "value": "",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
-      "enabled": true
-    },
-    {
-      "key": "idempotency-key",
-      "value": "",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
-      "enabled": true
-    },
-    {
-      "key": "invoice-id",
-      "value": "",
-      "enabled": true
-    },
-    {
-      "key": "mime-type",
-      "value": "",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
-      "enabled": true
-    },
-    {
-      "key": "attachment-id",
-      "value": "",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
-      "enabled": true
-    }
-  ],
-  "_postman_variable_scope": "environment",
-  "_postman_exported_at": "2018-10-05T13:49:25.073Z",
-  "_postman_exported_using": "Postman/6.3.0"
+	"id": "58fa8dc7-4d6c-4e1d-9709-24752e8d8fbc",
+	"name": "IPP TEST",
+	"values": [
+		{
+			"key": "access-token-key",
+			"value": "",
+			"description": {
+				"content": "",
+				"type": "text/plain"
+			},
+			"enabled": true
+		},
+		{
+			"key": "client-id",
+			"value": "",
+			"description": {
+				"content": "",
+				"type": "text/plain"
+			},
+			"enabled": true
+		},
+		{
+			"key": "client-secret",
+			"value": "",
+			"description": {
+				"content": "",
+				"type": "text/plain"
+			},
+			"enabled": true
+		},
+		{
+			"key": "subscription-key",
+			"value": "",
+			"description": {
+				"content": "",
+				"type": "text/plain"
+			},
+			"enabled": true
+		},
+		{
+			"key": "TEST-URL",
+			"value": "https://apitest.vipps.no/vipps-ipp/v1/",
+			"description": {
+				"content": "",
+				"type": "text/plain"
+			},
+			"enabled": true
+		},
+		{
+			"key": "access-token",
+			"value": "",
+			"description": {
+				"content": "",
+				"type": "text/plain"
+			},
+			"enabled": true
+		},
+		{
+			"key": "recipient-token",
+			"value": "",
+			"description": {
+				"content": "",
+				"type": "text/plain"
+			},
+			"enabled": true
+		},
+		{
+			"key": "etag",
+			"value": "",
+			"description": {
+				"content": "",
+				"type": "text/plain"
+			},
+			"enabled": true
+		},
+		{
+			"key": "invoice-id",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "mime-type",
+			"value": "",
+			"description": {
+				"content": "",
+				"type": "text/plain"
+			},
+			"enabled": true
+		},
+		{
+			"key": "attachment-id",
+			"value": "",
+			"description": {
+				"content": "",
+				"type": "text/plain"
+			},
+			"enabled": true
+		},
+		{
+			"key": "idempotency-key",
+			"value": "",
+			"description": {
+				"content": "",
+				"type": "text/plain"
+			},
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2018-10-12T07:13:01.409Z",
+	"_postman_exported_using": "Postman/6.4.2"
 }
