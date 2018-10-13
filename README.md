@@ -49,6 +49,7 @@ Invoice _Service_ Providers: Actors who submit invoices. Either for themselves o
 
 * https://vippsas.github.io/vipps-invoice-api/isp.html
 * https://vippsas.github.io/vipps-invoice-api/redoc-isp.html
+* https://vippsas.github.io/vipps-invoice-api/spectacle/isp/
 
 ## IPP: Invoice Payment Provider
 
@@ -56,6 +57,7 @@ Invoice _Payment_ Providers: Actors who handle invoices for the invoice recipien
 
 * https://vippsas.github.io/vipps-invoice-api/ipp.html
 * https://vippsas.github.io/vipps-invoice-api/redoc-ipp.html
+* https://vippsas.github.io/vipps-invoice-api/spectacle/ipp/
 
 # Building JSON files
 
