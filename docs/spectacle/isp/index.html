@@ -1,0 +1,2866 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vipps Invoice ISP API | API Reference</title>
+    <link rel="stylesheet" href="stylesheets/foundation.min.css" />
+    <link rel="stylesheet" href="stylesheets/spectacle.min.css" />
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <!-- <script src="javascripts/foundation.js"></script> -->
+    <script src="javascripts/spectacle.min.js"></script>
+  </head>
+  <body id="spectacle">
+    <div id="page" class="drawer-layout drawer-slide-right-large">
+      <div id="sidebar">
+        <button class="close-button" aria-label="Close menu" type="button" data-drawer-close>
+          <span aria-hidden="true">×</span>
+        </button>
+        <nav id="nav" role="navigation">
+          <h5>Topics</h5>
+          <a href="#introduction">Introduction</a>
+          <a href="#authentication">Authentication</a>
+          <h5>Paths</h5>
+          <!-- <section>
+                <a href="#path--recipients-tokens">/recipients/tokens</a>
+                <ul> -->
+          <!-- <li> -->
+          <a href="#operation--recipients-tokens-post"> Request recipient token </a>
+          <!-- </li> -->
+          <!-- </ul>
+              </section> -->
+          <!-- <section>
+                <a href="#path--invoices--invoiceId-">/invoices/{invoiceId}</a>
+                <ul> -->
+          <!-- <li> -->
+          <a href="#operation--invoices--invoiceId--put"> Send invoice </a>
+          <!-- </li> -->
+          <!-- <li> -->
+          <a href="#operation--invoices--invoiceId--get"> Get single invoice </a>
+          <!-- </li> -->
+          <!-- </ul>
+              </section> -->
+          <!-- <section>
+                <a href="#path--invoices--invoiceId--status-revoked">/invoices/{invoiceId}/status/revoked</a>
+                <ul> -->
+          <!-- <li> -->
+          <a href="#operation--invoices--invoiceId--status-revoked-put"> Revoke invoice </a>
+          <!-- </li> -->
+          <!-- </ul>
+              </section> -->
+          <!-- <section>
+                <a href="#path--jwk">/jwk</a>
+                <ul> -->
+          <!-- <li> -->
+          <a href="#operation--jwk-get"> GET /jwk </a>
+          <!-- </li> -->
+          <!-- </ul>
+              </section> -->
+          <h5>Schema Definitions</h5>
+          <a href="#definition-invoiceIn"> invoiceIn </a>
+          <a href="#definition-attachmentIn"> attachmentIn </a>
+          <a href="#definition-attachmentOut"> attachmentOut </a>
+          <a href="#definition-invoiceOut"> invoiceOut </a>
+          <a href="#definition-RecipientResolve"> RecipientResolve </a>
+          <a href="#definition-Error"> Error </a>
+          <a href="#definition-JsonWebKeySet"> JsonWebKeySet </a>
+          <a href="#definition-JsonWebKey"> JsonWebKey </a>
+          <a href="#definition-RecipientsTokensPost200ApplicationJsonResponse"> RecipientsTokensPost200ApplicationJsonResponse </a>
+          <a href="#definition-InvoicesInvoiceIdPut400ApplicationJsonResponse"> InvoicesInvoiceIdPut400ApplicationJsonResponse </a>
+          <a href="#definition-InvoicesInvoiceIdPut409ApplicationJsonResponse"> InvoicesInvoiceIdPut409ApplicationJsonResponse </a>
+          <a href="#definition-MsError"> MsError </a>
+        </nav>
+      </div>
+      <div id="docs" class="row collapse expanded drawer" data-drawer>
+        <button class="floating-menu-icon" type="button" data-drawer-slide="right">
+          <span class="hamburger"></span>
+        </button>
+        <div class="example-box doc-content"></div>
+        <article>
+          <h1 class="doc-title">Vipps Invoice ISP API
+            <span>API Reference</span>
+          </h1>
+          <div id="introduction" data-traverse-target="introduction">
+            <div class="doc-row">
+              <div class="doc-copy">
+                <p>This is the API for Vipps Regninger. While we have worked closely with selected partners, and believe that this is very close to production quality, we are more than happy to receive feedback, either with GitHub&#39;s issue functionality, or by email. Please see
+                  <a href="https://github.com/vippsas/vipps-invoice-api">https://github.com/vippsas/vipps-invoice-api</a> for documentation</p>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>API Endpoint</h5>
+                  <!-- <div class="hljs"> --><pre><code>https://apitest.vipps.no/vipps-isp/v1</code></pre>
+                  <!-- </div> -->
+                  <h5>Schemes:
+                    <span>https</span>
+                  </h5>
+                  <h5>Version:
+                    <span>0.3.16</span>
+                  </h5>
+                </section>
+              </div>
+            </div>
+          </div>
+          <!-- <h1 id="security" data-traverse-target="security">Security</h1> -->
+          <h1 id="authentication" data-traverse-target="authentication">Authentication</h1>
+          <div id="security-definition-apiKeyHeader" class="panel">
+            <div class="doc-row">
+              <div class="doc-copy">
+                <h3 class="security-definition-title">
+                  <span class="security-name">apiKeyHeader</span>
+                  <span class="swagger-security-definition-apiKey"></span>
+                </h3>
+                <section class="swagger-security-definition-properties">
+                  <div class="prop-row security-definition-property">
+                    <div class="prop-name">
+                      <div class="prop-title security-definition-property-name">type</div>
+                    </div>
+                    <div class="prop-value security-definition-property-type"> apiKey </div>
+                  </div>
+                  <div class="prop-row security-definition-property">
+                    <div class="prop-name">
+                      <div class="prop-title security-definition-property-name">name</div>
+                    </div>
+                    <div class="prop-value security-definition-property-type"> Ocp-Apim-Subscription-Key </div>
+                  </div>
+                  <div class="prop-row security-definition-property">
+                    <div class="prop-name">
+                      <div class="prop-title security-definition-property-name">in</div>
+                    </div>
+                    <div class="prop-value security-definition-property-type"> header </div>
+                  </div>
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="security-definition-apiKeyQuery" class="panel">
+            <div class="doc-row">
+              <div class="doc-copy">
+                <h3 class="security-definition-title">
+                  <span class="security-name">apiKeyQuery</span>
+                  <span class="swagger-security-definition-apiKey"></span>
+                </h3>
+                <section class="swagger-security-definition-properties">
+                  <div class="prop-row security-definition-property">
+                    <div class="prop-name">
+                      <div class="prop-title security-definition-property-name">type</div>
+                    </div>
+                    <div class="prop-value security-definition-property-type"> apiKey </div>
+                  </div>
+                  <div class="prop-row security-definition-property">
+                    <div class="prop-name">
+                      <div class="prop-title security-definition-property-name">name</div>
+                    </div>
+                    <div class="prop-value security-definition-property-type"> subscription-key </div>
+                  </div>
+                  <div class="prop-row security-definition-property">
+                    <div class="prop-name">
+                      <div class="prop-title security-definition-property-name">in</div>
+                    </div>
+                    <div class="prop-value security-definition-property-type"> query </div>
+                  </div>
+                </section>
+              </div>
+            </div>
+          </div>
+          <h1>Paths</h1>
+          <span id="path--recipients-tokens"></span>
+          <div id="operation--recipients-tokens-post" class="operation panel" data-traverse-target="operation--recipients-tokens-post">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-ISP">ISP</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Request recipient token</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/recipients/tokens</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Request a <code>recipientToken</code> by providing either the recipients Norwegian national identification or mobile number. We have created a few test users, please contact
+                    <a href="mailto:integration@vipps.no">integration@vipps.no</a> to get details for your test user.</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-body">
+                  <div class="prop-row">
+                    <div class="prop-name">
+                      <div class="swagger-request-model">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/RecipientResolve">RecipientResolve</a>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="prop-value columns small-6">
+                      <!-- <div class="swagger-request-description"> -->
+                      <p>undefined</p>
+                      <!-- </div> -->
+                    </div>
+                  </div>
+                </section>
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">Authorization:
+                        <span class="prop-type">
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-enum" title="Possible values">
+                            <span class="json-property-enum-item">bearer &lt;access_token&gt;</span>
+                          </span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in header </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Authorization token is obtained from Access Token API:
+                        <a href="https://github.com/vippsas/vipps-accesstoken-api">https://github.com/vippsas/vipps-accesstoken-api</a>
+                      </p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Request Content-Types:
+                    <span>application/json</span>
+                  </h5>
+                  <h5>Request Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/RecipientsTokensPost200ApplicationJsonResponse">RecipientsTokensPost200ApplicationJsonResponse</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Recipient token</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">400 Bad Request</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/Error">Error</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Bad Request</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/MsError">MsError</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Unauthorized</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">404 Not Found</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Recipient not Found</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">429 Too Many Requests</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Rate limit exceeded</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">500 Internal Server Error</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/Error">Error</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Internal Server Error</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <h5>Response Content-Types:
+                  <span>application/json</span>
+                </h5>
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;recipientToken&quot;</span>: <span class="hljs-string">&quot;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MzQ1MDMwMjMsImlhdCI6MTUzNDUwMjEyMywiaXNzIjoidmlwcHNpbnZvaWNlLnZpcHBzLm5vL2FwaS92MS9yZWNpcGllbnRzL3Rva2VucyIsIm5iZiI6MTUzNDUwMjEyMywic3ViIjoibmluLW5vLjA3MTI2MjAwMjU1In0.z0yJY8MXO4rDOGTA743fh4BOdnnCoVZLmdzi_goBipU&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(400 Bad Request)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;error&quot;</span>: {
+    <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;https://vipps.no/invoice/v1/problems/invalid-invoice-id&quot;</span>,
+    <span class="hljs-attr">&quot;title&quot;</span>: <span class="hljs-string">&quot;The invoice id is invalid.&quot;</span>,
+    <span class="hljs-attr">&quot;detail&quot;</span>: <span class="hljs-string">&quot;You tried to call the endpoint `GET:/invoices/{invoiceId}` with the invoice id **invoice-1**. This is invalid due to the following reasons: missing issuer ident-type, missing issuer ident-value.&quot;</span>,
+    <span class="hljs-attr">&quot;instance&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+  }
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(401 Unauthorized)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;responseInfo&quot;</span>: {
+    <span class="hljs-attr">&quot;responseCode&quot;</span>: <span class="hljs-number">401</span>,
+    <span class="hljs-attr">&quot;responseMessage&quot;</span>: <span class="hljs-string">&quot;IDX10503: Signature validation failed. Keys tried ...&quot;</span>
+  },
+  <span class="hljs-attr">&quot;result&quot;</span>: {
+    <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;IDX10503: Signature validation failed. Keys tried: ...&quot;</span>
+  }
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(500 Internal Server Error)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;error&quot;</span>: {
+    <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;https://vipps.no/invoice/v1/problems/invalid-invoice-id&quot;</span>,
+    <span class="hljs-attr">&quot;title&quot;</span>: <span class="hljs-string">&quot;The invoice id is invalid.&quot;</span>,
+    <span class="hljs-attr">&quot;detail&quot;</span>: <span class="hljs-string">&quot;You tried to call the endpoint `GET:/invoices/{invoiceId}` with the invoice id **invoice-1**. This is invalid due to the following reasons: missing issuer ident-type, missing issuer ident-value.&quot;</span>,
+    <span class="hljs-attr">&quot;instance&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+  }
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <span id="path--invoices--invoiceId-"></span>
+          <div id="operation--invoices--invoiceId--put" class="operation panel" data-traverse-target="operation--invoices--invoiceId--put">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-ISP">ISP</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Send invoice</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">PUT</span>
+                  <span class="operation-path">/invoices/{invoiceId}</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>This endpoint adds the provided invoice to our system. To submit invoices into our system this endpoint has to be used. We will accept any invoice as long as the body is well formed JSON. Any validation errors of the invoice are picked up by workers in the background and available with <code>GET:/invoices/{invoiceId}</code>.</p>
+                  <h2 id="idempotency">Idempotency</h2>
+                  <p>The endpoint is idempotent. If an invoice with the same unique identifiers (organisation number and invoice reference) is submitted and the invoice exists already in the system, it is rejected. Invoices cannot be changed.</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-body">
+                  <div class="prop-row">
+                    <div class="prop-name">
+                      <div class="swagger-request-model">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/invoiceIn">invoiceIn</a>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="prop-value columns small-6">
+                      <!-- <div class="swagger-request-description"> -->
+                      <p>A single invoice.</p>
+                      <!-- </div> -->
+                    </div>
+                  </div>
+                </section>
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">invoiceId:
+                        <span class="prop-type">
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>The <code>invoiceId</code> must be constructed as <code>orgno-no.{issuerOrgno}.{invoiceRef}</code> where {invoiceRef} is a URL-safe reference that is unique for each issuer. Maximum length of the invoiceId is 200 bytes (i.e. 200 characters if the invoice id is in ascii).</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">Authorization:
+                        <span class="prop-type">
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-enum" title="Possible values">
+                            <span class="json-property-enum-item">bearer &lt;access_token&gt;</span>
+                          </span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in header </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Authorization token is obtained from Access Token API:
+                        <a href="https://github.com/vippsas/vipps-accesstoken-api">https://github.com/vippsas/vipps-accesstoken-api</a>
+                      </p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Request Content-Types:
+                    <span>application/json</span>
+                  </h5>
+                  <h5>Request Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;recipientToken&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;paymentInformation&quot;</span>: {
+    <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;kid&quot;</span>,
+    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1234567890128&quot;</span>,
+    <span class="hljs-attr">&quot;account&quot;</span>: <span class="hljs-string">&quot;12345678903&quot;</span>
+  },
+  <span class="hljs-attr">&quot;invoiceType&quot;</span>: <span class="hljs-string">&quot;invoice&quot;</span>,
+  <span class="hljs-attr">&quot;due&quot;</span>: <span class="hljs-string">&quot;2019-10-02T15:00:00Z&quot;</span>,
+  <span class="hljs-attr">&quot;amount&quot;</span>: <span class="hljs-number">25043</span>,
+  <span class="hljs-attr">&quot;minAmount&quot;</span>: <span class="hljs-number">25043</span>,
+  <span class="hljs-attr">&quot;subject&quot;</span>: <span class="hljs-string">&quot;Bompasseringer&quot;</span>,
+  <span class="hljs-attr">&quot;issuerName&quot;</span>: <span class="hljs-string">&quot;Lister Bompengeselskap&quot;</span>,
+  <span class="hljs-attr">&quot;commercialInvoice&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;mimeType&quot;</span>: <span class="hljs-string">&quot;application/pdf&quot;</span>,
+      <span class="hljs-attr">&quot;url&quot;</span>: <span class="hljs-string">&quot;https://www.example.com/08fd5360-e218-4658-894f-4f37649e7df7/comminv.pdf&quot;</span>
+    }
+  ],
+  <span class="hljs-attr">&quot;attachments&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;title&quot;</span>: <span class="hljs-string">&quot;Ferry&quot;</span>,
+      <span class="hljs-attr">&quot;urls&quot;</span>: [
+        {
+          <span class="hljs-attr">&quot;url&quot;</span>: <span class="hljs-string">&quot;https://invoice-hotel.example.org/invoice/42.pdf&quot;</span>,
+          <span class="hljs-attr">&quot;mimeType&quot;</span>: <span class="hljs-string">&quot;application/pdf&quot;</span>
+        }
+      ]
+    }
+  ],
+  <span class="hljs-attr">&quot;issuerIconUrl&quot;</span>: <span class="hljs-string">&quot;https://www.example.com/logos/lister.png&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>An invoice was successfully created.</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">400 Bad Request</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/InvoicesInvoiceIdPut400ApplicationJsonResponse">InvoicesInvoiceIdPut400ApplicationJsonResponse</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Bad request</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/MsError">MsError</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Unauthorized</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">403 Forbidden</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/Error">Error</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Forbidden</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">409 Conflict</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/InvoicesInvoiceIdPut409ApplicationJsonResponse">InvoicesInvoiceIdPut409ApplicationJsonResponse</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>A different invoice with this id already exists.</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">429 Too Many Requests</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Rate limit exceeded</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">500 Internal Server Error</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Internal server error</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <h5>Response Content-Types:
+                  <span>application/json</span>
+                </h5>
+                <section>
+                  <h5>Response Example
+                    <span>(400 Bad Request)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;error&quot;</span>: <span class="hljs-string">&quot;Invalid JSON data&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(401 Unauthorized)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;responseInfo&quot;</span>: {
+    <span class="hljs-attr">&quot;responseCode&quot;</span>: <span class="hljs-number">401</span>,
+    <span class="hljs-attr">&quot;responseMessage&quot;</span>: <span class="hljs-string">&quot;IDX10503: Signature validation failed. Keys tried ...&quot;</span>
+  },
+  <span class="hljs-attr">&quot;result&quot;</span>: {
+    <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;IDX10503: Signature validation failed. Keys tried: ...&quot;</span>
+  }
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(403 Forbidden)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;error&quot;</span>: {
+    <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;https://vipps.no/invoice/v1/problems/invalid-invoice-id&quot;</span>,
+    <span class="hljs-attr">&quot;title&quot;</span>: <span class="hljs-string">&quot;The invoice id is invalid.&quot;</span>,
+    <span class="hljs-attr">&quot;detail&quot;</span>: <span class="hljs-string">&quot;You tried to call the endpoint `GET:/invoices/{invoiceId}` with the invoice id **invoice-1**. This is invalid due to the following reasons: missing issuer ident-type, missing issuer ident-value.&quot;</span>,
+    <span class="hljs-attr">&quot;instance&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+  }
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(409 Conflict)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;error&quot;</span>: <span class="hljs-string">&quot;Conflict, a different invoice with this id already exists.&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="operation--invoices--invoiceId--get" class="operation panel" data-traverse-target="operation--invoices--invoiceId--get">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-ISP">ISP</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Get single invoice</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/invoices/{invoiceId}</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Returns a single invoice identified by its unique id. This is used to verify the state of an invoice, e.g. if it has been validated and now is available for recipients.</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">invoiceId:
+                        <span class="prop-type">
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>The unique invoice id.</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">vippsinvoice-recipienttoken:
+                        <span class="prop-type">
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in header </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Recipient token. Issued by vipps.</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">Authorization:
+                        <span class="prop-type">
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-enum" title="Possible values">
+                            <span class="json-property-enum-item">bearer &lt;access_token&gt;</span>
+                          </span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in header </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Authorization token is obtained from Access Token API:
+                        <a href="https://github.com/vippsas/vipps-accesstoken-api">https://github.com/vippsas/vipps-accesstoken-api</a>
+                      </p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/invoiceOut">invoiceOut</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>OK</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/MsError">MsError</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Unauthorized</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">404 Not Found</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Invoice not found</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">429 Too Many Requests</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Rate limit exceeded</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <h5>Response Content-Types:
+                  <span>application/json</span>
+                </h5>
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;invoiceId&quot;</span>: <span class="hljs-string">&quot;orgno-no.999999999.20180001&quot;</span>,
+  <span class="hljs-attr">&quot;paymentInformation&quot;</span>: {
+    <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;kid&quot;</span>,
+    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1234567890128&quot;</span>,
+    <span class="hljs-attr">&quot;account&quot;</span>: <span class="hljs-string">&quot;12345678903&quot;</span>
+  },
+  <span class="hljs-attr">&quot;invoiceType&quot;</span>: <span class="hljs-string">&quot;invoice&quot;</span>,
+  <span class="hljs-attr">&quot;due&quot;</span>: <span class="hljs-string">&quot;2019-10-02T15:00:00Z&quot;</span>,
+  <span class="hljs-attr">&quot;amount&quot;</span>: <span class="hljs-number">25043</span>,
+  <span class="hljs-attr">&quot;minAmount&quot;</span>: <span class="hljs-number">25043</span>,
+  <span class="hljs-attr">&quot;subject&quot;</span>: <span class="hljs-string">&quot;Bompasseringer&quot;</span>,
+  <span class="hljs-attr">&quot;issuerName&quot;</span>: <span class="hljs-string">&quot;Lister Bompengeselskap&quot;</span>,
+  <span class="hljs-attr">&quot;recipient&quot;</span>: {
+    <span class="hljs-attr">&quot;identType&quot;</span>: <span class="hljs-string">&quot;msisdn&quot;</span>,
+    <span class="hljs-attr">&quot;identValue&quot;</span>: <span class="hljs-string">&quot;4740040040&quot;</span>,
+    <span class="hljs-attr">&quot;resolvedAt&quot;</span>: <span class="hljs-string">&quot;2018-03-13T16:00:00Z&quot;</span>
+  },
+  <span class="hljs-attr">&quot;providerId&quot;</span>: {
+    <span class="hljs-attr">&quot;identType&quot;</span>: <span class="hljs-string">&quot;orgno-no&quot;</span>,
+    <span class="hljs-attr">&quot;identValue&quot;</span>: <span class="hljs-string">&quot;999999999&quot;</span>
+  },
+  <span class="hljs-attr">&quot;commercialInvoice&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;mimeType&quot;</span>: <span class="hljs-string">&quot;application/pdf&quot;</span>
+    }
+  ],
+  <span class="hljs-attr">&quot;attachments&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;1&quot;</span>,
+      <span class="hljs-attr">&quot;title&quot;</span>: <span class="hljs-string">&quot;Ferry&quot;</span>,
+      <span class="hljs-attr">&quot;mimeTypes&quot;</span>: [
+        <span class="hljs-string">&quot;application/pdf&quot;</span>
+      ]
+    }
+  ],
+  <span class="hljs-attr">&quot;issuerIconUrl&quot;</span>: <span class="hljs-string">&quot;https://www.example.com/logos/lister.png&quot;</span>,
+  <span class="hljs-attr">&quot;status&quot;</span>: {
+    <span class="hljs-attr">&quot;lastModified&quot;</span>: <span class="hljs-string">&quot;string (date-time)&quot;</span>,
+    <span class="hljs-attr">&quot;state&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;due&quot;</span>: <span class="hljs-string">&quot;string (date-time)&quot;</span>,
+    <span class="hljs-attr">&quot;amount&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+    <span class="hljs-attr">&quot;etag&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;problems&quot;</span>: [
+      {
+        <span class="hljs-attr">&quot;error&quot;</span>: {
+          <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;https://vipps.no/invoice/v1/problems/invalid-invoice-id&quot;</span>,
+          <span class="hljs-attr">&quot;title&quot;</span>: <span class="hljs-string">&quot;The invoice id is invalid.&quot;</span>,
+          <span class="hljs-attr">&quot;detail&quot;</span>: <span class="hljs-string">&quot;You tried to call the endpoint `GET:/invoices/{invoiceId}` with the invoice id **invoice-1**. This is invalid due to the following reasons: missing issuer ident-type, missing issuer ident-value.&quot;</span>,
+          <span class="hljs-attr">&quot;instance&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+        }
+      }
+    ]
+  },
+  <span class="hljs-attr">&quot;created&quot;</span>: <span class="hljs-string">&quot;2018-03-13T15:00:00+00:00&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(401 Unauthorized)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;responseInfo&quot;</span>: {
+    <span class="hljs-attr">&quot;responseCode&quot;</span>: <span class="hljs-number">401</span>,
+    <span class="hljs-attr">&quot;responseMessage&quot;</span>: <span class="hljs-string">&quot;IDX10503: Signature validation failed. Keys tried ...&quot;</span>
+  },
+  <span class="hljs-attr">&quot;result&quot;</span>: {
+    <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;IDX10503: Signature validation failed. Keys tried: ...&quot;</span>
+  }
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <span id="path--invoices--invoiceId--status-revoked"></span>
+          <div id="operation--invoices--invoiceId--status-revoked-put" class="operation panel" data-traverse-target="operation--invoices--invoiceId--status-revoked-put">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-ISP">ISP</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Revoke invoice</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">PUT</span>
+                  <span class="operation-path">/invoices/{invoiceId}/status/revoked</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Revoke an invoice. A revoked invoice is not shown to the recipient. Invoices can be revoked if they currently are in the states <code>created</code>, <code>pending</code> or <code>rejected</code>. If an invoice has been <code>approved</code>, <code>deleted</code> or <code>expired</code> it cannot be revoked anymore.</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">invoiceId:
+                        <span class="prop-type">
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>The unique invoice id.</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">If-Match:
+                        <span class="prop-type">
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in header </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Property for optimistic concurrency control. Expects the etag of the last known invoice status. Status updates are only performed if the provided etag matches with the etag of the current status.</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">Idempotency-Key:
+                        <span class="prop-type">
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in header </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Unique identifier for the requested state transition, provided by the caller. This idempotency key is essential to guarantee idempotent behaviour. Do not use the same idempotency key for multiple transactions.</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">Authorization:
+                        <span class="prop-type">
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-enum" title="Possible values">
+                            <span class="json-property-enum-item">bearer &lt;access_token&gt;</span>
+                          </span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in header </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Authorization token is obtained from Access Token API:
+                        <a href="https://github.com/vippsas/vipps-accesstoken-api">https://github.com/vippsas/vipps-accesstoken-api</a>
+                      </p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">204 No Content</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>OK (no content)</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">400 Bad Request</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/Error">Error</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Bad request</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/MsError">MsError</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Unauthorized</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">404 Not Found</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/Error">Error</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Invoice not found</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">409 Conflict</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/Error">Error</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Conflict</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">429 Too Many Requests</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Rate limit exceeded</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <h5>Response Content-Types:
+                  <span>application/json</span>
+                </h5>
+                <section>
+                  <h5>Response Example
+                    <span>(400 Bad Request)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;error&quot;</span>: {
+    <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;https://vipps.no/invoice/v1/problems/invalid-invoice-id&quot;</span>,
+    <span class="hljs-attr">&quot;title&quot;</span>: <span class="hljs-string">&quot;The invoice id is invalid.&quot;</span>,
+    <span class="hljs-attr">&quot;detail&quot;</span>: <span class="hljs-string">&quot;You tried to call the endpoint `GET:/invoices/{invoiceId}` with the invoice id **invoice-1**. This is invalid due to the following reasons: missing issuer ident-type, missing issuer ident-value.&quot;</span>,
+    <span class="hljs-attr">&quot;instance&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+  }
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(401 Unauthorized)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;responseInfo&quot;</span>: {
+    <span class="hljs-attr">&quot;responseCode&quot;</span>: <span class="hljs-number">401</span>,
+    <span class="hljs-attr">&quot;responseMessage&quot;</span>: <span class="hljs-string">&quot;IDX10503: Signature validation failed. Keys tried ...&quot;</span>
+  },
+  <span class="hljs-attr">&quot;result&quot;</span>: {
+    <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;IDX10503: Signature validation failed. Keys tried: ...&quot;</span>
+  }
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(404 Not Found)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;error&quot;</span>: {
+    <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;https://vipps.no/invoice/v1/problems/invalid-invoice-id&quot;</span>,
+    <span class="hljs-attr">&quot;title&quot;</span>: <span class="hljs-string">&quot;The invoice id is invalid.&quot;</span>,
+    <span class="hljs-attr">&quot;detail&quot;</span>: <span class="hljs-string">&quot;You tried to call the endpoint `GET:/invoices/{invoiceId}` with the invoice id **invoice-1**. This is invalid due to the following reasons: missing issuer ident-type, missing issuer ident-value.&quot;</span>,
+    <span class="hljs-attr">&quot;instance&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+  }
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(409 Conflict)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;error&quot;</span>: {
+    <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;https://vipps.no/invoice/v1/problems/invalid-invoice-id&quot;</span>,
+    <span class="hljs-attr">&quot;title&quot;</span>: <span class="hljs-string">&quot;The invoice id is invalid.&quot;</span>,
+    <span class="hljs-attr">&quot;detail&quot;</span>: <span class="hljs-string">&quot;You tried to call the endpoint `GET:/invoices/{invoiceId}` with the invoice id **invoice-1**. This is invalid due to the following reasons: missing issuer ident-type, missing issuer ident-value.&quot;</span>,
+    <span class="hljs-attr">&quot;instance&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+  }
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <span id="path--jwk"></span>
+          <div id="operation--jwk-get" class="operation panel" data-traverse-target="operation--jwk-get">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-ISP">ISP</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-name">
+                <span class="operation-name">GET</span>
+                <span class="operation-path">/jwk</span>
+              </span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Get JSON Web Key Set. Use a JWK library to parse this into a public key.</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">Authorization:
+                        <span class="prop-type">
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-enum" title="Possible values">
+                            <span class="json-property-enum-item">bearer &lt;access_token&gt;</span>
+                          </span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in header </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Authorization token is obtained from Access Token API:
+                        <a href="https://github.com/vippsas/vipps-accesstoken-api">https://github.com/vippsas/vipps-accesstoken-api</a>
+                      </p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/JsonWebKeySet">JsonWebKeySet</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>OK</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/MsError">MsError</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Unauthorized</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">429 Too Many Requests</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Rate limit exceeded</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">500 Internal Server Error</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Internal server error</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;keys&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;keys&quot;</span>: [
+        {
+          <span class="hljs-attr">&quot;keys&quot;</span>: [
+            {
+              <span class="hljs-attr">&quot;keys&quot;</span>: [
+                {
+                  <span class="hljs-attr">&quot;keys&quot;</span>: [
+                    {
+                      <span class="hljs-attr">&quot;keys&quot;</span>: [
+                        {
+                          <span class="hljs-attr">&quot;keys&quot;</span>: [
+                            {
+                              <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                {
+                                  <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                    {
+                                      <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                        {
+                                          <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                            {
+                                              <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                                {
+                                                  <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                                    {
+                                                      <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                                        {
+                                                          <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                                            {
+                                                              <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                                                {
+                                                                  <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                                                    {
+                                                                      <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                                                        {
+                                                                          <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                                                            {
+                                                                              <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                                                                {
+                                                                                  <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                                                                    {
+                                                                                      <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                                                                        {
+                                                                                          <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                                                                            {
+                                                                                              <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                                                                                {
+                                                                                                  <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                                                                                    {
+                                                                                                      <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                                                                                        {
+                                                                                                          <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                                                                                            {
+                                                                                                              <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                                                                                                {
+                                                                                                                  <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                                                                                                    {
+                                                                                                                      <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                                                                                                        {
+                                                                                                                          <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                                                                                                            {
+                                                                                                                              <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                                                                                                                {
+                                                                                                                                  <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                                                                                                                    <span class="hljs-literal">null</span>
+                                                                                                                                  ]
+                                                                                                                                }
+                                                                                                                              ]
+                                                                                                                            }
+                                                                                                                          ]
+                                                                                                                        }
+                                                                                                                      ]
+                                                                                                                    }
+                                                                                                                  ]
+                                                                                                                }
+                                                                                                              ]
+                                                                                                            }
+                                                                                                          ]
+                                                                                                        }
+                                                                                                      ]
+                                                                                                    }
+                                                                                                  ]
+                                                                                                }
+                                                                                              ]
+                                                                                            }
+                                                                                          ]
+                                                                                        }
+                                                                                      ]
+                                                                                    }
+                                                                                  ]
+                                                                                }
+                                                                              ]
+                                                                            }
+                                                                          ]
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  ]
+                                                                }
+                                                              ]
+                                                            }
+                                                          ]
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(401 Unauthorized)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;responseInfo&quot;</span>: {
+    <span class="hljs-attr">&quot;responseCode&quot;</span>: <span class="hljs-number">401</span>,
+    <span class="hljs-attr">&quot;responseMessage&quot;</span>: <span class="hljs-string">&quot;IDX10503: Signature validation failed. Keys tried ...&quot;</span>
+  },
+  <span class="hljs-attr">&quot;result&quot;</span>: {
+    <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;IDX10503: Signature validation failed. Keys tried: ...&quot;</span>
+  }
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <h1>Schema Definitions</h1>
+          <div id="definition-invoiceIn" class="definition panel" data-traverse-target="definition-invoiceIn">
+            <h2 class="panel-title">
+              <a name="/definitions/invoiceIn"></a>invoiceIn: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>Invoice document which is sent to our servers.</p>
+                </section>
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="recipientToken" class="has-description">
+                      <span class="json-property-name">recipientToken:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dd>
+                      <p>token received is obtained by calling the endpoint to resolve a recipient</p>
+                    </dd>
+                    <dt data-property-name="paymentInformation">
+                      <span class="json-property-name">paymentInformation:</span>
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dt class="json-inner-schema">
+                      <section class="json-schema-properties">
+                        <dl>
+                          <dt data-property-name="type">
+                            <span class="json-property-name">type:</span>
+                            <span class="json-property-type">string</span>
+                            <span class="json-property-enum" title="Possible values">
+                              <span class="json-property-enum-item">kid</span>,
+                              <span class="json-property-enum-item">message</span>
+                            </span>
+                            <span class="json-property-range" title="Value limits"></span>
+                            <span class="json-property-required"></span>
+                          </dt>
+                          <dt data-property-name="value">
+                            <span class="json-property-name">value:</span>
+                            <span class="json-property-type">string</span>
+                            <span class="json-property-range" title="Value limits"></span>
+                            <span class="json-property-required"></span>
+                          </dt>
+                          <dt data-property-name="account">
+                            <span class="json-property-name">account:</span>
+                            <span class="json-property-type">string</span>
+                            <span class="json-property-range" title="Value limits"></span>
+                            <span class="json-property-required"></span>
+                          </dt>
+                        </dl>
+                      </section>
+                    </dt>
+                    <dt data-property-name="invoiceType">
+                      <span class="json-property-name">invoiceType:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-enum" title="Possible values">
+                        <span class="json-property-enum-item">invoice</span>,
+                        <span class="json-property-enum-item">paymentReminder</span>,
+                        <span class="json-property-enum-item">debtCollectionWarning</span>,
+                        <span class="json-property-enum-item">debtCollectionNotice</span>,
+                        <span class="json-property-enum-item">noticeOfLegalProceedings</span>,
+                        <span class="json-property-enum-item">debtCollectionReminder</span>,
+                        <span class="json-property-enum-item">creditNote</span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dt data-property-name="due" class="has-description">
+                      <span class="json-property-name">due:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-format">(date-time)</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dd>
+                      <p>When an invoice is due. Due has to be formatted according to RFC3339 and be at least the current day at start of day and at most 1 year in the future.</p>
+                    </dd>
+                    <dt data-property-name="amount" class="has-description">
+                      <span class="json-property-name">amount:</span>
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dd>
+                      <p>Amount by lowest subdivision (øre)</p>
+                    </dd>
+                    <dt data-property-name="minAmount" class="has-description">
+                      <span class="json-property-name">minAmount:</span>
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Minimum allowed amount to pay by lowest subdivision (øre)</p>
+                    </dd>
+                    <dt data-property-name="subject" class="has-description">
+                      <span class="json-property-name">subject:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dd>
+                      <p>A textual subject for the receipient of the invoice</p>
+                    </dd>
+                    <dt data-property-name="issuerName" class="has-description">
+                      <span class="json-property-name">issuerName:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Organization name of issuer</p>
+                    </dd>
+                    <dt data-property-name="commercialInvoice" class="has-description">
+                      <span class="json-property-name">commercialInvoice:</span>
+                      <span class="json-property-type">object[]</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Conceptually only one invoice, but it can have multiple representations. The issuer is advised to provide the commercial invoice in multiple formats (i.e. different MIME types) if possible. This will make it easier provide the user and IPP different ways of showing the invoice.</p>
+                    </dd>
+                    <dt class="json-inner-schema">
+                      <section class="json-schema-array-items">
+                        <span class="json-property-type">object</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                        <div class="json-inner-schema">
+                          <section class="json-schema-properties">
+                            <dl>
+                              <dt data-property-name="mimeType" class="has-description">
+                                <span class="json-property-name">mimeType:</span>
+                                <span class="json-property-type">string</span>
+                                <span class="json-property-range" title="Value limits"></span>
+                              </dt>
+                              <dd>
+                                <p>MIME type of commercial invoice document</p>
+                              </dd>
+                              <dt data-property-name="url" class="has-description">
+                                <span class="json-property-name">url:</span>
+                                <span class="json-property-type">string</span>
+                                <span class="json-property-range" title="Value limits"></span>
+                              </dt>
+                              <dd>
+                                <p>URL of commercial invoice. It is required to use the https-protocol.</p>
+                              </dd>
+                            </dl>
+                          </section>
+                        </div>
+                      </section>
+                    </dt>
+                    <dt data-property-name="attachments" class="has-description">
+                      <span class="json-property-name">attachments:</span>
+                      <span class="json-property-type">
+                        <span class="json-schema-ref-array">
+                          <a class="json-schema-ref" href="#/definitions/attachmentIn">attachmentIn</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Invoice attachments.</p>
+                    </dd>
+                    <dt class="json-inner-schema">
+                      <section class="json-schema-array-items">
+                        <span class="json-property-type">
+                          <span class="">
+                            <a class="json-schema-ref" href="#/definitions/attachmentIn">attachmentIn</a>
+                          </span>
+                        </span>
+                        <span class="json-property-range" title="Value limits"></span>
+                        <div class="json-inner-schema"> </div>
+                      </section>
+                    </dt>
+                    <dt data-property-name="issuerIconUrl" class="has-description">
+                      <span class="json-property-name">issuerIconUrl:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>URL to invoice issuer&#39;s logo. The URL must use the https-protocol and not contain any tracking-scripts or user-tracking parameters. Supported image formats: SVG (Scalable Vector Graphics) and PNG (Portable Network Graphics). Minimum size: 82x82 pixels Maximum size: 512x512 pixels</p>
+                    </dd>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;recipientToken&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;paymentInformation&quot;</span>: {
+    <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;kid&quot;</span>,
+    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1234567890128&quot;</span>,
+    <span class="hljs-attr">&quot;account&quot;</span>: <span class="hljs-string">&quot;12345678903&quot;</span>
+  },
+  <span class="hljs-attr">&quot;invoiceType&quot;</span>: <span class="hljs-string">&quot;invoice&quot;</span>,
+  <span class="hljs-attr">&quot;due&quot;</span>: <span class="hljs-string">&quot;2019-10-02T15:00:00Z&quot;</span>,
+  <span class="hljs-attr">&quot;amount&quot;</span>: <span class="hljs-number">25043</span>,
+  <span class="hljs-attr">&quot;minAmount&quot;</span>: <span class="hljs-number">25043</span>,
+  <span class="hljs-attr">&quot;subject&quot;</span>: <span class="hljs-string">&quot;Bompasseringer&quot;</span>,
+  <span class="hljs-attr">&quot;issuerName&quot;</span>: <span class="hljs-string">&quot;Lister Bompengeselskap&quot;</span>,
+  <span class="hljs-attr">&quot;commercialInvoice&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;mimeType&quot;</span>: <span class="hljs-string">&quot;application/pdf&quot;</span>,
+      <span class="hljs-attr">&quot;url&quot;</span>: <span class="hljs-string">&quot;https://www.example.com/08fd5360-e218-4658-894f-4f37649e7df7/comminv.pdf&quot;</span>
+    }
+  ],
+  <span class="hljs-attr">&quot;attachments&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;title&quot;</span>: <span class="hljs-string">&quot;Ferry&quot;</span>,
+      <span class="hljs-attr">&quot;urls&quot;</span>: [
+        {
+          <span class="hljs-attr">&quot;url&quot;</span>: <span class="hljs-string">&quot;https://invoice-hotel.example.org/invoice/42.pdf&quot;</span>,
+          <span class="hljs-attr">&quot;mimeType&quot;</span>: <span class="hljs-string">&quot;application/pdf&quot;</span>
+        }
+      ]
+    }
+  ],
+  <span class="hljs-attr">&quot;issuerIconUrl&quot;</span>: <span class="hljs-string">&quot;https://www.example.com/logos/lister.png&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-attachmentIn" class="definition panel" data-traverse-target="definition-attachmentIn">
+            <h2 class="panel-title">
+              <a name="/definitions/attachmentIn"></a>attachmentIn: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>An incoming attachment related to an invoice</p>
+                </section>
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="title">
+                      <span class="json-property-name">title:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dt data-property-name="urls">
+                      <span class="json-property-name">urls:</span>
+                      <span class="json-property-type">object[]</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dt class="json-inner-schema">
+                      <section class="json-schema-array-items">
+                        <span class="json-property-type">object</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                        <div class="json-inner-schema">
+                          <section class="json-schema-properties">
+                            <dl>
+                              <dt data-property-name="url" class="has-description">
+                                <span class="json-property-name">url:</span>
+                                <span class="json-property-type">string</span>
+                                <span class="json-property-range" title="Value limits"></span>
+                              </dt>
+                              <dd>
+                                <p>An URL to the attachment. It is required to use the https-protocol.</p>
+                              </dd>
+                              <dt data-property-name="mimeType">
+                                <span class="json-property-name">mimeType:</span>
+                                <span class="json-property-type">string</span>
+                                <span class="json-property-range" title="Value limits"></span>
+                              </dt>
+                            </dl>
+                          </section>
+                        </div>
+                      </section>
+                    </dt>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;title&quot;</span>: <span class="hljs-string">&quot;Ferry&quot;</span>,
+  <span class="hljs-attr">&quot;urls&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;url&quot;</span>: <span class="hljs-string">&quot;https://invoice-hotel.example.org/invoice/42.pdf&quot;</span>,
+      <span class="hljs-attr">&quot;mimeType&quot;</span>: <span class="hljs-string">&quot;application/pdf&quot;</span>
+    }
+  ]
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-attachmentOut" class="definition panel" data-traverse-target="definition-attachmentOut">
+            <h2 class="panel-title">
+              <a name="/definitions/attachmentOut"></a>attachmentOut: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>A list of optional attachments related to an invoice</p>
+                </section>
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="id">
+                      <span class="json-property-name">id:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dt data-property-name="title">
+                      <span class="json-property-name">title:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dt data-property-name="mimeTypes">
+                      <span class="json-property-name">mimeTypes:</span>
+                      <span class="json-property-type">string[]</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dt class="json-inner-schema">
+                      <section class="json-schema-array-items">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                        <div class="json-inner-schema"> </div>
+                      </section>
+                    </dt>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;1&quot;</span>,
+  <span class="hljs-attr">&quot;title&quot;</span>: <span class="hljs-string">&quot;Ferry&quot;</span>,
+  <span class="hljs-attr">&quot;mimeTypes&quot;</span>: [
+    <span class="hljs-string">&quot;application/pdf&quot;</span>
+  ]
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-invoiceOut" class="definition panel" data-traverse-target="definition-invoiceOut">
+            <h2 class="panel-title">
+              <a name="/definitions/invoiceOut"></a>invoiceOut: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>Invoice document which is returned from our servers. The <code>invoiceId</code> consists of the prefix <code>orgno-no</code> (for all Norwegian organizations), the actual organization number and the reference number for this invoice.</p>
+                </section>
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="invoiceId">
+                      <span class="json-property-name">invoiceId:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="paymentInformation">
+                      <span class="json-property-name">paymentInformation:</span>
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt class="json-inner-schema">
+                      <section class="json-schema-properties">
+                        <dl>
+                          <dt data-property-name="type">
+                            <span class="json-property-name">type:</span>
+                            <span class="json-property-type">string</span>
+                            <span class="json-property-enum" title="Possible values">
+                              <span class="json-property-enum-item">kid</span>,
+                              <span class="json-property-enum-item">message</span>
+                            </span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                          <dt data-property-name="value">
+                            <span class="json-property-name">value:</span>
+                            <span class="json-property-type">string</span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                          <dt data-property-name="account">
+                            <span class="json-property-name">account:</span>
+                            <span class="json-property-type">string</span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                        </dl>
+                      </section>
+                    </dt>
+                    <dt data-property-name="invoiceType">
+                      <span class="json-property-name">invoiceType:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-enum" title="Possible values">
+                        <span class="json-property-enum-item">invoice</span>,
+                        <span class="json-property-enum-item">paymentReminder</span>,
+                        <span class="json-property-enum-item">debtCollectionWarning</span>,
+                        <span class="json-property-enum-item">debtCollectionNotice</span>,
+                        <span class="json-property-enum-item">noticeOfLegalProceedings</span>,
+                        <span class="json-property-enum-item">debtCollectionReminder</span>,
+                        <span class="json-property-enum-item">creditNote</span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="due" class="has-description">
+                      <span class="json-property-name">due:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-format">(date-time)</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>When an invoice is due</p>
+                    </dd>
+                    <dt data-property-name="amount" class="has-description">
+                      <span class="json-property-name">amount:</span>
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Amount by lowest subdivision(øre)</p>
+                    </dd>
+                    <dt data-property-name="minAmount" class="has-description">
+                      <span class="json-property-name">minAmount:</span>
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Minimum allowed amount to pay by lowest subdivision (øre). If this is set, it indicates that this invoice can be paid with any amount between and including <code>minAmount</code> and <code>amount</code>.</p>
+                    </dd>
+                    <dt data-property-name="subject" class="has-description">
+                      <span class="json-property-name">subject:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>A textual subject for the receipient of the invoice</p>
+                    </dd>
+                    <dt data-property-name="issuerName" class="has-description">
+                      <span class="json-property-name">issuerName:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Organization name of issuer</p>
+                    </dd>
+                    <dt data-property-name="recipient">
+                      <span class="json-property-name">recipient:</span>
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt class="json-inner-schema">
+                      <section class="json-schema-properties">
+                        <dl>
+                          <dt data-property-name="identType" class="has-description">
+                            <span class="json-property-name">identType:</span>
+                            <span class="json-property-type">string</span>
+                            <span class="json-property-enum" title="Possible values">
+                              <span class="json-property-enum-item">nin-no</span>,
+                              <span class="json-property-enum-item">msisdn</span>
+                            </span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                          <dd>
+                            <p>Identification type used when the invoice was issued. One of the supported identification types.</p>
+                          </dd>
+                          <dt data-property-name="identValue" class="has-description">
+                            <span class="json-property-name">identValue:</span>
+                            <span class="json-property-type">string</span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                          <dd>
+                            <p>The value used to identify the invoice recipient when the invoice was first issued.</p>
+                          </dd>
+                          <dt data-property-name="resolvedAt" class="has-description">
+                            <span class="json-property-name">resolvedAt:</span>
+                            <span class="json-property-type">string</span>
+                            <span class="json-property-format">(date-time)</span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                          <dd>
+                            <p>When the recipient was resolved.</p>
+                          </dd>
+                        </dl>
+                      </section>
+                    </dt>
+                    <dt data-property-name="providerId">
+                      <span class="json-property-name">providerId:</span>
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt class="json-inner-schema">
+                      <section class="json-schema-properties">
+                        <dl>
+                          <dt data-property-name="identType" class="has-description">
+                            <span class="json-property-name">identType:</span>
+                            <span class="json-property-type">string</span>
+                            <span class="json-property-enum" title="Possible values">
+                              <span class="json-property-enum-item">orgno-no</span>
+                            </span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                          <dd>
+                            <p>Identification type of the invoice provider.</p>
+                          </dd>
+                          <dt data-property-name="identValue" class="has-description">
+                            <span class="json-property-name">identValue:</span>
+                            <span class="json-property-type">string</span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                          <dd>
+                            <p>The value used to identify the invoice provider.</p>
+                          </dd>
+                        </dl>
+                      </section>
+                    </dt>
+                    <dt data-property-name="commercialInvoice" class="has-description">
+                      <span class="json-property-name">commercialInvoice:</span>
+                      <span class="json-property-type">object[]</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Conceptually only one invoice, but it can have multiple representations. The issuer is advised to provide the commercial invoice in multiple formats (i.e. different MIME types) if possible. This will make it easier provide the user and IPP different ways of showing the invoice.</p>
+                    </dd>
+                    <dt class="json-inner-schema">
+                      <section class="json-schema-array-items">
+                        <span class="json-property-type">object</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                        <div class="json-inner-schema">
+                          <section class="json-schema-properties">
+                            <dl>
+                              <dt data-property-name="mimeType" class="has-description">
+                                <span class="json-property-name">mimeType:</span>
+                                <span class="json-property-type">string</span>
+                                <span class="json-property-range" title="Value limits"></span>
+                              </dt>
+                              <dd>
+                                <p>MIME type of commercial invoice document</p>
+                              </dd>
+                            </dl>
+                          </section>
+                        </div>
+                      </section>
+                    </dt>
+                    <dt data-property-name="attachments" class="has-description">
+                      <span class="json-property-name">attachments:</span>
+                      <span class="json-property-type">
+                        <span class="json-schema-ref-array">
+                          <a class="json-schema-ref" href="#/definitions/attachmentOut">attachmentOut</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Invoice attachments.</p>
+                    </dd>
+                    <dt class="json-inner-schema">
+                      <section class="json-schema-array-items">
+                        <span class="json-property-type">
+                          <span class="">
+                            <a class="json-schema-ref" href="#/definitions/attachmentOut">attachmentOut</a>
+                          </span>
+                        </span>
+                        <span class="json-property-range" title="Value limits"></span>
+                        <div class="json-inner-schema"> </div>
+                      </section>
+                    </dt>
+                    <dt data-property-name="issuerIconUrl" class="has-description">
+                      <span class="json-property-name">issuerIconUrl:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>URL to invoice issuer&#39;s logo</p>
+                    </dd>
+                    <dt data-property-name="status">
+                      <span class="json-property-name">status:</span>
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt class="json-inner-schema">
+                      <section class="json-schema-properties">
+                        <dl>
+                          <dt data-property-name="lastModified">
+                            <span class="json-property-name">lastModified:</span>
+                            <span class="json-property-type">string</span>
+                            <span class="json-property-format">(date-time)</span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                          <dt data-property-name="state" class="has-description">
+                            <span class="json-property-name">state:</span>
+                            <span class="json-property-type">string</span>
+                            <span class="json-property-enum" title="Possible values">
+                              <span class="json-property-enum-item">created</span>,
+                              <span class="json-property-enum-item">rejected</span>,
+                              <span class="json-property-enum-item">pending</span>,
+                              <span class="json-property-enum-item">expired</span>,
+                              <span class="json-property-enum-item">approved</span>,
+                              <span class="json-property-enum-item">deleted</span>,
+                              <span class="json-property-enum-item">revoked</span>
+                            </span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                          <dd>
+                            <p>Status of the invoice.</p>
+                          </dd>
+                          <dt data-property-name="due" class="has-description">
+                            <span class="json-property-name">due:</span>
+                            <span class="json-property-type">string</span>
+                            <span class="json-property-format">(date-time)</span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                          <dd>
+                            <p>When the user has set the payment to be due</p>
+                          </dd>
+                          <dt data-property-name="amount" class="has-description">
+                            <span class="json-property-name">amount:</span>
+                            <span class="json-property-type">integer</span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                          <dd>
+                            <p>Amount the user has set to be paid by lowest subdivision(øre)</p>
+                          </dd>
+                          <dt data-property-name="etag" class="has-description">
+                            <span class="json-property-name">etag:</span>
+                            <span class="json-property-type">string</span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                          <dd>
+                            <p>System generated property used for optimistic concurrency control.</p>
+                          </dd>
+                          <dt data-property-name="problems" class="has-description">
+                            <span class="json-property-name">problems:</span>
+                            <span class="json-property-type">
+                              <span class="json-schema-ref-array">
+                                <a class="json-schema-ref" href="#/definitions/Error">Error</a>
+                              </span>
+                            </span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                          <dd>
+                            <p>A list of problems causing the invoice to be rejected. (only for state &#39;rejected&#39;)</p>
+                          </dd>
+                          <dt class="json-inner-schema">
+                            <section class="json-schema-array-items">
+                              <span class="json-property-type">
+                                <span class="">
+                                  <a class="json-schema-ref" href="#/definitions/Error">Error</a>
+                                </span>
+                              </span>
+                              <span class="json-property-range" title="Value limits"></span>
+                              <div class="json-inner-schema"> </div>
+                            </section>
+                          </dt>
+                        </dl>
+                      </section>
+                    </dt>
+                    <dt data-property-name="created" class="has-description">
+                      <span class="json-property-name">created:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-format">(date-time)</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>When an invoice was created</p>
+                    </dd>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;invoiceId&quot;</span>: <span class="hljs-string">&quot;orgno-no.999999999.20180001&quot;</span>,
+  <span class="hljs-attr">&quot;paymentInformation&quot;</span>: {
+    <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;kid&quot;</span>,
+    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1234567890128&quot;</span>,
+    <span class="hljs-attr">&quot;account&quot;</span>: <span class="hljs-string">&quot;12345678903&quot;</span>
+  },
+  <span class="hljs-attr">&quot;invoiceType&quot;</span>: <span class="hljs-string">&quot;invoice&quot;</span>,
+  <span class="hljs-attr">&quot;due&quot;</span>: <span class="hljs-string">&quot;2019-10-02T15:00:00Z&quot;</span>,
+  <span class="hljs-attr">&quot;amount&quot;</span>: <span class="hljs-number">25043</span>,
+  <span class="hljs-attr">&quot;minAmount&quot;</span>: <span class="hljs-number">25043</span>,
+  <span class="hljs-attr">&quot;subject&quot;</span>: <span class="hljs-string">&quot;Bompasseringer&quot;</span>,
+  <span class="hljs-attr">&quot;issuerName&quot;</span>: <span class="hljs-string">&quot;Lister Bompengeselskap&quot;</span>,
+  <span class="hljs-attr">&quot;recipient&quot;</span>: {
+    <span class="hljs-attr">&quot;identType&quot;</span>: <span class="hljs-string">&quot;msisdn&quot;</span>,
+    <span class="hljs-attr">&quot;identValue&quot;</span>: <span class="hljs-string">&quot;4740040040&quot;</span>,
+    <span class="hljs-attr">&quot;resolvedAt&quot;</span>: <span class="hljs-string">&quot;2018-03-13T16:00:00Z&quot;</span>
+  },
+  <span class="hljs-attr">&quot;providerId&quot;</span>: {
+    <span class="hljs-attr">&quot;identType&quot;</span>: <span class="hljs-string">&quot;orgno-no&quot;</span>,
+    <span class="hljs-attr">&quot;identValue&quot;</span>: <span class="hljs-string">&quot;999999999&quot;</span>
+  },
+  <span class="hljs-attr">&quot;commercialInvoice&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;mimeType&quot;</span>: <span class="hljs-string">&quot;application/pdf&quot;</span>
+    }
+  ],
+  <span class="hljs-attr">&quot;attachments&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;1&quot;</span>,
+      <span class="hljs-attr">&quot;title&quot;</span>: <span class="hljs-string">&quot;Ferry&quot;</span>,
+      <span class="hljs-attr">&quot;mimeTypes&quot;</span>: [
+        <span class="hljs-string">&quot;application/pdf&quot;</span>
+      ]
+    }
+  ],
+  <span class="hljs-attr">&quot;issuerIconUrl&quot;</span>: <span class="hljs-string">&quot;https://www.example.com/logos/lister.png&quot;</span>,
+  <span class="hljs-attr">&quot;status&quot;</span>: {
+    <span class="hljs-attr">&quot;lastModified&quot;</span>: <span class="hljs-string">&quot;string (date-time)&quot;</span>,
+    <span class="hljs-attr">&quot;state&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;due&quot;</span>: <span class="hljs-string">&quot;string (date-time)&quot;</span>,
+    <span class="hljs-attr">&quot;amount&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+    <span class="hljs-attr">&quot;etag&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;problems&quot;</span>: [
+      {
+        <span class="hljs-attr">&quot;error&quot;</span>: {
+          <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;https://vipps.no/invoice/v1/problems/invalid-invoice-id&quot;</span>,
+          <span class="hljs-attr">&quot;title&quot;</span>: <span class="hljs-string">&quot;The invoice id is invalid.&quot;</span>,
+          <span class="hljs-attr">&quot;detail&quot;</span>: <span class="hljs-string">&quot;You tried to call the endpoint `GET:/invoices/{invoiceId}` with the invoice id **invoice-1**. This is invalid due to the following reasons: missing issuer ident-type, missing issuer ident-value.&quot;</span>,
+          <span class="hljs-attr">&quot;instance&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+        }
+      }
+    ]
+  },
+  <span class="hljs-attr">&quot;created&quot;</span>: <span class="hljs-string">&quot;2018-03-13T15:00:00+00:00&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-RecipientResolve" class="definition panel" data-traverse-target="definition-RecipientResolve">
+            <h2 class="panel-title">
+              <a name="/definitions/RecipientResolve"></a>RecipientResolve: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="type" class="has-description">
+                      <span class="json-property-name">type:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-enum" title="Possible values">
+                        <span class="json-property-enum-item">nin-no</span>,
+                        <span class="json-property-enum-item">msisdn</span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Currently resolving by the Norwegian national identification number (<code>nin-no</code>) and the mobile phone number (<code>msisdn</code>) is supported.</p>
+                    </dd>
+                    <dt data-property-name="value" class="has-description">
+                      <span class="json-property-name">value:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Either the Norwegian national identification number or the mobile phone number.</p>
+                    </dd>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-Error" class="definition panel" data-traverse-target="definition-Error">
+            <h2 class="panel-title">
+              <a name="/definitions/Error"></a>Error: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="error">
+                      <span class="json-property-name">error:</span>
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt class="json-inner-schema">
+                      <section class="json-schema-properties">
+                        <dl>
+                          <dt data-property-name="type" class="has-description">
+                            <span class="json-property-name">type:</span>
+                            <span class="json-property-type">string</span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                          <dd>
+                            <p>A URI reference that identifies the problem type.</p>
+                          </dd>
+                          <dt data-property-name="title" class="has-description">
+                            <span class="json-property-name">title:</span>
+                            <span class="json-property-type">string</span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                          <dd>
+                            <p>A short, human-readable summary of the problem type.</p>
+                          </dd>
+                          <dt data-property-name="detail" class="has-description">
+                            <span class="json-property-name">detail:</span>
+                            <span class="json-property-type">string</span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                          <dd>
+                            <p>A human-readable explanation specific to this occurrence of the problem.</p>
+                          </dd>
+                          <dt data-property-name="instance" class="has-description">
+                            <span class="json-property-name">instance:</span>
+                            <span class="json-property-type">string</span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                          <dd>
+                            <p>A URI reference that identifies the specific occurrence of the problem. It may or may not yield further information if dereferenced.</p>
+                          </dd>
+                        </dl>
+                      </section>
+                    </dt>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;error&quot;</span>: {
+    <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;https://vipps.no/invoice/v1/problems/invalid-invoice-id&quot;</span>,
+    <span class="hljs-attr">&quot;title&quot;</span>: <span class="hljs-string">&quot;The invoice id is invalid.&quot;</span>,
+    <span class="hljs-attr">&quot;detail&quot;</span>: <span class="hljs-string">&quot;You tried to call the endpoint `GET:/invoices/{invoiceId}` with the invoice id **invoice-1**. This is invalid due to the following reasons: missing issuer ident-type, missing issuer ident-value.&quot;</span>,
+    <span class="hljs-attr">&quot;instance&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+  }
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-JsonWebKeySet" class="definition panel" data-traverse-target="definition-JsonWebKeySet">
+            <h2 class="panel-title">
+              <a name="/definitions/JsonWebKeySet"></a>JsonWebKeySet: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="keys">
+                      <span class="json-property-name">keys:</span>
+                      <span class="json-property-type">
+                        <span class="json-schema-ref-array">
+                          <a class="json-schema-ref" href="#/definitions/JsonWebKey">JsonWebKey</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt class="json-inner-schema">
+                      <section class="json-schema-array-items">
+                        <span class="json-property-type">
+                          <span class="">
+                            <a class="json-schema-ref" href="#/definitions/JsonWebKey">JsonWebKey</a>
+                          </span>
+                        </span>
+                        <span class="json-property-range" title="Value limits"></span>
+                        <div class="json-inner-schema"> </div>
+                      </section>
+                    </dt>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;keys&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;keys&quot;</span>: [
+        {
+          <span class="hljs-attr">&quot;keys&quot;</span>: [
+            {
+              <span class="hljs-attr">&quot;keys&quot;</span>: [
+                {
+                  <span class="hljs-attr">&quot;keys&quot;</span>: [
+                    {
+                      <span class="hljs-attr">&quot;keys&quot;</span>: [
+                        {
+                          <span class="hljs-attr">&quot;keys&quot;</span>: [
+                            {
+                              <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                {
+                                  <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                    {
+                                      <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                        {
+                                          <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                            {
+                                              <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                                {
+                                                  <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                                    {
+                                                      <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                                        {
+                                                          <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                                            {
+                                                              <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                                                {
+                                                                  <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                                                    {
+                                                                      <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                                                        {
+                                                                          <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                                                            {
+                                                                              <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                                                                {
+                                                                                  <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                                                                    {
+                                                                                      <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                                                                        {
+                                                                                          <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                                                                            {
+                                                                                              <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                                                                                {
+                                                                                                  <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                                                                                    {
+                                                                                                      <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                                                                                        {
+                                                                                                          <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                                                                                            {
+                                                                                                              <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                                                                                                {
+                                                                                                                  <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                                                                                                    {
+                                                                                                                      <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                                                                                                        {
+                                                                                                                          <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                                                                                                            {
+                                                                                                                              <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                                                                                                                {
+                                                                                                                                  <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                                                                                                                    {}
+                                                                                                                                  ]
+                                                                                                                                }
+                                                                                                                              ]
+                                                                                                                            }
+                                                                                                                          ]
+                                                                                                                        }
+                                                                                                                      ]
+                                                                                                                    }
+                                                                                                                  ]
+                                                                                                                }
+                                                                                                              ]
+                                                                                                            }
+                                                                                                          ]
+                                                                                                        }
+                                                                                                      ]
+                                                                                                    }
+                                                                                                  ]
+                                                                                                }
+                                                                                              ]
+                                                                                            }
+                                                                                          ]
+                                                                                        }
+                                                                                      ]
+                                                                                    }
+                                                                                  ]
+                                                                                }
+                                                                              ]
+                                                                            }
+                                                                          ]
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  ]
+                                                                }
+                                                              ]
+                                                            }
+                                                          ]
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-JsonWebKey" class="definition panel" data-traverse-target="definition-JsonWebKey">
+            <h2 class="panel-title">
+              <a name="/definitions/JsonWebKey"></a>JsonWebKey: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="keys">
+                      <span class="json-property-name">keys:</span>
+                      <span class="json-property-type">
+                        <span class="json-schema-ref-array">
+                          <a class="json-schema-ref" href="#/definitions/JsonWebKey">JsonWebKey</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt class="json-inner-schema">
+                      <section class="json-schema-array-items">
+                        <span class="json-property-type">
+                          <span class="">
+                            <a class="json-schema-ref" href="#/definitions/JsonWebKey">JsonWebKey</a>
+                          </span>
+                        </span>
+                        <span class="json-property-range" title="Value limits"></span>
+                        <div class="json-inner-schema"> </div>
+                      </section>
+                    </dt>
+                    <dt data-property-name="kty">
+                      <span class="json-property-name">kty:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dt data-property-name="use">
+                      <span class="json-property-name">use:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="kid">
+                      <span class="json-property-name">kid:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="alg">
+                      <span class="json-property-name">alg:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="crv">
+                      <span class="json-property-name">crv:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="x">
+                      <span class="json-property-name">x:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="y">
+                      <span class="json-property-name">y:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="d">
+                      <span class="json-property-name">d:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="n">
+                      <span class="json-property-name">n:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="e">
+                      <span class="json-property-name">e:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="k">
+                      <span class="json-property-name">k:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;keys&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;keys&quot;</span>: [
+        {
+          <span class="hljs-attr">&quot;keys&quot;</span>: [
+            {
+              <span class="hljs-attr">&quot;keys&quot;</span>: [
+                {
+                  <span class="hljs-attr">&quot;keys&quot;</span>: [
+                    {
+                      <span class="hljs-attr">&quot;keys&quot;</span>: [
+                        {
+                          <span class="hljs-attr">&quot;keys&quot;</span>: [
+                            {
+                              <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                {
+                                  <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                    {
+                                      <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                        {
+                                          <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                            {
+                                              <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                                {
+                                                  <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                                    {
+                                                      <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                                        {
+                                                          <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                                            {
+                                                              <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                                                {
+                                                                  <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                                                    {
+                                                                      <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                                                        {
+                                                                          <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                                                            {
+                                                                              <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                                                                {
+                                                                                  <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                                                                    {
+                                                                                      <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                                                                        {
+                                                                                          <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                                                                            {
+                                                                                              <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                                                                                {
+                                                                                                  <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                                                                                    {
+                                                                                                      <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                                                                                        {
+                                                                                                          <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                                                                                            {
+                                                                                                              <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                                                                                                {
+                                                                                                                  <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                                                                                                    {
+                                                                                                                      <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                                                                                                        {
+                                                                                                                          <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                                                                                                            {
+                                                                                                                              <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                                                                                                                {
+                                                                                                                                  <span class="hljs-attr">&quot;keys&quot;</span>: [
+                                                                                                                                    {}
+                                                                                                                                  ]
+                                                                                                                                }
+                                                                                                                              ]
+                                                                                                                            }
+                                                                                                                          ]
+                                                                                                                        }
+                                                                                                                      ]
+                                                                                                                    }
+                                                                                                                  ]
+                                                                                                                }
+                                                                                                              ]
+                                                                                                            }
+                                                                                                          ]
+                                                                                                        }
+                                                                                                      ]
+                                                                                                    }
+                                                                                                  ]
+                                                                                                }
+                                                                                              ]
+                                                                                            }
+                                                                                          ]
+                                                                                        }
+                                                                                      ]
+                                                                                    }
+                                                                                  ]
+                                                                                }
+                                                                              ]
+                                                                            }
+                                                                          ]
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  ]
+                                                                }
+                                                              ]
+                                                            }
+                                                          ]
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-RecipientsTokensPost200ApplicationJsonResponse" class="definition panel" data-traverse-target="definition-RecipientsTokensPost200ApplicationJsonResponse">
+            <h2 class="panel-title">
+              <a name="/definitions/RecipientsTokensPost200ApplicationJsonResponse"></a>RecipientsTokensPost200ApplicationJsonResponse: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="recipientToken" class="has-description">
+                      <span class="json-property-name">recipientToken:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>the recipient token</p>
+                    </dd>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;recipientToken&quot;</span>: <span class="hljs-string">&quot;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MzQ1MDMwMjMsImlhdCI6MTUzNDUwMjEyMywiaXNzIjoidmlwcHNpbnZvaWNlLnZpcHBzLm5vL2FwaS92MS9yZWNpcGllbnRzL3Rva2VucyIsIm5iZiI6MTUzNDUwMjEyMywic3ViIjoibmluLW5vLjA3MTI2MjAwMjU1In0.z0yJY8MXO4rDOGTA743fh4BOdnnCoVZLmdzi_goBipU&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-InvoicesInvoiceIdPut400ApplicationJsonResponse" class="definition panel" data-traverse-target="definition-InvoicesInvoiceIdPut400ApplicationJsonResponse">
+            <h2 class="panel-title">
+              <a name="/definitions/InvoicesInvoiceIdPut400ApplicationJsonResponse"></a>InvoicesInvoiceIdPut400ApplicationJsonResponse: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="error">
+                      <span class="json-property-name">error:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;error&quot;</span>: <span class="hljs-string">&quot;Invalid JSON data&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-InvoicesInvoiceIdPut409ApplicationJsonResponse" class="definition panel" data-traverse-target="definition-InvoicesInvoiceIdPut409ApplicationJsonResponse">
+            <h2 class="panel-title">
+              <a name="/definitions/InvoicesInvoiceIdPut409ApplicationJsonResponse"></a>InvoicesInvoiceIdPut409ApplicationJsonResponse: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="error">
+                      <span class="json-property-name">error:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;error&quot;</span>: <span class="hljs-string">&quot;Conflict, a different invoice with this id already exists.&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-MsError" class="definition panel" data-traverse-target="definition-MsError">
+            <h2 class="panel-title">
+              <a name="/definitions/MsError"></a>MsError: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="responseInfo">
+                      <span class="json-property-name">responseInfo:</span>
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt class="json-inner-schema">
+                      <section class="json-schema-properties">
+                        <dl>
+                          <dt data-property-name="responseCode">
+                            <span class="json-property-name">responseCode:</span>
+                            <span class="json-property-type">integer</span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                          <dt data-property-name="responseMessage">
+                            <span class="json-property-name">responseMessage:</span>
+                            <span class="json-property-type">string</span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                        </dl>
+                      </section>
+                    </dt>
+                    <dt data-property-name="result">
+                      <span class="json-property-name">result:</span>
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt class="json-inner-schema">
+                      <section class="json-schema-properties">
+                        <dl>
+                          <dt data-property-name="message">
+                            <span class="json-property-name">message:</span>
+                            <span class="json-property-type">string</span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                        </dl>
+                      </section>
+                    </dt>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;responseInfo&quot;</span>: {
+    <span class="hljs-attr">&quot;responseCode&quot;</span>: <span class="hljs-number">401</span>,
+    <span class="hljs-attr">&quot;responseMessage&quot;</span>: <span class="hljs-string">&quot;IDX10503: Signature validation failed. Keys tried ...&quot;</span>
+  },
+  <span class="hljs-attr">&quot;result&quot;</span>: {
+    <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;IDX10503: Signature validation failed. Keys tried: ...&quot;</span>
+  }
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div class="doc-row no-margin">
+            <div class="doc-copy doc-separator">
+              <a class="powered-by" href="https://sourcey.com/spectacle">Documentation by
+                <span>Spectacle</span>
+              </a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </body>
+</html>
