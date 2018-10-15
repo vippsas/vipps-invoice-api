@@ -67,6 +67,10 @@ install it using `pip`.
 
 # Swagger changelog
 
+## 0.3.17
+
+* ISP: Remove requirement for recipient token on GetInvoiceByID
+
 ## 0.3.16
 
 * Add info about logo requirements
