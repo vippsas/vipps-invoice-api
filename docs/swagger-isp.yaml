@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Vipps Invoice ISP API
-  version: '0.3.16'
+  version: '0.3.17'
   description: >-
 
     This is the API for Vipps Regninger. While we have worked closely with
@@ -161,11 +161,6 @@ paths:
         - name: invoiceId
           in: path
           description: The unique invoice id.
-          required: true
-          type: string
-        - name: vippsinvoice-recipienttoken
-          in: header
-          description: Recipient token. Issued by vipps.
           required: true
           type: string
         - name: Authorization
