@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Vipps Invoice ISP API
-  version: '0.3.17'
+  version: '0.3.18'
   description: >-
 
     This is the API for Vipps Regninger. While we have worked closely with
@@ -109,6 +109,7 @@ paths:
             URL-safe reference that is unique for each issuer. Maximum length of the invoiceId is 200 bytes (i.e. 200 characters if the invoice id is in ascii).
           required: true
           type: string
+          pattern: "^([a-zA-Z-])\\.(\\d).([a-zA-Z0-9-]+)$"
         - name: Authorization
           in: header
           description: 'Authorization token is obtained from Access Token API: https://github.com/vippsas/vipps-accesstoken-api'
@@ -163,6 +164,7 @@ paths:
           description: The unique invoice id.
           required: true
           type: string
+          pattern: "^([a-zA-Z-])\\.(\\d).([a-zA-Z0-9-]+)$"
         - name: Authorization
           in: header
           description: 'Authorization token is obtained from Access Token API: https://github.com/vippsas/vipps-accesstoken-api'
@@ -202,6 +204,7 @@ paths:
           description: The unique invoice id.
           required: true
           type: string
+          pattern: "^([a-zA-Z-])\\.(\\d).([a-zA-Z0-9-]+)$"
         - name: If-Match
           in: header
           description: >-
@@ -382,7 +385,7 @@ definitions:
         type: string
         description: >-
           URL to invoice issuer's logo. The URL must use the https-protocol and not contain any tracking-scripts or user-tracking parameters.
-          Supported image formats: SVG (Scalable Vector Graphics) and PNG (Portable Network Graphics). 
+          Supported image formats: SVG (Scalable Vector Graphics) and PNG (Portable Network Graphics).
           Minimum size: 82x82 pixels
           Maximum size: 512x512 pixels
         example: 'https://www.example.com/logos/lister.png'
@@ -437,6 +440,7 @@ definitions:
       invoiceId:
         type: string
         example: orgno-no.999999999.20180001
+        pattern: "^([a-zA-Z-])\\.(\\d).([a-zA-Z0-9-]+)$"
       paymentInformation:
         type: object
         properties:

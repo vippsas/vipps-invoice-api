@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Vipps Invoice ISP API",
-    "version": "0.3.17",
+    "version": "0.3.18",
     "description": "\nThis is the API for Vipps Regninger. While we have worked closely with selected partners, and believe that this is very close to production quality, we are more than happy to receive feedback, either with GitHub's issue functionality, or by email.\nPlease see https://github.com/vippsas/vipps-invoice-api for documentation"
   },
   "host": "apitest.vipps.no",
@@ -118,7 +118,8 @@
             "in": "path",
             "description": "The `invoiceId` must be constructed as `orgno-no.{issuerOrgno}.{invoiceRef}` where {invoiceRef} is a URL-safe reference that is unique for each issuer. Maximum length of the invoiceId is 200 bytes (i.e. 200 characters if the invoice id is in ascii).",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "pattern": "^([a-zA-Z-])\\.(\\d).([a-zA-Z0-9-]+)$"
           },
           {
             "name": "Authorization",
@@ -194,7 +195,8 @@
             "in": "path",
             "description": "The unique invoice id.",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "pattern": "^([a-zA-Z-])\\.(\\d).([a-zA-Z0-9-]+)$"
           },
           {
             "name": "Authorization",
@@ -246,7 +248,8 @@
             "in": "path",
             "description": "The unique invoice id.",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "pattern": "^([a-zA-Z-])\\.(\\d).([a-zA-Z0-9-]+)$"
           },
           {
             "name": "If-Match",
@@ -475,7 +478,7 @@
         },
         "issuerIconUrl": {
           "type": "string",
-          "description": "URL to invoice issuer's logo. The URL must use the https-protocol and not contain any tracking-scripts or user-tracking parameters. Supported image formats: SVG (Scalable Vector Graphics) and PNG (Portable Network Graphics).  Minimum size: 82x82 pixels Maximum size: 512x512 pixels",
+          "description": "URL to invoice issuer's logo. The URL must use the https-protocol and not contain any tracking-scripts or user-tracking parameters. Supported image formats: SVG (Scalable Vector Graphics) and PNG (Portable Network Graphics). Minimum size: 82x82 pixels Maximum size: 512x512 pixels",
           "example": "https://www.example.com/logos/lister.png"
         }
       }
@@ -543,7 +546,8 @@
       "properties": {
         "invoiceId": {
           "type": "string",
-          "example": "orgno-no.999999999.20180001"
+          "example": "orgno-no.999999999.20180001",
+          "pattern": "^([a-zA-Z-])\\.(\\d).([a-zA-Z0-9-]+)$"
         },
         "paymentInformation": {
           "type": "object",

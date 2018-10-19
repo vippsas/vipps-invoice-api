@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Vipps Invoice IPP API
-  version: '0.3.17'
+  version: '0.3.18'
   description: >-
     This is the API for Vipps Regninger. While we have worked closely with
     selected partners, and believe that this is very close to production
@@ -204,6 +204,7 @@ paths:
           description: The unique invoice id.
           required: true
           type: string
+          pattern: "^([a-zA-Z-])\\.(\\d).([a-zA-Z0-9-]+)$"
         - name: vippsinvoice-recipienttoken
           in: header
           description: Recipient token. Issued by vipps.
@@ -249,6 +250,7 @@ paths:
           description: The unique invoice id.
           required: true
           type: string
+          pattern: "^([a-zA-Z-])\\.(\\d).([a-zA-Z0-9-]+)$"
         - name: If-Match
           in: header
           description: Property for optimistic concurrency control. Expects the etag of the last known invoice status. Status updates are only performed if the provided etag matches with the etag of the current status.
@@ -308,6 +310,7 @@ paths:
           description: The unique invoice id.
           required: true
           type: string
+          pattern: "^([a-zA-Z-])\\.(\\d).([a-zA-Z0-9-]+)$"
         - name: If-Match
           in: header
           description: Property for optimistic concurrency control. Expects the etag of the last known invoice status. Status updates are only performed if the provided etag matches with the etag of the current status.
@@ -364,6 +367,7 @@ paths:
           description: The unique invoice id.
           required: true
           type: string
+          pattern: "^([a-zA-Z-])\\.(\\d).([a-zA-Z0-9-]+)$"
         - name: If-Match
           in: header
           description: Property for optimistic concurrency control. Expects the etag of the last known invoice status. Status updates are only performed if the provided etag matches with the etag of the current status.
@@ -417,6 +421,7 @@ paths:
           description: The unique invoice id.
           required: true
           type: string
+          pattern: "^([a-zA-Z-])\\.(\\d).([a-zA-Z0-9-]+)$"
         - name: mimeType
           in: query
           description: Mime type to retrieve. E.g. application/pdf
@@ -466,6 +471,7 @@ paths:
           description: The unique invoice id.
           required: true
           type: string
+          pattern: "^([a-zA-Z-])\\.(\\d).([a-zA-Z0-9-]+)$"
         - name: attachmentId
           in: path
           description: The unique attachment id.
@@ -585,6 +591,7 @@ definitions:
       invoiceId:
         type: string
         example: orgno-no.999999999.20180001
+        pattern: "^([a-zA-Z-])\\.(\\d).([a-zA-Z0-9-]+)$"
       paymentInformation:
         type: object
         properties:
