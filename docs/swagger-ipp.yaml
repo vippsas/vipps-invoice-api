@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Vipps Invoice IPP API
-  version: '0.3.18'
+  version: '0.3.19'
   description: >-
     This is the API for Vipps Regninger. While we have worked closely with
     selected partners, and believe that this is very close to production
@@ -84,8 +84,7 @@ paths:
       description: |-
         List all invoices for a user identified by the national identification number. May optionally be filtered by the described query parameters.
         * The invoices are not guaranteed to be sorted.
-        * Currently the number of returned invoices is not limited. i.e. there
-          is currently no paging.
+        * Currently the number of returned invoices is not limited. i.e. there is currently no paging.
       operationId: List_Invoices_v1
       summary: List invoices
       tags:
@@ -104,7 +103,7 @@ paths:
             - expired
         - name: vippsinvoice-recipienttoken
           in: header
-          description: Recipient token. Issued by vipps.
+          description: Recipient token. Issued by Vipps. Valid for 15 minutes.
           required: true
           type: string
         - name: Authorization
@@ -158,7 +157,7 @@ paths:
             - expired
         - name: vippsinvoice-recipienttoken
           in: header
-          description: Recipient token. Issued by vipps.
+          description: Recipient token. Issued by Vipps. Valid for 15 minutes.
           required: true
           type: string
         - name: Authorization
@@ -207,7 +206,7 @@ paths:
           pattern: "^([a-zA-Z-])\\.(\\d).([a-zA-Z0-9-]+)$"
         - name: vippsinvoice-recipienttoken
           in: header
-          description: Recipient token. Issued by vipps.
+          description: Recipient token. Issued by Vipps. Valid for 15 minutes.
           required: true
           type: string
         - name: Authorization
@@ -429,7 +428,7 @@ paths:
           type: string
         - name: vippsinvoice-recipienttoken
           in: header
-          description: Recipient token. Issued by vipps.
+          description: Recipient token. Issued by Vipps. Valid for 15 minutes.
           required: true
           type: string
         - name: Authorization
@@ -484,7 +483,7 @@ paths:
           type: string
         - name: vippsinvoice-recipienttoken
           in: header
-          description: Recipient token. Issued by vipps.
+          description: Recipient token. Issued by Vipps. Valid for 15 minutes.
           required: true
           type: string
         - name: Authorization

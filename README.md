@@ -67,6 +67,10 @@ install it using `pip`.
 
 # Swagger changelog
 
+## 0.3.19
+
+* `vippsinvoice-recipienttoken`: Valid for 15 minutes.
+
 ## 0.3.18
 
 * `invoiceId` regex: `^([a-zA-Z-])\\.(\\d).([a-zA-Z0-9-]+)$`
