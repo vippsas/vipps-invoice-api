@@ -223,6 +223,9 @@ endpoints, and see the full `request` and `response` for each call.
 
 ## Setup
 
+* [Step by step](https://github.com/vippsas/vipps-developers/blob/master/postman-manual.md)
+on how to set up your Postman environment, with images.
+
 ### Step 1: Import the Postman Collection
 
 1. Click `Import` in the upper left corner.
