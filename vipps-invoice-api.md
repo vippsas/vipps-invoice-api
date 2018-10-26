@@ -295,17 +295,17 @@ The service validates that the account belongs to the issuer ([KAR](https://www.
 
 
 ## ISP Request Flow
-1. ```Fetch Authorization Token``` to set the ```{{access-token}}``` variable.
-2. ```Request Recipient Token``` to set the ```{{recepient-token}}``` variable.
-3. ```Send Invoice```
-4. ```Revoke Invoice```
-* ```Get Single Invoice``` can be called on any existing invoice.
+1. [```Fetch Authorization Token```](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Get_Single_Invoice_v1) to set the ```{{access-token}}``` variable.
+2. [```Request Recipient Token```](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Request_Recipient_Token_v1) to set the ```{{recepient-token}}``` variable.
+3. [```Send Invoice```](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Send_Invoice_v1)
+4. [```Revoke Invoice```](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Revoke_Invoice_v1)
+* [```Get Single Invoice```](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Get_Single_Invoice_v1) can be called on any existing invoice.
 
 ## IPP Request Flow
 1. ```Fetch Authorization Token``` to set the ```{{access-token}}``` variable.
-2. ```Request Recipient Token``` to set the ```{{recepient-token}}``` variable.
-3. ```List Invoices```, ```Count Invoices For a User``` and ```Get a Single Invoice``` can all be called when ```{{recipient-token}}``` variable is set.
-4. ```Change Status to Approved```, ```Change Status to Pending``` and ```Delete Invoice``` requires ```{{invoice-id}}```, ```{{etag}}``` and ```{{idempotency-key}}```. These variables will be set when the ```Get Single Invoice``` call is sent.
+2. [```Request Recipient Token```](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/Request_Recipient_Token_v1) to set the ```{{recepient-token}}``` variable.
+3. [```List Invoices```](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/List_Invoices_v1), [```Count Invoices For a User```](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/InvoiceCount) and [```Get a Single Invoice```](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/Get_Single_Invoice_v1) can all be called when ```{{recipient-token}}``` variable is set.
+4. [```Change Status to Approved```](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/Change_Status_To_Approved_v1), [```Change Status to Pending```](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/Change_Status_To_Pending_v1) and [```Delete Invoice```](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/Delete_Invoice_v1) requires [```{{invoice-id}}```](https://github.com/vippsas/vipps-invoice-api/blob/master/vipps-invoice-api.md#invoiceid-and-variables), [```{{etag}}``` and ```{{idempotency-key}}```](https://github.com/vippsas/vipps-invoice-api/blob/master/vipps-invoice-api.md#variable-overview). These variables will be set when the ```Get Single Invoice``` call is sent.
 5. ```Get Commercial Invoice Document``` and ```Get Attachment for Invoice``` requires ```{{invoice-id}}``` and ```{{mime-type}}```. These variables will be set when the ```Get Single Invoice``` call is sent.
 
 ### Postman Tests
