@@ -195,7 +195,7 @@ This API returns the following HTTP statuses in the responses:
 | `403 Forbidden`         | Authentication ok, but credentials lacks authorization  |
 | `404 Not Found`         | The resource was not found                              |
 | `409 Conflict`          | Unsuccessful due to conflicting resource                |
-| `429 Too Many Requests` | There is currently a limit of max 20 calls per second\* |
+| `429 Too Many Requests` | There is currently a limit of max 200 calls per second\* |
 | `500 Server Error`      | An internal Vipps problem.                              |
 
 All error responses contains an `error` object in the body, with details of the problem.
