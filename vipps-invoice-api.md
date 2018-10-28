@@ -296,8 +296,8 @@ The service validates that the account belongs to the issuer ([KAR](https://www.
 
 ## ISP Request Flow
 
-1. [`Fetch Authorization Token`](https://vippsas.github.io/vipps-accesstoken-api/#/Authorization_Service_(legacy)/fetchAuthorizationTokenUsingPost) to set the `{{access-token}}` variable.
-2. [`Request Recipient Token`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Request_Recipient_Token_v1) to set the `{{recepient-token}}` variable.
+1. [`Fetch Authorization Token`](https://vippsas.github.io/vipps-accesstoken-api/#/Authorization_Service_(legacy)/fetchAuthorizationTokenUsingPost) to set the `{{access-token}}` variable. See [the details](#api-access-token).
+2. [`Request Recipient Token`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Request_Recipient_Token_v1) to set the `{{recepient-token}}` variable. See [the details](#recipient-token).
 3. [`Send Invoice`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Send_Invoice_v1)
 4. [`Revoke Invoice`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Revoke_Invoice_v1)
 5. [`Get Single Invoice`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Get_Single_Invoice_v1) can be called on any existing invoice.
@@ -305,8 +305,8 @@ The service validates that the account belongs to the issuer ([KAR](https://www.
 ## IPP Request Flow
 
 1. [`Fetch Authorization Token`](https://vippsas.github.io/vipps-accesstoken-api/#/Authorization_Service_(legacy)/fetchAuthorizationTokenUsingPost)
-to set the `{{access-token}}` variable.
-2. [`Request Recipient Token`](https://vippsas.github.io/vipps-invoice-api/isp.html#/IPP/Request_Recipient_Token_v1) to set the `{{recepient-token}}` variable.
+to set the `{{access-token}}` variable. See [the details](#api-access-token).
+2. [`Request Recipient Token`](https://vippsas.github.io/vipps-invoice-api/isp.html#/IPP/Request_Recipient_Token_v1) to set the `{{recepient-token}}` variable. See [the details](#recipient-token).
 3. [`List Invoices`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/List_Invoices_v1)
 4. [`Count Invoices For a User`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/InvoiceCount)
 5. [`Get a Single Invoice`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/Get_Single_Invoice_v1)
@@ -324,27 +324,11 @@ These variables will be set when the `Get Single Invoice` call is made.
 
 ### Get commercial invoice (invoice attachment)
 
-`Get Commercial Invoice Document` and `Get Attachment for Invoice` requires `{{invoice-id}}` and `{{mime-type}}`.
+These calls require `{{invoice-id}}` and `{{mime-type}}`.
 These variables will be set when the `Get Single Invoice` call is made.
 
-* [`Get commercial invoice document`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/Get_Commercial_Invoice_Document_v1)
-* [`Get attachment for invoice`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/Get_Attachment_For_Invoice_v1)
-
-### Postman Tests
-
-Most of the environment variables will be set/updated automatically throughout the calls. Most of the variables will be updated with the `Get Single Invoice` call. This call requires an invoice-id in the URL and this has to be set manually.
-
-For the variables to work correctly, please send a `Get Single Invoice` call after all `PUT` operations (except `Send Invoice`) to update the environment variables to the correct value.
-
-#### Put operations
-
-`Change status to approved`
-
-`Change status to pending`
-
-`Delete invoice`
-
-`Revoke invoice`
+1. [`Get commercial invoice document`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/Get_Commercial_Invoice_Document_v1)
+2. [`Get attachment for invoice`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/Get_Attachment_For_Invoice_v1)
 
 # InvoiceId and variables
 
@@ -368,15 +352,15 @@ Following is an overview of the different variables in the Postman environments.
 
 | Name             | Located                                        |  Set                                     | IPP Exclusive |
 | ---------------- | ---------------------------------------------- | ---------------------------------------- | ------------- |
-| access-token-key | In developer portal under 'Your Subscriptions' | By user | No |
-| subscription-key      | In developer portal under 'Your Subscriptions' | By user                                  | No            |
+| access-token-key | In developer portal under 'Your Subscriptions' | By user                                  | No            |
+| subscription-key | In developer portal under 'Your Subscriptions' | By user                                  | No            |
 | client-id        | In developer portal under 'Applications'       | By user                                  | No            |
 | client-secret    | In developer portal under 'Applications'       | By user                                  | No            |
 | access-token     | Postman Tests                                  | When 'Fetch authorization Token' is sent | No            |
-| recipient-token  | Postman Tests                                  | When 'Request recipient token' is sent  | No            |
+| recipient-token  | Postman Tests                                  | When 'Request recipient token' is sent   | No            |
 | etag             | Postman Tests                                  | When 'Get single invoice' is sent        | No            |
-| idempotency-key  | Pre-request Script | When all `PUT` calls are sent | No |
-| TEST-URL | Default in Environment | Default | No|
+| idempotency-key  | Pre-request Script                             | When all `PUT` calls are sent            | No            |
+| TEST-URL         | Default in Environment                         | Default                                  | No            |
 | invoice-id       | Postman Tests                                  | When 'Get single invoice' is sent        | Yes           |
 | mime-type        | Postman Tests                                  | When 'Get single invoice' is sent        | Yes           |
 | attachment-id    | Postman Tests                                  | When 'Get single invoice' is sent        | Yes           |
