@@ -296,44 +296,20 @@ The service validates that the account belongs to the issuer ([KAR](https://www.
 
 ## ISP Request Flow
 
-### Obtain access token
-
-[`Fetch Authorization Token`](https://vippsas.github.io/vipps-accesstoken-api/#/Authorization_Service_(legacy)/fetchAuthorizationTokenUsingPost) to set the `{{access-token}}` variable.
-
-### Obtain recipient token
-
-[`Request Recipient Token`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Request_Recipient_Token_v1) to set the `{{recepient-token}}` variable.
-
-### Send an invoice
-
-[`Send Invoice`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Send_Invoice_v1)
-
-### Revoke an invoice
-
-[`Revoke Invoice`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Revoke_Invoice_v1)
-
-### Get an invoice
-
-[`Get Single Invoice`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Get_Single_Invoice_v1) can be called on any existing invoice.
+1. [`Fetch Authorization Token`](https://vippsas.github.io/vipps-accesstoken-api/#/Authorization_Service_(legacy)/fetchAuthorizationTokenUsingPost) to set the `{{access-token}}` variable.
+2. [`Request Recipient Token`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Request_Recipient_Token_v1) to set the `{{recepient-token}}` variable.
+3. [`Send Invoice`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Send_Invoice_v1)
+4. [`Revoke Invoice`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Revoke_Invoice_v1)
+5. [`Get Single Invoice`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Get_Single_Invoice_v1) can be called on any existing invoice.
 
 ## IPP Request Flow
 
-### Obtain access token
-
-[`Fetch Authorization Token`](https://vippsas.github.io/vipps-accesstoken-api/#/Authorization_Service_(legacy)/fetchAuthorizationTokenUsingPost)
+1. [`Fetch Authorization Token`](https://vippsas.github.io/vipps-accesstoken-api/#/Authorization_Service_(legacy)/fetchAuthorizationTokenUsingPost)
 to set the `{{access-token}}` variable.
-
-### Obtain recipient token
-
-[`Request Recipient Token`](https://vippsas.github.io/vipps-invoice-api/isp.html#/IPP/Request_Recipient_Token_v1) to set the `{{recepient-token}}` variable.
-
-### List Invoices
-
-These calls can be made when the `{{recipient-token}}` variable is set:
-
-* [`List Invoices`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/List_Invoices_v1)
-* [`Count Invoices For a User`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/InvoiceCount)
-* [`Get a Single Invoice`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/Get_Single_Invoice_v1)
+2. [`Request Recipient Token`](https://vippsas.github.io/vipps-invoice-api/isp.html#/IPP/Request_Recipient_Token_v1) to set the `{{recepient-token}}` variable.
+3. [`List Invoices`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/List_Invoices_v1)
+4. [`Count Invoices For a User`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/InvoiceCount)
+5. [`Get a Single Invoice`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/Get_Single_Invoice_v1)
 
 ### Change the status of an invoice
 
@@ -342,9 +318,9 @@ These calls require
 [`{{etag}}` and `{{idempotency-key}}`](https://github.com/vippsas/vipps-invoice-api/blob/master/vipps-invoice-api.md#variable-overview).
 These variables will be set when the `Get Single Invoice` call is made.
 
-* [`Change Status to Approved`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/Change_Status_To_Approved_v1)
-* [`Change Status to Pending`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/Change_Status_To_Pending_v1)
-* [`Delete Invoice`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/Delete_Invoice_v1)  
+1. [`Change Status to Approved`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/Change_Status_To_Approved_v1)
+2. [`Change Status to Pending`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/Change_Status_To_Pending_v1)
+3. [`Delete Invoice`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/Delete_Invoice_v1)  
 
 ### Get commercial invoice (invoice attachment)
 
