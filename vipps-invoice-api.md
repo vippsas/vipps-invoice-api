@@ -109,11 +109,11 @@ To get a token, follow
 
 ## Time format and time zones
 
-We use the [RFC-3339](https://www.ietf.org/rfc/rfc3339.txt) format, which is a profile of _ISO 8601_. This format includes time zone information. As an IPP/ISP this means that date and time sent to the API *must* be specify the time zone. Having time zone information implies that the API can work with date and time in a consistent and predictable manner. Internally the RFC-3339 time format is stored relative to UTC. 
+We use the [RFC-3339](https://www.ietf.org/rfc/rfc3339.txt) format, which is a profile of _ISO 8601_. This format includes time zone information. As an IPP/ISP this means that date and time sent to the API *must* be specify the time zone. Having time zone information implies that the API can work with date and time in a consistent and predictable manner. Internally the RFC-3339 time format is stored relative to UTC.
 
 `1986-03-24T09:30:00.52Z` is in UTC time (denoted by the Z), while `1986-03-24T10:30:00.52+01:00` is the same time specificed with2 a time zone. The two examples specify the exact same point in time.
 
-There are several benefits to this approach. It deals with daylight saving time, leap seconds and all other things that can cause edge cases when working with date and time. 
+There are several benefits to this approach. It deals with daylight saving time, leap seconds and all other things that can cause edge cases when working with date and time.
 
 # Core functionality
 
@@ -275,7 +275,7 @@ Alternatively, use a NIN to identify each recipient:
 }
 ```
 
-By default, both MSISDN and NIN requests are pre-populated with the test user information below. 
+By default, both MSISDN and NIN requests are pre-populated with the test user information below.
 
 ### Test users
 
@@ -295,18 +295,64 @@ The service validates that the account belongs to the issuer ([KAR](https://www.
 
 
 ## ISP Request Flow
-1. [```Fetch Authorization Token```](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Get_Single_Invoice_v1) to set the ```{{access-token}}``` variable.
-2. [```Request Recipient Token```](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Request_Recipient_Token_v1) to set the ```{{recepient-token}}``` variable.
-3. [```Send Invoice```](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Send_Invoice_v1)
-4. [```Revoke Invoice```](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Revoke_Invoice_v1)
-* [```Get Single Invoice```](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Get_Single_Invoice_v1) can be called on any existing invoice.
+
+### Obtain access token
+
+[`Fetch Authorization Token`](https://vippsas.github.io/vipps-accesstoken-api/#/Authorization_Service_(legacy)/fetchAuthorizationTokenUsingPost) to set the `{{access-token}}` variable.
+
+### Obtain recipient token
+
+[`Request Recipient Token`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Request_Recipient_Token_v1) to set the `{{recepient-token}}` variable.
+
+### Send an invoice
+
+[`Send Invoice`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Send_Invoice_v1)
+
+### Revoke an invoice
+
+[`Revoke Invoice`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Revoke_Invoice_v1)
+
+### Get an invoice
+
+[`Get Single Invoice`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Get_Single_Invoice_v1) can be called on any existing invoice.
 
 ## IPP Request Flow
-1. ```Fetch Authorization Token``` to set the ```{{access-token}}``` variable.
-2. [```Request Recipient Token```](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/Request_Recipient_Token_v1) to set the ```{{recepient-token}}``` variable.
-3. [```List Invoices```](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/List_Invoices_v1), [```Count Invoices For a User```](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/InvoiceCount) and [```Get a Single Invoice```](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/Get_Single_Invoice_v1) can all be called when ```{{recipient-token}}``` variable is set.
-4. [```Change Status to Approved```](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/Change_Status_To_Approved_v1), [```Change Status to Pending```](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/Change_Status_To_Pending_v1) and [```Delete Invoice```](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/Delete_Invoice_v1) requires [```{{invoice-id}}```](https://github.com/vippsas/vipps-invoice-api/blob/master/vipps-invoice-api.md#invoiceid-and-variables), [```{{etag}}``` and ```{{idempotency-key}}```](https://github.com/vippsas/vipps-invoice-api/blob/master/vipps-invoice-api.md#variable-overview). These variables will be set when the ```Get Single Invoice``` call is sent.
-5. ```Get Commercial Invoice Document``` and ```Get Attachment for Invoice``` requires ```{{invoice-id}}``` and ```{{mime-type}}```. These variables will be set when the ```Get Single Invoice``` call is sent.
+
+### Obtain access token
+
+[`Fetch Authorization Token`](https://vippsas.github.io/vipps-accesstoken-api/#/Authorization_Service_(legacy)/fetchAuthorizationTokenUsingPost)
+to set the `{{access-token}}` variable.
+
+### Obtain recipient token
+
+[`Request Recipient Token`](https://vippsas.github.io/vipps-invoice-api/isp.html#/IPP/Request_Recipient_Token_v1) to set the `{{recepient-token}}` variable.
+
+### List Invoices
+
+These calls can be made when the `{{recipient-token}}` variable is set:
+
+* [`List Invoices`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/List_Invoices_v1)
+* [`Count Invoices For a User`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/InvoiceCount)
+* [`Get a Single Invoice`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/Get_Single_Invoice_v1)
+
+### Change the status of an invoice
+
+These calls require
+[`{{invoice-id}}`](https://github.com/vippsas/vipps-invoice-api/blob/master/vipps-invoice-api.md#invoiceid-and-variables),
+[`{{etag}}` and `{{idempotency-key}}`](https://github.com/vippsas/vipps-invoice-api/blob/master/vipps-invoice-api.md#variable-overview).
+These variables will be set when the `Get Single Invoice` call is made.
+
+* [`Change Status to Approved`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/Change_Status_To_Approved_v1)
+* [`Change Status to Pending`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/Change_Status_To_Pending_v1)
+* [`Delete Invoice`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/Delete_Invoice_v1)  
+
+### Get commercial invoice (invoice attachment)
+
+`Get Commercial Invoice Document` and `Get Attachment for Invoice` requires `{{invoice-id}}` and `{{mime-type}}`.
+These variables will be set when the `Get Single Invoice` call is made.
+
+* [`Get commercial invoice document`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/Get_Commercial_Invoice_Document_v1)
+* [`Get attachment for invoice`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/Get_Attachment_For_Invoice_v1)
 
 ### Postman Tests
 
