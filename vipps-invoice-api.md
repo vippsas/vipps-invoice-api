@@ -211,6 +211,7 @@ If you are able to provide data for your solution, please let us know.
 # Base URL
 
 Base URLs to which endpoint paths are appended:
+
 MT-environment | Production environment
 ------------   | -------------
  apitest.vipps.no| invoice-api.vipps.no
