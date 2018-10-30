@@ -214,7 +214,7 @@ Base URLs to which endpoint paths are appended:
 
 MT-environment | Production environment
 ------------   | -------------
- apitest.vipps.no| invoice-api.vipps.no
+ `apitest.vipps.no`| `invoice-api.vipps.no`
 
 
 
