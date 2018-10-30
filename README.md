@@ -67,6 +67,10 @@ install it using `pip`.
 
 # Swagger changelog
 
+## 0.3.20
+
+* Mark all endpoints as finished, add etag on invoice and fix regex
+
 ## 0.3.19
 
 * `vippsinvoice-recipienttoken`: Valid for 15 minutes.

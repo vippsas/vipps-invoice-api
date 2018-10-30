@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Vipps Invoice ISP API
-  version: '0.3.19'
+  version: '0.3.20'
   description: >-
 
     This is the API for Vipps Regninger. While we have worked closely with
@@ -109,7 +109,7 @@ paths:
             URL-safe reference that is unique for each issuer. Maximum length of the invoiceId is 200 bytes (i.e. 200 characters if the invoice id is in ascii).
           required: true
           type: string
-          pattern: "^([a-zA-Z-])\\.(\\d).([a-zA-Z0-9-]+)$"
+          pattern: "^([a-zA-Z-]+)\\.(\\d+)\\.([a-zA-Z0-9-]+)$"
         - name: Authorization
           in: header
           description: 'Authorization token is obtained from Access Token API: https://github.com/vippsas/vipps-accesstoken-api'
@@ -164,7 +164,7 @@ paths:
           description: The unique invoice id.
           required: true
           type: string
-          pattern: "^([a-zA-Z-])\\.(\\d).([a-zA-Z0-9-]+)$"
+          pattern: "^([a-zA-Z-]+)\\.(\\d+)\\.([a-zA-Z0-9-]+)$"
         - name: Authorization
           in: header
           description: 'Authorization token is obtained from Access Token API: https://github.com/vippsas/vipps-accesstoken-api'
@@ -204,7 +204,7 @@ paths:
           description: The unique invoice id.
           required: true
           type: string
-          pattern: "^([a-zA-Z-])\\.(\\d).([a-zA-Z0-9-]+)$"
+          pattern: "^([a-zA-Z-]+)\\.(\\d+)\\.([a-zA-Z0-9-]+)$"
         - name: If-Match
           in: header
           description: >-
@@ -440,7 +440,7 @@ definitions:
       invoiceId:
         type: string
         example: orgno-no.999999999.20180001
-        pattern: "^([a-zA-Z-])\\.(\\d).([a-zA-Z0-9-]+)$"
+        pattern: "^([a-zA-Z-]+)\\.(\\d+)\\.([a-zA-Z0-9-]+)$"
       paymentInformation:
         type: object
         properties:
@@ -474,7 +474,7 @@ definitions:
         example: '2019-10-02T15:00:00Z'
       amount:
         type: integer
-        description: Amount by lowest subdivision(øre)
+        description: Amount by lowest subdivision (øre)
         example: 25043
       minAmount:
         type: integer
@@ -544,7 +544,7 @@ definitions:
               example: application/pdf
       attachments:
         type: array
-        description: Invoice attachments.
+        description: Invoice attachments
         items:
           $ref: '#/definitions/attachmentOut'
       issuerIconUrl:
@@ -553,6 +553,9 @@ definitions:
         example: 'https://www.example.com/logos/lister.png'
       status:
         type: object
+        required:
+          - lastModified
+          - state
         properties:
           lastModified:
             type: string
@@ -567,18 +570,17 @@ definitions:
               - approved
               - deleted
               - revoked
-            description: >-
-              Status of the invoice.
+            description: Status of the invoice. See the documentation in the introduction to this file.
           due:
             type: string
             format: date-time
-            description: When the user has set the payment to be due
+            description: When the user has set the payment to be due (only for state 'approved')
           amount:
             type: integer
-            description: Amount the user has set to be paid by lowest subdivision(øre)
+            description: Amount the user has set to be paid by lowest subdivision (øre) (only for state 'approved')
           etag:
             type: string
-            description: System generated property used for optimistic concurrency control.
+            description: "(*** DEPRECATED ***: Use the etag on invoice.) System generated property used for optimistic concurrency control."
           problems:
             description: A list of problems causing the invoice to be rejected. (only for state 'rejected')
             type: array
@@ -589,6 +591,10 @@ definitions:
         format: date-time
         description: When an invoice was created
         example: '2018-03-13T15:00:00+00:00'
+      etag:
+        type: string
+        description: System generated property used for optimistic concurrency control.
+        example: "0a00075e-0000-0000-0000-5ba22c8b0000"
   RecipientResolve:
     type: object
     properties:

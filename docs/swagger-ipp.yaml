@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Vipps Invoice IPP API
-  version: '0.3.19'
+  version: '0.3.20'
   description: >-
     This is the API for Vipps Regninger. While we have worked closely with
     selected partners, and believe that this is very close to production
@@ -92,7 +92,7 @@ paths:
       parameters:
         - name: state
           in: query
-          description: '**Not yet implemented!** Filter invoices by state. Default is "pending".'
+          description: 'Filter invoices by state. Default is "pending".'
           type: string
           default: pending
           enum:
@@ -138,7 +138,7 @@ paths:
         - application/json
   /invoices/count:
     get:
-      description: Returns the number of pending invoices for a user.
+      description: Returns the number of invoices in a given state for a user.
       operationId: InvoiceCount
       summary: Count invoices for a user
       tags:
@@ -146,7 +146,7 @@ paths:
       parameters:
         - name: state
           in: query
-          description: '**Not yet implemented!** Filter invoices by state. Default is "pending".'
+          description: 'Filter invoices by state. Default is "pending".'
           type: string
           default: pending
           enum:
@@ -203,7 +203,7 @@ paths:
           description: The unique invoice id.
           required: true
           type: string
-          pattern: "^([a-zA-Z-])\\.(\\d).([a-zA-Z0-9-]+)$"
+          pattern: "^([a-zA-Z-]+)\\.(\\d+)\\.([a-zA-Z0-9-]+)$"
         - name: vippsinvoice-recipienttoken
           in: header
           description: Recipient token. Issued by Vipps. Valid for 15 minutes.
@@ -249,7 +249,7 @@ paths:
           description: The unique invoice id.
           required: true
           type: string
-          pattern: "^([a-zA-Z-])\\.(\\d).([a-zA-Z0-9-]+)$"
+          pattern: "^([a-zA-Z-]+)\\.(\\d+)\\.([a-zA-Z0-9-]+)$"
         - name: If-Match
           in: header
           description: Property for optimistic concurrency control. Expects the etag of the last known invoice status. Status updates are only performed if the provided etag matches with the etag of the current status.
@@ -309,7 +309,7 @@ paths:
           description: The unique invoice id.
           required: true
           type: string
-          pattern: "^([a-zA-Z-])\\.(\\d).([a-zA-Z0-9-]+)$"
+          pattern: "^([a-zA-Z-]+)\\.(\\d+)\\.([a-zA-Z0-9-]+)$"
         - name: If-Match
           in: header
           description: Property for optimistic concurrency control. Expects the etag of the last known invoice status. Status updates are only performed if the provided etag matches with the etag of the current status.
@@ -366,7 +366,7 @@ paths:
           description: The unique invoice id.
           required: true
           type: string
-          pattern: "^([a-zA-Z-])\\.(\\d).([a-zA-Z0-9-]+)$"
+          pattern: "^([a-zA-Z-]+)\\.(\\d+)\\.([a-zA-Z0-9-]+)$"
         - name: If-Match
           in: header
           description: Property for optimistic concurrency control. Expects the etag of the last known invoice status. Status updates are only performed if the provided etag matches with the etag of the current status.
@@ -420,7 +420,7 @@ paths:
           description: The unique invoice id.
           required: true
           type: string
-          pattern: "^([a-zA-Z-])\\.(\\d).([a-zA-Z0-9-]+)$"
+          pattern: "^([a-zA-Z-]+)\\.(\\d+)\\.([a-zA-Z0-9-]+)$"
         - name: mimeType
           in: query
           description: Mime type to retrieve. E.g. application/pdf
@@ -470,7 +470,7 @@ paths:
           description: The unique invoice id.
           required: true
           type: string
-          pattern: "^([a-zA-Z-])\\.(\\d).([a-zA-Z0-9-]+)$"
+          pattern: "^([a-zA-Z-]+)\\.(\\d+)\\.([a-zA-Z0-9-]+)$"
         - name: attachmentId
           in: path
           description: The unique attachment id.
@@ -590,7 +590,7 @@ definitions:
       invoiceId:
         type: string
         example: orgno-no.999999999.20180001
-        pattern: "^([a-zA-Z-])\\.(\\d).([a-zA-Z0-9-]+)$"
+        pattern: "^([a-zA-Z-]+)\\.(\\d+)\\.([a-zA-Z0-9-]+)$"
       paymentInformation:
         type: object
         properties:
@@ -691,6 +691,9 @@ definitions:
         example: 'https://www.example.com/logos/lister.png'
       status:
         type: object
+        required:
+          - lastModified
+          - state
         properties:
           lastModified:
             type: string
@@ -715,7 +718,7 @@ definitions:
             description: Amount the user has set to be paid by lowest subdivision (øre) (only for state 'approved')
           etag:
             type: string
-            description: System generated property used for optimistic concurrency control.
+            description: "(*** DEPRECATED ***: Use the etag on invoice.) System generated property used for optimistic concurrency control."
           problems:
             description: A list of problems causing the invoice to be rejected. (only for state 'rejected')
             type: array
@@ -726,6 +729,10 @@ definitions:
         format: date-time
         description: When an invoice was created
         example: '2018-03-13T15:00:00+00:00'
+      etag:
+        type: string
+        description: System generated property used for optimistic concurrency control.
+        example: "0a00075e-0000-0000-0000-5ba22c8b0000"
   RecipientResolve:
     type: object
     properties:
