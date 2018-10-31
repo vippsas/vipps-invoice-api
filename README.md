@@ -3,18 +3,6 @@
 This repository contains developer resources for the Vipps Invoice API.
 For more information, see [Vipps Regninger](https://www.vipps.no/bedrift/vipps-regninger).
 
-**IMPORTANT:** This is a work in progress. Input is appreciated, either as issues, PRs, email.
-Please note that the official, stable developer resources for Vipps is still https://vipps.no/developer
-
-Important dates (which _may_ change):
-* Feature-complete version without APIM for test: 10th Aug​
-* Feature-complete version with APIM for test: ~20th~ 28th Aug (see [issues](https://github.com/vippsas/vipps-invoice-api/issues))
-* Feature-complete version _of the API_ with APIM authentication for production: ~7th~ 12th September
-* Production access for integrators: September 13
-* Vipps Regninger visible in the Vipps app: September 27 (for whitelisted users)
-
-For the full rolout plan: Please contact us.
-
 See the Vipps Developers repository for
 a "getting started" guide,
 information about product activation,
