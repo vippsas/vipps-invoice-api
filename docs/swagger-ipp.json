@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Vipps Invoice IPP API",
-    "version": "0.3.19",
+    "version": "0.3.20",
     "description": "This is the API for Vipps Regninger. While we have worked closely with selected partners, and believe that this is very close to production quality, we are more than happy to receive feedback, either with GitHub's issue functionality, or by email.\nPlease see https://github.com/vippsas/vipps-invoice-api for documentation"
   },
   "host": "apitest.vipps.no",
@@ -74,16 +74,16 @@
               "$ref": "#/definitions/RecipientsTokensPost200ApplicationJsonResponse"
             }
           },
-          "400": {
-            "description": "Bad Request",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
           "401": {
             "description": "Unauthorized",
             "schema": {
               "$ref": "#/definitions/MsError"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/Error"
             }
           },
           "404": {
@@ -116,7 +116,7 @@
           {
             "name": "state",
             "in": "query",
-            "description": "**Not yet implemented!** Filter invoices by state. Default is \"pending\".",
+            "description": "Filter invoices by state. Default is \"pending\".",
             "type": "string",
             "default": "pending",
             "enum": [
@@ -184,7 +184,7 @@
     },
     "/invoices/count": {
       "get": {
-        "description": "Returns the number of pending invoices for a user.",
+        "description": "Returns the number of invoices in a given state for a user.",
         "operationId": "InvoiceCount",
         "summary": "Count invoices for a user",
         "tags": [
@@ -194,7 +194,7 @@
           {
             "name": "state",
             "in": "query",
-            "description": "**Not yet implemented!** Filter invoices by state. Default is \"pending\".",
+            "description": "Filter invoices by state. Default is \"pending\".",
             "type": "string",
             "default": "pending",
             "enum": [
@@ -275,7 +275,7 @@
             "description": "The unique invoice id.",
             "required": true,
             "type": "string",
-            "pattern": "^([a-zA-Z-])\\.(\\d).([a-zA-Z0-9-]+)$"
+            "pattern": "^([a-zA-Z-]+)\\.(\\d+)\\.([a-zA-Z0-9-]+)$"
           },
           {
             "name": "vippsinvoice-recipienttoken",
@@ -335,7 +335,7 @@
             "description": "The unique invoice id.",
             "required": true,
             "type": "string",
-            "pattern": "^([a-zA-Z-])\\.(\\d).([a-zA-Z0-9-]+)$"
+            "pattern": "^([a-zA-Z-]+)\\.(\\d+)\\.([a-zA-Z0-9-]+)$"
           },
           {
             "name": "If-Match",
@@ -421,7 +421,7 @@
             "description": "The unique invoice id.",
             "required": true,
             "type": "string",
-            "pattern": "^([a-zA-Z-])\\.(\\d).([a-zA-Z0-9-]+)$"
+            "pattern": "^([a-zA-Z-]+)\\.(\\d+)\\.([a-zA-Z0-9-]+)$"
           },
           {
             "name": "If-Match",
@@ -497,7 +497,7 @@
             "description": "The unique invoice id.",
             "required": true,
             "type": "string",
-            "pattern": "^([a-zA-Z-])\\.(\\d).([a-zA-Z0-9-]+)$"
+            "pattern": "^([a-zA-Z-]+)\\.(\\d+)\\.([a-zA-Z0-9-]+)$"
           },
           {
             "name": "If-Match",
@@ -573,7 +573,7 @@
             "description": "The unique invoice id.",
             "required": true,
             "type": "string",
-            "pattern": "^([a-zA-Z-])\\.(\\d).([a-zA-Z0-9-]+)$"
+            "pattern": "^([a-zA-Z-]+)\\.(\\d+)\\.([a-zA-Z0-9-]+)$"
           },
           {
             "name": "mimeType",
@@ -646,7 +646,7 @@
             "description": "The unique invoice id.",
             "required": true,
             "type": "string",
-            "pattern": "^([a-zA-Z-])\\.(\\d).([a-zA-Z0-9-]+)$"
+            "pattern": "^([a-zA-Z-]+)\\.(\\d+)\\.([a-zA-Z0-9-]+)$"
           },
           {
             "name": "attachmentId",
@@ -820,7 +820,7 @@
         "invoiceId": {
           "type": "string",
           "example": "orgno-no.999999999.20180001",
-          "pattern": "^([a-zA-Z-])\\.(\\d).([a-zA-Z0-9-]+)$"
+          "pattern": "^([a-zA-Z-]+)\\.(\\d+)\\.([a-zA-Z0-9-]+)$"
         },
         "paymentInformation": {
           "type": "object",
@@ -953,6 +953,10 @@
         },
         "status": {
           "type": "object",
+          "required": [
+            "lastModified",
+            "state"
+          ],
           "properties": {
             "lastModified": {
               "type": "string",
@@ -982,7 +986,7 @@
             },
             "etag": {
               "type": "string",
-              "description": "System generated property used for optimistic concurrency control."
+              "description": "(*** DEPRECATED ***: Use the etag on invoice.) System generated property used for optimistic concurrency control."
             },
             "problems": {
               "description": "A list of problems causing the invoice to be rejected. (only for state 'rejected')",
@@ -998,6 +1002,11 @@
           "format": "date-time",
           "description": "When an invoice was created",
           "example": "2018-03-13T15:00:00+00:00"
+        },
+        "etag": {
+          "type": "string",
+          "description": "System generated property used for optimistic concurrency control.",
+          "example": "0a00075e-0000-0000-0000-5ba22c8b0000"
         }
       }
     },

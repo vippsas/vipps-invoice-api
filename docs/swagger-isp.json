@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Vipps Invoice ISP API",
-    "version": "0.3.19",
+    "version": "0.3.20",
     "description": "\nThis is the API for Vipps Regninger. While we have worked closely with selected partners, and believe that this is very close to production quality, we are more than happy to receive feedback, either with GitHub's issue functionality, or by email.\nPlease see https://github.com/vippsas/vipps-invoice-api for documentation"
   },
   "host": "apitest.vipps.no",
@@ -119,7 +119,7 @@
             "description": "The `invoiceId` must be constructed as `orgno-no.{issuerOrgno}.{invoiceRef}` where {invoiceRef} is a URL-safe reference that is unique for each issuer. Maximum length of the invoiceId is 200 bytes (i.e. 200 characters if the invoice id is in ascii).",
             "required": true,
             "type": "string",
-            "pattern": "^([a-zA-Z-])\\.(\\d).([a-zA-Z0-9-]+)$"
+            "pattern": "^([a-zA-Z-]+)\\.(\\d+)\\.([a-zA-Z0-9-]+)$"
           },
           {
             "name": "Authorization",
@@ -196,7 +196,7 @@
             "description": "The unique invoice id.",
             "required": true,
             "type": "string",
-            "pattern": "^([a-zA-Z-])\\.(\\d).([a-zA-Z0-9-]+)$"
+            "pattern": "^([a-zA-Z-]+)\\.(\\d+)\\.([a-zA-Z0-9-]+)$"
           },
           {
             "name": "Authorization",
@@ -249,7 +249,7 @@
             "description": "The unique invoice id.",
             "required": true,
             "type": "string",
-            "pattern": "^([a-zA-Z-])\\.(\\d).([a-zA-Z0-9-]+)$"
+            "pattern": "^([a-zA-Z-]+)\\.(\\d+)\\.([a-zA-Z0-9-]+)$"
           },
           {
             "name": "If-Match",
@@ -547,7 +547,7 @@
         "invoiceId": {
           "type": "string",
           "example": "orgno-no.999999999.20180001",
-          "pattern": "^([a-zA-Z-])\\.(\\d).([a-zA-Z0-9-]+)$"
+          "pattern": "^([a-zA-Z-]+)\\.(\\d+)\\.([a-zA-Z0-9-]+)$"
         },
         "paymentInformation": {
           "type": "object",
@@ -591,7 +591,7 @@
         },
         "amount": {
           "type": "integer",
-          "description": "Amount by lowest subdivision(øre)",
+          "description": "Amount by lowest subdivision (øre)",
           "example": 25043
         },
         "minAmount": {
@@ -668,7 +668,7 @@
         },
         "attachments": {
           "type": "array",
-          "description": "Invoice attachments.",
+          "description": "Invoice attachments",
           "items": {
             "$ref": "#/definitions/attachmentOut"
           }
@@ -680,6 +680,10 @@
         },
         "status": {
           "type": "object",
+          "required": [
+            "lastModified",
+            "state"
+          ],
           "properties": {
             "lastModified": {
               "type": "string",
@@ -696,20 +700,20 @@
                 "deleted",
                 "revoked"
               ],
-              "description": "Status of the invoice."
+              "description": "Status of the invoice. See the documentation in the introduction to this file."
             },
             "due": {
               "type": "string",
               "format": "date-time",
-              "description": "When the user has set the payment to be due"
+              "description": "When the user has set the payment to be due (only for state 'approved')"
             },
             "amount": {
               "type": "integer",
-              "description": "Amount the user has set to be paid by lowest subdivision(øre)"
+              "description": "Amount the user has set to be paid by lowest subdivision (øre) (only for state 'approved')"
             },
             "etag": {
               "type": "string",
-              "description": "System generated property used for optimistic concurrency control."
+              "description": "(*** DEPRECATED ***: Use the etag on invoice.) System generated property used for optimistic concurrency control."
             },
             "problems": {
               "description": "A list of problems causing the invoice to be rejected. (only for state 'rejected')",
@@ -725,6 +729,11 @@
           "format": "date-time",
           "description": "When an invoice was created",
           "example": "2018-03-13T15:00:00+00:00"
+        },
+        "etag": {
+          "type": "string",
+          "description": "System generated property used for optimistic concurrency control.",
+          "example": "0a00075e-0000-0000-0000-5ba22c8b0000"
         }
       }
     },
