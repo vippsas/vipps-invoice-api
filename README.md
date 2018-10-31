@@ -67,6 +67,10 @@ install it using `pip`.
 
 # Swagger changelog
 
+## 0.3.21
+
+* update JWK with x5t and kid details
+
 ## 0.3.20
 
 * Mark all endpoints as finished, add etag on invoice and fix regex
