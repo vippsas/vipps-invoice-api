@@ -12,7 +12,7 @@ Please use GitHub's built-in functionality for
 [pull requests](https://github.com/vippsas/vipps-invoice-api/pulls),
 or contact us at integration@vipps.no.
 
-Document version: 0.2.21.
+Document version: 0.3.0.
 
 # Overview
 
@@ -622,10 +622,13 @@ See also: [JSON Web Token Best Current Practices draft-ietf-oauth--bcp-03](https
 The JSON Web Token (JWT) contains the following relevant claims:
 
 - `ISS` (issuer): Who is issuing the JWT.E.g. `vipps.invoice.api`.
-- `AUD` (audience): Something identifying the IPP.
 - `SUB` (subject): The base URL for the document.
+- `IAT` (issued at): A specific moment in time when the JWT was issued.
 - `EXP` (expiration): A specific moment in time where the JWT becomes invalid.
+- `NBF` (not before): A specific moment in time where the JWT becomes valid.
 - `ALG` (algorithm): Encryption algorithm. Vipps uses RS256.
+
+In addition the `KID` (key ID), `ALG` (algorithm) and `TYP` (type of token) is available in the JWT headers.
 
 ## The API's public key: JWK (JSON Web Key)
 
@@ -633,16 +636,14 @@ The API's public key is required in order to validate the request and the JWT.
 The public key is available as an array of JSON Web Keys (JWK):
 [`GET:/jwk`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/get_jwk).
 
-**IMPORTANT:** We are currently working on the logic around caching and
-rotating of the JWK, and aim to use two keys: One primary key and one secondary key.
-There is no immediate plan to change the JWK, but this implementation logic
-allows for easy and automatic key rotation at a later stage, including
-changing the encryption algorithm - without a change to the client code.
-Until further notice, the JWK can be cached for 10 minutes.
-See also:
-[OpenID Connect Core 1.0: Rotation of Asymmetric Signing Keys](https://openid.net/specs/openid-connect-core-1_0.html#RotateSigKeys).
+The API is designed to handle key rotation. There is no immediate plan to change the JWK, but it will happen at some point in time. **The client implementations must support this**. See the pseudo-code below for how to support this.
 
-The response is as follows:
+The client can cache keys, but *must* implement logic that invalidates the cache, fetches the keys and retry validation if they don't find any valid key.
+
+See also:
+[OpenID Connect Core 1.0: Rotation of Asymmetric Signing Keys](https://openid.net/specs/openid-connect-core-1_0.html#RotateSigKeys) and [RFC7515 on rey rotation](https://tools.ietf.org/html/rfc7515#page-12).
+
+The response from `/jwk` is as follows:
 
 ```json
 {
@@ -650,33 +651,39 @@ The response is as follows:
     {
       "e": "AQAB",
       "alg": "RS256",
+      "kid": "cedd7b8cbb3bfa85cba71f5001b5e09822244922",
       "use": "sig",
-      "kid": "jwt",
       "kty": "RSA",
-      "n": "5Dkax7lxzotIVx5DQidS..."
+      "n": "5Dkax7lxzotIVx5DQidS...",
+      "use": "sig",
+      "x5t": "cedd7b8cbb3bfa85cba71f5001b5e09822244922",
+      "x5t#S256": "25eb881cbc57b8a953629b4065b8a7f735d8c316009e51822a710d8772a09123"
     }
   ]
 }
 ```
 
 Vipps _may_ rotate keys, which may result in a JWK not being usable for
-validating the JWT.
-In this case, the `keys` array will will contain another, valid JWK.
-Should a call fail, a new call may be performed immediately with the new key.
+validating the JWT. There will _always_ be at least one valid key in `keys`.
+
+In order to validate, use the `KID` in the JWT header and find the corresponding public key in the list of `keys`.
 
 Pseudo-code for validating the JWT:
 
-```java
+```javascript
 function IsValidJWT(jwt) {
   JWK[] keys = getKeysFromVipps()
+  jwtKid = jwt.Headers["kid"] 
 
   for each key in keys {
-    if validate(jwt, key) {
-        return true
+    if key.kid == jwtKid {
+      return validate(jwt, key) 
     }
   }
 
   // No key could validate the JWT
+  // Consider refreshing the cache (if used) and retry
+
   return false
 }
 ```
