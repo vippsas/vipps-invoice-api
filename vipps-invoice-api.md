@@ -651,7 +651,7 @@ The API is designed to handle key rotation. There is no immediate plan to change
 The client can cache keys, but *must* implement logic that invalidates the cache, fetches the keys and retry validation if they don't find any valid key.
 
 See also:
-[OpenID Connect Core 1.0: Rotation of Asymmetric Signing Keys](https://openid.net/specs/openid-connect-core-1_0.html#RotateSigKeys) and [RFC7515 on rey rotation](https://tools.ietf.org/html/rfc7515#page-12).
+[OpenID Connect Core 1.0: Rotation of Asymmetric Signing Keys](https://openid.net/specs/openid-connect-core-1_0.html#RotateSigKeys) and [RFC7515 on key rotation](https://tools.ietf.org/html/rfc7515#page-12).
 
 The response from `/jwk` is as follows:
 
