@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Vipps Invoice ISP API
-  version: '0.3.20'
+  version: '0.3.21'
   description: >-
 
     This is the API for Vipps Regninger. While we have worked closely with
@@ -275,9 +275,11 @@ paths:
                 - e: AQAB
                   alg: RS256
                   use: sig
-                  kid: jwt
+                  kid: bffd7b8cbb3bfa85cba71f5001b5e09822244922
                   kty: RSA
                   'n': 5Dkax7lxzotIVx5DQidS...
+                  x5t: "bffd7b8cbb3bfa85cba71f5001b5e09822244922"
+                  x5t#S256: "25eb881cbc57b8a953629b4065b8a7f735d8c316009e51822a710d8772a0985a"
           schema:
             $ref: '#/definitions/JsonWebKeySet'
         '401':
@@ -678,8 +680,19 @@ definitions:
         type: string
       k:
         type: string
+      x5t:
+        type: string
+      x5t#S256:
+        type: string
     required:
       - kty
+      - kid
+      - alg
+      - use
+      - e
+      - 'n'
+      - x5t
+      - x5t#S256
   RecipientsTokensPost200ApplicationJsonResponse:
     type: object
     properties:
