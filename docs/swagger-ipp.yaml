@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Vipps Invoice IPP API
-  version: '0.3.21'
+  version: '0.3.22'
   description: >-
     This is the API for Vipps Regninger. While we have worked closely with
     selected partners, and believe that this is very close to production
@@ -752,6 +752,9 @@ definitions:
     properties:
       error:
         type: object
+        required:
+          - type
+          - title
         properties:
           type:
             type: string
@@ -768,6 +771,10 @@ definitions:
           instance:
             type: string
             description: A URI reference that identifies the specific occurrence of the problem.  It may or may not yield further information if dereferenced.
+          correlationId:
+            type: string
+            description: An ID that can be used to find related log messages
+             
   JsonWebKeySet:
     title: JSON Web Key Set
     type: object

@@ -55,6 +55,10 @@ install it using `pip`.
 
 # Swagger changelog
 
+## 0.3.22
+
+* fix validation errors for error/problem type
+
 ## 0.3.21
 
 * update JWK with x5t and kid details

@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Vipps Invoice ISP API",
-    "version": "0.3.21",
+    "version": "0.3.22",
     "description": "\nThis is the API for Vipps Regninger. While we have worked closely with selected partners, and believe that this is very close to production quality, we are more than happy to receive feedback, either with GitHub's issue functionality, or by email.\nPlease see https://github.com/vippsas/vipps-invoice-api for documentation"
   },
   "host": "apitest.vipps.no",
@@ -761,6 +761,10 @@
       "properties": {
         "error": {
           "type": "object",
+          "required": [
+            "type",
+            "title"
+          ],
           "properties": {
             "type": {
               "type": "string",
@@ -775,11 +779,15 @@
             "detail": {
               "type": "string",
               "description": "A human-readable explanation specific to this occurrence of the problem.",
-              "example": "You tried to call the endpoint `GET:/invoices/{invoiceId}` with the invoice id **invoice-1**. This is invalid due to the following reasons: missing issuer ident-type, missing issuer ident-value."
+              "example": "You tried to call the endpoint GET:/invoices/{invoiceId} with the invoice id **invoice-1**. This is invalid due to the following reasons: missing issuer ident-type, missing issuer ident-value."
             },
             "instance": {
               "type": "string",
               "description": "A URI reference that identifies the specific occurrence of the problem.  It may or may not yield further information if dereferenced."
+            },
+            "correlationId": {
+              "type": "string",
+              "description": "An ID that can be used to find related log messages"
             }
           }
         }
