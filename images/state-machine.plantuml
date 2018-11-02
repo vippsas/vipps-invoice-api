@@ -1,0 +1,27 @@
+@startuml
+skinparam monochrome true  
+
+Title State machine
+
+[*] --> Created
+Created --> Pending : T1
+Created --> Rejected : T2
+Created --> Revoked : T3
+Pending --> Expired : T4
+Pending --> Deleted : T5
+Pending --> Approved : T6
+Pending --> Revoked : T7
+Approved --> Approved : T8
+Approved --> Pending : T9
+Approved --> Deleted : T10
+Expired --> [*]
+Revoked --> [*]
+Deleted --> [*]
+Rejected --> [*]
+
+note bottom of Approved
+Final state.
+Not verifiable.
+end note 
+
+@enduml
