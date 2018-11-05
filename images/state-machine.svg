@@ -1,106 +1,43 @@
-<svg width="392pt" height="540pt" viewBox="0.00 0.00 392.06 539.98" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 535.985)">
-<title>G</title>
-<polygon fill="white" stroke="none" points="-4,4 -4,-535.985 388.06,-535.985 388.06,4 -4,4"></polygon>
-<text text-anchor="middle" x="192.03" y="-8.2" font-family="Times,serif" font-size="14.00">Invoice state machine</text>
-<!-- SCR -->
-<g id="node1" class="node"><title>SCR</title>
-<ellipse fill="none" stroke="black" cx="123.139" cy="-493.074" rx="38.8208" ry="38.8208"></ellipse>
-<text text-anchor="middle" x="123.139" y="-488.874" font-family="Times,serif" font-size="14.00">created</text>
-</g>
-<!-- SRV -->
-<g id="node2" class="node"><title>SRV</title>
-<ellipse fill="none" stroke="black" cx="46.1386" cy="-210.409" rx="42.2656" ry="42.2656"></ellipse>
-<ellipse fill="none" stroke="black" cx="46.1386" cy="-210.409" rx="46.2777" ry="46.2777"></ellipse>
-<text text-anchor="middle" x="46.1386" y="-206.209" font-family="Times,serif" font-size="14.00">revoked</text>
-</g>
-<!-- SCR&#45;&gt;SRV -->
-<g id="edge3" class="edge"><title>SCR-&gt;SRV</title>
-<path fill="none" stroke="black" d="M95.1078,-465.505C79.4739,-448.761 61.4182,-425.75 52.586,-401.364 36.8557,-357.932 36.4012,-305.198 39.2197,-266.323"></path>
-<polygon fill="black" stroke="black" points="42.7166,-266.502 40.0451,-256.25 35.74,-265.93 42.7166,-266.502"></polygon>
-<text text-anchor="middle" x="60.9149" y="-351.57" font-family="Times,serif" font-size="14.00">T3</text>
-</g>
-<!-- SRJ -->
-<g id="node3" class="node"><title>SRJ</title>
-<ellipse fill="none" stroke="black" cx="123.139" cy="-355.77" rx="41.6799" ry="41.6799"></ellipse>
-<ellipse fill="none" stroke="black" cx="123.139" cy="-355.77" rx="45.6881" ry="45.6881"></ellipse>
-<text text-anchor="middle" x="123.139" y="-351.57" font-family="Times,serif" font-size="14.00">rejected</text>
-</g>
-<!-- SCR&#45;&gt;SRJ -->
-<g id="edge2" class="edge"><title>SCR-&gt;SRJ</title>
-<path fill="none" stroke="black" d="M123.139,-454.024C123.139,-440.942 123.139,-426.02 123.139,-411.858"></path>
-<polygon fill="black" stroke="black" points="126.639,-411.719 123.139,-401.719 119.639,-411.719 126.639,-411.719"></polygon>
-<text text-anchor="middle" x="130.915" y="-423.564" font-family="Times,serif" font-size="14.00">T2</text>
-</g>
-<!-- SPN -->
-<g id="node5" class="node"><title>SPN</title>
-<ellipse fill="none" stroke="black" cx="229.139" cy="-355.77" rx="42.299" ry="42.299"></ellipse>
-<text text-anchor="middle" x="229.139" y="-351.57" font-family="Times,serif" font-size="14.00">pending</text>
-</g>
-<!-- SCR&#45;&gt;SPN -->
-<g id="edge1" class="edge"><title>SCR-&gt;SPN</title>
-<path fill="none" stroke="black" d="M146.663,-462.046C161.525,-443.076 180.92,-418.319 197.168,-397.58"></path>
-<polygon fill="black" stroke="black" points="200.042,-399.586 203.454,-389.556 194.531,-395.269 200.042,-399.586"></polygon>
-<text text-anchor="middle" x="187.915" y="-423.564" font-family="Times,serif" font-size="14.00">T1</text>
-</g>
-<!-- SEP -->
-<g id="node4" class="node"><title>SEP</title>
-<ellipse fill="none" stroke="black" cx="155.139" cy="-210.409" rx="39.9882" ry="39.9882"></ellipse>
-<ellipse fill="none" stroke="black" cx="155.139" cy="-210.409" rx="43.9876" ry="43.9876"></ellipse>
-<text text-anchor="middle" x="155.139" y="-206.209" font-family="Times,serif" font-size="14.00">expired</text>
-</g>
-<!-- SPN&#45;&gt;SRV -->
-<g id="edge7" class="edge"><title>SPN-&gt;SRV</title>
-<path fill="none" stroke="black" d="M198.317,-326.85C191.768,-321.194 184.814,-315.387 178.139,-310.176 145.718,-284.867 134.949,-282.177 102.139,-257.376 97.8114,-254.105 93.353,-250.632 88.9303,-247.117"></path>
-<polygon fill="black" stroke="black" points="91.0318,-244.316 81.0441,-240.781 86.6473,-249.773 91.0318,-244.316"></polygon>
-<text text-anchor="middle" x="160.915" y="-279.576" font-family="Times,serif" font-size="14.00">T7</text>
-</g>
-<!-- SPN&#45;&gt;SEP -->
-<g id="edge4" class="edge"><title>SPN-&gt;SEP</title>
-<path fill="none" stroke="black" d="M210.082,-317.851C200.803,-299.874 189.537,-278.049 179.628,-258.852"></path>
-<polygon fill="black" stroke="black" points="182.732,-257.236 175.035,-249.955 176.512,-260.447 182.732,-257.236"></polygon>
-<text text-anchor="middle" x="204.915" y="-279.576" font-family="Times,serif" font-size="14.00">T4</text>
-</g>
-<!-- SAP -->
-<g id="node6" class="node"><title>SAP</title>
-<ellipse fill="none" stroke="black" cx="264.139" cy="-210.409" rx="46.9342" ry="46.9342"></ellipse>
-<text text-anchor="middle" x="264.139" y="-206.209" font-family="Times,serif" font-size="14.00">approved</text>
-</g>
-<!-- SPN&#45;&gt;SAP -->
-<g id="edge6" class="edge"><title>SPN-&gt;SAP</title>
-<path fill="none" stroke="black" d="M225.582,-313.485C225.522,-301.073 226.477,-287.528 229.586,-275.376 230.935,-270.103 232.81,-264.791 234.996,-259.603"></path>
-<polygon fill="black" stroke="black" points="238.214,-260.981 239.218,-250.434 231.856,-258.053 238.214,-260.981"></polygon>
-<text text-anchor="middle" x="237.915" y="-279.576" font-family="Times,serif" font-size="14.00">T6</text>
-</g>
-<!-- SDL -->
-<g id="node7" class="node"><title>SDL</title>
-<ellipse fill="none" stroke="black" cx="341.139" cy="-67.7209" rx="38.8494" ry="38.8494"></ellipse>
-<ellipse fill="none" stroke="black" cx="341.139" cy="-67.7209" rx="42.842" ry="42.842"></ellipse>
-<text text-anchor="middle" x="341.139" y="-63.5209" font-family="Times,serif" font-size="14.00">deleted</text>
-</g>
-<!-- SPN&#45;&gt;SDL -->
-<g id="edge5" class="edge"><title>SPN-&gt;SDL</title>
-<path fill="none" stroke="black" d="M266.969,-337.012C296.487,-320.853 335.366,-293.936 353.139,-257.376 374.303,-213.84 367.095,-157.844 357.184,-118.199"></path>
-<polygon fill="black" stroke="black" points="360.557,-117.265 354.621,-108.489 353.789,-119.052 360.557,-117.265"></polygon>
-<text text-anchor="middle" x="373.915" y="-206.209" font-family="Times,serif" font-size="14.00">T5</text>
-</g>
-<!-- SAP&#45;&gt;SPN -->
-<g id="edge9" class="edge"><title>SAP-&gt;SPN</title>
-<path fill="none" stroke="black" d="M253.739,-256.303C250.987,-267.992 247.988,-280.565 245.139,-292.176 244.131,-296.281 243.074,-300.535 242.002,-304.803"></path>
-<polygon fill="black" stroke="black" points="238.551,-304.176 239.496,-314.729 245.338,-305.89 238.551,-304.176"></polygon>
-<text text-anchor="middle" x="256.915" y="-279.576" font-family="Times,serif" font-size="14.00">T9</text>
-</g>
-<!-- SAP&#45;&gt;SAP -->
-<g id="edge8" class="edge"><title>SAP-&gt;SAP</title>
-<path fill="none" stroke="black" d="M309.377,-223.724C320.667,-222.792 329.106,-218.354 329.106,-210.409 329.106,-205.071 325.296,-201.316 319.372,-199.144"></path>
-<polygon fill="black" stroke="black" points="319.876,-195.674 309.377,-197.094 318.47,-202.532 319.876,-195.674"></polygon>
-<text text-anchor="middle" x="336.882" y="-206.209" font-family="Times,serif" font-size="14.00">T8</text>
-</g>
-<!-- SAP&#45;&gt;SDL -->
-<g id="edge10" class="edge"><title>SAP-&gt;SDL</title>
-<path fill="none" stroke="black" d="M286.41,-168.716C295.639,-151.854 306.391,-132.21 315.909,-114.818"></path>
-<polygon fill="black" stroke="black" points="319.029,-116.408 320.76,-105.955 312.888,-113.047 319.029,-116.408"></polygon>
-<text text-anchor="middle" x="318.415" y="-132.842" font-family="Times,serif" font-size="14.00">T10</text>
-</g>
-</g>
-</svg>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="722px" preserveAspectRatio="none" style="width:487px;height:722px;" version="1.1" viewBox="0 0 487 722" width="487px" zoomAndPan="magnify"><defs><filter height="300%" id="fp9o3xl0q61r5" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><text fill="#000000" font-family="sans-serif" font-size="18" lengthAdjust="spacingAndGlyphs" textLength="226" x="133.5" y="18.6855">State machine for an invoice</text><ellipse cx="352.5" cy="40.6406" fill="#000000" filter="url(#fp9o3xl0q61r5)" rx="10" ry="10" style="stroke: none; stroke-width: 1.0;"/><rect fill="#F8F8F8" filter="url(#fp9o3xl0q61r5)" height="50" rx="12.5" ry="12.5" style="stroke: #383838; stroke-width: 1.5;" width="71" x="317" y="111.6406"/><line style="stroke: #383838; stroke-width: 1.5;" x1="317" x2="388" y1="139.25" y2="139.25"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="51" x="327" y="131.1738">Created</text><rect fill="#F8F8F8" filter="url(#fp9o3xl0q61r5)" height="50" rx="12.5" ry="12.5" style="stroke: #383838; stroke-width: 1.5;" width="72" x="181.5" y="239.6406"/><line style="stroke: #383838; stroke-width: 1.5;" x1="181.5" x2="253.5" y1="267.25" y2="267.25"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="52" x="191.5" y="259.1738">Pending</text><rect fill="#F8F8F8" filter="url(#fp9o3xl0q61r5)" height="52.7031" rx="12.5" ry="12.5" style="stroke: #383838; stroke-width: 1.5;" width="81" x="394" y="319.6406"/><line style="stroke: #383838; stroke-width: 1.5;" x1="394" x2="475" y1="347.25" y2="347.25"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="56" x="406.5" y="339.1738">Rejected</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="61" x="399" y="364.707">- Problems</text><rect fill="#F8F8F8" filter="url(#fp9o3xl0q61r5)" height="50" rx="12.5" ry="12.5" style="stroke: #383838; stroke-width: 1.5;" width="76" x="310.5" y="411.6406"/><line style="stroke: #383838; stroke-width: 1.5;" x1="310.5" x2="386.5" y1="439.25" y2="439.25"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="56" x="320.5" y="431.1738">Revoked</text><rect fill="#F8F8F8" filter="url(#fp9o3xl0q61r5)" height="50" rx="12.5" ry="12.5" style="stroke: #383838; stroke-width: 1.5;" width="67" x="231" y="500.6406"/><line style="stroke: #383838; stroke-width: 1.5;" x1="231" x2="298" y1="528.25" y2="528.25"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="47" x="241" y="520.1738">Expired</text><rect fill="#F8F8F8" filter="url(#fp9o3xl0q61r5)" height="50" rx="12.5" ry="12.5" style="stroke: #383838; stroke-width: 1.5;" width="69" x="6" y="580.6406"/><line style="stroke: #383838; stroke-width: 1.5;" x1="6" x2="75" y1="608.25" y2="608.25"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="49" x="16" y="600.1738">Deleted</text><rect fill="#F8F8F8" filter="url(#fp9o3xl0q61r5)" height="67.7969" rx="12.5" ry="12.5" style="stroke: #383838; stroke-width: 1.5;" width="81" x="79" y="402.6406"/><line style="stroke: #383838; stroke-width: 1.5;" x1="79" x2="160" y1="430.25" y2="430.25"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="61" x="89" y="422.1738">Approved</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="49" x="84" y="447.707">- Amount</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="30" x="84" y="462.8008">- Due</text><ellipse cx="305.5" cy="701.6406" fill="none" filter="url(#fp9o3xl0q61r5)" rx="10" ry="10" style="stroke: #000000; stroke-width: 1.0;"/><ellipse cx="306" cy="702.1406" fill="#000000" rx="6" ry="6" style="stroke: none; stroke-width: 1.0;"/><path d="M110.5,584.1406 L110.5,626.8438 A0,0 0 0 0 110.5,626.8438 L204.5,626.8438 A0,0 0 0 0 204.5,626.8438 L204.5,594.1406 L194.5,584.1406 L156.792,584.1406 L127.099,471.0346 L148.792,584.1406 L110.5,584.1406 A0,0 0 0 0 110.5,584.1406 " fill="#ECECEC" filter="url(#fp9o3xl0q61r5)" style="stroke: #383838; stroke-width: 1.0;"/><path d="M194.5,584.1406 L194.5,594.1406 L204.5,594.1406 L194.5,584.1406 " fill="#ECECEC" style="stroke: #383838; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="65" x="116.5" y="602.6357">Final state.</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="73" x="116.5" y="618.9873">Not verifiable</text><!--link *start to Created--><path d="M352.5,50.6536 C352.5,63.3386 352.5,87.0496 352.5,106.2106 " fill="none" id="*start-Created" style="stroke: #383838; stroke-width: 1.0;"/><polygon fill="#383838" points="352.5,111.4806,356.5,102.4806,352.5,106.4806,348.5,102.4806,352.5,111.4806" style="stroke: #383838; stroke-width: 1.0;"/><!--link Created to Pending--><path d="M326.471,161.9346 C303.779,183.1136 270.879,213.8206 247.172,235.9466 " fill="none" id="Created-Pending" style="stroke: #383838; stroke-width: 1.0;"/><polygon fill="#383838" points="243.449,239.4216,252.7574,236.2039,247.1039,236.0096,247.2982,230.3561,243.449,239.4216" style="stroke: #383838; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="14" x="294.5" y="206.1357">T1</text><!--link Created to Rejected--><path d="M364.796,161.8696 C369.311,171.0966 374.334,181.7666 378.5,191.6406 C396.243,233.6916 413.803,283.5176 424.402,314.7356 " fill="none" id="Created-Rejected" style="stroke: #383838; stroke-width: 1.0;"/><polygon fill="#383838" points="426.042,319.5816,426.9455,309.7743,424.439,314.8455,419.3678,312.3391,426.042,319.5816" style="stroke: #383838; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="14" x="387.5" y="206.1357">T2</text><!--link Created to Revoked--><path d="M352.176,161.7746 C351.448,215.9796 349.687,347.2286 348.896,406.1486 " fill="none" id="Created-Revoked" style="stroke: #383838; stroke-width: 1.0;"/><polygon fill="#383838" points="348.827,411.2816,352.9475,402.3361,348.8941,406.2821,344.9482,402.2287,348.827,411.2816" style="stroke: #383838; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="14" x="352.5" y="270.1357">T3</text><!--link Pending to Expired--><path d="M221.922,290.0066 C230.604,337.8526 249.848,443.8996 259.197,495.4176 " fill="none" id="Pending-Expired" style="stroke: #383838; stroke-width: 1.0;"/><polygon fill="#383838" points="260.124,500.5276,262.4522,490.9579,259.231,495.608,254.5808,492.3868,260.124,500.5276" style="stroke: #383838; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="14" x="237.5" y="351.6357">T4</text><!--link Pending to Deleted--><path d="M181.318,278.8906 C159.122,288.1406 130.944,301.9856 109.5,319.6406 C73.5381,349.2486 61.0697,358.7376 45.5,402.6406 C24.7963,461.0196 30.2741,534.9656 35.6662,575.2306 " fill="none" id="Pending-Deleted" style="stroke: #383838; stroke-width: 1.0;"/><polygon fill="#383838" points="36.3896,580.4456,39.1148,570.9813,35.7025,575.4931,31.1907,572.0807,36.3896,580.4456" style="stroke: #383838; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="14" x="46.5" y="442.1357">T5</text><!--link Pending to Approved--><path d="M203.459,289.9976 C187.149,318.2896 160.057,365.2856 141.071,398.2216 " fill="none" id="Pending-Approved" style="stroke: #383838; stroke-width: 1.0;"/><polygon fill="#383838" points="138.564,402.5696,146.5237,396.7693,141.0607,398.2376,139.5924,392.7746,138.564,402.5696" style="stroke: #383838; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="14" x="187.5" y="351.6357">T6</text><!--link Approved to Pending--><path d="M116.28,402.4146 C115.516,377.7686 118.043,344.3066 133.5,319.6406 C143.682,303.3926 160.745,291.1046 176.843,282.3876 " fill="none" id="Approved-Pending" style="stroke: #383838; stroke-width: 1.0;"/><polygon fill="#383838" points="181.351,280.0236,171.5228,280.6618,176.9231,282.3461,175.2388,287.7464,181.351,280.0236" style="stroke: #383838; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="14" x="134.5" y="351.6357">T9</text><!--link Pending to Revoked--><path d="M245.535,289.6476 C255.226,298.5896 265.822,309.1286 274.5,319.6406 C286.915,334.6786 313.592,377.7166 331.291,406.9236 " fill="none" id="Pending-Revoked" style="stroke: #383838; stroke-width: 1.0;"/><polygon fill="#383838" points="334.051,411.4856,332.8132,401.7149,331.4622,407.208,325.969,405.857,334.051,411.4856" style="stroke: #383838; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="14" x="310.5" y="351.6357">T7</text><!--link Approved to Approved--><path d="M160.276,420.4316 C178.852,418.7766 195,424.1796 195,436.6406 C195,447.9336 181.738,453.4296 165.425,453.1286 " fill="none" id="Approved-Approved" style="stroke: #383838; stroke-width: 1.0;"/><polygon fill="#383838" points="160.276,452.8496,169.0456,457.3323,165.2686,453.121,169.4799,449.3441,160.276,452.8496" style="stroke: #383838; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="14" x="201" y="442.1357">T8</text><!--link Approved to Deleted--><path d="M103.703,471.0346 C89.171,501.7536 67.8468,546.8316 54.0672,575.9606 " fill="none" id="Approved-Deleted" style="stroke: #383838; stroke-width: 1.0;"/><polygon fill="#383838" points="51.9227,580.4936,59.3876,574.0691,54.0612,575.974,52.1562,570.6475,51.9227,580.4936" style="stroke: #383838; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="21" x="90.5" y="531.1357">T10</text><!--link Expired to *end--><path d="M270.201,550.8346 C278.901,587.7556 295.215,656.9917 302.195,686.6138 " fill="none" id="Expired-*end" style="stroke: #383838; stroke-width: 1.0;"/><polygon fill="#383838" points="303.386,691.6671,305.2152,681.9896,302.2392,686.8004,297.4285,683.8244,303.386,691.6671" style="stroke: #383838; stroke-width: 1.0;"/><!--link Revoked to *end--><path d="M347.399,461.8616 C345.088,503.3336 338.379,590.3646 320.5,661.6406 C318.292,670.4449 314.659,679.9596 311.521,687.3869 " fill="none" id="Revoked-*end" style="stroke: #383838; stroke-width: 1.0;"/><polygon fill="#383838" points="309.452,692.161,316.7017,685.4945,311.4407,687.5735,309.3617,682.3126,309.452,692.161" style="stroke: #383838; stroke-width: 1.0;"/><!--link Deleted to *end--><path d="M75.2258,623.3355 C80.9496,625.8939 86.8562,628.4193 92.5,630.6406 C165.732,659.4635 256.149,686.4216 290.927,696.4821 " fill="none" id="Deleted-*end" style="stroke: #383838; stroke-width: 1.0;"/><polygon fill="#383838" points="296.02,697.9493,288.4792,691.614,291.2154,696.5651,286.2644,699.3013,296.02,697.9493" style="stroke: #383838; stroke-width: 1.0;"/><!--link Rejected to *end--><path d="M428.698,372.8566 C417.145,422.9956 389.68,537.0996 358.5,630.6406 C353.828,644.6565 354.718,649.3631 346.5,661.6406 C338.517,673.5676 326.292,684.5829 317.268,691.8428 " fill="none" id="Rejected-*end" style="stroke: #383838; stroke-width: 1.0;"/><polygon fill="#383838" points="313.127,695.0926,322.6764,692.6825,317.0602,692.0056,317.7371,686.3893,313.127,695.0926" style="stroke: #383838; stroke-width: 1.0;"/><!--
+@startuml
+skinparam monochrome true
+
+Title State machine for an invoice
+
+[*] - -> Created
+Created - -> Pending : T1
+Created - -> Rejected : T2
+Created - -> Revoked : T3
+Pending - -> Expired : T4
+Pending - -> Deleted : T5
+Pending - -> Approved : T6
+Pending - -> Revoked : T7
+Approved - -> Approved : T8
+Approved - -> Pending : T9
+Approved - -> Deleted : T10
+Expired - -> [*]
+Revoked - -> [*]
+Deleted - -> [*]
+Rejected - -> [*]
+
+Approved : - Amount\n- Due
+Rejected : - Problems
+
+note bottom of Approved
+    Final state.
+    Not verifiable
+end note
+
+@enduml
+
+PlantUML version 1.2018.12(Sun Oct 21 12:15:15 CEST 2018)
+(GPL source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Java Version: 1.8.0_191-b12
+Operating System: Windows 10
+OS Version: 10.0
+Default Encoding: Cp1252
+Language: en
+Country: US
+--></g></svg>

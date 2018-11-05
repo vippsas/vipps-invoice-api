@@ -1,7 +1,7 @@
 @startuml
-skinparam monochrome true  
+skinparam monochrome true
 
-Title State machine
+Title State machine for an invoice
 
 [*] --> Created
 Created --> Pending : T1
@@ -19,9 +19,12 @@ Revoked --> [*]
 Deleted --> [*]
 Rejected --> [*]
 
+Approved : - Amount\n- Due
+Rejected : - Problems
+
 note bottom of Approved
-Final state.
-Not verifiable.
-end note 
+    Final state.
+    Not verifiable
+end note
 
 @enduml
