@@ -75,6 +75,8 @@ Document version: 0.3.0.
     - [Transitions](#transitions-2)
   - [State 6: Deleted](#state-6-deleted)
   - [State 7: Revoked](#state-7-revoked)
+- [Screenshots](#screenshots)
+  - [Mapping from API to Vipps app](#apiToApp)
 - [Questions or comments?](#questions-or-comments)
 
 ## External documentation
@@ -863,6 +865,15 @@ The invoice has been revoked by the issuer. A `revoked` invoice becomes invisibl
 for the recipient.
 
 This is a final state and does not allow any further state transitions.
+
+# Screenshots                      
+# Mapping from API to Vipps app
+![Vipps app payment screen](images/vippsRegningPaymentinAppScreenshot20181112)
+
+* "issuerName" -> "SOS barnebyer"
+* "providerId.identValue" -> 947571958
+* "due" -> "30 November"
+* "amount" -> "300"
 
 # Questions or comments?
 
