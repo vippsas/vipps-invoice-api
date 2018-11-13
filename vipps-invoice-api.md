@@ -12,15 +12,12 @@ Please use GitHub's built-in functionality for
 [pull requests](https://github.com/vippsas/vipps-invoice-api/pulls),
 or contact us at integration@vipps.no.
 
-Document version: 0.3.0.
+Document version: 0.4.0.
 
 # Overview
 
-## Table of contents
-
 - [Vipps Invoice API](#vipps-invoice-api)
 - [Overview](#overview)
-  - [Table of contents](#table-of-contents)
   - [External documentation](#external-documentation)
     - [Technical details about the API](#technical-details-about-the-api)
     - [Getting access to the Vipps Developer Portal](#getting-access-to-the-vipps-developer-portal)
@@ -32,8 +29,11 @@ Document version: 0.3.0.
   - [Invoice validation](#invoice-validation)
   - [Managing and paying invoices](#managing-and-paying-invoices)
   - [Debt collection](#debt-collection)
+- [Security considerations](#security-considerations)
+  - [Cross site scripting (XSS)](#cross-site-scripting-xss)
 - [Invoice states](#invoice-states)
 - [HTTP responses](#http-responses)
+- [Base URL](#base-url)
 - [Postman](#postman)
   - [Setup](#setup)
     - [Step 1: Import the Postman Collection](#step-1-import-the-postman-collection)
@@ -170,6 +170,22 @@ open invoice in other services.
 All invoices contain information about the _invoice type_, i.e. whether it
 is a regular invoice, a reminder or other. This enables payment providers to
 filter the allowed payment methods according to Norwegian debt collection laws.
+
+# Security considerations
+
+## Cross site scripting (XSS)
+
+A conscious decision was made not to modify the data we receive in any way. Validation is still done.
+Characters like `&`, `"`, `'`, `<`, `>` and `/` can be used to inject malicious code in text that is shown
+in a web browser. Native mobile applications are less vulnerable.  
+Some of the characters are legit in several context for invoices. E.g. subject and issuer can contain names and text 
+like `John & Sons co.` and the subject can be `Order '213309'`
+
+**❗ IMPORTANT**:
+This means that if the invoice data is to be displayed, the data should be sanitized (e.g. HTML encoded) before
+shown to the user. This is to prevent vulnerabilities like XSS. This is especially important for IPPs.
+
+[Read more about XSS and how to prevent it](https://www.owasp.org/index.php/Cross-site_Scripting_(XSS)).
 
 # Invoice states
 
