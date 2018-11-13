@@ -685,11 +685,11 @@ Pseudo-code for validating the JWT:
 ```javascript
 function IsValidJWT(jwt) {
   JWK[] keys = getKeysFromVipps()
-  jwtKid = jwt.Headers["kid"] 
+  jwtKid = jwt.Headers["kid"]
 
   for each key in keys {
     if key.kid == jwtKid {
-      return validate(jwt, key) 
+      return validate(jwt, key)
     }
   }
 
@@ -866,14 +866,59 @@ for the recipient.
 
 This is a final state and does not allow any further state transitions.
 
-# Screenshots                      
-# Mapping from API to Vipps app
+# Screenshots   
+
+## Mapping from API to Vipps app
+
 ![Vipps app payment screen](images/vippsRegningPaymentinAppScreenshot20181112.png)
 
-* "issuerName" -> "SOS barnebyer"
-* "providerId.identValue" -> "947571958"
-* "due" -> "30 November"
-* "amount" -> "300"
+| Input field | Displayed in the app screenshot |
+| ----------- | ------------------------------- |
+| `issuerName`   | SOS-barnebyer |
+| `providerId.identValue` (part of the `invoiceId` in the path)  | 947571958  |
+| `due`   | 30 November  |
+| `amnount`  |  300 |
+
+### Example JSON payload
+
+This is an example of the payload for `PUT:/invoices/{invoiceId}/orgno-no.947571958.abc123` for the invoice above:
+
+```json
+{
+  "recipientToken": "25eb881cbc57b8a953629 <truncated>",
+  "paymentInformation": {
+    "type": "kid",
+    "value": "1234",
+    "account": "12345678903"
+  },
+  "invoiceType": "invoice",
+  "due": "2018-12-31T00:00:00Z",
+  "amount": 30000,
+  "minAmount": 30000,
+  "subject": "SOS-barnebyer",
+  "issuerName": "SOS-barnebyer",
+  "commercialInvoice": [
+    {
+      "mimeType": "application/pdf",
+      "url": "https://www.example.com/abc123/comminv.pdf"
+    }
+  ],
+  "attachments": [
+    {
+      "title": "SOS Barnebyer",
+      "urls": [
+        {
+          "url": "https://invoice-hotel.example.org/invoice/abc123.pdf",
+          "mimeType": "application/pdf"
+        }
+      ]
+    }
+  ],
+  "issuerIconUrl": "https://www.example.com/logos/sos-barnebyer-logo.png"
+}
+```
+
+
 
 # Questions or comments?
 
