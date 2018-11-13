@@ -558,7 +558,7 @@ vippsinvoice-recipienttoken : ***
   },
   "commercialInvoice": [
     {
-      "mimeType": "application/pdf"
+      "mimeType": "application/pdf, image/png, image/jpeg, image/jpg, text/html, text/plain"
     }
   ],
   "attachments": [
@@ -611,7 +611,7 @@ listing all the documents. This allows the IPP to present it in multiple ways.
 
 PDF is a commonly used MIME type, which can be displayed in most contexts.
 
-The Vipps app will display PDFs for now, but this may change at a later time.
+The following MIME types are supported: PDF, PNG, JPEG, JPG, HTML, PLAIN TEXT
 
 There is currently no limitation to the length of the URL.
 
