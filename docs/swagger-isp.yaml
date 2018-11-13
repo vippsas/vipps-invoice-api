@@ -372,7 +372,7 @@ definitions:
             mimeType:
               type: string
               description: MIME type of commercial invoice document
-              example: application/pdf
+              example: application/pdf, image/png, image/jpeg, image/jpg, text/html, text/plain
             url:
               type: string
               description: URL of commercial invoice. It is required to use the https-protocol.
