@@ -76,7 +76,7 @@ Document version: 0.3.0.
   - [State 6: Deleted](#state-6-deleted)
   - [State 7: Revoked](#state-7-revoked)
 - [Screenshots](#screenshots)
-  - [Mapping from API to Vipps app](#apiToApp)
+  - [Mapping from API to Vipps app](#screenshots-mapping-from-api-to-vipps-app)
 - [Questions or comments?](#questions-or-comments)
 
 ## External documentation
@@ -868,10 +868,10 @@ This is a final state and does not allow any further state transitions.
 
 # Screenshots                      
 # Mapping from API to Vipps app
-![Vipps app payment screen](images/vippsRegningPaymentinAppScreenshot20181112)
+![Vipps app payment screen](images/vippsRegningPaymentinAppScreenshot20181112.png)
 
 * "issuerName" -> "SOS barnebyer"
-* "providerId.identValue" -> 947571958
+* "providerId.identValue" -> "947571958"
 * "due" -> "30 November"
 * "amount" -> "300"
 
