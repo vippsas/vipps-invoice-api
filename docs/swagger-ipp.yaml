@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Vipps Invoice IPP API
-  version: '0.3.22'
+  version: '0.3.23'
   description: >-
     This is the API for Vipps Regninger. While we have worked closely with
     selected partners, and believe that this is very close to production
@@ -679,7 +679,7 @@ definitions:
           type: object
           properties:
             mimeType:
-              type: string[]
+              type: string
               description: MIME type of commercial invoice document
               example: application/pdf, image/png, image/jpeg, image/jpg, text/html, text/plain
       attachments:
