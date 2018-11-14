@@ -460,8 +460,8 @@
             "properties": {
               "mimeType": {
                 "type": "string",
-                "description": "MIME type of commercial invoice document",
-                "example": "application/pdf, image/png, image/jpeg, image/jpg, text/html, text/plain"
+                "description": "MIME type of commercial invoice document. Supported MIME types - application/pdf (recommended), image/png, image/jpeg, image/jpg, text/html, text/plain",
+                "example": "application/pdf"
               },
               "url": {
                 "type": "string",

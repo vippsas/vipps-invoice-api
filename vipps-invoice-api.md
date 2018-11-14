@@ -611,7 +611,7 @@ listing all the documents. This allows the IPP to present it in multiple ways.
 
 PDF is a commonly used MIME type, which can be displayed in most contexts.
 
-The following MIME types are supported: PDF, PNG, JPEG, JPG, HTML, PLAIN TEXT
+The following MIME types are supported: `application/pdf` (recommended), `image/png`, `image/jpeg`, `image/jpg`, `text/html`, `text/plain`
 
 There is currently no limitation to the length of the URL.
 
