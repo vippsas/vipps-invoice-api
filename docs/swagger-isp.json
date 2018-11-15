@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Vipps Invoice ISP API",
-    "version": "0.3.24",
+    "version": "0.3.25",
     "description": "\nThis is the API for Vipps Regninger. While we have worked closely with selected partners, and believe that this is very close to production quality, we are more than happy to receive feedback, either with GitHub's issue functionality, or by email.\nPlease see https://github.com/vippsas/vipps-invoice-api for documentation"
   },
   "host": "apitest.vipps.no",
@@ -454,13 +454,13 @@
         },
         "commercialInvoice": {
           "type": "array",
-          "description": "Conceptually only one invoice, but it can have multiple representations. The issuer is advised to provide the commercial invoice in multiple formats (i.e. different MIME types) if possible. This will make it easier provide the user and IPP different ways of showing the invoice.",
+          "description": "Conceptually only one invoice, but it can have multiple representations. The issuer is advised to provide the commercial invoice in multiple formats (i.e. different mime-types) if possible. This will make it easier provide the user and IPP different ways of showing the invoice.",
           "items": {
             "type": "object",
             "properties": {
               "mimeType": {
                 "type": "string",
-                "description": "MIME type of commercial invoice document. Supported MIME types - application/pdf (recommended), image/png, image/jpeg, image/jpg, text/html, text/plain",
+                "description": "Mime-type of the commercial invoice document.  Supported mime-types are; application/pdf (recommended), image/png, image/jpeg, image/jpg, text/html, text/plain",
                 "example": "application/pdf"
               },
               "url": {
@@ -501,13 +501,18 @@
           "type": "array",
           "items": {
             "type": "object",
+            "required": [
+              "url",
+              "mimeType"
+            ],
             "properties": {
               "url": {
-                "description": "An URL to the attachment. It is required to use the https-protocol.",
+                "description": "An URL to the attachment. It is required to use the HTTPS-protocol.",
                 "type": "string",
                 "example": "https://invoice-hotel.example.org/invoice/42.pdf"
               },
               "mimeType": {
+                "description": "Mime-type of the attachment document.  Supported mime-types are; application/pdf (recommended), image/png, image/jpeg, image/jpg, text/html, text/plain",
                 "type": "string",
                 "example": "application/pdf"
               }
@@ -656,13 +661,13 @@
         },
         "commercialInvoice": {
           "type": "array",
-          "description": "Conceptually only one invoice, but it can have multiple representations. The issuer is advised to provide the commercial invoice in multiple formats (i.e. different MIME types) if possible. This will make it easier provide the user and IPP different ways of showing the invoice.",
+          "description": "Conceptually only one invoice, but it can have multiple representations. The issuer is advised to provide the commercial invoice in multiple formats (i.e. different mime-types) if possible. This will make it easier provide the user and IPP different ways of showing the invoice.",
           "items": {
             "type": "object",
             "properties": {
               "mimeType": {
                 "type": "string",
-                "description": "MIME type of commercial invoice document",
+                "description": "Mime-type of commercial invoice document",
                 "example": "application/pdf"
               }
             }
