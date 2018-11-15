@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Vipps Invoice ISP API
-  version: '0.3.24'
+  version: '0.3.25'
   description: >-
 
     This is the API for Vipps Regninger. While we have worked closely with
@@ -363,7 +363,7 @@ definitions:
         description: >-
           Conceptually only one invoice, but it can have multiple
           representations. The issuer is advised to provide the commercial
-          invoice in multiple formats (i.e. different MIME types) if possible.
+          invoice in multiple formats (i.e. different mime-types) if possible.
           This will make it easier provide the user and IPP different ways of
           showing the invoice.
         items:
@@ -371,7 +371,9 @@ definitions:
           properties:
             mimeType:
               type: string
-              description: MIME type of commercial invoice document. Supported MIME types - application/pdf (recommended), image/png, image/jpeg, image/jpg, text/html, text/plain
+              description: >-
+                Mime-type of the commercial invoice document. 
+                Supported mime-types are; application/pdf (recommended), image/png, image/jpeg, image/jpg, text/html, text/plain
               example: application/pdf
             url:
               type: string
@@ -405,12 +407,18 @@ definitions:
         type: array
         items:
           type: object
+          required:
+            - url
+            - mimeType
           properties:
             url:
-              description: An URL to the attachment. It is required to use the https-protocol.
+              description: An URL to the attachment. It is required to use the HTTPS-protocol.
               type: string
               example: 'https://invoice-hotel.example.org/invoice/42.pdf'
             mimeType:
+              description: >-
+                Mime-type of the attachment document. 
+                Supported mime-types are; application/pdf (recommended), image/png, image/jpeg, image/jpg, text/html, text/plain
               type: string
               example: application/pdf
   attachmentOut:
@@ -534,7 +542,7 @@ definitions:
         description: >-
           Conceptually only one invoice, but it can have multiple
           representations. The issuer is advised to provide the commercial
-          invoice in multiple formats (i.e. different MIME types) if possible.
+          invoice in multiple formats (i.e. different mime-types) if possible.
           This will make it easier provide the user and IPP different ways of
           showing the invoice.
         items:
@@ -542,7 +550,7 @@ definitions:
           properties:
             mimeType:
               type: string
-              description: MIME type of commercial invoice document
+              description: Mime-type of commercial invoice document
               example: application/pdf
       attachments:
         type: array
