@@ -55,6 +55,10 @@ install it using `pip`.
 
 # Swagger changelog
 
+## 0.3.24
+
+* Use correct error types
+
 ## 0.3.23
 
 * Correct error in mimeType-definition
