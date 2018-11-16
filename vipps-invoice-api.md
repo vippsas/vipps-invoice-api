@@ -329,8 +329,8 @@ The service validates that the account belongs to the issuer ([KAR](https://www.
 1. [`Fetch Authorization Token`](https://vippsas.github.io/vipps-accesstoken-api/#/Authorization_Service_(legacy)/fetchAuthorizationTokenUsingPost) to set the `{{access-token}}` variable. See [the details](#api-access-token).
 2. [`Request Recipient Token`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Request_Recipient_Token_v1) to set the `{{recepient-token}}` variable. See [the details](#recipient-token).
 3. [`Send Invoice`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Send_Invoice_v1)
-4. [`Revoke Invoice`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Revoke_Invoice_v1)
-5. [`Get Single Invoice`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Get_Single_Invoice_v1) can be called on any existing invoice.
+4. [`Get Single Invoice`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Get_Single_Invoice_v1) can be called on any existing invoice.
+5. [`Revoke Invoice`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Revoke_Invoice_v1)
 
 ## IPP Request Flow
 
