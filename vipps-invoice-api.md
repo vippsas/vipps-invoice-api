@@ -12,7 +12,7 @@ Please use GitHub's built-in functionality for
 [pull requests](https://github.com/vippsas/vipps-invoice-api/pulls),
 or contact us at integration@vipps.no.
 
-Document version: 0.4.1.
+Document version: 0.4.2.
 
 # Overview
 
@@ -665,8 +665,8 @@ The public key is available as an array of JSON Web Keys (JWK):
 [`GET:/jwk`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/get_jwk).
 
 The JWK is also available as a public URL for invoice hotels not authenticated with the Vipps Invoice API:
-- Test JWK: https://apitest.vipps.no/public/jwk
-- Production JWK: https://invoice-api.vipps.no/public/jwk
+- Test JWK: https://apitest.vipps.no/vipps-invoice/public/jwk
+- Production JWK: https://invoice-api.vipps.no/vipps-invoice/public/jwk
 
 The API is designed to handle key rotation. There is no immediate plan to change the JWK, but it will happen at some point in time. **The client implementations must support this**. See the pseudo-code below for how to support this.
 
