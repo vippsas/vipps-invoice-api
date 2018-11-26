@@ -12,7 +12,7 @@ Please use GitHub's built-in functionality for
 [pull requests](https://github.com/vippsas/vipps-invoice-api/pulls),
 or contact us at integration@vipps.no.
 
-Document version: 0.4.0.
+Document version: 0.4.1.
 
 # Overview
 
@@ -663,6 +663,10 @@ In addition the `KID` (key ID), `ALG` (algorithm) and `TYP` (type of token) is a
 The API's public key is required in order to validate the request and the JWT.
 The public key is available as an array of JSON Web Keys (JWK):
 [`GET:/jwk`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/get_jwk).
+
+The JWK is also available as a public URL for invoice hotels not authenticated with the Vipps Invoice API:
+- [Test JWK](https://apitest.vipps.no/public/jwk)
+- [Production JWK](https://invoice-api.vipps.no/public/jwk)
 
 The API is designed to handle key rotation. There is no immediate plan to change the JWK, but it will happen at some point in time. **The client implementations must support this**. See the pseudo-code below for how to support this.
 
