@@ -55,6 +55,10 @@ install it using `pip`.
 
 # Swagger changelog
 
+## 0.3.26
+
+* Added: `/public/jwk`. Deprecated: `/jwk`.
+
 ## 0.3.25
 
 * Add details on mime-type validation for attachments
