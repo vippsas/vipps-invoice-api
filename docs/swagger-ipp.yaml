@@ -512,58 +512,12 @@ paths:
           description: Server error. E.g. if JWT generation fails.
       produces:
         - application/json
-  /jwk:
-    get:
-      description: Deprecated. See /public/jwk
-      tags:
-        - IPP
-      parameters:
-        - name: Authorization
-          in: header
-          description: >-
-            Authorization token is obtained from Access Token service call based
-            on the `client_id` and `client_secret` of the registered application.
-          required: true
-          type: string
-          enum:
-            - bearer <access_token>
-      responses:
-        '200':
-          description: OK
-          examples:
-            application/json:
-              keys:
-                - e: AQAB
-                  alg: RS256
-                  use: sig
-                  kid: bffd7b8cbb3bfa85cba71f5001b5e09822244922
-                  kty: RSA
-                  'n': 5Dkax7lxzotIVx5DQidS...
-                  x5t: "bffd7b8cbb3bfa85cba71f5001b5e09822244922"
-                  x5t#S256: "25eb881cbc57b8a953629b4065b8a7f735d8c316009e51822a710d8772a0985a"
-          schema:
-            $ref: '#/definitions/JsonWebKeySet'
-        '401':
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/MsError'
-        '429':
-          description: Rate limit exceeded
-        '500':
-          description: Internal server error
   /public/jwk:
     get:
       description: Get JSON Web Key Set. Use a JWK library to parse this into a public key.
+      summary: Get JSON web key set.
       tags:
         - ISP
-      parameters:
-        - name: Authorization
-          in: header
-          description: 'Authorization token is obtained from Access Token API: https://github.com/vippsas/vipps-accesstoken-api'
-          required: true
-          type: string
-          enum:
-            - bearer <access_token>
       responses:
         '200':
           description: OK
@@ -588,6 +542,36 @@ paths:
           description: Rate limit exceeded
         '500':
           description: Internal server error
+/jwk:
+  get:
+    description: Deprecated. See /public/jwk
+    summary: Deprecated.
+    tags:
+      - IPP
+    responses:
+      '200':
+        description: OK
+        examples:
+          application/json:
+            keys:
+              - e: AQAB
+                alg: RS256
+                use: sig
+                kid: bffd7b8cbb3bfa85cba71f5001b5e09822244922
+                kty: RSA
+                'n': 5Dkax7lxzotIVx5DQidS...
+                x5t: "bffd7b8cbb3bfa85cba71f5001b5e09822244922"
+                x5t#S256: "25eb881cbc57b8a953629b4065b8a7f735d8c316009e51822a710d8772a0985a"
+        schema:
+          $ref: '#/definitions/JsonWebKeySet'
+      '401':
+        description: Unauthorized
+        schema:
+          $ref: '#/definitions/MsError'
+      '429':
+        description: Rate limit exceeded
+      '500':
+        description: Internal server error        
 definitions:
   commercialInvoiceUrlOut:
     description: Generated URL for commercial invoice

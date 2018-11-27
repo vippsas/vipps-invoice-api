@@ -313,23 +313,12 @@
         ]
       }
     },
-    "/jwk": {
+    "/public/jwk": {
       "get": {
-        "description": "Deprecated. See GET:/public/jwk",
+        "description": "Get JSON Web Key Set. Use a JWK library to parse this into a public key.",
+        "summary": "Get JSON web key set.",
         "tags": [
           "ISP"
-        ],
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Authorization token is obtained from Access Token API: https://github.com/vippsas/vipps-accesstoken-api",
-            "required": true,
-            "type": "string",
-            "enum": [
-              "bearer <access_token>"
-            ]
-          }
         ],
         "responses": {
           "200": {
@@ -369,23 +358,12 @@
         }
       }
     },
-    "/public/jwk": {
+    "/jwk": {
       "get": {
-        "description": "Get JSON Web Key Set. Use a JWK library to parse this into a public key.",
+        "description": "Deprecated. See /public/jwk",
+        "summary": "Deprecated.",
         "tags": [
           "ISP"
-        ],
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Authorization token is obtained from Access Token API: https://github.com/vippsas/vipps-accesstoken-api",
-            "required": true,
-            "type": "string",
-            "enum": [
-              "bearer <access_token>"
-            ]
-          }
         ],
         "responses": {
           "200": {
