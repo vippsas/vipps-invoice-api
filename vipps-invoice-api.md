@@ -12,7 +12,7 @@ Please use GitHub's built-in functionality for
 [pull requests](https://github.com/vippsas/vipps-invoice-api/pulls),
 or contact us at integration@vipps.no.
 
-Document version: 0.3.0.
+Document version: 0.3.2.
 
 # Overview
 
@@ -652,6 +652,10 @@ The public key is available as an array of JSON Web Keys (JWK):
 The API is designed to handle key rotation. There is no immediate plan to change the JWK, but it will happen at some point in time. **The client implementations must support this**. See the pseudo-code below for how to support this.
 
 The client can cache keys, but *must* implement logic that invalidates the cache, fetches the keys and retry validation if they don't find any valid key.
+
+URLs:
+* Test: https://apitest.vipps.no/vipps-invoice/public/jwk
+* Production: https://invoice-api.vipps.no/vipps-invoice/public/jwk
 
 See also:
 [OpenID Connect Core 1.0: Rotation of Asymmetric Signing Keys](https://openid.net/specs/openid-connect-core-1_0.html#RotateSigKeys) and [RFC7515 on key rotation](https://tools.ietf.org/html/rfc7515#page-12).
