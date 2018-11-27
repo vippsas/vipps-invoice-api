@@ -425,7 +425,7 @@ HTTP 200 OK
 }
 ```
 
-Every request to the API, except the [`jwk`](#the-apis-public-key-jwk-json-web-key) endpoint,
+Every request to the API, except the [`GET:/public/jwk`](#the-apis-public-key-jwk-json-web-key) endpoint,
 needs to have an `Authorization` header with the generated token.
 
 The header in the request to this API should look like this:
@@ -647,7 +647,7 @@ In addition the `KID` (key ID), `ALG` (algorithm) and `TYP` (type of token) is a
 
 The API's public key is required in order to validate the request and the JWT.
 The public key is available as an array of JSON Web Keys (JWK):
-[`GET:/public/jwk`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/get_jwk).
+[`GET:/public/jwk`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/get_public_jwk).
 
 The API is designed to handle key rotation. There is no immediate plan to change the JWK, but it will happen at some point in time. **The client implementations must support this**. See the pseudo-code below for how to support this.
 
