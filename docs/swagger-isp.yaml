@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Vipps Invoice ISP API
-  version: '0.3.25'
+  version: '0.3.26'
   description: >-
 
     This is the API for Vipps Regninger. While we have worked closely with
@@ -255,6 +255,43 @@ paths:
         - application/json
   /jwk:
     get:
+      description: Deprecated. See GET:/public/jwk
+      tags:
+        - ISP
+      parameters:
+        - name: Authorization
+          in: header
+          description: 'Authorization token is obtained from Access Token API: https://github.com/vippsas/vipps-accesstoken-api'
+          required: true
+          type: string
+          enum:
+            - bearer <access_token>
+      responses:
+        '200':
+          description: OK
+          examples:
+            application/json:
+              keys:
+                - e: AQAB
+                  alg: RS256
+                  use: sig
+                  kid: bffd7b8cbb3bfa85cba71f5001b5e09822244922
+                  kty: RSA
+                  'n': 5Dkax7lxzotIVx5DQidS...
+                  x5t: "bffd7b8cbb3bfa85cba71f5001b5e09822244922"
+                  x5t#S256: "25eb881cbc57b8a953629b4065b8a7f735d8c316009e51822a710d8772a0985a"
+          schema:
+            $ref: '#/definitions/JsonWebKeySet'
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/MsError'
+        '429':
+          description: Rate limit exceeded
+        '500':
+          description: Internal server error
+  /public/jwk:
+    get:
       description: Get JSON Web Key Set. Use a JWK library to parse this into a public key.
       tags:
         - ISP
@@ -372,7 +409,7 @@ definitions:
             mimeType:
               type: string
               description: >-
-                Mime-type of the commercial invoice document. 
+                Mime-type of the commercial invoice document.
                 Supported mime-types are; application/pdf (recommended), image/png, image/jpeg, image/jpg, text/html, text/plain
               example: application/pdf
             url:
@@ -417,7 +454,7 @@ definitions:
               example: 'https://invoice-hotel.example.org/invoice/42.pdf'
             mimeType:
               description: >-
-                Mime-type of the attachment document. 
+                Mime-type of the attachment document.
                 Supported mime-types are; application/pdf (recommended), image/png, image/jpeg, image/jpg, text/html, text/plain
               type: string
               example: application/pdf

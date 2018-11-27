@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Vipps Invoice IPP API
-  version: '0.3.25'
+  version: '0.3.26'
   description: >-
     This is the API for Vipps Regninger. While we have worked closely with
     selected partners, and believe that this is very close to production
@@ -514,7 +514,7 @@ paths:
         - application/json
   /jwk:
     get:
-      description: Get JSON Web Key Set. Use a JWK library to parse this into a public key.
+      description: Deprecated. See /public/jwk
       tags:
         - IPP
       parameters:
@@ -523,6 +523,43 @@ paths:
           description: >-
             Authorization token is obtained from Access Token service call based
             on the `client_id` and `client_secret` of the registered application.
+          required: true
+          type: string
+          enum:
+            - bearer <access_token>
+      responses:
+        '200':
+          description: OK
+          examples:
+            application/json:
+              keys:
+                - e: AQAB
+                  alg: RS256
+                  use: sig
+                  kid: bffd7b8cbb3bfa85cba71f5001b5e09822244922
+                  kty: RSA
+                  'n': 5Dkax7lxzotIVx5DQidS...
+                  x5t: "bffd7b8cbb3bfa85cba71f5001b5e09822244922"
+                  x5t#S256: "25eb881cbc57b8a953629b4065b8a7f735d8c316009e51822a710d8772a0985a"
+          schema:
+            $ref: '#/definitions/JsonWebKeySet'
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/MsError'
+        '429':
+          description: Rate limit exceeded
+        '500':
+          description: Internal server error
+  /public/jwk:
+    get:
+      description: Get JSON Web Key Set. Use a JWK library to parse this into a public key.
+      tags:
+        - ISP
+      parameters:
+        - name: Authorization
+          in: header
+          description: 'Authorization token is obtained from Access Token API: https://github.com/vippsas/vipps-accesstoken-api'
           required: true
           type: string
           enum:
@@ -774,7 +811,7 @@ definitions:
           correlationId:
             type: string
             description: An ID that can be used to find related log messages
-             
+
   JsonWebKeySet:
     title: JSON Web Key Set
     type: object

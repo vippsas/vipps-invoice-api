@@ -12,12 +12,15 @@ Please use GitHub's built-in functionality for
 [pull requests](https://github.com/vippsas/vipps-invoice-api/pulls),
 or contact us at integration@vipps.no.
 
-Document version: 0.4.2.
+Document version: 0.3.0.
 
 # Overview
 
+## Table of contents
+
 - [Vipps Invoice API](#vipps-invoice-api)
 - [Overview](#overview)
+  - [Table of contents](#table-of-contents)
   - [External documentation](#external-documentation)
     - [Technical details about the API](#technical-details-about-the-api)
     - [Getting access to the Vipps Developer Portal](#getting-access-to-the-vipps-developer-portal)
@@ -29,11 +32,8 @@ Document version: 0.4.2.
   - [Invoice validation](#invoice-validation)
   - [Managing and paying invoices](#managing-and-paying-invoices)
   - [Debt collection](#debt-collection)
-- [Security considerations](#security-considerations)
-  - [Cross site scripting (XSS)](#cross-site-scripting-xss)
 - [Invoice states](#invoice-states)
 - [HTTP responses](#http-responses)
-- [Base URL](#base-url)
 - [Postman](#postman)
   - [Setup](#setup)
     - [Step 1: Import the Postman Collection](#step-1-import-the-postman-collection)
@@ -97,7 +97,7 @@ This is where you create keys to the API.
 A valid access token is required in order to call this API. This API is provided by
 a service called API Management in Azure - think of it as the gateway to the API.
 To get a token, follow
-[the guide for Vipps eCommerce API](https://github.com/vippsas/vipps-ecom-api/blob/master/vipps-ecom-api.md)
+[the guide for Vipps eCommerce API](https://github.com/vippsas/vipps-ecom-api/blob/master/vipps-ecom-api.md).
 
 ## Terminology
 
@@ -170,22 +170,6 @@ open invoice in other services.
 All invoices contain information about the _invoice type_, i.e. whether it
 is a regular invoice, a reminder or other. This enables payment providers to
 filter the allowed payment methods according to Norwegian debt collection laws.
-
-# Security considerations
-
-## Cross site scripting (XSS)
-
-A conscious decision was made not to modify the data we receive in any way. Validation is still done.
-Characters like `&`, `"`, `'`, `<`, `>` and `/` can be used to inject malicious code in text that is shown
-in a web browser. Native mobile applications are less vulnerable.  
-Some of the characters are legit in several context for invoices. E.g. subject and issuer can contain names and text 
-like `John & Sons co.` and the subject can be `Order '213309'`
-
-**❗ IMPORTANT**:
-This means that if the invoice data is to be displayed, the data should be sanitized (e.g. HTML encoded) before
-shown to the user. This is to prevent vulnerabilities like XSS. This is especially important for IPPs.
-
-[Read more about XSS and how to prevent it](https://www.owasp.org/index.php/Cross-site_Scripting_(XSS)).
 
 # Invoice states
 
@@ -329,8 +313,8 @@ The service validates that the account belongs to the issuer ([KAR](https://www.
 1. [`Fetch Authorization Token`](https://vippsas.github.io/vipps-accesstoken-api/#/Authorization_Service_(legacy)/fetchAuthorizationTokenUsingPost) to set the `{{access-token}}` variable. See [the details](#api-access-token).
 2. [`Request Recipient Token`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Request_Recipient_Token_v1) to set the `{{recepient-token}}` variable. See [the details](#recipient-token).
 3. [`Send Invoice`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Send_Invoice_v1)
-4. [`Get Single Invoice`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Get_Single_Invoice_v1) can be called on any existing invoice.
-5. [`Revoke Invoice`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Revoke_Invoice_v1)
+4. [`Revoke Invoice`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Revoke_Invoice_v1)
+5. [`Get Single Invoice`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Get_Single_Invoice_v1) can be called on any existing invoice.
 
 ## IPP Request Flow
 
@@ -441,7 +425,8 @@ HTTP 200 OK
 }
 ```
 
-Every request to the API, _including_ the `/jwk` endpoint, needs to have an `Authorization` header with the generated token.
+Every request to the API, except the [`jwk`](#the-apis-public-key-jwk-json-web-key) endpoint,
+needs to have an `Authorization` header with the generated token.
 
 The header in the request to this API should look like this:
 
@@ -558,7 +543,7 @@ vippsinvoice-recipienttoken : ***
   },
   "commercialInvoice": [
     {
-      "mimeType": "application/pdf, image/png, image/jpeg, image/jpg, text/html, text/plain"
+      "mimeType": "application/pdf"
     }
   ],
   "attachments": [
@@ -611,7 +596,7 @@ listing all the documents. This allows the IPP to present it in multiple ways.
 
 PDF is a commonly used MIME type, which can be displayed in most contexts.
 
-The following MIME types are supported: `application/pdf` (recommended), `image/png`, `image/jpeg`, `image/jpg`, `text/html`, `text/plain`
+The Vipps app will display PDFs for now, but this may change at a later time.
 
 There is currently no limitation to the length of the URL.
 
@@ -662,11 +647,7 @@ In addition the `KID` (key ID), `ALG` (algorithm) and `TYP` (type of token) is a
 
 The API's public key is required in order to validate the request and the JWT.
 The public key is available as an array of JSON Web Keys (JWK):
-[`GET:/jwk`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/get_jwk).
-
-The JWK is also available as a public URL for invoice hotels not authenticated with the Vipps Invoice API:
-- Test JWK: https://apitest.vipps.no/vipps-invoice/public/jwk
-- Production JWK: https://invoice-api.vipps.no/vipps-invoice/public/jwk
+[`GET:/public/jwk`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/get_jwk).
 
 The API is designed to handle key rotation. There is no immediate plan to change the JWK, but it will happen at some point in time. **The client implementations must support this**. See the pseudo-code below for how to support this.
 
@@ -675,7 +656,7 @@ The client can cache keys, but *must* implement logic that invalidates the cache
 See also:
 [OpenID Connect Core 1.0: Rotation of Asymmetric Signing Keys](https://openid.net/specs/openid-connect-core-1_0.html#RotateSigKeys) and [RFC7515 on key rotation](https://tools.ietf.org/html/rfc7515#page-12).
 
-The response from `/jwk` is as follows:
+The response from `/public/jwk` is an array of keys, as follows:
 
 ```json
 {
