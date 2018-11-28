@@ -55,6 +55,10 @@ install it using `pip`.
 
 # Swagger changelog
 
+## 0.3.27
+
+* fix JWK endpoint
+
 ## 0.3.26
 
 * Added: `/public/jwk`. Deprecated: `/jwk`.
