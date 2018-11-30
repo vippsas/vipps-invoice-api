@@ -440,6 +440,11 @@ See [The API's public key: JWK (JSON Web Key)](#the-apis-public-key-jwk-json-web
 ## Recipient token
 
 To submit an invoice, the client needs both an `access_token` (described above), and a `recipientToken`.
+
+Vipps _only_ returns a `recipientToken` for Vipps users that:
+* Have opted in to Vipps Regninger
+* Have a bank account that can be used to pay Vipps Regninger
+
 The `recipientToken` is obtained by calling
 [`POST://recipients/tokens`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Request_Recipient_Token_v1).
 This `recipientToken` can then be used in the request body to
