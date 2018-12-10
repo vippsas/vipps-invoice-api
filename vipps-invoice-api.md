@@ -880,14 +880,16 @@ This is a final state and does not allow any further state transitions.
 
 ## Mapping from API to Vipps app
 
-![Vipps app payment screen](images/vippsRegningPaymentinAppScreenshot20181112.png)
+![Vipps app payment screen](images/mapping-api-app.png)
 
 | Input field | Displayed in the app screenshot |
 | ----------- | ------------------------------- |
-| `issuerName`   | SOS-barnebyer |
-| `providerId.identValue` (part of the `invoiceId` in the path)  | 947571958  |
-| `due`   | 30 November  |
-| `amnount`  |  300 |
+| `issuerName`   | Vipps Socks AS |
+| `providerId.identValue` (part of the `invoiceId` in the path)  | 918 130 047  |
+| `due`   | 13.03.2019  |
+| `amnount`  |  100 kr |
+
+`subject` is currently not displayed in the app. Since this is a required field it should have the same value as `issuerName` for the time being.
 
 ### Example JSON payload
 
@@ -902,11 +904,11 @@ This is an example of the payload for `PUT:/invoices/{invoiceId}/orgno-no.947571
     "account": "12345678903"
   },
   "invoiceType": "invoice",
-  "due": "2018-12-31T00:00:00Z",
-  "amount": 30000,
-  "minAmount": 30000,
-  "subject": "SOS-barnebyer",
-  "issuerName": "SOS-barnebyer",
+  "due": "2019-03-13T00:00:00Z",
+  "amount": 10000,
+  "minAmount": 10000,
+  "subject": "Vipps Socks AS",
+  "issuerName": "Vipps Socks AS",
   "commercialInvoice": [
     {
       "mimeType": "application/pdf",
@@ -915,7 +917,7 @@ This is an example of the payload for `PUT:/invoices/{invoiceId}/orgno-no.947571
   ],
   "attachments": [
     {
-      "title": "SOS Barnebyer",
+      "title": "100 pairs of socks",
       "urls": [
         {
           "url": "https://invoice-hotel.example.org/invoice/abc123.pdf",
