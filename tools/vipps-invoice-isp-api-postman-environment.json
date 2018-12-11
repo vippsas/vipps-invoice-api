@@ -86,12 +86,11 @@
 		{
 			"key": "JWK-URL",
 			"value": "https://invoice-api.vipps.no/vipps-invoice/public/",
-			"type": "text",
 			"description": "",
 			"enabled": true
 		}
 	],
 	"_postman_variable_scope": "environment",
-	"_postman_exported_at": "2018-12-11T12:24:59.940Z",
+	"_postman_exported_at": "2018-12-11T12:52:29.355Z",
 	"_postman_exported_using": "Postman/6.5.3"
 }

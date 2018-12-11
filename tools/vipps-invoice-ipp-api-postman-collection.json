@@ -110,7 +110,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"type\": \"nin-no\",\n  \"value\": \"22105000352\"\n}"
+							"raw": "{\n  \"type\": \"nin-no\",\n  \"value\": \"<nin>\"\n}"
 						},
 						"url": {
 							"raw": "{{TEST-URL}}recipients/tokens",
@@ -161,7 +161,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"type\": \"msisdn\",\n  \"value\": \"4790412443\"\n}"
+							"raw": "{\n  \"type\": \"msisdn\",\n  \"value\": \"<msisdn>\"\n}"
 						},
 						"url": {
 							"raw": "{{TEST-URL}}recipients/tokens",
@@ -330,12 +330,12 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{TEST-URL}}invoices/orgno-no.918130047.256203475",
+							"raw": "{{TEST-URL}}invoices/<invoiceID>",
 							"host": [
 								"{{TEST-URL}}invoices"
 							],
 							"path": [
-								"orgno-no.918130047.256203475"
+								"<invoiceID>"
 							]
 						},
 						"description": "Returns a single invoice identified by its unique id. This is used to verify the state of an invoice, e.g. if it has been validated and now is available for recipients."
@@ -390,12 +390,12 @@
 							"raw": "{\n  \"due\": \"2019-03-13T15:00:00+00:00\",\n  \"amount\": 25043\n}"
 						},
 						"url": {
-							"raw": "{{TEST-URL}}invoices/orgno-no.918130047.256203475/status/approved",
+							"raw": "{{TEST-URL}}invoices/<invoiceID/status/approved",
 							"host": [
 								"{{TEST-URL}}invoices"
 							],
 							"path": [
-								"orgno-no.918130047.256203475",
+								"<invoiceID",
 								"status",
 								"approved"
 							]
@@ -452,12 +452,12 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{TEST-URL}}invoices/orgno-no.918130047.420369896/status/pending",
+							"raw": "{{TEST-URL}}invoices/<invoiceID>/status/pending",
 							"host": [
 								"{{TEST-URL}}invoices"
 							],
 							"path": [
-								"orgno-no.918130047.420369896",
+								"<invoiceID>",
 								"status",
 								"pending"
 							]

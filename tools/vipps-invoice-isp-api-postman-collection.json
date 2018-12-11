@@ -110,7 +110,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"type\": \"nin-no\",\n  \"value\": \"22105000352\"\n}"
+							"raw": "{\n  \"type\": \"nin-no\",\n  \"value\": \"<nin>\"\n}"
 						},
 						"url": {
 							"raw": "{{TEST-URL}}recipients/tokens",
@@ -161,7 +161,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"type\": \"msisdn\",\n  \"value\": \"4797777776\"\n}"
+							"raw": "{\n  \"type\": \"msisdn\",\n  \"value\": \"<msisdn>\"\n}"
 						},
 						"url": {
 							"raw": "{{TEST-URL}}recipients/tokens",
@@ -211,7 +211,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"recipientToken\": \"{{recipient-token}}\",\n  \"paymentInformation\": {\n    \"type\": \"kid\",\n    \"value\": \"001476074371486\",\n    \"account\": \"15038366383\"\n  },\n  \"invoiceType\": \"invoice\",\n  \"due\": \"2019-03-13T15:00:00+00:00\",\n  \"amount\": 50033,\n  \"minAmount\": 50033,\n  \"subject\": \"Kebab\",\n  \"issuerName\": \"Bislett Kebab\",\n  \"commercialInvoice\": [\n    {\n      \"mimeType\": \"application/pdf\",\n      \"url\": \"https://www.example.com/08fd5360-e218-4658-894f-4f37649e7df7/comminv.pdf\"\n    }\n  ],\n  \"attachments\": [\n    {\n      \"title\": \"Ferry\",\n      \"urls\": [\n        {\n          \"url\": \"https://invoice-hotel.example.org/invoice/42.pdf\",\n          \"mimeType\": \"application/pdf\"\n        }\n      ]\n    }\n  ],\n  \"issuerIconUrl\": \"https://www.example.com/logos/lister.png\"\n}"
+							"raw": "{\n  \"recipientToken\": \"{{recipient-token}}\",\n  \"paymentInformation\": {\n    \"type\": \"kid\",\n    \"value\": \"<value>\",\n    \"account\": \"<account>\"\n  },\n  \"invoiceType\": \"invoice\",\n  \"due\": \"2019-03-13T15:00:00+00:00\",\n  \"amount\": <amount>,\n  \"minAmount\": <amount>,\n  \"subject\": \"issuerName\",\n  \"issuerName\": \"issuerName\",\n  \"commercialInvoice\": [\n    {\n      \"mimeType\": \"application/pdf\",\n      \"url\": \"https://www.example.com/08fd5360-e218-4658-894f-4f37649e7df7/comminv.pdf\"\n    }\n  ],\n  \"attachments\": [\n    {\n      \"title\": \"Ferry\",\n      \"urls\": [\n        {\n          \"url\": \"https://invoice-hotel.example.org/invoice/42.pdf\",\n          \"mimeType\": \"application/pdf\"\n        }\n      ]\n    }\n  ],\n  \"issuerIconUrl\": \"https://www.example.com/logos/lister.png\"\n}"
 						},
 						"url": {
 							"raw": "{{TEST-URL}}invoices/orgno-no.918130047.256203249",
