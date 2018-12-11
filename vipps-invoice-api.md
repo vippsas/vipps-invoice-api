@@ -12,7 +12,7 @@ Please use GitHub's built-in functionality for
 [pull requests](https://github.com/vippsas/vipps-invoice-api/pulls),
 or contact us at integration@vipps.no.
 
-Document version: 0.3.3.
+Document version: 0.3.4.
 
 # Overview
 
@@ -665,26 +665,35 @@ See also:
 
 The response from `/public/jwk` is an array of keys, as follows:
 
-```json
-{
-  "keys": [
-    {
-      "e": "AQAB",
-      "alg": "RS256",
-      "kid": "cedd7b8cbb3bfa85cba71f5001b5e09822244922",
-      "use": "sig",
-      "kty": "RSA",
-      "n": "5Dkax7lxzotIVx5DQidS...",
-      "use": "sig",
-      "x5t": "cedd7b8cbb3bfa85cba71f5001b5e09822244922",
-      "x5t#S256": "25eb881cbc57b8a953629b4065b8a7f735d8c316009e51822a710d8772a09123"
-    }
-  ]
+```json{
+    "keys": [
+        {
+            "e": "AQAB",
+            "alg": "RS256",
+            "kid": "cedd7b8cbb3bfa85cba71f5001b5e09822244922",
+            "use": "sig",
+            "kty": "RSA",
+            "n": "5Dkax7lxzotIVx5DQidS...[abbreviated]",
+            "x5t": "cedd7b8cbb3bfa85cba71f5001b5e09822244922",
+            "x5t#S256": "25eb881cbc57b8a953629b4065b8a7f735d8c316009e51822a710d8772a09123"
+        },
+        {
+            "e": "AQAB",
+            "alg": "RS256",
+            "kid": "abb7fc35fa86b54cf4509f125a19f05455352150",
+            "use": "sig",
+            "kty": "RSA",
+            "n": "5Dkax7lxzotIVx5DQidSa-HrQJbi_...[abbreviated]",
+            "x5t": "abb7fc35fa86b54cf4509f125a19f05455352150",
+            "x5t#S256": "edb47f4e719ab0f016381db6114339cc88cef1fa576beae3d72e99305a6baf91"
+        }
+    ]
 }
 ```
 
-Vipps _may_ rotate keys, which may result in a JWK not being usable for
-validating the JWT. There will _always_ be at least one valid key in `keys`.
+> NOTE: As of Q4 2018, Vipps only have one key. One or more key will be added at a later time.
+
+One of the keys in the output are always guaranteed to be valid. This enables Vipps to rotate keys if needed.
 
 In order to validate, use the `KID` in the JWT header and find the corresponding public key in the list of `keys`.
 
