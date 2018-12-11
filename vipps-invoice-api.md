@@ -12,7 +12,7 @@ Please use GitHub's built-in functionality for
 [pull requests](https://github.com/vippsas/vipps-invoice-api/pulls),
 or contact us at integration@vipps.no.
 
-Document version: 0.3.2.
+Document version: 0.3.3.
 
 # Overview
 
@@ -654,9 +654,7 @@ The API's public key is required in order to validate the request and the JWT.
 The public key is available as an array of JSON Web Keys (JWK):
 [`GET:/public/jwk`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/get_public_jwk).
 
-The API is designed to handle key rotation. There is no immediate plan to change the JWK, but it will happen at some point in time. **The client implementations must support this**. See the pseudo-code below for how to support this.
-
-The client can cache keys, but *must* implement logic that invalidates the cache, fetches the keys and retry validation if they don't find any valid key.
+The API is designed to handle key rotation. There is no immediate plan to change the JWK, but it will happen at some point in time. It's strongly advised that the client implements support for this. See the pseudo-code below for how an example.
 
 URLs:
 * Test: https://apitest.vipps.no/vipps-invoice/public/jwk
