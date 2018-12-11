@@ -1,6 +1,6 @@
 {
-	"id": "8fdcf8a7-9ee6-4a44-83bd-699419724c64",
-	"name": "ISP TEST",
+	"id": "40f9d188-52ba-46f2-a383-85798a5e1361",
+	"name": "ISP MT",
 	"values": [
 		{
 			"key": "access-token-key",
@@ -66,6 +66,15 @@
 			"enabled": true
 		},
 		{
+			"key": "idempotency-key",
+			"value": "postman-vipps824815",
+			"description": {
+				"content": "",
+				"type": "text/plain"
+			},
+			"enabled": true
+		},
+		{
 			"key": "TEST-URL",
 			"value": "https://apitest.vipps.no/vipps-isp/v1/",
 			"description": {
@@ -75,16 +84,13 @@
 			"enabled": true
 		},
 		{
-			"key": "idempotency-key",
-			"value": "",
-			"description": {
-				"content": "",
-				"type": "text/plain"
-			},
+			"key": "JWK-URL",
+			"value": "https://invoice-api.vipps.no/vipps-invoice/public/",
+			"description": "",
 			"enabled": true
 		}
 	],
 	"_postman_variable_scope": "environment",
-	"_postman_exported_at": "2018-10-12T07:13:03.535Z",
-	"_postman_exported_using": "Postman/6.4.2"
+	"_postman_exported_at": "2018-12-11T12:52:29.355Z",
+	"_postman_exported_using": "Postman/6.5.3"
 }
