@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "bc0fbb8d-34e0-4eba-8ad8-5b2454d89efe",
-		"name": "Vipps Invoice ISP",
+		"_postman_id": "33a5f75e-3a8d-486d-a496-c22939564ee7",
+		"name": "Vipps Invoice ISP MT",
 		"description": "This is the API for Vipps Regninger. While we have worked closely with selected partners, and believe that this is very close to production quality, we are more than happy to receive feedback, either with GitHub's issue functionality, or by email.\nPlease see https://github.com/vippsas/vipps-invoice-api for documentation",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -110,7 +110,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"type\": \"nin-no\",\n  \"value\": \"01032300371\"\n}"
+							"raw": "{\n  \"type\": \"nin-no\",\n  \"value\": \"22105000352\"\n}"
 						},
 						"url": {
 							"raw": "{{TEST-URL}}recipients/tokens",
@@ -211,15 +211,15 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"recipientToken\": \"{{recipient-token}}\",\n  \"paymentInformation\": {\n    \"type\": \"kid\",\n    \"value\": \"1234567890128\",\n    \"account\": \"12345678903\"\n  },\n  \"invoiceType\": \"invoice\",\n  \"due\": \"2019-03-13T15:00:00+00:00\",\n  \"amount\": 25043,\n  \"minAmount\": 25043,\n  \"subject\": \"Kebab\",\n  \"issuerName\": \"Bislett Kebab\",\n  \"commercialInvoice\": [\n    {\n      \"mimeType\": \"application/pdf\",\n      \"url\": \"https://www.example.com/08fd5360-e218-4658-894f-4f37649e7df7/comminv.pdf\"\n    }\n  ],\n  \"attachments\": [\n    {\n      \"title\": \"Ferry\",\n      \"urls\": [\n        {\n          \"url\": \"https://invoice-hotel.example.org/invoice/42.pdf\",\n          \"mimeType\": \"application/pdf\"\n        }\n      ]\n    }\n  ],\n  \"issuerIconUrl\": \"https://www.example.com/logos/lister.png\"\n}"
+							"raw": "{\n  \"recipientToken\": \"{{recipient-token}}\",\n  \"paymentInformation\": {\n    \"type\": \"kid\",\n    \"value\": \"001476074371486\",\n    \"account\": \"15038366383\"\n  },\n  \"invoiceType\": \"invoice\",\n  \"due\": \"2019-03-13T15:00:00+00:00\",\n  \"amount\": 50033,\n  \"minAmount\": 50033,\n  \"subject\": \"Kebab\",\n  \"issuerName\": \"Bislett Kebab\",\n  \"commercialInvoice\": [\n    {\n      \"mimeType\": \"application/pdf\",\n      \"url\": \"https://www.example.com/08fd5360-e218-4658-894f-4f37649e7df7/comminv.pdf\"\n    }\n  ],\n  \"attachments\": [\n    {\n      \"title\": \"Ferry\",\n      \"urls\": [\n        {\n          \"url\": \"https://invoice-hotel.example.org/invoice/42.pdf\",\n          \"mimeType\": \"application/pdf\"\n        }\n      ]\n    }\n  ],\n  \"issuerIconUrl\": \"https://www.example.com/logos/lister.png\"\n}"
 						},
 						"url": {
-							"raw": "{{TEST-URL}}invoices/orgno-no.{issuerOrgno}.{invoiceRef}",
+							"raw": "{{TEST-URL}}invoices/orgno-no.918130047.256203249",
 							"host": [
 								"{{TEST-URL}}invoices"
 							],
 							"path": [
-								"orgno-no.{issuerOrgno}.{invoiceRef}"
+								"orgno-no.918130047.256203249"
 							]
 						},
 						"description": "This endpoint adds the provided invoice to our system. To submit invoices into our system this endpoint has to be used.\nWe will accept any invoice as long as the body is well formed JSON. Any validation errors of the invoice are picked up by workers in the background and available with `GET:/invoices/{invoiceId}`.\n## Idempotency\nThe endpoint is idempotent. If an invoice with the same unique identifiers (organisation number and invoice reference) is submitted and the invoice exists already in the system, it is rejected. Invoices cannot be changed."
@@ -272,12 +272,12 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{TEST-URL}}invoices/orgno-no.{issuerOrgno}.{invoiceRef}",
+							"raw": "{{TEST-URL}}invoices/orgno-no.918130047.256203222",
 							"host": [
 								"{{TEST-URL}}invoices"
 							],
 							"path": [
-								"orgno-no.{issuerOrgno}.{invoiceRef}"
+								"orgno-no.918130047.256203222"
 							]
 						},
 						"description": "Returns a single invoice identified by its unique id. This is used to verify the state of an invoice, e.g. if it has been validated and now is available for recipients."
@@ -328,12 +328,12 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{TEST-URL}}invoices/orgno-no.{issuerOrgno}.{invoiceRef}/status/revoked",
+							"raw": "{{TEST-URL}}invoices/orgno-no.918130047.256203878/status/revoked",
 							"host": [
 								"{{TEST-URL}}invoices"
 							],
 							"path": [
-								"orgno-no.{issuerOrgno}.{invoiceRef}",
+								"orgno-no.918130047.256203878",
 								"status",
 								"revoked"
 							]

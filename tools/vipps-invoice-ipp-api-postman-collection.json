@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "c4700c1d-6926-418d-b5f3-050e47c67b9e",
-		"name": "Vipps Invoice IPP",
+		"_postman_id": "3852d627-4075-4c08-bab7-bb2b9bde7450",
+		"name": "Vipps Invoice IPP MT",
 		"description": "This is the API for Vipps Regninger. While we have worked closely with selected partners, and believe that this is very close to production quality, we are more than happy to receive feedback, either with GitHub's issue functionality, or by email.\nPlease see https://github.com/vippsas/vipps-invoice-api for documentation",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -110,7 +110,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"type\": \"nin-no\",\n  \"value\": \"01032300371\"\n}"
+							"raw": "{\n  \"type\": \"nin-no\",\n  \"value\": \"22105000352\"\n}"
 						},
 						"url": {
 							"raw": "{{TEST-URL}}recipients/tokens",
@@ -161,7 +161,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"type\": \"msisdn\",\n  \"value\": \"4797777776\"\n}"
+							"raw": "{\n  \"type\": \"msisdn\",\n  \"value\": \"4790412443\"\n}"
 						},
 						"url": {
 							"raw": "{{TEST-URL}}recipients/tokens",
@@ -221,14 +221,14 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{TEST-URL}}invoices?state=pending",
+							"raw": "{{TEST-URL}}invoices?state=approved",
 							"host": [
 								"{{TEST-URL}}invoices"
 							],
 							"query": [
 								{
 									"key": "state",
-									"value": "pending"
+									"value": "approved"
 								}
 							]
 						},
@@ -330,12 +330,12 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{TEST-URL}}invoices/orgno-no.{issuerOrgno}.{invoiceRef}",
+							"raw": "{{TEST-URL}}invoices/orgno-no.918130047.256203475",
 							"host": [
 								"{{TEST-URL}}invoices"
 							],
 							"path": [
-								"orgno-no.{issuerOrgno}.{invoiceRef}"
+								"orgno-no.918130047.256203475"
 							]
 						},
 						"description": "Returns a single invoice identified by its unique id. This is used to verify the state of an invoice, e.g. if it has been validated and now is available for recipients."
@@ -370,7 +370,7 @@
 							},
 							{
 								"key": "If-Match",
-								"value": "{{etag}}"
+								"value": "0d00436a-0000-0000-0000-5be5e8410000"
 							},
 							{
 								"key": "Idempotency-Key",
@@ -390,12 +390,12 @@
 							"raw": "{\n  \"due\": \"2019-03-13T15:00:00+00:00\",\n  \"amount\": 25043\n}"
 						},
 						"url": {
-							"raw": "{{TEST-URL}}invoices/{{invoice-id}}/status/approved",
+							"raw": "{{TEST-URL}}invoices/orgno-no.918130047.256203475/status/approved",
 							"host": [
 								"{{TEST-URL}}invoices"
 							],
 							"path": [
-								"{{invoice-id}}",
+								"orgno-no.918130047.256203475",
 								"status",
 								"approved"
 							]
@@ -432,7 +432,7 @@
 							},
 							{
 								"key": "If-Match",
-								"value": "{{etag}}"
+								"value": "1c0062d0-0000-0000-0000-5bd6ef320000"
 							},
 							{
 								"key": "Idempotency-Key",
@@ -452,12 +452,12 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{TEST-URL}}invoices/{{invoice-id}}/status/pending",
+							"raw": "{{TEST-URL}}invoices/orgno-no.918130047.420369896/status/pending",
 							"host": [
 								"{{TEST-URL}}invoices"
 							],
 							"path": [
-								"{{invoice-id}}",
+								"orgno-no.918130047.420369896",
 								"status",
 								"pending"
 							]

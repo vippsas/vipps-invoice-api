@@ -315,7 +315,7 @@
     },
     "/public/jwk": {
       "get": {
-        "description": "Get JSON Web Key Set. Use a JWK library to parse this into a public key.",
+        "description": "Get JSON Web Key Set. Use a JWK library to parse this into a public key. Base URL for this endpoint is https://invoice-api.vipps.no/vipps-invoice.",
         "summary": "Get JSON web key set.",
         "tags": [
           "ISP"

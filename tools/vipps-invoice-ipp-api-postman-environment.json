@@ -1,6 +1,6 @@
 {
-	"id": "58fa8dc7-4d6c-4e1d-9709-24752e8d8fbc",
-	"name": "IPP TEST",
+	"id": "4fb7d519-55bb-453a-a8b7-8ef6b7e6ab55",
+	"name": "IPP MT",
 	"values": [
 		{
 			"key": "access-token-key",
@@ -32,15 +32,6 @@
 		{
 			"key": "subscription-key",
 			"value": "",
-			"description": {
-				"content": "",
-				"type": "text/plain"
-			},
-			"enabled": true
-		},
-		{
-			"key": "TEST-URL",
-			"value": "https://apitest.vipps.no/vipps-ipp/v1/",
 			"description": {
 				"content": "",
 				"type": "text/plain"
@@ -81,7 +72,9 @@
 		},
 		{
 			"key": "mime-type",
-			"value": "",
+			"value": [
+				"application/pdf"
+			],
 			"description": {
 				"content": "",
 				"type": "text/plain"
@@ -90,7 +83,9 @@
 		},
 		{
 			"key": "attachment-id",
-			"value": "",
+			"value": [
+				"0"
+			],
 			"description": {
 				"content": "",
 				"type": "text/plain"
@@ -99,15 +94,30 @@
 		},
 		{
 			"key": "idempotency-key",
-			"value": "",
+			"value": "postman-vipps308734",
 			"description": {
 				"content": "",
 				"type": "text/plain"
 			},
 			"enabled": true
+		},
+		{
+			"key": "TEST-URL",
+			"value": "https://apitest.vipps.no/vipps-ipp/v1/",
+			"description": {
+				"content": "",
+				"type": "text/plain"
+			},
+			"enabled": true
+		},
+		{
+			"key": "JWK-URL",
+			"value": "https://invoice-api.vipps.no/vipps-invoice/public/",
+			"description": "",
+			"enabled": true
 		}
 	],
 	"_postman_variable_scope": "environment",
-	"_postman_exported_at": "2018-10-12T07:13:01.409Z",
-	"_postman_exported_using": "Postman/6.4.2"
+	"_postman_exported_at": "2018-12-11T12:28:14.930Z",
+	"_postman_exported_using": "Postman/6.5.3"
 }
