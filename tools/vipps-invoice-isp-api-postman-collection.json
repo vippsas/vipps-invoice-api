@@ -367,9 +367,9 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{TEST-URL}}jwk",
+							"raw": "{{JWK-URL}}jwk",
 							"host": [
-								"{{TEST-URL}}jwk"
+								"{{JWK-URL}}jwk"
 							]
 						},
 						"description": "Get JSON Web Key Set. Use a JWK library to parse this into a public key."
