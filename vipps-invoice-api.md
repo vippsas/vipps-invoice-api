@@ -895,7 +895,7 @@ This is a final state and does not allow any further state transitions.
 | `due`                  | 13.03.2019                      | Date.                                |                                                                                                                              |  
 | `amnount`              | 1050 kr.                        | Amount by lowest subdivision (øre).  |                                                                                                                              |
 | `minAmount`            | Press the amount to adjust.     | Greater than or equal to >= 0 kr.    | Used for a creditcard-bills. This is the minimum indicated by the issuer. Note that the user is always free to override this.|
-| `subject`              | 918 130 047 - Vipps Socks Store | Description of the invoice.          | Keep it short and consistent. *Not yet supported. Use the same value as for `issuerName`. See payload below.*                |
+| `subject`              | 918 130 047 - Vipps Socks Store | Description of the invoice.          | Keep it short and consistent. *Not yet supported. Use the same value as for `issuerName`. See payload below.*               |
 
 ### Example JSON payload
 
@@ -911,8 +911,8 @@ This is an example of the payload for `PUT:/invoices/{invoiceId}/orgno-no.947571
   },
   "invoiceType": "invoice",
   "due": "2019-03-13T00:00:00Z",
-  "amount": 10000,
-  "minAmount": 10000,
+  "amount": 105000,
+  "minAmount": 105000,
   "subject": "Vipps Socks AS",
   "issuerName": "Vipps Socks AS",
   "commercialInvoice": [
@@ -932,13 +932,11 @@ This is an example of the payload for `PUT:/invoices/{invoiceId}/orgno-no.947571
       ]
     }
   ],
-  "issuerIconUrl": "https://www.example.com/logos/sos-barnebyer-logo.png"
+  "issuerIconUrl": "https://www.example.com/logos/vipps-socks-store-logo.png"
 }
 ```
 
-
-
-# Questions or comments?
+## Questions or comments?
 
 Please use GitHub's built-in functionality for
 [issues](https://github.com/vippsas/vipps-invoice-api/issues),
