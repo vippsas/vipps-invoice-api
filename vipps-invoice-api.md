@@ -889,14 +889,13 @@ This is a final state and does not allow any further state transitions.
 
 ![Vipps app payment screen](images/mapping-api-app.png)
 
-| Input field | Displayed in the app screenshot |
-| ----------- | ------------------------------- |
-| `issuerName`   | Vipps Socks AS |
-| `providerId.identValue` (part of the `invoiceId` in the path)  | 918 130 047  |
-| `due`   | 13.03.2019  |
-| `amnount`  |  100 kr |
-
-`subject` is currently not displayed in the app. Since this is a required field it should have the same value as `issuerName` for the time being.
+| Input field            | Displayed in the app screenshot | Values                               | Comment                                                                                                                      |
+| ---------------------- | ------------------------------- | ------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------- |
+| `issuerName`           | Vipps Socks AS                  | Name of the issuer.                  |                                                                                                                              |
+| `due`                  | 13.03.2019                      | Date.                                |                                                                                                                              |  
+| `amnount`              | 1050 kr.                        | Amount by lowest subdivision (øre).  |                                                                                                                              |
+| `minAmount`            | Press the amount to adjust.     | Greater than or equal to >= 0 kr.    | Used for a creditcard-bills. This is the minimum indicated by the issuer. Note that the user is always free to override this.|
+| `subject`              | 918 130 047 - Vipps Socks Store | Description of the invoice.          | Keep it short and consistent. *Not yet supported. Use the same value as for `issuerName`. See payload below.*                |
 
 ### Example JSON payload
 
