@@ -12,7 +12,7 @@ Please use GitHub's built-in functionality for
 [pull requests](https://github.com/vippsas/vipps-invoice-api/pulls),
 or contact us at integration@vipps.no.
 
-Document version: 0.3.4.
+Document version: 0.3.5.
 
 # Overview
 
@@ -43,6 +43,7 @@ Document version: 0.3.4.
     - [Test issuers](#test-issuers)
   - [ISP Request Flow](#isp-request-flow)
   - [IPP Request Flow](#ipp-request-flow)
+  - [ntegratort checklist](#integrator-checklist)
     - [Change the status of an invoice](#change-the-status-of-an-invoice)
     - [Get commercial invoice (invoice attachment)](#get-commercial-invoice-invoice-attachment)
 - [InvoiceId and variables](#invoiceid-and-variables)
@@ -324,6 +325,10 @@ to set the `{{access-token}}` variable. See [the details](#api-access-token).
 3. [`List Invoices`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/List_Invoices_v1)
 4. [`Count Invoices For a User`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/InvoiceCount)
 5. [`Get a Single Invoice`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/Get_Single_Invoice_v1)
+
+## Integrator checklist
+
+This [checklist](vipps-integrator-checklist.md) may be useful.
 
 ### Change the status of an invoice
 
