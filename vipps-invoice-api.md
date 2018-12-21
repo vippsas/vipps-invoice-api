@@ -2,17 +2,14 @@
 
 This is the API documentation for [**Vipps Regninger**](https://www.vipps.no/bedrift/vipps-regninger).
 
-_Please note that Vipps Regninger supersedes the older Vipps Faktura, both as a product and API._
-
-**Status:** 🛠 While we have worked closely with selected partners, and believe that this is
-_very_ close to production quality, we are more than happy to receive feedback.
+_Please note that Vipps Regninger supersedes the older Vipps Faktura, both as a product and API. Vipps Faktura will be shut down on March 31 2019._
 
 Please use GitHub's built-in functionality for
 [issues](https://github.com/vippsas/vipps-invoice-api/issues),
 [pull requests](https://github.com/vippsas/vipps-invoice-api/pulls),
 or contact us at integration@vipps.no.
 
-Document version: 0.3.5.
+Document version: 0.3.6.
 
 # Overview
 
