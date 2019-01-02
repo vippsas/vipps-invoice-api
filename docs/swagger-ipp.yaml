@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Vipps Invoice IPP API
-  version: '0.3.28'
+  version: '0.3.29'
   description: >-
     This is the API for Vipps Regninger. While we have worked closely with
     selected partners, and believe that this is very close to production
@@ -571,7 +571,7 @@ paths:
         '429':
           description: Rate limit exceeded
         '500':
-          description: Internal server error        
+          description: Internal server error
 definitions:
   commercialInvoiceUrlOut:
     description: Generated URL for commercial invoice
@@ -651,7 +651,10 @@ definitions:
         example: 25043
       minAmount:
         type: integer
-        description: Minimum allowed amount to pay by lowest subdivision (øre). If this is set, it indicates that this invoice can be paid with any amount between and including `minAmount` and `amount`.
+        description: >-
+          Minimum allowed amount to pay by lowest subdivision (øre).
+          If this is set, it indicates that this invoice can be paid with any amount
+          between and including `minAmount` and `amount`.
         example: 25043
       subject:
         type: string
