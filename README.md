@@ -55,7 +55,7 @@ install it using `pip`.
 
 # Swagger changelog
 
-## 0.3.28
+## 0.3.29
 
 * Additional information on minAmount. 
 
