@@ -517,8 +517,8 @@ definitions:
         description: >-
           Minimum allowed amount to pay by lowest subdivision (øre).
           If this is set, it indicates that this invoice can be paid with any amount
-          between and including `minAmount` and `amount`. Note that the user however always can 
-          override this and pay any (positive) amount she or he wishes.
+          between and including `minAmount` and `amount`. Note that the user always can 
+          override this and pay any (positive) amount he or she wishes.
         example: 25043
       subject:
         type: string
