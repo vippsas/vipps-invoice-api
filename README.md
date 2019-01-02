@@ -55,6 +55,10 @@ install it using `pip`.
 
 # Swagger changelog
 
+## 0.3.28
+
+* Additional information on minAmount. 
+
 ## 0.3.27
 
 * fix JWK endpoint
