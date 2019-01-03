@@ -40,7 +40,7 @@ Document version: 0.3.6.
     - [Test issuers](#test-issuers)
   - [ISP Request Flow](#isp-request-flow)
   - [IPP Request Flow](#ipp-request-flow)
-  - [ntegratort checklist](#integrator-checklist)
+  - [Integrator checklist](#integrator-checklist)
     - [Change the status of an invoice](#change-the-status-of-an-invoice)
     - [Get commercial invoice (invoice attachment)](#get-commercial-invoice-invoice-attachment)
 - [InvoiceId and variables](#invoiceid-and-variables)
