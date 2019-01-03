@@ -891,13 +891,14 @@ This is a final state and does not allow any further state transitions.
 
 ![Vipps app payment screen](images/mapping-api-app.png)
 
-| Input field            | Displayed in the app screenshot | Values                               | Comment                                                                                                                      |
-| ---------------------- | ------------------------------- | ------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------- |
-| `issuerName`           | Vipps Socks AS                  | Name of the issuer.                  |                                                                                                                              |
-| `due`                  | 13.03.2019                      | Date.                                |                                                                                                                              |  
-| `amnount`              | 1050 kr.                        | Amount by lowest subdivision (øre).  |                                                                                                                              |
-| `minAmount`            | Press the amount to adjust.     | Greater than or equal to >= 0 kr.    | Used for a creditcard-bills. This is the minimum indicated by the issuer. Note that the user is always free to override this.|
-| `subject`              | 918 130 047 - Vipps Socks Store | Description of the invoice.          | Keep it short and consistent. *Not yet supported. Use the same value as for `issuerName`. See payload below.*               |
+| Input field            | Displayed in the app screenshot | Type | Values                               | Comment  |
+| ---------------------- | ------------------------------- | ------------------------------------ | ------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------- |
+| **1.** `issuerName`           | Vipps Socks AS                  | string |Organization name of issuer.                  |                                                                                                                              |
+| **2.**`subject`                  | 918 130 047 - Vipps Socks Store                     | string | Invoice description.   | Keep it short and consistent. *Not yet supported. Use the same value as for `issuerName`. See payload below.*                                                                                                                             |
+|   **3.**`due`           |  13.03.2019 | integer |     Date and time.       |                |
+| **4.**`amount`              | 1050 kr.                        | integer |Amount by lowest subdivision (øre).  |                                                                                                                              |
+| **5.**`minAmount`           | Press the amount to adjust minAmount.     | integer |Amount by lowest subdivision (øre).    | This is the minimum amount indicated by the issuer. Note that the user is always free to override this and pay any (positive) amount he or she wishes.|
+
 
 ### Example JSON payload
 
