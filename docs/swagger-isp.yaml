@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Vipps Invoice ISP API
-  version: '0.3.28'
+  version: '0.3.29'
   description: >-
 
     This is the API for Vipps Regninger. While we have worked closely with

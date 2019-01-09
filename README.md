@@ -55,6 +55,10 @@ install it using `pip`.
 
 # Swagger changelog
 
+## 0.3.29
+
+* Add an optional field bankCode to approve invoice
+
 ## 0.3.28
 
 * Additional information on minAmount. 

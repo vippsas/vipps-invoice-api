@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Vipps Invoice IPP API
-  version: '0.3.28'
+  version: '0.3.29'
   description: >-
     This is the API for Vipps Regninger. While we have worked closely with
     selected partners, and believe that this is very close to production
@@ -239,6 +239,7 @@ paths:
         Amount and due date is validated.
         Amount is required. If the original invoice specified an minimum amount, the amount must be at least that amount. Otherwise the amount can be anything.
         The due date must be between "now" and one year into the future.
+        The bank code must be a 4 digit number identifying the branch of the bank executing the payment.
       operationId: Change_Status_To_Approved_v1
       summary: Change status to approved
       tags:
@@ -877,6 +878,11 @@ definitions:
         type: integer
         description: Amount the user has set to be paid by lowest subdivision (øre)
         example: 25043
+      bankCode:
+        type: string
+        pattern: "^\\d{4}$"
+        description: Bank code of the bank account used to pay the invoice (bankregistreringsnummer)   
+        example: 3305
     required:
       - due
       - amount
