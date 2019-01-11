@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Vipps Invoice ISP API
-  version: '0.3.29'
+  version: '0.3.30'
   description: >-
 
     This is the API for Vipps Regninger. While we have worked closely with
@@ -395,12 +395,15 @@ definitions:
           showing the invoice.
         items:
           type: object
+          required:
+            - url
+            - mimeType
           properties:
             mimeType:
               type: string
               description: >-
                 Mime-type of the commercial invoice document.
-                Supported mime-types are; application/pdf (recommended), image/png, image/jpeg, image/jpg, text/html, text/plain
+                Supported mime-types are; application/pdf (recommended), text/html, image/jpeg, image/png, image/jpg, text/plain
               example: application/pdf
             url:
               type: string

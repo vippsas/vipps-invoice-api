@@ -55,6 +55,10 @@ install it using `pip`.
 
 # Swagger changelog
 
+## 0.3.30
+
+* IPP: Allow empty mime-type in get commercial invoice url and select the most suitable mime-type from the invoice
+
 ## 0.3.29
 
 * Add an optional field bankCode to approve invoice

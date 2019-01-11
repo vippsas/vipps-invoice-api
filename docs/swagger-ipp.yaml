@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Vipps Invoice IPP API
-  version: '0.3.29'
+  version: '0.3.30'
   description: >-
     This is the API for Vipps Regninger. While we have worked closely with
     selected partners, and believe that this is very close to production
@@ -424,8 +424,7 @@ paths:
           pattern: "^([a-zA-Z-]+)\\.(\\d+)\\.([a-zA-Z0-9-]+)$"
         - name: mimeType
           in: query
-          description: Mime type to retrieve. E.g. application/pdf
-          required: true
+          description: Mime type to retrieve. E.g. application/pdf. If not specified, the first available mime-type from the following prioritized list will be selected (application/pdf, text/html, image/jpeg, image/png, *). 
           type: string
         - name: vippsinvoice-recipienttoken
           in: header

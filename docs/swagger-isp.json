@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Vipps Invoice ISP API",
-    "version": "0.3.29",
+    "version": "0.3.30",
     "description": "\nThis is the API for Vipps Regninger. While we have worked closely with selected partners, and believe that this is very close to production quality, we are more than happy to receive feedback, either with GitHub's issue functionality, or by email.\nPlease see https://github.com/vippsas/vipps-invoice-api for documentation"
   },
   "host": "apitest.vipps.no",
@@ -491,10 +491,14 @@
           "description": "Conceptually only one invoice, but it can have multiple representations. The issuer is advised to provide the commercial invoice in multiple formats (i.e. different mime-types) if possible. This will make it easier provide the user and IPP different ways of showing the invoice.",
           "items": {
             "type": "object",
+            "required": [
+              "url",
+              "mimeType"
+            ],
             "properties": {
               "mimeType": {
                 "type": "string",
-                "description": "Mime-type of the commercial invoice document. Supported mime-types are; application/pdf (recommended), image/png, image/jpeg, image/jpg, text/html, text/plain",
+                "description": "Mime-type of the commercial invoice document. Supported mime-types are; application/pdf (recommended), text/html, image/jpeg, image/png, image/jpg, text/plain",
                 "example": "application/pdf"
               },
               "url": {
