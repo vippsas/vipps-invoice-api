@@ -944,4 +944,4 @@ This is an example of the payload for `PUT:/invoices/{invoiceId}/orgno-no.947571
 Please use GitHub's built-in functionality for
 [issues](https://github.com/vippsas/vipps-invoice-api/issues),
 [pull requests](https://github.com/vippsas/vipps-invoice-api/pulls),
-or contact us at integration@vipps.no.
+or contact [Vipps Integration](https://github.com/vippsas/vipps-developers/blob/master/contact.md)
