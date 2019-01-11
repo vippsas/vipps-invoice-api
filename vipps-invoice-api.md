@@ -7,7 +7,7 @@ _Please note that Vipps Regninger supersedes the older Vipps Faktura, both as a 
 Please use GitHub's built-in functionality for
 [issues](https://github.com/vippsas/vipps-invoice-api/issues),
 [pull requests](https://github.com/vippsas/vipps-invoice-api/pulls),
-or contact us at integration@vipps.no.
+or contact [Vipps Integration](https://github.com/vippsas/vipps-developers/blob/master/contact.md).
 
 Document version: 0.3.6.
 
