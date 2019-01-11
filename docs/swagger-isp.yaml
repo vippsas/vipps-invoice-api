@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Vipps Invoice ISP API
-  version: '0.3.30'
+  version: '0.3.31'
   description: >-
 
     This is the API for Vipps Regninger. While we have worked closely with
@@ -324,6 +324,7 @@ definitions:
       - amount
       - subject
       - invoiceType
+      - commercialInvoice
     properties:
       recipientToken:
         type: string
@@ -387,6 +388,7 @@ definitions:
         example: Lister Bompengeselskap
       commercialInvoice:
         type: array
+        minItems: 1
         description: >-
           Conceptually only one invoice, but it can have multiple
           representations. The issuer is advised to provide the commercial
