@@ -113,7 +113,7 @@ To get a token, follow
 
 We use the [RFC-3339](https://www.ietf.org/rfc/rfc3339.txt) format, which is a profile of _ISO 8601_. This format includes time zone information. As an IPP/ISP this means that date and time sent to the API *must* be specify the time zone. Having time zone information implies that the API can work with date and time in a consistent and predictable manner. Internally the RFC-3339 time format is stored relative to UTC.
 
-`1986-03-24T09:30:00.52Z` is in UTC time (denoted by the Z), while `1986-03-24T10:30:00.52+01:00` is the same time specificed with2 a time zone. The two examples specify the exact same point in time.
+`1986-03-24T09:30:00.52Z` is in UTC time (denoted by the Z), while `1986-03-24T10:30:00.52+01:00` is the same time specificed with a time zone. The two examples specify the exact same point in time.
 
 There are several benefits to this approach. It deals with daylight saving time, leap seconds and all other things that can cause edge cases when working with date and time.
 
