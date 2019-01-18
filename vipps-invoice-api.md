@@ -9,7 +9,7 @@ Please use GitHub's built-in functionality for
 [pull requests](https://github.com/vippsas/vipps-invoice-api/pulls),
 or contact [Vipps Integration](https://github.com/vippsas/vipps-developers/blob/master/contact.md).
 
-Document version: 0.3.6.
+Document version: 0.3.7.
 
 # Overview
 
@@ -352,7 +352,6 @@ These variables will be set when the `Get Single Invoice` call is made.
 
 The `invoiceId` must be constructed as `orgno-no.{issuerOrgno}.{invoiceRef}`
 where `{invoiceRef}` is a URL-safe reference that is unique for each issuer.
-Base64 encoding of the `invoiceRef` is one way to make it URL-safe (but also increases the length).
 The maximal length of the complete `invoiceId` is 200 bytes, i.e. 200 characters if it consists of only ASCII characters.
 
 The `invoiceId` for the supplied test issuer with organization number `918130047` would then be: `orgno-no.918130047.{invoiceRef}`.
