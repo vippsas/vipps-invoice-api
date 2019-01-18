@@ -9,7 +9,7 @@ Please use GitHub's built-in functionality for
 [pull requests](https://github.com/vippsas/vipps-invoice-api/pulls),
 or contact [Vipps Integration](https://github.com/vippsas/vipps-developers/blob/master/contact.md).
 
-Document version: 0.3.10.
+Document version: 0.3.11.
 
 # Overview
 
@@ -357,7 +357,7 @@ The `invoiceId` for a test issuer with organization number `918130047`
 and an `invoiceRef` abc123 would then be: `orgno-no.918130047.abc123`.
 
 The maximal length of the complete `invoiceId` is 200 bytes, i.e. 200 characters if it consists of only ASCII characters.
-We validate the `invoiceId` with this regex: `^([a-zA-Z-]+)\\.(\\d+)\\.([a-zA-Z0-9-]+)$`.
+We validate the `invoiceId` with this regex: `^([a-zA-Z-]+)\.(\d+)\.([a-zA-Z0-9-]+)$`.
 
 For the sake of testing, `{invoiceRef}` could be a random number like `256203221`,
 resulting in this `invoiceId`: `orgno-no.918130047.256203221`.
