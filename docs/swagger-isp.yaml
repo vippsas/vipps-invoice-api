@@ -5,8 +5,7 @@ info:
   description: >-
 
     This is the API for Vipps Regninger. While we have worked closely with
-    selected partners, and believe that this is very close to production
-    quality, we are more than happy to receive feedback, either with GitHub's
+    selected partners, we are more than happy to receive feedback, either with GitHub's
     issue functionality, or by email.
 
     Please see https://github.com/vippsas/vipps-invoice-api for documentation
