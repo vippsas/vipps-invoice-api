@@ -305,7 +305,6 @@ The service validates that the account belongs to the issuer ([KAR](https://www.
 | ------------------ | ----------- | -------------- |
 | Vipps Teknologi AS | 918130047   | 15038366383    |
 
-
 ## ISP Request Flow
 
 1. [`Fetch Authorization Token`](https://vippsas.github.io/vipps-accesstoken-api/#/Authorization_Service_(legacy)/fetchAuthorizationTokenUsingPost) to set the `{{access-token}}` variable. See [the details](#api-access-token).
@@ -323,9 +322,13 @@ to set the `{{access-token}}` variable. See [the details](#api-access-token).
 4. [`Count Invoices For a User`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/InvoiceCount)
 5. [`Get a Single Invoice`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/Get_Single_Invoice_v1)
 
+## Sequence diagram
+
+[Sequence diagram](vipps-sequence-diagram.md) showing ISP and IPP request flow, user interaction and invoice state transitions.
+
 ## Integrator checklist
 
-This [checklist](vipps-integrator-checklist.md) may be useful.
+This [checklist](vipps-integrator-checklist.md) may be useful to look at before going into production.
 
 ### Change the status of an invoice
 
@@ -345,6 +348,7 @@ These variables will be set when the `Get Single Invoice` call is made.
 
 1. [`Get commercial invoice document`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/Get_Commercial_Invoice_Document_v1)
 2. [`Get attachment for invoice`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/Get_Attachment_For_Invoice_v1)
+
 
 # InvoiceId and variables
 
