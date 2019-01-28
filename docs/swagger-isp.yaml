@@ -107,6 +107,14 @@ paths:
           description: list of invoice states to return, e.g. `states=pending,rejected`. Defaults to `created,pending,rejected`.
           required: false
           type: string
+          enum:
+            - created
+            - rejected
+            - pending
+            - expired
+            - approved
+            - deleted
+            - revoked
         - name: metadata/{customName}
           in: query
           description: custom filters for metadata defined by the ISP when sending an invoice. E.g. `metadata/batchId=2019-01`.
@@ -155,6 +163,14 @@ paths:
           description: list of invoice states to return, e.g. `states=pending,rejected`. Defaults to `created,pending,rejected`.
           required: false
           type: string
+          enum:
+            - created
+            - rejected
+            - pending
+            - expired
+            - approved
+            - deleted
+            - revoked
         - name: metadata/{customName}
           in: query
           description: custom filters for metadata defined by the ISP when sending an invoice. E.g. `metadata/batchId=2019-01`.
@@ -581,6 +597,14 @@ definitions:
         state:
           type: string
           description: current state of the invoice
+          enum:
+            - created
+            - rejected
+            - pending
+            - expired
+            - approved
+            - deleted
+            - revoked
           example: pending
         lastModified:
           type: string
