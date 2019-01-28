@@ -138,7 +138,8 @@ paths:
   '/invoices/statuses/count':
     get:
       description: >-
-        Returns the number of all invoices matching the search parameters.
+        Returns an count aggregation of the invoices matching the search
+        parameters, instead of individual invoices.
       operationId: Multiple_Invoice_Statuses_Count_v1
       summary: Get invoice statuses aggregates
       tags:
