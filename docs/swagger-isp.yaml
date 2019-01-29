@@ -106,20 +106,27 @@ paths:
           in: query
           description: list of invoice states to return, e.g. `states=pending,rejected`. Defaults to `created,pending,rejected`.
           required: false
-          type: string
-          enum:
-            - created
-            - rejected
-            - pending
-            - expired
-            - approved
-            - deleted
-            - revoked
+          type: array
+          collectionFormat: csv
+          default: ["created", "pending", "rejected"]
+          items:
+            type: string
+            enum:
+              - created
+              - rejected
+              - pending
+              - expired
+              - approved
+              - deleted
+              - revoked
         - name: metadata/{customName}
           in: query
           description: custom filters for metadata defined by the ISP when sending an invoice. E.g. `metadata/batchId=2019-01`.
           required: false
-          type: string
+          type: array
+          collectionFormat: multi
+          items:
+            type: string
       responses:
         '200':
           description: OK
@@ -163,20 +170,27 @@ paths:
           in: query
           description: list of invoice states to return, e.g. `states=pending,rejected`. Defaults to `created,pending,rejected`.
           required: false
-          type: string
-          enum:
-            - created
-            - rejected
-            - pending
-            - expired
-            - approved
-            - deleted
-            - revoked
+          type: array
+          collectionFormat: csv
+          default: ["created", "pending", "rejected"]
+          items:
+            type: string
+            enum:
+              - created
+              - rejected
+              - pending
+              - expired
+              - approved
+              - deleted
+              - revoked
         - name: metadata/{customName}
           in: query
           description: custom filters for metadata defined by the ISP when sending an invoice. E.g. `metadata/batchId=2019-01`.
           required: false
-          type: string
+          type: array
+          collectionFormat: multi
+          items:
+            type: string
       responses:
         '200':
           description: OK
