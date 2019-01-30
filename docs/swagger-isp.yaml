@@ -119,12 +119,26 @@ paths:
               - approved
               - deleted
               - revoked
-        - name: metadata/{customName}
+        - name: metadataKeys
           in: query
-          description: custom filters for metadata defined by the ISP when sending an invoice. E.g. `metadata/batchId=2019-01`.
+          description: >-
+            Comma separated list of keys for the custom metadata to filter on;
+            e.g. `batchId,clientId`.
+            Lenght of `metadataKeys` and `metadataValues` parameters _must_ match.
           required: false
           type: array
-          collectionFormat: multi
+          collectionFormat: csv
+          items:
+            type: string
+        - name: metadataValues
+          in: query
+          description: >-
+            Comma separated list of values for the custom metadata to filter on;
+            e.g. `2019-A,someClientId`.
+            Lenght of `metadataKeys` and `metadataValues` parameters _must_ match.
+          required: false
+          type: array
+          collectionFormat: csv
           items:
             type: string
       responses:
@@ -183,12 +197,26 @@ paths:
               - approved
               - deleted
               - revoked
-        - name: metadata/{customName}
+        - name: metadataKeys
           in: query
-          description: custom filters for metadata defined by the ISP when sending an invoice. E.g. `metadata/batchId=2019-01`.
+          description: >-
+            Comma separated list of keys for the custom metadata to filter on;
+            e.g. `batchId,clientId`.
+            Lenght of `metadataKeys` and `metadataValues` parameters _must_ match.
           required: false
           type: array
-          collectionFormat: multi
+          collectionFormat: csv
+          items:
+            type: string
+        - name: metadataValues
+          in: query
+          description: >-
+            Comma separated list of values for the custom metadata to filter on;
+            e.g. `2019-A,someClientId`.
+            Lenght of `metadataKeys` and `metadataValues` parameters _must_ match.
+          required: false
+          type: array
+          collectionFormat: csv
           items:
             type: string
       responses:
