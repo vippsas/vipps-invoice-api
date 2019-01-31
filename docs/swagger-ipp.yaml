@@ -460,7 +460,7 @@ paths:
     get:
       description: Returns a time-limited URL to a single attachment for an invoice. This URL typically points to a third-party invoice hotel that hosts the document. The third-party is responsible for validating the JWT.
       operationId: Get_Attachment_For_Invoice_v1
-      summary: Deprecated 
+      summary: DEPRECATED Get attachment for invoice
       tags:
         - IPP
       parameters:
@@ -579,6 +579,32 @@ definitions:
       url:
         type: string
         example: 'https://invoice-hotel.example.org/123456-abcdef-7890.pdf?token=eyJh.TY3ODk.SflKxw_adQssw5c'
+  attachmentUrlOut:
+    description: DEPRECATED Generated URL for attachment
+    type: object
+    properties:
+      url:
+        type: string
+        example: 'https://invoice-hotel.example.org/123456-abcdef-7890.pdf?token=eyJh.TY3ODk.SflKxw_adQssw5c'
+  attachmentOut:
+    description: DEPRECATED A list of optional attachments related to an invoice
+    type: object
+    required:
+      - id
+      - title
+      - mimeTypes
+    properties:
+      id:
+        type: string
+        example: "1"
+      title:
+        type: string
+        example: Ferry
+      mimeTypes:
+        type: array
+        items:
+          type: string
+          example: application/pdf
   invoiceOut:
     description: 'Invoice document which is returned from our servers. The `invoiceId` consists of the prefix `orgno-no` (for all Norwegian organizations), the actual organization number and the reference number for this invoice.'
     type: object
@@ -680,6 +706,11 @@ definitions:
               type: string
               description: MIME type of commercial invoice document. Supported MIME types - application/pdf (recommended), image/png, image/jpeg, image/jpg, text/html, text/plain
               example: application/pdf
+      attachments:
+        type: array
+        description: Invoice attachments
+        items:
+          $ref: '#/definitions/attachmentOut'
       issuerIconUrl:
         type: string
         description: URL to invoice issuer's logo

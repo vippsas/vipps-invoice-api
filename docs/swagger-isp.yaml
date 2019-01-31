@@ -566,6 +566,11 @@ definitions:
               description: URL of commercial invoice. It is required to use the https-protocol.
               example: >-
                 https://www.example.com/08fd5360-e218-4658-894f-4f37649e7df7/comminv.pdf
+      attachments:
+        type: array
+        description: DEPRECATED Invoice attachments.
+        items:
+          $ref: '#/definitions/attachmentIn'
       issuerIconUrl:
         type: string
         description: >-
@@ -574,6 +579,53 @@ definitions:
           Minimum size: 82x82 pixels
           Maximum size: 512x512 pixels
         example: 'https://www.example.com/logos/lister.png'
+  attachmentIn:
+    description: DEPRECATED An incoming attachment related to an invoice
+    type: object
+    required:
+      - title
+      - urls
+    properties:
+      title:
+        type: string
+        example: Ferry
+      urls:
+        type: array
+        items:
+          type: object
+          required:
+            - url
+            - mimeType
+          properties:
+            url:
+              description: An URL to the attachment. It is required to use the HTTPS-protocol.
+              type: string
+              example: 'https://invoice-hotel.example.org/invoice/42.pdf'
+            mimeType:
+              description: >-
+                Mime-type of the attachment document.
+                Supported mime-types are; application/pdf (recommended), image/png, image/jpeg, image/jpg, text/html, text/plain
+              type: string
+              example: application/pdf
+  attachmentOut:
+    description: DEPRECATED A list of optional attachments related to an invoice
+    type: object
+    required:
+      - id
+      - title
+      - mimeTypes
+    properties:
+      id:
+        type: string
+        example: "1"
+      title:
+        type: string
+        example: Ferry
+      mimeTypes:
+        type: array
+        items:
+          type: string
+          example: application/pdf
   InvoiceStatusResponse:
     description: >-
       Response from querying for multiple invoice statuses.
@@ -719,6 +771,11 @@ definitions:
               type: string
               description: Mime-type of commercial invoice document
               example: application/pdf
+      attachments:
+        type: array
+        description: DEPRECATED Invoice attachments
+        items:
+          $ref: '#/definitions/attachmentOut'
       issuerIconUrl:
         type: string
         description: URL to invoice issuer's logo
