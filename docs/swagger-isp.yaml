@@ -107,7 +107,6 @@ paths:
           description: list of invoice states to return, e.g. `states=pending,rejected`. Defaults to `created,pending,rejected`.
           required: false
           type: array
-          collectionFormat: csv
           default: ["created", "pending", "rejected"]
           items:
             type: string
