@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Vipps Invoice ISP API
-  version: '0.3.31'
+  version: '0.3.32'
   description: >-
 
     This is the API for Vipps Regninger. While we have worked closely with
@@ -30,7 +30,7 @@ security:
   - apiKeyHeader: []
   - apiKeyQuery: []
 paths:
-  /recipients/tokens:
+  '/recipients/tokens':
     post:
       description: >-
         Request a `recipientToken` by providing either the recipients Norwegian
@@ -77,6 +77,161 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/Error'
+      produces:
+        - application/json
+  '/invoices/statuses':
+    get:
+      description: >-
+        Returns the status of all invoices matching the search parameters.
+      operationId: Multiple_Invoice_Statuses_v1
+      summary: Get invoice statuses
+      tags:
+        - ISP
+      parameters:
+        - name: Authorization
+          in: header
+          description: 'Authorization token is obtained from Access Token API: https://github.com/vippsas/vipps-accesstoken-api'
+          required: true
+          type: string
+          enum:
+            - bearer <access_token>
+        - name: from
+          in: query
+          description: >-
+            RFC3339 timestamp to set the starting point for the search.
+            The start point is _included_ in the search.
+          required: true
+          type: string
+        - name: states
+          in: query
+          description: list of invoice states to return, e.g. `states=pending,rejected`. Defaults to `created,pending,rejected`.
+          required: false
+          type: array
+          collectionFormat: csv
+          default: ["created", "pending", "rejected"]
+          items:
+            type: string
+            enum:
+              - created
+              - rejected
+              - pending
+              - expired
+              - approved
+              - deleted
+              - revoked
+        - name: metadataKeys
+          in: query
+          description: >-
+            Comma separated list of keys for the custom metadata to filter on;
+            e.g. `batchId,clientId`.
+            Lenght of `metadataKeys` and `metadataValues` parameters _must_ match.
+          required: false
+          type: array
+          collectionFormat: csv
+          items:
+            type: string
+        - name: metadataValues
+          in: query
+          description: >-
+            Comma separated list of values for the custom metadata to filter on;
+            e.g. `2019-A,someClientId`.
+            Lenght of `metadataKeys` and `metadataValues` parameters _must_ match.
+          required: false
+          type: array
+          collectionFormat: csv
+          items:
+            type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/InvoiceStatusResponse'
+        '204':
+          description: Nothing Found
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/MsError'
+        '429':
+          description: Rate limit exceeded
+      produces:
+        - application/json
+  '/invoices/statuses/count':
+    get:
+      description: >-
+        Returns an count aggregation of the invoices matching the search
+        parameters, instead of individual invoices.
+      operationId: Multiple_Invoice_Statuses_Count_v1
+      summary: Get invoice statuses aggregates
+      tags:
+        - ISP
+      parameters:
+        - name: Authorization
+          in: header
+          description: 'Authorization token is obtained from Access Token API: https://github.com/vippsas/vipps-accesstoken-api'
+          required: true
+          type: string
+          enum:
+            - bearer <access_token>
+        - name: from
+          in: query
+          description: >-
+            RFC3339 timestamp to set the starting point for the search.
+            The start point is _included_ in the search.
+          required: true
+          type: string
+        - name: states
+          in: query
+          description: list of invoice states to return, e.g. `states=pending,rejected`. Defaults to `created,pending,rejected`.
+          required: false
+          type: array
+          collectionFormat: csv
+          default: ["created", "pending", "rejected"]
+          items:
+            type: string
+            enum:
+              - created
+              - rejected
+              - pending
+              - expired
+              - approved
+              - deleted
+              - revoked
+        - name: metadataKeys
+          in: query
+          description: >-
+            Comma separated list of keys for the custom metadata to filter on;
+            e.g. `batchId,clientId`.
+            Lenght of `metadataKeys` and `metadataValues` parameters _must_ match.
+          required: false
+          type: array
+          collectionFormat: csv
+          items:
+            type: string
+        - name: metadataValues
+          in: query
+          description: >-
+            Comma separated list of values for the custom metadata to filter on;
+            e.g. `2019-A,someClientId`.
+            Lenght of `metadataKeys` and `metadataValues` parameters _must_ match.
+          required: false
+          type: array
+          collectionFormat: csv
+          items:
+            type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/InvoiceStatusResponseCount'
+        '204':
+          description: Nothing Found
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/MsError'
+        '429':
+          description: Rate limit exceeded
       produces:
         - application/json
   '/invoices/{invoiceId}':
@@ -471,6 +626,42 @@ definitions:
         items:
           type: string
           example: application/pdf
+  InvoiceStatusResponse:
+    description: >-
+      Response from querying for multiple invoice statuses.
+    type: array
+    items:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Invoice Id
+          example: orgno-no.999999999.20180001
+        state:
+          type: string
+          description: current state of the invoice
+          enum:
+            - created
+            - rejected
+            - pending
+            - expired
+            - approved
+            - deleted
+            - revoked
+          example: pending
+        lastModified:
+          type: string
+          description: last time the state of the incoice was modified
+          format: date-time
+  InvoiceStatusResponseCount:
+    description: >-
+      Response from counting multiple invoice statuses.
+    type: object
+    properties:
+      <state>:
+        type: int
+        description: number of invoices in state `<state>`
+        example: 534
   invoiceOut:
     description: >-
       Invoice document which is returned from our servers. The `invoiceId`
