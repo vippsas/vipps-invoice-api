@@ -821,13 +821,7 @@
     "InvoiceStatusResponseCount": {
       "description": "Response from counting multiple invoice statuses.",
       "type": "object",
-      "properties": {
-        "<state>": {
-          "type": "int",
-          "description": "number of invoices in state `<state>`",
-          "example": 534
-        }
-      }
+      "additionalProperties": true
     },
     "invoiceOut": {
       "description": "Invoice document which is returned from our servers. The `invoiceId` consists of the prefix `orgno-no` (for all Norwegian organizations), the actual organization number and the reference number for this invoice.",
