@@ -709,79 +709,10 @@
             }
           }
         },
-        "attachments": {
-          "type": "array",
-          "description": "Invoice attachments.",
-          "items": {
-            "$ref": "#/definitions/attachmentIn"
-          }
-        },
         "issuerIconUrl": {
           "type": "string",
           "description": "URL to invoice issuer's logo. The URL must use the https-protocol and not contain any tracking-scripts or user-tracking parameters. Supported image formats: SVG (Scalable Vector Graphics) and PNG (Portable Network Graphics). Minimum size: 82x82 pixels Maximum size: 512x512 pixels",
           "example": "https://www.example.com/logos/lister.png"
-        }
-      }
-    },
-    "attachmentIn": {
-      "description": "An incoming attachment related to an invoice",
-      "type": "object",
-      "required": [
-        "title",
-        "urls"
-      ],
-      "properties": {
-        "title": {
-          "type": "string",
-          "example": "Ferry"
-        },
-        "urls": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "required": [
-              "url",
-              "mimeType"
-            ],
-            "properties": {
-              "url": {
-                "description": "An URL to the attachment. It is required to use the HTTPS-protocol.",
-                "type": "string",
-                "example": "https://invoice-hotel.example.org/invoice/42.pdf"
-              },
-              "mimeType": {
-                "description": "Mime-type of the attachment document. Supported mime-types are; application/pdf (recommended), image/png, image/jpeg, image/jpg, text/html, text/plain",
-                "type": "string",
-                "example": "application/pdf"
-              }
-            }
-          }
-        }
-      }
-    },
-    "attachmentOut": {
-      "description": "A list of optional attachments related to an invoice",
-      "type": "object",
-      "required": [
-        "id",
-        "title",
-        "mimeTypes"
-      ],
-      "properties": {
-        "id": {
-          "type": "string",
-          "example": "1"
-        },
-        "title": {
-          "type": "string",
-          "example": "Ferry"
-        },
-        "mimeTypes": {
-          "type": "array",
-          "items": {
-            "type": "string",
-            "example": "application/pdf"
-          }
         }
       }
     },
@@ -947,13 +878,6 @@
                 "example": "application/pdf"
               }
             }
-          }
-        },
-        "attachments": {
-          "type": "array",
-          "description": "Invoice attachments",
-          "items": {
-            "$ref": "#/definitions/attachmentOut"
           }
         },
         "issuerIconUrl": {
