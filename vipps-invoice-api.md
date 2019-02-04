@@ -9,7 +9,7 @@ Please use GitHub's built-in functionality for
 [pull requests](https://github.com/vippsas/vipps-invoice-api/pulls),
 or contact [Vipps Integration](https://github.com/vippsas/vipps-developers/blob/master/contact.md).
 
-Document version: 0.3.11.
+Document version: 0.3.12.
 
 # Overview
 
@@ -86,9 +86,8 @@ Swagger/OAS API documentation is available on GitHub: https://github.com/vippsas
 ### Getting access to the Vipps Developer Portal
 
 See
-[the getting started guide](https://github.com/vippsas/vipps-developers/blob/master/vipps-developer-portal-getting-started.md)
-for the Vipps eCommerce API for general information about the Vipps Developer Portal.
-This is where you create keys to the API.
+[Vipps: Getting Started](https://github.com/vippsas/vipps-developers/blob/master/vipps-getting-started.md)
+for general information, including how to retrieve the API keys.
 
 ### Getting an access token
 
