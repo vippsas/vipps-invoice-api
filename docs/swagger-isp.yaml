@@ -567,7 +567,7 @@ definitions:
                 https://www.example.com/08fd5360-e218-4658-894f-4f37649e7df7/comminv.pdf
       attachments:
         type: array
-        description: Invoice attachments.
+        description: DEPRECATED Invoice attachments.
         items:
           $ref: '#/definitions/attachmentIn'
       issuerIconUrl:
@@ -579,7 +579,7 @@ definitions:
           Maximum size: 512x512 pixels
         example: 'https://www.example.com/logos/lister.png'
   attachmentIn:
-    description: An incoming attachment related to an invoice
+    description: DEPRECATED An incoming attachment related to an invoice
     type: object
     required:
       - title
@@ -607,7 +607,7 @@ definitions:
               type: string
               example: application/pdf
   attachmentOut:
-    description: A list of optional attachments related to an invoice
+    description: DEPRECATED A list of optional attachments related to an invoice
     type: object
     required:
       - id
@@ -772,7 +772,7 @@ definitions:
               example: application/pdf
       attachments:
         type: array
-        description: Invoice attachments
+        description: DEPRECATED Invoice attachments
         items:
           $ref: '#/definitions/attachmentOut'
       issuerIconUrl:

@@ -634,7 +634,7 @@
       "get": {
         "description": "Returns a time-limited URL to a single attachment for an invoice. This URL typically points to a third-party invoice hotel that hosts the document. The third-party is responsible for validating the JWT.",
         "operationId": "Get_Attachment_For_Invoice_v1",
-        "summary": "Get attachment for invoice",
+        "summary": "DEPRECATED Get attachment for invoice",
         "tags": [
           "IPP"
         ],
@@ -813,7 +813,7 @@
       }
     },
     "attachmentUrlOut": {
-      "description": "Generated URL for attachment",
+      "description": "DEPRECATED Generated URL for attachment",
       "type": "object",
       "properties": {
         "url": {
@@ -823,7 +823,7 @@
       }
     },
     "attachmentOut": {
-      "description": "A list of optional attachments related to an invoice",
+      "description": "DEPRECATED A list of optional attachments related to an invoice",
       "type": "object",
       "required": [
         "id",

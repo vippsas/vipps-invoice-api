@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "33a5f75e-3a8d-486d-a496-c22939564ee7",
-		"name": "Vipps Invoice ISP MT",
+		"_postman_id": "0308a7da-cf3d-4d48-946d-75820ef5c36f",
+		"name": "Vipps Invoice ISP Prod Copy",
 		"description": "This is the API for Vipps Regninger. While we have worked closely with selected partners, we are more than happy to receive feedback, either with GitHub's issue functionality, or by email.\nPlease see https://github.com/vippsas/vipps-invoice-api for documentation",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -52,10 +52,10 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "https://apitest.vipps.no/accesstoken/get",
+							"raw": "https://invoice-api.vipps.no/accesstoken/get",
 							"protocol": "https",
 							"host": [
-								"apitest",
+								"invoice-api",
 								"vipps",
 								"no"
 							],
@@ -110,14 +110,20 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"type\": \"nin-no\",\n  \"value\": \"<nin>\"\n}"
+							"raw": "{\n  \"type\": \"nin-no\",\n  \"value\": \"\"\n}"
 						},
 						"url": {
-							"raw": "{{TEST-URL}}recipients/tokens",
+							"raw": "https://invoice-api.vipps.no/vipps-isp/v1/recipients/tokens",
+							"protocol": "https",
 							"host": [
-								"{{TEST-URL}}recipients"
+								"invoice-api",
+								"vipps",
+								"no"
 							],
 							"path": [
+								"vipps-isp",
+								"v1",
+								"recipients",
 								"tokens"
 							]
 						},
@@ -157,18 +163,29 @@
 							{
 								"key": "Ocp-apim-subscription-key",
 								"value": "{{subscription-key}}"
+							},
+							{
+								"key": "fdsfsd",
+								"value": "fdsfdsf",
+								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"type\": \"msisdn\",\n  \"value\": \"<msisdn>\"\n}"
+							"raw": "{\n  \"type\": \"msisdn\",\n  \"value\": \"\"\n}"
 						},
 						"url": {
-							"raw": "{{TEST-URL}}recipients/tokens",
+							"raw": "https://invoice-api.vipps.no/vipps-isp/v1/recipients/tokens",
+							"protocol": "https",
 							"host": [
-								"{{TEST-URL}}recipients"
+								"invoice-api",
+								"vipps",
+								"no"
 							],
 							"path": [
+								"vipps-isp",
+								"v1",
+								"recipients",
 								"tokens"
 							]
 						},
@@ -211,15 +228,21 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"recipientToken\": \"{{recipient-token}}\",\n  \"paymentInformation\": {\n    \"type\": \"kid\",\n    \"value\": \"<value>\",\n    \"account\": \"<account>\"\n  },\n  \"invoiceType\": \"invoice\",\n  \"due\": \"2019-03-13T15:00:00+00:00\",\n  \"amount\": <amount>,\n  \"minAmount\": <amount>,\n  \"subject\": \"issuerName\",\n  \"issuerName\": \"issuerName\",\n  \"commercialInvoice\": [\n    {\n      \"mimeType\": \"application/pdf\",\n      \"url\": \"https://www.example.com/08fd5360-e218-4658-894f-4f37649e7df7/comminv.pdf\"\n    }\n  ],\n  \"attachments\": [\n    {\n      \"title\": \"Ferry\",\n      \"urls\": [\n        {\n          \"url\": \"https://invoice-hotel.example.org/invoice/42.pdf\",\n          \"mimeType\": \"application/pdf\"\n        }\n      ]\n    }\n  ],\n  \"issuerIconUrl\": \"https://www.example.com/logos/lister.png\"\n}"
+							"raw": "{\n  \"recipientToken\": \"{{recipient-token}}\",\n  \"paymentInformation\": {\n    \"type\": \"kid\",\n    \"value\": \"<kid>\",\n    \"account\": \"<bank account>\"\n  },\n  \"invoiceType\": \"invoice\",\n  \"due\": \"2019-07-10T15:00:00+00:00\",\n  \"amount\": 200,\n  \"minAmount\": 200,\n  \"subject\": \"subject\",\n  \"issuerName\": \"subject\",\n  \"commercialInvoice\": [\n    {\n      \"mimeType\": \"application/pdf\",\n      \"url\": \"https://www.example.com/08fd5360-e218-4658-894f-4f37649e7df7/comminv.pdf\"\n    }\n  ],\n  \"issuerIconUrl\": \"https://www.example.com/logos/lister.png\"\n}"
 						},
 						"url": {
-							"raw": "{{TEST-URL}}invoices/orgno-no.918130047.256203249",
+							"raw": "https://api.vipps.no/vipps-isp/v1/invoices/orgno-no.<org.nr>.<invoiceId>",
+							"protocol": "https",
 							"host": [
-								"{{TEST-URL}}invoices"
+								"api",
+								"vipps",
+								"no"
 							],
 							"path": [
-								"orgno-no.918130047.256203249"
+								"vipps-isp",
+								"v1",
+								"invoices",
+								"orgno-no.<org.nr>.<invoiceId>"
 							]
 						},
 						"description": "This endpoint adds the provided invoice to our system. To submit invoices into our system this endpoint has to be used.\nWe will accept any invoice as long as the body is well formed JSON. Any validation errors of the invoice are picked up by workers in the background and available with `GET:/invoices/{invoiceId}`.\n## Idempotency\nThe endpoint is idempotent. If an invoice with the same unique identifiers (organisation number and invoice reference) is submitted and the invoice exists already in the system, it is rejected. Invoices cannot be changed."
@@ -272,12 +295,12 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{TEST-URL}}invoices/orgno-no.918130047.256203222",
+							"raw": "{{TEST-URL}}invoices/orgno-no.993417262.256243244356",
 							"host": [
 								"{{TEST-URL}}invoices"
 							],
 							"path": [
-								"orgno-no.918130047.256203222"
+								"orgno-no.993417262.256243244356"
 							]
 						},
 						"description": "Returns a single invoice identified by its unique id. This is used to verify the state of an invoice, e.g. if it has been validated and now is available for recipients."
@@ -328,12 +351,12 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{TEST-URL}}invoices/orgno-no.918130047.256203878/status/revoked",
+							"raw": "{{TEST-URL}}invoices/orgno-no.993417262.25624324535/status/revoked",
 							"host": [
 								"{{TEST-URL}}invoices"
 							],
 							"path": [
-								"orgno-no.918130047.256203878",
+								"orgno-no.993417262.25624324535",
 								"status",
 								"revoked"
 							]
@@ -367,9 +390,9 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{JWK-URL}}jwk",
+							"raw": "{{TEST-URL}}jwk",
 							"host": [
-								"{{JWK-URL}}jwk"
+								"{{TEST-URL}}jwk"
 							]
 						},
 						"description": "Get JSON Web Key Set. Use a JWK library to parse this into a public key."

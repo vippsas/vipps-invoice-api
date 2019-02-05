@@ -702,7 +702,7 @@
         },
         "attachments": {
           "type": "array",
-          "description": "Invoice attachments.",
+          "description": "DEPRECATED Invoice attachments.",
           "items": {
             "$ref": "#/definitions/attachmentIn"
           }
@@ -715,7 +715,7 @@
       }
     },
     "attachmentIn": {
-      "description": "An incoming attachment related to an invoice",
+      "description": "DEPRECATED An incoming attachment related to an invoice",
       "type": "object",
       "required": [
         "title",
@@ -751,7 +751,7 @@
       }
     },
     "attachmentOut": {
-      "description": "A list of optional attachments related to an invoice",
+      "description": "DEPRECATED A list of optional attachments related to an invoice",
       "type": "object",
       "required": [
         "id",
@@ -942,7 +942,7 @@
         },
         "attachments": {
           "type": "array",
-          "description": "Invoice attachments",
+          "description": "DEPRECATED Invoice attachments",
           "items": {
             "$ref": "#/definitions/attachmentOut"
           }

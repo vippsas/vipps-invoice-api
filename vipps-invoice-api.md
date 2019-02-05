@@ -56,7 +56,7 @@ Document version: 0.3.12.
     - [Get recipient token](#get-recipient-token)
     - [Get invoices](#get-invoices)
   - [National identity number (NIN), or phone number (MSISDN), not available](#national-identity-number-nin-or-phone-number-msisdn-not-available)
-- [Retrieving invoice documents (attachments)](#retrieving-invoice-documents-attachments)
+- [Retrieving commercial-invoice document](#retrieving-commercial-invoice-document)
   - [Typical flow](#typical-flow)
   - [Validating the JSON Web Token (JWT) and the request](#validating-the-json-web-token-jwt-and-the-request)
   - [The API's public key: JWK (JSON Web Key)](#the-apis-public-key-jwk-json-web-key)
@@ -345,8 +345,7 @@ These variables will be set when the `Get Single Invoice` call is made.
 These calls require `{{invoice-id}}` and `{{mime-type}}`.
 These variables will be set when the `Get Single Invoice` call is made.
 
-1. [`Get commercial invoice document`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/Get_Commercial_Invoice_Document_v1)
-2. [`Get attachment for invoice`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/Get_Attachment_For_Invoice_v1)
+- [`Get commercial invoice document`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/Get_Commercial_Invoice_Document_v1)
 
 
 # InvoiceId and variables
@@ -384,8 +383,7 @@ Following is an overview of the different variables in the Postman environments.
 | idempotency-key  | Pre-request Script                             | When all `PUT` calls are sent            | No            |
 | TEST-URL         | Default in Environment                         | Default                                  | No            |
 | invoice-id       | Postman Tests                                  | When 'Get single invoice' is sent        | Yes           |
-| mime-type        | Postman Tests                                  | When 'Get single invoice' is sent        | Yes           |
-| attachment-id    | Postman Tests                                  | When 'Get single invoice' is sent        | Yes           |
+| mime-type        | Postman Tests                                  | When 'Get commercial invoice document' is sent        | Yes           |
 
 
 # Authentication and authorization
@@ -559,15 +557,6 @@ vippsinvoice-recipienttoken : ***
       "mimeType": "application/pdf"
     }
   ],
-  "attachments": [
-    {
-      "id": "1",
-      "title": "Ferry",
-      "mimeTypes": [
-        "application/pdf"
-      ]
-    }
-  ],
   "issuerIconUrl": "https://www.example.com/logos/lister.png",
   "status": {
     "created": "2018-08-30T09:11:19Z",
@@ -587,10 +576,7 @@ vippsinvoice-recipienttoken : ***
 Vipps requires either NIN or MSISDN for
 [`POST:/recipients/tokens`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Request_Recipient_Token_v1).
 
-# Retrieving invoice documents (attachments)
-
-Invoice documents may be additional invoice documentation, such as
-commercial invoices and attachments.
+# Retrieving commercial-invoice document
 
 The IPP should retrieve the _actual_ document download URL on-demand on
 behalf of its user. This is typically initiated when the user clicks on a
@@ -602,10 +588,9 @@ The URL contains a JWT query parameter that is validated by the ISP.
 The expiry time (`EXP`) is inside the JWT.
 
 Each invoice document has one or more MIME types. This means that
-[`GET:/invoices/{invoiceId}/attachments/{attachmentId}`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/Get_Attachment_For_Invoice_v1)
+[`GET:/invoices/{invoiceId}/commercial-invoice`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/Get_Commercial_Invoice_Document_v1)
 must include the `mimeType` query parameter that specifies the mime type to
-retrieve, i.e. document file type. The MIME type is available to the IPP when
-listing all the documents. This allows the IPP to present it in multiple ways.
+retrieve, i.e. document file type. This allows the IPP to present it in multiple ways.
 
 PDF is a commonly used MIME type, which can be displayed in most contexts.
 
@@ -928,17 +913,6 @@ This is an example of the payload for `PUT:/invoices/{invoiceId}/orgno-no.947571
     {
       "mimeType": "application/pdf",
       "url": "https://www.example.com/abc123/comminv.pdf"
-    }
-  ],
-  "attachments": [
-    {
-      "title": "100 pairs of socks",
-      "urls": [
-        {
-          "url": "https://invoice-hotel.example.org/invoice/abc123.pdf",
-          "mimeType": "application/pdf"
-        }
-      ]
     }
   ],
   "issuerIconUrl": "https://www.example.com/logos/vipps-socks-store-logo.png"
