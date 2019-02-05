@@ -234,7 +234,7 @@ endpoints, and see the full `request` and `response` for each call.
 
 ## Setup
 
-* [Step by step](https://github.com/vippsas/vipps-developers/blob/master/postman-manual.md)
+* [Step by step](https://github.com/vippsas/vipps-developers/blob/master/postman-guide.md)
 on how to set up your Postman environment, with images.
 
 ### Step 1: Import the Postman Collection
@@ -266,7 +266,7 @@ You should now see the full API collection in your `Collections` window.
    - `client-secret`
 
 Detailed guide on where to find the key values:
-[Getting started guide](https://github.com/vippsas/vipps-developers/blob/master/vipps-developer-portal-getting-started.md#step-4).
+[Getting started guide](https://github.com/vippsas/vipps-developers/blob/master/vipps-getting-started.md).
 
 Each recipient is identified by a MSISDN. This is set manually in the request body of `Request Recipient Token`:
 
