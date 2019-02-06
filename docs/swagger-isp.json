@@ -711,6 +711,15 @@
           "type": "string",
           "description": "URL to invoice issuer's logo. The URL must use the https-protocol and not contain any tracking-scripts or user-tracking parameters. Supported image formats: SVG (Scalable Vector Graphics) and PNG (Portable Network Graphics). Minimum size: 82x82 pixels Maximum size: 512x512 pixels",
           "example": "https://www.example.com/logos/lister.png"
+        },
+        "metadata": {
+          "type": "object",
+          "description": "Metadata is only visible and available for the ISP. The metadata is queryable in the status endpoint and  enables various use-cases like batch compatability.",
+          "example": {
+            "batchId": "123",
+            "userId": "986123",
+            "internalRef": "09182d9081a344f"
+          }
         }
       }
     },
