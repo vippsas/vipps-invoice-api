@@ -578,6 +578,15 @@ definitions:
           Minimum size: 82x82 pixels
           Maximum size: 512x512 pixels
         example: 'https://www.example.com/logos/lister.png'
+      metadata:
+          type: object
+          description: >- 
+            Metadata is only visible and available for the ISP. The metadata is queryable in the status endpoint and 
+            enables various use-cases like batch compatability.
+          example:
+            batchId: "123"
+            userId: "986123"
+            internalRef: "09182d9081a344f"
   attachmentIn:
     description: DEPRECATED An incoming attachment related to an invoice
     type: object
