@@ -791,7 +791,7 @@
       "items": {
         "type": "object",
         "properties": {
-          "id": {
+          "invoiceId": {
             "type": "string",
             "description": "Invoice Id",
             "example": "orgno-no.999999999.20180001"
