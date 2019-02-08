@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "0308a7da-cf3d-4d48-946d-75820ef5c36f",
-		"name": "Vipps Invoice ISP Prod Copy",
+		"_postman_id": "33a5f75e-3a8d-486d-a496-c22939564ee7",
+		"name": "Vipps Invoice ISP MT",
 		"description": "This is the API for Vipps Regninger. While we have worked closely with selected partners, we are more than happy to receive feedback, either with GitHub's issue functionality, or by email.\nPlease see https://github.com/vippsas/vipps-invoice-api for documentation",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -52,10 +52,10 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "https://invoice-api.vipps.no/accesstoken/get",
+							"raw": "https://apitest.vipps.no/accesstoken/get",
 							"protocol": "https",
 							"host": [
-								"invoice-api",
+								"apitest",
 								"vipps",
 								"no"
 							],
@@ -110,20 +110,14 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"type\": \"nin-no\",\n  \"value\": \"\"\n}"
+							"raw": "{\n  \"type\": \"nin-no\",\n  \"value\": \"18045831147\"\n}"
 						},
 						"url": {
-							"raw": "https://invoice-api.vipps.no/vipps-isp/v1/recipients/tokens",
-							"protocol": "https",
+							"raw": "{{TEST-URL}}recipients/tokens",
 							"host": [
-								"invoice-api",
-								"vipps",
-								"no"
+								"{{TEST-URL}}recipients"
 							],
 							"path": [
-								"vipps-isp",
-								"v1",
-								"recipients",
 								"tokens"
 							]
 						},
@@ -163,29 +157,18 @@
 							{
 								"key": "Ocp-apim-subscription-key",
 								"value": "{{subscription-key}}"
-							},
-							{
-								"key": "fdsfsd",
-								"value": "fdsfdsf",
-								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"type\": \"msisdn\",\n  \"value\": \"\"\n}"
+							"raw": "{\n  \"type\": \"msisdn\",\n  \"value\": \"4748644367\"\n}"
 						},
 						"url": {
-							"raw": "https://invoice-api.vipps.no/vipps-isp/v1/recipients/tokens",
-							"protocol": "https",
+							"raw": "{{TEST-URL}}recipients/tokens",
 							"host": [
-								"invoice-api",
-								"vipps",
-								"no"
+								"{{TEST-URL}}recipients"
 							],
 							"path": [
-								"vipps-isp",
-								"v1",
-								"recipients",
 								"tokens"
 							]
 						},
@@ -228,21 +211,15 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"recipientToken\": \"{{recipient-token}}\",\n  \"paymentInformation\": {\n    \"type\": \"kid\",\n    \"value\": \"<kid>\",\n    \"account\": \"<bank account>\"\n  },\n  \"invoiceType\": \"invoice\",\n  \"due\": \"2019-07-10T15:00:00+00:00\",\n  \"amount\": 200,\n  \"minAmount\": 200,\n  \"subject\": \"subject\",\n  \"issuerName\": \"subject\",\n  \"commercialInvoice\": [\n    {\n      \"mimeType\": \"application/pdf\",\n      \"url\": \"https://www.example.com/08fd5360-e218-4658-894f-4f37649e7df7/comminv.pdf\"\n    }\n  ],\n  \"issuerIconUrl\": \"https://www.example.com/logos/lister.png\"\n}"
+							"raw": "{\n  \"recipientToken\": \"{{recipient-token}}\",\n  \"paymentInformation\": {\n    \"type\": \"kid\",\n    \"value\": \"001476074371486\",\n    \"account\": \"15038366383\"\n  },\n  \"invoiceType\": \"invoice\",\n  \"due\": \"2019-03-13T15:00:00+00:00\",\n  \"amount\": 200,\n  \"minAmount\": 200,\n  \"subject\": \"Bislett Kebab\",\n  \"issuerName\": \"Bislett Kebab\",\n  \"metadata\": {\n    \"batchId\": \"1\"\n  },\n  \"commercialInvoice\": [\n    {\n      \"mimeType\": \"application/pdf\",\n      \"url\": \"https://www.example.com/08fd5360-e218-4658-894f-4f37649e7df7/comminv.pdf\"\n    }\n  ],\n  \"attachments\": [\n    {\n      \"title\": \"Ferry\",\n      \"urls\": [\n        {\n          \"url\": \"https://invoice-hotel.example.org/invoice/42.pdf\",\n          \"mimeType\": \"application/pdf\"\n        }\n      ]\n    }\n  ],\n  \"issuerIconUrl\": \"https://www.example.com/logos/lister.png\"\n}"
 						},
 						"url": {
-							"raw": "https://api.vipps.no/vipps-isp/v1/invoices/orgno-no.<org.nr>.<invoiceId>",
-							"protocol": "https",
+							"raw": "{{TEST-URL}}invoices/orgno-no.918130047.2562032543432587656432",
 							"host": [
-								"api",
-								"vipps",
-								"no"
+								"{{TEST-URL}}invoices"
 							],
 							"path": [
-								"vipps-isp",
-								"v1",
-								"invoices",
-								"orgno-no.<org.nr>.<invoiceId>"
+								"orgno-no.918130047.2562032543432587656432"
 							]
 						},
 						"description": "This endpoint adds the provided invoice to our system. To submit invoices into our system this endpoint has to be used.\nWe will accept any invoice as long as the body is well formed JSON. Any validation errors of the invoice are picked up by workers in the background and available with `GET:/invoices/{invoiceId}`.\n## Idempotency\nThe endpoint is idempotent. If an invoice with the same unique identifiers (organisation number and invoice reference) is submitted and the invoice exists already in the system, it is rejected. Invoices cannot be changed."
@@ -295,12 +272,12 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{TEST-URL}}invoices/orgno-no.993417262.256243244356",
+							"raw": "{{TEST-URL}}invoices/orgno-no.918130047.256203254343257",
 							"host": [
 								"{{TEST-URL}}invoices"
 							],
 							"path": [
-								"orgno-no.993417262.256243244356"
+								"orgno-no.918130047.256203254343257"
 							]
 						},
 						"description": "Returns a single invoice identified by its unique id. This is used to verify the state of an invoice, e.g. if it has been validated and now is available for recipients."
@@ -351,17 +328,110 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{TEST-URL}}invoices/orgno-no.993417262.25624324535/status/revoked",
+							"raw": "{{TEST-URL}}invoices/orgno-no.918130047.256203878/status/revoked",
 							"host": [
 								"{{TEST-URL}}invoices"
 							],
 							"path": [
-								"orgno-no.993417262.25624324535",
+								"orgno-no.918130047.256203878",
 								"status",
 								"revoked"
 							]
 						},
 						"description": "Revoke an invoice. A revoked invoice is not shown to the recipient. Invoices can be revoked if they currently are in the states `created`, `pending` or `rejected`. If an invoice has been `approved`, `deleted` or `expired` it cannot be revoked anymore."
+					},
+					"response": []
+				},
+				{
+					"name": "Get invoice statuses",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{access-token}}",
+								"type": "text"
+							},
+							{
+								"key": "Ocp-Apim-Subscription-Key",
+								"value": "{{subscription-key}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{TEST-URL}}invoices/statuses?from=2019-02-02T23:21:20Z&states=created,pending&batchId=1",
+							"host": [
+								"{{TEST-URL}}invoices"
+							],
+							"path": [
+								"statuses"
+							],
+							"query": [
+								{
+									"key": "from",
+									"value": "2019-02-02T23:21:20Z"
+								},
+								{
+									"key": "states",
+									"value": "created,pending"
+								},
+								{
+									"key": "batchId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get invoice statuses aggregates",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{access-token}}",
+								"type": "text"
+							},
+							{
+								"key": "Ocp-Apim-Subscription-Key",
+								"value": "{{subscription-key}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{TEST-URL}}invoices/statuses/count?from=2019-02-01T23:21:20Z&states=created,pending&batchId=1",
+							"host": [
+								"{{TEST-URL}}invoices"
+							],
+							"path": [
+								"statuses",
+								"count"
+							],
+							"query": [
+								{
+									"key": "from",
+									"value": "2019-02-01T23:21:20Z"
+								},
+								{
+									"key": "states",
+									"value": "created,pending"
+								},
+								{
+									"key": "batchId",
+									"value": "1"
+								}
+							]
+						}
 					},
 					"response": []
 				}
@@ -390,9 +460,9 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{TEST-URL}}jwk",
+							"raw": "{{JWK-URL}}jwk",
 							"host": [
-								"{{TEST-URL}}jwk"
+								"{{JWK-URL}}jwk"
 							]
 						},
 						"description": "Get JSON Web Key Set. Use a JWK library to parse this into a public key."
