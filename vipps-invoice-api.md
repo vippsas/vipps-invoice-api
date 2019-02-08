@@ -775,7 +775,7 @@ that attempts to validate the invoice, and updates the status to either `rejecte
 **Transition 3: `created` -> `revoked`**
 
 An ISP can revoke an invoice by calling
-[`PUT:/invoices/{id}/status/{revoked}`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Revoke_Invoice_v1)
+[`PUT:/invoices/{id}/status/revoked`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Revoke_Invoice_v1)
 It _could_ have been a `DELETE`, but we decided to use `PUT` verbs consistently.
 
 ### State 2: Rejected
