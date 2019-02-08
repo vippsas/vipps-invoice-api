@@ -919,6 +919,12 @@ This is an example of the payload for `PUT:/invoices/{invoiceId}/orgno-no.947571
 }
 ```
 
+The `issuerIconUrl` refers the invoice issuer's logo. The URL must use the HTTPS
+protocol and not contain any tracking-scripts or user-tracking parameters.
+Supported image formats: SVG (Scalable Vector Graphics) and PNG (Portable Network Graphics).
+Minimum size: 82x82 pixels.
+Maximum size: 512x512 pixels.
+
 ## Questions or comments?
 
 Please use GitHub's built-in functionality for
