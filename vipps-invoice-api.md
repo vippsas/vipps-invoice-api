@@ -31,6 +31,7 @@ Document version: 0.3.12.
   - [Debt collection](#debt-collection)
 - [Invoice states](#invoice-states)
 - [HTTP responses](#http-responses)
+- [Base URL](#base-url)
 - [Postman](#postman)
   - [Setup](#setup)
     - [Step 1: Import the Postman Collection](#step-1-import-the-postman-collection)
@@ -40,6 +41,7 @@ Document version: 0.3.12.
     - [Test issuers](#test-issuers)
   - [ISP Request Flow](#isp-request-flow)
   - [IPP Request Flow](#ipp-request-flow)
+  - [Sequence diagram](#sequence-diagram)
   - [Integrator checklist](#integrator-checklist)
     - [Change the status of an invoice](#change-the-status-of-an-invoice)
     - [Get commercial invoice (invoice attachment)](#get-commercial-invoice-invoice-attachment)
@@ -49,6 +51,10 @@ Document version: 0.3.12.
 - [Authentication and authorization](#authentication-and-authorization)
   - [API access token](#api-access-token)
   - [Recipient token](#recipient-token)
+- [Recommended flow for sending multiple invoices](#recommended-flow-for-sending-multiple-invoices)
+- [When to use the /invoices/statuses and /invoices/statuses/count](#when-to-use-the-invoicesstatuses-and-invoicesstatusescount)
+  - [Usage example](#usage-example)
+- [Examples](#examples)
   - [Example 1: Send invoice](#example-1-send-invoice)
   - [Example 2: Fetch invoices for recipient](#example-2-fetch-invoices-for-recipient)
   - [Example 3: Get invoices, with complete requests and responses](#example-3-get-invoices-with-complete-requests-and-responses)
@@ -74,8 +80,9 @@ Document version: 0.3.12.
   - [State 6: Deleted](#state-6-deleted)
   - [State 7: Revoked](#state-7-revoked)
 - [Screenshots](#screenshots)
-  - [Mapping from API to Vipps app](#screenshots-mapping-from-api-to-vipps-app)
-- [Questions or comments?](#questions-or-comments)
+  - [Mapping from API to Vipps app](#mapping-from-api-to-vipps-app)
+    - [Example JSON payload](#example-json-payload)
+  - [Questions or comments?](#questions-or-comments)
 
 ## External documentation
 
@@ -463,6 +470,145 @@ API `access_token`. See the [Postman](#postman) section for examples, etc.
 To ensure GDPR compliance, the `recipientToken` has a limited time to live, currently _15
 minutes_. Until it's expiry, clients are free to cache the token and re-use it to
 submit several invoices to the same recipient.
+
+# Recommended flow for sending multiple invoices
+
+It is not possible for Vipps to give generic advice that will 
+fit each integrator's context. Please note that each context is 
+different and require a unique approach. In the following section we give a very high-level overview of one way to send multiple invoices.
+
+There are several benefits to using an approach similar to this. 
+Overall it enables more control on how to deal with the different cases that can happen when sending invoices. It’s also a lot quicker and more efficient to process just the few that failed due to transient errors instead of sending 10 000 invoices again because you don’t know which ones failed. If an invoice is rejected by Vipps, it is simple with the recommended flow to send the invoice using another delivery mechanism (e.g. mail). It is also simpler to perform the recommended flow with live data. I.e. sending invoices directly instead of only a few times per day.
+
+The gist of it is as following:
+  * Get all documents to send to Vipps (live or batched)
+  * Start by sending all invoices making sure that you get a definitive status (i.e. not HTTP 5XX)
+    * if HTTP 2XX -> continue
+    * if HTTP 4XX -> invoice is invalid 
+    * if HTTP 5XX -> retry (with a back-off strategy)
+  * When all are sent, start polling status on each invoice
+  * If the status is no longer `created`, the invoice has been processed and is in either `pending` or `rejected` state
+  * If the invoice is in `created` state, retry until it is not
+    * Tip: make sure that the state is persisted somehow and that the server running the code can be restarted and continue where it left off.
+    * Tip: consider using a back-off strategy to make the waiting time between each retry longer.
+
+```js
+// Very naïve and simple high-level pseudo code
+
+var invoicesToInsert = getListOfInvoicesFromSomewhere()
+
+for each invoice in invoicesToInsert {
+  var response = sendInvoiceToVipps(invoice)
+
+  // Check for HTTP 5XX error
+  if HasServerError(response) {
+    retrySendInvoiceToVipps(invoice)
+  } else if IsRejected(response) {
+    logRejection(invoice)
+    giveUpFurtherProcessing(invoice)
+  } else {
+    logSuccessfullySent(invoice)
+  }
+
+  // Consider storing those that fail with HTTP 4XX, as they
+  // will never be accepted
+}
+
+// At this point all request are sent to our API, and will most
+// likely finish very fast. That means that most of the requests
+// in the next section will receive a definitive status 
+// (i.e. not 'created') on the first request
+
+for each invoice in invoicesToInsert {
+  var vippsInvoice = getInvoiceFromVipps(invoice.id)
+
+  if vippsInvoice.currentState == "created" {
+     // Still being validated...
+     // Worst case, it can take a day before the third-party
+     // servers are available to perform the validation.
+     // Increase retryDelay for each attempt.
+     scheduleForRetry(invoice, retryDelay)
+  } 
+  else if vippsInvoice.currentState == "rejected" {
+    handleInvoiceRejection(invoice)
+  } else if vippsInvoice.currentState == "pending" {
+    logSuccess(invoice)
+  }
+}
+```
+
+# When to use the /invoices/statuses and /invoices/statuses/count
+
+> **TL;DR;** Do not use these endpoints unless it's the only way to make the integration work with existing systems.
+
+The status endpoints were introduced early 2019 to ease integration with legacy systems.
+
+**IMPORTANT**: The status endpoints are not intended to be used as the primary way of checking statuses, as it has some trade-offs compared to the recommended flow. If in doubt, avoid using these endpoints in your main flow. If still uncertain, contact Vipps to get assistance in choosing the right integration strategy. 
+
+There are several drawbacks of using this approach. There is a limit of how far back the queries will work and how many items that can be returned in the `/invoices/statuses` endpoint. At the time of writing, the max count is 1000. The `/invoices/statuses/count` endpoint will work for scenarios where the count is larger than 1000. If using the count endpoint, it will not be clear which invoices are failed, only how many. This is analogous as to how things are when working with existing batch-systems. In the case of a transient error (e.g. network issues, downtime, etc.) retrying is more complicated in this scenario. The API is designed to be idempotent, so retrying everything should work fine. It just takes more time and resources. When an invoice is rejected, figuring out which ones are rejected and why is cumbersome using the status endpoints.
+
+One of the use cases this endpoint is intended to solve is making it fit better in system systems that was designed to be purely batch-oriented. I.e. systems that cannot work (efficiently) with single instances of invoices. These systems are widespread, and sometimes integrating with a system designed to operate on single invoices is impractical.  
+
+A typical flow for these systems is shipping one or more file (consignment) consisting of a total of *N* invoices. The processing of each consignment is atomic and means that if just 1 of the *N* invoices fails, all the other invoices in that consignment would typically be marked as failed. The consignment would need to either be fixed or retried. This is an overhead, and sometimes complicated, when only 1 invoice out of *N* invoices failed. 
+
+To mitigate this scenario, the status endpoint mimics this to some extent by returning a count based on user defined properties (metadata). An integrator can add properties such as `batchId`, `consignmentId`, `sequenceNumber` and `userId` as metadata on the invoice. When the invoices are received, the integrator can query to get the status of the invoices. An integrator wanting to know when all the *N* invoices have been processed can add a metadata property called `batchId` with the value `12345` to the invoice document. After sending N invoices with the same batchId the integrator can query the `/invoice/status/count?from={DATE}&metadataKeys=batchId&metadataValues=12345`. The returned data will be an object stating the count of invoices in that specific batch that are in the various states. When the total count is equal to *N*, then all documents have been received. All documents are processed when the count of invoices in the created state is 0. If the pending count is *N*, all invoices have been successfully processed. 
+
+## Usage example
+
+You can use the endpoints with and without metadata. Adding metadata allows querying for specific invoices. The query can only filter on the metadata properties provided.
+The metadata is provided in the invoice document body when sending it to Vipps and will not be visible to anyone. An ISP can only query its own invoices. 
+
+Example of metadata:
+```json
+"metadata": {
+  "batchId": "12345",
+  "company": "Vipps"
+}
+```
+
+How this is used is up to the ISP. In the case an IPP want to retrieve the invoices matching a query, the following request would retrieve all invoices where `batchId=12345` and `company=Vipps`.
+`/invoice/status/count?from={DATE}&metadataKeys=batchId,company&metadataValues=12345,Vipps`
+
+The returned data would look something like this:
+```json 
+{
+  "created": 3,
+  "pending": 42,
+  "rejected": 1
+}
+```
+
+The other endpoint could be used in a similar way:
+`/invoice/status?from={DATE}&metadataKeys=batchId,company&metadataValues=12345,Vipps`
+
+The return format is different and it has a limit of at most 1000 items. There is no pagination.
+
+```json 
+[
+  {
+    "actorId": "some-isp",
+    "invoiceId": "orgnr-no.123456789.abcdef98765",
+    "state": "pending",
+    "lastModified": "...",
+    "metadata": {
+      "batchId": "12345",
+      "company": "Vipps"
+    }
+  },
+  {
+    "actorId": "some-isp",
+    "invoiceId": "orgnr-no.123456789.fedcba12345",
+    "state": "rejected",
+    "lastModified": "...",
+    "metadata": {
+      "batchId": "12345",
+      "company": "Vipps"
+    }
+  }
+]
+```
+
+# Examples
 
 ## Example 1: Send invoice
 
