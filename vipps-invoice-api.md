@@ -852,7 +852,11 @@ again with the updated payment details.
 **Transition 9: `approved` -> `pending`**
 
 The user may want to change an `approved` invoice back to `pending`.
-_This transition is not yet fully specified._
+This transition *can only be done by the same IPP who approved the invoice*.
+This limitation is required to make sure that the IPP who originally set the
+invoice to approved does not accidentally pay the invoice. There is no way
+the approving IPP can get notified if another IPP would set the state back to
+pending.
 
 **Transition 10: `approved` -> `deleted`**
 
