@@ -116,7 +116,7 @@ We use the [RFC-3339](https://www.ietf.org/rfc/rfc3339.txt) format, which is a p
 
 There are several benefits to this approach. It deals with daylight saving time, leap seconds and all other things that can cause edge cases when working with date and time.
 
-Here are some examples of time-formats that can occur in the output. All are valid RFC 3393.
+Here are some examples of time-formats that can occur in the output. All are valid RFC 3339.
 
 `2006-01-02T15:04:05+01:00`
 `2006-01-02T15:04:05.999999999+01:00`
