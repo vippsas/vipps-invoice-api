@@ -199,7 +199,7 @@ This API returns the following HTTP statuses in the responses:
 | `429 Too Many Requests` | There is currently a limit of max 200 calls per second\* |
 | `500 Server Error`      | An internal Vipps problem.                              |
 
-All error responses contains an `error` object in the body, with details of the problem. See full list of error messages [here.](problems.md)
+All error responses contains an `error` object in the body, with details of the problem. See full list of error messages [here.](vipps-problems.md)
 
 \*: The limit is cautiously set quite low in the production environment, as we want to
 monitor performance closely before increasing the limit.
