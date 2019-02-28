@@ -9,7 +9,7 @@ Please use GitHub's built-in functionality for
 [pull requests](https://github.com/vippsas/vipps-invoice-api/pulls),
 or contact [Vipps Integration](https://github.com/vippsas/vipps-developers/blob/master/contact.md).
 
-Document version: 0.3.13.
+Document version: 0.3.14.
 
 # Overview
 
@@ -152,9 +152,19 @@ We guarantee that any correctly received invoice is inserted exactly once.
 
 ## Invoice validation
 
-The validation of the invoice will still be an _asynchronous_ process since we
-have no possibility to guarantee, or even estimate, the response times for
-all required validation and risk check to be performed.
+A quick syntactic validation is performed before accepting the invoice. The error messages should explain what is wrong. 
+Some rules to be aware of:
+
+* Due date must be at least 48 hours into the future.
+* Issuer name can't be longer than 40 characters.
+* KID numbers must validate against a MOD10 or MOD11 check and have 4-25 digits. `-` is allowed as the last character.
+  * Note: A bank might still reject a KID upon payment. This can happen if the agreement has been cancelled.
+* The account number must be 11 digits.
+* Min. amount must be less or equal to the amount.
+
+The next part of the validation of the invoice is an _asynchronous_ process. 
+This is because we have no possibility to guarantee, or even estimate, 
+the response times for all required validation and risk check to be performed.
 
 Therefore, the invoice will be in a `created` state once it is inserted.
 In this state the invoice will not be visible to anyone. Only after all
