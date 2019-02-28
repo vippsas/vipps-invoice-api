@@ -2,7 +2,7 @@
 
 Base URL: `https://vipps.no/invoice/v1/problems`
 
-This is a list of all errors that can occure when sending an invoice, with respectively error messages and details. 
+This is a list of all errors that can occure with respectively error messages and details. 
 
 | Type | Title | Detail |
 |------|-------|--------|
