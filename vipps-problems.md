@@ -2,6 +2,8 @@
 
 Base URL: `https://vipps.no/invoice/v1/problems`
 
+This is a list of all errors that can occure when sending an invoice, with respectively error messages and details. 
+
 | Type | Title | Detail |
 |------|-------|--------|
 |`/invalid-issuer-name` | Issuer name must contain between 1 and 40 characters | See documentation for list of valid characters. |
