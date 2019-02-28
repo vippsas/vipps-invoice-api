@@ -4,6 +4,10 @@ Base URL: `https://vipps.no/invoice/v1/problems`
 
 | Type | Title | Detail |
 |------|-------|--------|
+|`/invalid-issuer-name` | Issuer name must contain between 1 and 40 characters | See documentation for list of valid characters. |
+| `/invalid-due-date` | Invalid due time | Must be between at least 48 hours into the future and at most one year into the future. |
+| `/input-validation-failed` | Validation of input failed. | 1 validation error(s) occurred. Account must be a valid numeric value |
+| `/input-validation-failed` | Validation of input failed | 1 validation error(s) occurred. MinAmount must be less than or equal to Amount |
 |`/invalid-json` | Invalid JSON | |
 |`/missing-recipient-token`| Recipient token is missing | |
 |`/missing-header-if-match`| Missing Header: If-Match ||
@@ -17,7 +21,7 @@ Base URL: `https://vipps.no/invoice/v1/problems`
 |`/invalid-recipient-value-msisdn`| Invalid MSISDN in recipient value. Make sure that a valid MSISDN is used. ||
 |`/invalid-recipient-value-nin`| Invalid NIN in recipient value. Make sure that a valid NIN is used. ||
 |`/invalid-payment-information-type`| Payment information type is invalid ||
-|`/invalid-payment-information-kid`| Invalid payment information kid ||
+|`/invalid-payment-information-kid`| Invalid KID number in payment information. Check MOD10 and/or MOD11. ||
 |`/missing-payment-information-message`| The field 'value' is missing from payment information ||
 |`/invalid-payment-information-account`| Invalid payment information account ||
 |`/invalid-invoice-type`| Invalid invoice type ||
