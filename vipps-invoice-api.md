@@ -9,7 +9,7 @@ Please use GitHub's built-in functionality for
 [pull requests](https://github.com/vippsas/vipps-invoice-api/pulls),
 or contact [Vipps Integration](https://github.com/vippsas/vipps-developers/blob/master/contact.md).
 
-Document version: 0.3.12.
+Document version: 0.3.13.
 
 # Overview
 
@@ -116,6 +116,16 @@ We use the [RFC-3339](https://www.ietf.org/rfc/rfc3339.txt) format, which is a p
 
 There are several benefits to this approach. It deals with daylight saving time, leap seconds and all other things that can cause edge cases when working with date and time.
 
+Here are some examples of time-formats that can occur in the output. All are valid RFC 3339.
+
+`2006-01-02T15:04:05+01:00`
+`2006-01-02T15:04:05.999999999+01:00`
+`2006-01-02T15:04:05.999999999Z`
+`2006-01-01T15:04:05+01:00`
+`2006-01-01T15:04:05.729151+01:00`
+`2006-01-01T15:04:05Z`
+`2006-01-01T15:04:05.729151Z`
+ 
 # Core functionality
 
 ## Send, receive and pay invoices
