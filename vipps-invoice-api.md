@@ -644,7 +644,7 @@ and can be 18 months, 10 years or something else.
 
 ## Validating the JSON Web Token (JWT) and the request
 
-The IPP/invoice hotel is responsible for validating the JWT before returning the document.
+The IPP/invoice hotel is responsible for [validating the JWT](vipps-integrator-checklist.md#invoice-documentattachment-retrieval-and-jwt) before returning the document.
 
 Vipps has chosen a modern standard for validating tokens with keys, and
 this is the same method used by Microsoft Azure, on which Vipps is built.
