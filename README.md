@@ -55,6 +55,10 @@ install it using `pip`.
 
 # Swagger changelog
 
+## 0.3.35
+
+* add error type to recipient token not found response
+
 ## 0.3.34
 
 * Added `maxLength: 40` for `issuerName`.

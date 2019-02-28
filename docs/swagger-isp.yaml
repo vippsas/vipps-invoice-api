@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Vipps Invoice ISP API
-  version: '0.3.34'
+  version: '0.3.35'
   description: >-
 
     This is the API for Vipps Regninger. While we have worked closely with
@@ -71,6 +71,8 @@ paths:
             $ref: '#/definitions/MsError'
         '404':
           description: Recipient not Found
+          schema:
+            $ref: '#/definitions/Error'
         '429':
           description: Rate limit exceeded
         '500':
