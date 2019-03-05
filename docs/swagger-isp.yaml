@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Vipps Invoice ISP API
-  version: '0.3.35'
+  version: '0.3.36'
   description: >-
 
     This is the API for Vipps Regninger. While we have worked closely with
@@ -826,7 +826,7 @@ definitions:
             description: A list of problems causing the invoice to be rejected. (only for state 'rejected')
             type: array
             items:
-              $ref: '#/definitions/Error'
+              $ref: '#/definitions/Problem'
       created:
         type: string
         format: date-time
@@ -879,6 +879,30 @@ definitions:
           correlationId:
             type: string
             description: An ID that can be used to find related log messages
+  Problem:
+    type: object
+    required:
+      - type
+      - title
+    properties:
+      type:
+        type: string
+        description: A URI reference that identifies the problem type.
+        example: 'https://vipps.no/invoice/v1/problems/invalid-invoice-id'
+      title:
+        type: string
+        description: 'A short, human-readable summary of the problem type.'
+        example: The invoice id is invalid.
+      detail:
+        type: string
+        description: A human-readable explanation specific to this occurrence of the problem.
+        example: 'You tried to call the endpoint GET:/invoices/{invoiceId} with the invoice id **invoice-1**. This is invalid due to the following reasons: missing issuer ident-type, missing issuer ident-value.'
+      instance:
+        type: string
+        description: A URI reference that identifies the specific occurrence of the problem.  It may or may not yield further information if dereferenced.
+      correlationId:
+        type: string
+        description: An ID that can be used to find related log messages          
   JsonWebKeySet:
     title: JSON Web Key Set
     type: object
