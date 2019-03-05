@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Vipps Invoice ISP API
-  version: '0.3.33'
+  version: '0.3.35'
   description: >-
 
     This is the API for Vipps Regninger. While we have worked closely with
@@ -71,6 +71,8 @@ paths:
             $ref: '#/definitions/MsError'
         '404':
           description: Recipient not Found
+          schema:
+            $ref: '#/definitions/Error'
         '429':
           description: Rate limit exceeded
         '500':
@@ -539,6 +541,7 @@ definitions:
         type: string
         description: Organization name of issuer
         example: Lister Bompengeselskap
+        maxLength: 40
       commercialInvoice:
         type: array
         minItems: 1
@@ -728,6 +731,7 @@ definitions:
         type: string
         description: Organization name of issuer
         example: Lister Bompengeselskap
+        maxLength: 40
       recipient:
         type: object
         properties:

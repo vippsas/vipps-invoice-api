@@ -123,6 +123,16 @@ We use the [RFC-3339](https://www.ietf.org/rfc/rfc3339.txt) format, which is a p
 
 There are several benefits to this approach. It deals with daylight saving time, leap seconds and all other things that can cause edge cases when working with date and time.
 
+Here are some examples of time-formats that can occur in the output. All are valid RFC 3339.
+
+`2006-01-02T15:04:05+01:00`
+`2006-01-02T15:04:05.999999999+01:00`
+`2006-01-02T15:04:05.999999999Z`
+`2006-01-01T15:04:05+01:00`
+`2006-01-01T15:04:05.729151+01:00`
+`2006-01-01T15:04:05Z`
+`2006-01-01T15:04:05.729151Z`
+ 
 # Core functionality
 
 ## Send, receive and pay invoices
@@ -149,9 +159,19 @@ We guarantee that any correctly received invoice is inserted exactly once.
 
 ## Invoice validation
 
-The validation of the invoice will still be an _asynchronous_ process since we
-have no possibility to guarantee, or even estimate, the response times for
-all required validation and risk check to be performed.
+A quick syntactic validation is performed before accepting the invoice. The error messages should explain what is wrong. 
+Some rules to be aware of:
+
+* Due date must be at least 48 hours into the future.
+* Issuer name can't be longer than 40 characters.
+* KID numbers must validate against a MOD10 or MOD11 check and have 4-25 digits. `-` is allowed as the last character.
+  * Note: A bank might still reject a KID upon payment. This can happen if the agreement has been cancelled.
+* The account number must be 11 digits.
+* Min. amount must be less or equal to the amount.
+
+The next part of the validation of the invoice is an _asynchronous_ process. 
+This is because we have no possibility to guarantee, or even estimate, 
+the response times for all required validation and risk check to be performed.
 
 Therefore, the invoice will be in a `created` state once it is inserted.
 In this state the invoice will not be visible to anyone. Only after all
@@ -206,7 +226,7 @@ This API returns the following HTTP statuses in the responses:
 | `429 Too Many Requests` | There is currently a limit of max 200 calls per second\* |
 | `500 Server Error`      | An internal Vipps problem.                              |
 
-All error responses contains an `error` object in the body, with details of the problem.
+All error responses contains an `error` object in the body, with details of the problem. See full list of error messages [here.](vipps-problems.md)
 
 \*: The limit is cautiously set quite low in the production environment, as we want to
 monitor performance closely before increasing the limit.
@@ -770,7 +790,7 @@ and can be 18 months, 10 years or something else.
 
 ## Validating the JSON Web Token (JWT) and the request
 
-The IPP/invoice hotel is responsible for validating the JWT before returning the document.
+The IPP/invoice hotel is responsible for [validating the JWT](vipps-integrator-checklist.md#invoice-documentattachment-retrieval-and-jwt) before returning the document.
 
 Vipps has chosen a modern standard for validating tokens with keys, and
 this is the same method used by Microsoft Azure, on which Vipps is built.
@@ -921,7 +941,7 @@ that attempts to validate the invoice, and updates the status to either `rejecte
 **Transition 3: `created` -> `revoked`**
 
 An ISP can revoke an invoice by calling
-[`PUT:/invoices/{id}/status/{revoked}`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Revoke_Invoice_v1)
+[`PUT:/invoices/{id}/status/revoked`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Revoke_Invoice_v1)
 It _could_ have been a `DELETE`, but we decided to use `PUT` verbs consistently.
 
 ### State 2: Rejected
@@ -998,7 +1018,11 @@ again with the updated payment details.
 **Transition 9: `approved` -> `pending`**
 
 The user may want to change an `approved` invoice back to `pending`.
-_This transition is not yet fully specified._
+This transition *can only be done by the same IPP who approved the invoice*.
+This limitation is required to make sure that the IPP who originally set the
+invoice to approved does not accidentally pay the invoice. There is no way
+the approving IPP can get notified if another IPP would set the state back to
+pending.
 
 **Transition 10: `approved` -> `deleted`**
 

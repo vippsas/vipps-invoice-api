@@ -55,6 +55,21 @@ install it using `pip`.
 
 # Swagger changelog
 
+## 0.3.35
+
+* add error type to recipient token not found response
+
+## 0.3.34
+
+* Added `maxLength: 40` for `issuerName`.
+
+## 0.3.33
+
+* ISP: Added details about `issuerIconUrl`.
+* IPP: "Version number equality"
+
+## 0.3.32
+
 ## 0.3.31
 
 * ISP: Make Commercial invoice mandatory in create invoice
@@ -69,7 +84,7 @@ install it using `pip`.
 
 ## 0.3.28
 
-* Additional information on minAmount. 
+* Additional information on minAmount.
 
 ## 0.3.27
 
