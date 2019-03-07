@@ -1056,7 +1056,7 @@ This is a final state and does not allow any further state transitions.
 | ---------------------- | ------------------------------- | ------------------------------------ | ------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------- |
 | **1.** `issuerName`           | Vipps Socks AS                  | string |Organization name of issuer.                  |                                                                                                                              |
 | **2.**`subject`                  | 918 130 047 - Vipps Socks Store                     | string | Invoice description.   | Keep it short and consistent. *Not yet supported. Use the same value as for `issuerName`. See payload below.*                                                                                                                             |
-|   **3.**`due`           |  13.03.2019 | integer |     Date and time.       |                |
+|   **3.**`due`           |  13.03.2019 | integer |     Date and time.       |  Make sure to take **daylight saving time** and **standard time** into account when implementing this functionality. E.g Standard time: `Midnight in Oslo 2019-03-30` is the same as `2019-03-30T00:00:00+01:00`in UTC time. Daylight saving time: `Midnight in Oslo 2019-03-30` is the same as `2019-03-30T00:00:00+02:00` UTC time. Do *not* hardcode this.          |
 | **4.**`amount`              | 1050 kr.                        | integer |Amount by lowest subdivision (øre).  |                                                                                                                              |
 | **5.**`minAmount`           | Press the amount to adjust minAmount.     | integer |Amount by lowest subdivision (øre).    | This is the minimum amount indicated by the issuer. Note that the user is always free to override this and pay any amount he or she wishes. *There is no validation that the paid amount is larger than the min amount.* |
 
@@ -1094,6 +1094,7 @@ protocol and not contain any tracking scripts or user tracking parameters.
 Supported image formats: SVG (Scalable Vector Graphics) and PNG (Portable Network Graphics).
 Minimum size: 82x82 pixels.
 Maximum size: 512x512 pixels.
+Shape: Square.
 
 ## Questions or comments?
 

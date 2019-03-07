@@ -1,0 +1,131 @@
+@startuml JWT
+
+'database Invoice_hotel
+entity ISP
+entity App_IPP
+database Vipps
+
+
+== Sequence ==
+
+ISP -> App_IPP : Send invoice
+App_IPP -> App_IPP : Show commercial invoice document
+App_IPP -> Vipps : Get commercial invoice document
+Vipps -> Vipps : Append JWT to URL
+Vipps --> App_IPP : Return URL 
+App_IPP -> App_IPP : Redirect user to the document
+App_IPP -> ISP : Request document
+ISP -> ISP : Validate JWT
+ISP -> App_IPP : Show invoice document
+
+
+/'== Fetch authorization token ==
+
+ISP_IPP -> Vipps: Fetch authorization token
+Vipps --> ISP_IPP: Authorization token
+
+== Fetch recipient token ==
+
+ISP_IPP -> Vipps: Fetch recipient token
+alt Recipient opt-in
+    Vipps --> ISP_IPP: Recipient token
+else Recipient opt-out
+    Vipps --> ISP_IPP: <font color=red><b>Recipient not found
+end
+
+== Create invoice ==
+
+ISP -> Vipps: Create invoice
+Vipps --> ISP: OK: Invoice created
+note left: Invoice has been inserted (created), but not yet validated
+
+alt Invoice validation OK
+    Vipps -> Recipient: Show invoice in app
+    Vipps --> Vipps: Invoice status: pending
+else Invoice validation fails
+    Vipps --> Vipps: Invoice status: rejected
+end
+
+== Invoice state: Pending -> Approved ==
+ 
+alt IPP
+    IPP -> Vipps: Change invoice status to approved
+else Recipient
+    Recipient -> Vipps: Recipient approves invoice
+end
+
+Vipps --> Vipps: Invoice status: approved
+
+== Invoice state: Pending -> Deleted ==
+
+alt IPP
+    IPP -> Vipps: Delete invoice
+else Recipient
+    Recipient -> Vipps: Recipient delete invoice
+end
+
+Vipps --> Vipps: Invoice status: deleted
+
+note right: Invoice cannot be modified 
+
+== Invoice state: Approved -> Deleted == 
+alt IPP
+    IPP -> Vipps: Delete invoice
+else Recipient
+    Recipient -> Vipps: Recipient stop approved payment
+    Recipient -> Vipps: Recipient delete invoice
+end
+
+Vipps --> Vipps: Invoice status: deleted
+
+note right: Invoice cannot be modified 
+
+== Invoice state: Pending -> Expired == 
+
+Recipient -> Vipps: Pending invoice not approved after due + 14 days   
+Vipps --> Vipps: Invoice status: expired
+note right: Invoice cannot be modified 
+
+== Invoice state: Created/Pending -> Revoked ==
+
+ISP -> Vipps: Invoice revoked by the ISP
+Vipps -> Recipient: Remove invoice from app
+Vipps --> Vipps: Invoice status: revoked
+note right: Invoice cannot be modified 
+
+== Invoice state: Approved -> Pending == 
+
+alt IPP
+    IPP -> Vipps: Change invoice status to pending
+else Recipient
+    Recipient -> Vipps: Recipient stop approved payment   
+end
+
+Vipps --> Vipps: Invoice status: pending
+
+== Get single invoice == 
+
+ISP_IPP -> Vipps: Get single invoice
+Vipps --> ISP_IPP: Single invoice
+
+== List invoices == 
+
+IPP -> Vipps: Get list of invoices
+Vipps --> IPP: List of invoices
+
+== Count invoices == 
+
+IPP -> Vipps: Get number of invoices
+Vipps --> IPP: Number of invoices
+
+== Get commercial invoice document == 
+
+IPP -> Vipps: Get commercial invoice document
+Vipps --> IPP: Commercial invoice document
+
+== Get attachment == 
+
+IPP -> Vipps: Get attachment for invoice
+Vipps --> IPP: Attachment '/
+
+@enduml
