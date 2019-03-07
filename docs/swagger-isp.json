@@ -109,6 +109,7 @@
     },
     "/invoices/statuses": {
       "get": {
+		"deprecated": true,
         "description": "Returns the status of all invoices matching the search parameters.",
         "operationId": "Multiple_Invoice_Statuses_v1",
         "summary": "Get invoice statuses",
@@ -203,6 +204,7 @@
     },
     "/invoices/statuses/count": {
       "get": {
+	    "deprecated": true,
         "description": "Returns an count aggregation of the invoices matching the search parameters, instead of individual invoices.",
         "operationId": "Multiple_Invoice_Statuses_Count_v1",
         "summary": "Get invoice statuses aggregates",
@@ -552,6 +554,7 @@
     },
     "/jwk": {
       "get": {
+		"deprecated": true,
         "description": "Deprecated. See /public/jwk",
         "summary": "Deprecated.",
         "tags": [

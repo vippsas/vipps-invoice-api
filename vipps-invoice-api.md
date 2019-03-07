@@ -132,7 +132,7 @@ Here are some examples of time-formats that can occur in the output. All are val
 `2006-01-01T15:04:05.729151+01:00`
 `2006-01-01T15:04:05Z`
 `2006-01-01T15:04:05.729151Z`
- 
+
 # Core functionality
 
 ## Send, receive and pay invoices
@@ -1058,7 +1058,7 @@ This is a final state and does not allow any further state transitions.
 | **2.**`subject`                  | 918 130 047 - Vipps Socks Store                     | string | Invoice description.   | Keep it short and consistent. *Not yet supported. Use the same value as for `issuerName`. See payload below.*                                                                                                                             |
 |   **3.**`due`           |  13.03.2019 | integer |     Date and time.       |                |
 | **4.**`amount`              | 1050 kr.                        | integer |Amount by lowest subdivision (øre).  |                                                                                                                              |
-| **5.**`minAmount`           | Press the amount to adjust minAmount.     | integer |Amount by lowest subdivision (øre).    | This is the minimum amount indicated by the issuer. Note that the user is always free to override this and pay any (positive) amount he or she wishes.|
+| **5.**`minAmount`           | Press the amount to adjust minAmount.     | integer |Amount by lowest subdivision (øre).    | This is the minimum amount indicated by the issuer. Note that the user is always free to override this and pay any amount he or she wishes. *There is no validation that the paid amount is larger than the min amount.* |
 
 
 ### Example JSON payload
