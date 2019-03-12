@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "a2106663-0faf-4411-92f4-599c6d6aba94",
-		"name": "Vipps Invoice IPP Prod Copy",
+		"_postman_id": "3852d627-4075-4c08-bab7-bb2b9bde7450",
+		"name": "Vipps Invoice IPP MT",
 		"description": "This is the API for Vipps Regninger. While we have worked closely with selected partners, we are more than happy to receive feedback, either with GitHub's issue functionality, or by email.\nPlease see https://github.com/vippsas/vipps-invoice-api for documentation",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -52,10 +52,10 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "https://api.vipps.no/accesstoken/get",
+							"raw": "https://apitest.vipps.no/accesstoken/get",
 							"protocol": "https",
 							"host": [
-								"api",
+								"apitest",
 								"vipps",
 								"no"
 							],
@@ -110,12 +110,12 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"type\": \"nin-no\",\n  \"value\": \"10059048312\"\n}"
+							"raw": "{\n  \"type\": \"nin-no\",\n  \"value\": \"22105000352\"\n}"
 						},
 						"url": {
-							"raw": "{{URL}}recipients/tokens",
+							"raw": "{{TEST-URL}}recipients/tokens",
 							"host": [
-								"{{URL}}recipients"
+								"{{TEST-URL}}recipients"
 							],
 							"path": [
 								"tokens"
@@ -161,12 +161,12 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"type\": \"msisdn\",\n  \"value\": \"4792496079\"\n}"
+							"raw": "{\n  \"type\": \"msisdn\",\n  \"value\": \"4790412443\"\n}"
 						},
 						"url": {
-							"raw": "{{URL}}recipients/tokens",
+							"raw": "{{TEST-URL}}recipients/tokens",
 							"host": [
-								"{{URL}}recipients"
+								"{{TEST-URL}}recipients"
 							],
 							"path": [
 								"tokens"
@@ -221,13 +221,13 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{URL}}invoices?status=all",
+							"raw": "{{TEST-URL}}invoices?state=all",
 							"host": [
-								"{{URL}}invoices"
+								"{{TEST-URL}}invoices"
 							],
 							"query": [
 								{
-									"key": "status",
+									"key": "state",
 									"value": "all"
 								}
 							]
@@ -263,17 +263,17 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{URL}}invoices/count?status=all",
+							"raw": "{{TEST-URL}}invoices/count?state=pending",
 							"host": [
-								"{{URL}}invoices"
+								"{{TEST-URL}}invoices"
 							],
 							"path": [
 								"count"
 							],
 							"query": [
 								{
-									"key": "status",
-									"value": "all"
+									"key": "state",
+									"value": "pending"
 								}
 							]
 						},
@@ -290,10 +290,10 @@
 								"id": "bf500ca6-16aa-40b9-9651-eacba676f024",
 								"exec": [
 									"if (pm.response.code == 200){",
-									"    pm.environment.set(\"invoice-id\", pm.response.json().invoiceId);",
 									"    pm.environment.set(\"attachment-id\", pm.response.json().attachments.map(a => a.id));",
 									"    pm.environment.set(\"mime-type\", pm.response.json().attachments.map(a => a.mimeTypes[0]));",
 									"    pm.environment.set(\"etag\", pm.response.json().status.etag);",
+									"    pm.environment.set(\"invoiceId\", pm.request.url['path'][3]);",
 									"}",
 									""
 								],
@@ -306,23 +306,23 @@
 						"header": [
 							{
 								"key": "Accept",
-								"value": "application/json",
-								"type": "text"
+								"type": "text",
+								"value": "application/json"
 							},
 							{
 								"key": "Authorization",
-								"value": "{{access-token}}",
-								"type": "text"
+								"type": "text",
+								"value": "{{access-token}}"
 							},
 							{
 								"key": "Ocp-apim-subscription-key",
-								"value": "{{subscription-key}}",
-								"type": "text"
+								"type": "text",
+								"value": "{{subscription-key}}"
 							},
 							{
 								"key": "vippsinvoice-recipienttoken",
-								"value": "{{recipient-token}}",
-								"type": "text"
+								"type": "text",
+								"value": "{{recipient-token}}"
 							}
 						],
 						"body": {
@@ -330,12 +330,12 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{URL}}invoices/orgno-no.<org.nr>.<invoiceId>",
+							"raw": "{{TEST-URL}}invoices/orgno-no.918130047.2562032543412545",
 							"host": [
-								"{{URL}}invoices"
+								"{{TEST-URL}}invoices"
 							],
 							"path": [
-								"orgno-no.<org.nr>.<invoiceId>"
+								"orgno-no.918130047.2562032543412545"
 							]
 						},
 						"description": "Returns a single invoice identified by its unique id. This is used to verify the state of an invoice, e.g. if it has been validated and now is available for recipients."
@@ -351,6 +351,16 @@
 								"id": "9dda0802-5ed3-4ed9-b6be-91c39f22aea2",
 								"exec": [
 									"pm.environment.set(\"idempotency-key\", \"postman-vipps\" + Math.floor(100000 + Math.random() * 900000));",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "1bf76cc2-d4d2-4680-807f-2d0d20266e01",
+								"exec": [
 									""
 								],
 								"type": "text/javascript"
@@ -390,12 +400,12 @@
 							"raw": "{\n  \"due\": \"2019-03-13T15:00:00+00:00\",\n  \"amount\": 25043\n}"
 						},
 						"url": {
-							"raw": "{{URL}}invoices/{{invoice-id}}/status/approved",
+							"raw": "{{TEST-URL}}invoices/{{invoiceId}}/status/approved",
 							"host": [
-								"{{URL}}invoices"
+								"{{TEST-URL}}invoices"
 							],
 							"path": [
-								"{{invoice-id}}",
+								"{{invoiceId}}",
 								"status",
 								"approved"
 							]
@@ -452,12 +462,12 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{TEST-URL}}invoices/{{invoice-id}}/status/pending",
+							"raw": "{{TEST-URL}}invoices/{{invoiceId}}/status/pending",
 							"host": [
 								"{{TEST-URL}}invoices"
 							],
 							"path": [
-								"{{invoice-id}}",
+								"{{invoiceId}}",
 								"status",
 								"pending"
 							]
@@ -514,67 +524,17 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{URL}}invoices/{{invoice-id}}/status/deleted",
+							"raw": "{{TEST-URL}}invoices/{{invoiceId}}/status/deleted",
 							"host": [
-								"{{URL}}invoices"
+								"{{TEST-URL}}invoices"
 							],
 							"path": [
-								"{{invoice-id}}",
+								"{{invoiceId}}",
 								"status",
 								"deleted"
 							]
 						},
 						"description": "Delete an invoice. A recipient may delete an invoice to indicate the he does not intent to approve and pay an invoice.\nA deleted invoice is removed from the list of pending invoices for the recipient on _all_ channels.\nAn invoice can be deleted if it currently is the state `pending` or `approved`. If it currently is in the state `approved`, the linked payment must be canceled. Hence, it is up to the IPP if they expose this functionality to the recipient."
-					},
-					"response": []
-				},
-				{
-					"name": "Get commercial invoice document",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json",
-								"type": "text"
-							},
-							{
-								"key": "Authorization",
-								"value": "{{access-token}}",
-								"type": "text"
-							},
-							{
-								"key": "Ocp-apim-subscription-key",
-								"value": "{{subscription-key}}",
-								"type": "text"
-							},
-							{
-								"key": "vippsinvoice-recipienttoken",
-								"value": "{{recipient-token}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{URL}}invoices/{{invoice-id}}/commercial-invoice?mimeType={{mime-type}}",
-							"host": [
-								"{{URL}}invoices"
-							],
-							"path": [
-								"{{invoice-id}}",
-								"commercial-invoice"
-							],
-							"query": [
-								{
-									"key": "mimeType",
-									"value": "{{mime-type}}"
-								}
-							]
-						},
-						"description": "Returns a time-limited URL to the commercial invoice document for the given invoice. This URL typically points to a third-party invoice hotel that hosts the document. The third-party is responsible for validating the JWT."
 					},
 					"response": []
 				}
@@ -603,9 +563,9 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{TEST-URL}}jwk",
+							"raw": "{{JWK-URL}}jwk",
 							"host": [
-								"{{TEST-URL}}jwk"
+								"{{JWK-URL}}jwk"
 							]
 						},
 						"description": "Get JSON Web Key Set. Use a JWK library to parse this into a public key."
