@@ -55,6 +55,10 @@ install it using `pip`.
 
 # Swagger changelog
 
+## 0.3.37
+
+* remove metdata properties
+
 ## 0.3.36
 
 * Change error type on status to match implementation
