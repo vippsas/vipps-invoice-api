@@ -9,7 +9,7 @@ Please use GitHub's built-in functionality for
 [pull requests](https://github.com/vippsas/vipps-invoice-api/pulls),
 or contact [Vipps Integration](https://github.com/vippsas/vipps-developers/blob/master/contact.md).
 
-Document version: 0.3.15.
+Document version: 0.3.16.
 
 # Overview
 
@@ -52,8 +52,6 @@ Document version: 0.3.15.
   - [API access token](#api-access-token)
   - [Recipient token](#recipient-token)
 - [Recommended flow for sending multiple invoices](#recommended-flow-for-sending-multiple-invoices)
-- [When to use the /invoices/statuses and /invoices/statuses/count](#when-to-use-the-invoicesstatuses-and-invoicesstatusescount)
-  - [Usage example](#usage-example)
 - [Examples](#examples)
   - [Example 1: Send invoice](#example-1-send-invoice)
   - [Example 2: Fetch invoices for recipient](#example-2-fetch-invoices-for-recipient)
@@ -555,77 +553,6 @@ for each invoice in invoicesToInsert {
     logSuccess(invoice)
   }
 }
-```
-
-# When to use the /invoices/statuses and /invoices/statuses/count
-
-> **TL;DR;** Do not use these endpoints unless it's the only way to make the integration work with existing systems.
-
-The status endpoints were introduced early 2019 to ease integration with legacy systems.
-
-**IMPORTANT**: The status endpoints are not intended to be used as the primary way of checking statuses, as it has some trade-offs compared to the recommended flow. If in doubt, avoid using these endpoints in your main flow. If still uncertain, contact Vipps to get assistance in choosing the right integration strategy. 
-
-There are several drawbacks of using this approach. There is a limit of how far back the queries will work and how many items that can be returned in the `/invoices/statuses` endpoint. At the time of writing, the max count is 1000. The `/invoices/statuses/count` endpoint will work for scenarios where the count is larger than 1000. If using the count endpoint, it will not be clear which invoices are failed, only how many. This is analogous as to how things are when working with existing batch-systems. In the case of a transient error (e.g. network issues, downtime, etc.) retrying is more complicated in this scenario. The API is designed to be idempotent, so retrying everything should work fine. It just takes more time and resources. When an invoice is rejected, figuring out which ones are rejected and why is cumbersome using the status endpoints.
-
-One of the use cases this endpoint is intended to solve is making it fit better in system systems that was designed to be purely batch-oriented. I.e. systems that cannot work (efficiently) with single instances of invoices. These systems are widespread, and sometimes integrating with a system designed to operate on single invoices is impractical.  
-
-A typical flow for these systems is shipping one or more file (consignment) consisting of a total of *N* invoices. The processing of each consignment is atomic and means that if just 1 of the *N* invoices fails, all the other invoices in that consignment would typically be marked as failed. The consignment would need to either be fixed or retried. This is an overhead, and sometimes complicated, when only 1 invoice out of *N* invoices failed. 
-
-To mitigate this scenario, the status endpoint mimics this to some extent by returning a count based on user defined properties (metadata). An integrator can add properties such as `batchId`, `consignmentId`, `sequenceNumber` and `userId` as metadata on the invoice. When the invoices are received, the integrator can query to get the status of the invoices. An integrator wanting to know when all the *N* invoices have been processed can add a metadata property called `batchId` with the value `12345` to the invoice document. After sending N invoices with the same batchId the integrator can query the `/invoice/status/count?from={DATE}&metadataKeys=batchId&metadataValues=12345`. The returned data will be an object stating the count of invoices in that specific batch that are in the various states. When the total count is equal to *N*, then all documents have been received. All documents are processed when the count of invoices in the created state is 0. If the pending count is *N*, all invoices have been successfully processed. 
-
-## Usage example
-
-You can use the endpoints with and without metadata. Adding metadata allows querying for specific invoices. The query can only filter on the metadata properties provided.
-The metadata is provided in the invoice document body when sending it to Vipps and will not be visible to anyone. An ISP can only query its own invoices. 
-
-Example of metadata:
-```json
-"metadata": {
-  "batchId": "12345",
-  "company": "Vipps"
-}
-```
-
-How this is used is up to the ISP. In the case an IPP want to retrieve the invoices matching a query, the following request would retrieve all invoices where `batchId=12345` and `company=Vipps`.
-`/invoice/status/count?from={DATE}&metadataKeys=batchId,company&metadataValues=12345,Vipps`
-
-The returned data would look something like this:
-```json 
-{
-  "created": 3,
-  "pending": 42,
-  "rejected": 1
-}
-```
-
-The other endpoint could be used in a similar way:
-`/invoice/status?from={DATE}&metadataKeys=batchId,company&metadataValues=12345,Vipps`
-
-The return format is different and it has a limit of at most 1000 items. There is no pagination.
-
-```json 
-[
-  {
-    "actorId": "some-isp",
-    "invoiceId": "orgnr-no.123456789.abcdef98765",
-    "state": "pending",
-    "lastModified": "...",
-    "metadata": {
-      "batchId": "12345",
-      "company": "Vipps"
-    }
-  },
-  {
-    "actorId": "some-isp",
-    "invoiceId": "orgnr-no.123456789.fedcba12345",
-    "state": "rejected",
-    "lastModified": "...",
-    "metadata": {
-      "batchId": "12345",
-      "company": "Vipps"
-    }
-  }
-]
 ```
 
 # Examples
