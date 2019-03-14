@@ -9,7 +9,7 @@ Please use GitHub's built-in functionality for
 [pull requests](https://github.com/vippsas/vipps-invoice-api/pulls),
 or contact [Vipps Integration](https://github.com/vippsas/vipps-developers/blob/master/contact.md).
 
-Document version: 0.3.15.
+Document version: 0.3.16.
 
 # Overview
 
@@ -955,6 +955,8 @@ never shown to any recipient. This is a final state and does not allow any furth
 The invoice validated successfully and is now delivered to recipients when
 IPPs fetch invoices for a recipient.
 
+**Note:** After a newly created invoice changes status from "created" to "pending" there is no point in continuously asking for the invoices' status, as the invoice recipient is the next step in the chain. The change from "created" to "pending" usually takes 5 seconds, it will of course vary over time.
+
 #### Transitions
 
 **Transition 4: `pending` -> `expired`**
@@ -1002,6 +1004,8 @@ An `approved` invoice means that the recipient has actively approved the invoice
 by scheduling a payment through an IPP. The payment has to be scheduled within
 the allowed time, latest at the due timestamp and the scheduled amount has to be within
 the allowed range defined in the invoice.
+
+**Note:** Status "approved" is no guarantee that the invoice will actually be paid, just that it's scheduled for payment. It might fail due to a number of reasons, including there not being sufficient funds on the user's bank account or the user simply deletes the invoice from their online banking system.
 
 ### Transitions
 
