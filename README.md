@@ -55,6 +55,10 @@ install it using `pip`.
 
 # Swagger changelog
 
+## 0.3.40
+
+* IPP: Add optional details about bankCode in set status to delete or pending
+
 ## 0.3.39
 * Add field `scope` to `invoiceOut` model. The value is either `vipps` or `nets`
   and indicates if the invoice was originally sent as Vipps Regning or eFaktura.
