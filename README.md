@@ -55,6 +55,11 @@ install it using `pip`.
 
 # Swagger changelog
 
+## 0.3.39
+* Add field `scope` to `invoiceOut` model. The value is either `vipps` or `nets`
+  and indicates if the invoice was originally sent as Vipps Regning or eFaktura.
+  The field may be used to filter the returned list of invoices.
+
 ## 0.3.38
 * Changed name from "Vipps Regninger" to "Vipps eFaktura"
 
