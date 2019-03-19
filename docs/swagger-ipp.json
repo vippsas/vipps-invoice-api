@@ -1250,7 +1250,7 @@
         "bankCode": {
           "type": "string",
           "pattern": "^\\d{4}$",
-          "description": "Bank code of the bank account originally used to pay the invoice (bankregistreringsnummer)",
+          "description": "Bank code (bankregistreringsnummer) of the bank changing the state of the invoice. If the invoice is in state approved, the bank changing the status have to be the same bank that approved originally.",
           "example": 3305
         }
       }
