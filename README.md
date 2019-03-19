@@ -53,6 +53,30 @@ install it using `pip`.
 
 ```pip install -r requirements.txt # Will install all requirements```
 
+# Banks Vipps eFaktura currently works with
+
+|Bank|Bank|
+|---|---|
+|BN Bank|DNB|
+|Etne Sparebank|Fana Sparebank|
+|Flekkefjord Sparebank|Handelsbanken|
+|Haugesund Sparebank|Helgeland Sparebank|
+|Lillesands Sparebank|Luster Sparebank|
+|OBOS-banken|Sbanken|
+|Skudenes og Aakra Sparebank|SpareBank 1 BV|
+|SpareBank 1 Gudbrandsdal|SpareBank 1 Hallingdal Valdres|
+|SpareBank 1 Lom og Skjåk|SpareBank 1 Modum|
+|SpareBank 1 Nord-Norge|SpareBank 1 Nordvest|
+|SpareBank 1 Ringerike Hadeland|SpareBank 1 SMN|
+|SpareBank 1 SR-Bank|SpareBank 1 Søre Sunnmøre|
+|SpareBank 1 Telemark|SpareBank 1 Østfold Akershus|
+|SpareBank 1 Østlandet|Sparebanken Møre|
+|Sparebanken Sogn og Fjordane|Sparebanken Sør|
+|Sparebanken Vest|Sparebanken Øst|
+|Spareskillingsbanken|Søgne og Greipstad Sparebank|
+|Voss Sparebank||
+
+
 # Swagger changelog
 
 ## 0.3.40
