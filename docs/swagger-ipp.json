@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Vipps Invoice IPP API",
-    "version": "0.3.39",
+    "version": "0.3.40",
     "description": "This is the API for Vipps eFaktura. While we have worked closely with selected partners, we are more than happy to receive feedback, either with GitHub's issue functionality, or by email.\nPlease see https://github.com/vippsas/vipps-invoice-api for documentation"
   },
   "host": "apitest.vipps.no",
@@ -449,6 +449,13 @@
             "enum": [
               "bearer <access_token>"
             ]
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/StatusChangeDetails"
+            }
           }
         ],
         "responses": {
@@ -525,6 +532,13 @@
             "enum": [
               "bearer <access_token>"
             ]
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/StatusChangeDetails"
+            }
           }
         ],
         "responses": {
@@ -1229,6 +1243,17 @@
         "due",
         "amount"
       ]
+    },
+    "StatusChangeDetails": {
+      "type": "object",
+      "properties": {
+        "bankCode": {
+          "type": "string",
+          "pattern": "^\\d{4}$",
+          "description": "Bank code (bankregistreringsnummer) of the bank changing the state of the invoice. If the invoice is in state approved, the bank changing the status have to be the same bank that approved originally.",
+          "example": 3305
+        }
+      }
     },
     "MsError": {
       "type": "object",
