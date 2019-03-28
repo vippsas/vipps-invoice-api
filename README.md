@@ -79,6 +79,10 @@ install it using `pip`.
 
 # Swagger changelog
 
+## 0.3.41
+
+* ISP - Validation of due: Must be minimum 3 days in the future
+
 ## 0.3.40
 
 * IPP: Add optional details about bankCode in set status to delete or pending
