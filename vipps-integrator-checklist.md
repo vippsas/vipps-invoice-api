@@ -156,11 +156,20 @@ See additional details on validating the token below.
 
 ## Invoice document/attachment retrieval and JWT
 
-*IPP / ISP is responsible for ensuring that the invoice hotel is validating the JWT correctly ⚠*
+*ISP is responsible for ensuring that the invoice hotel is validating the JWT correctly ⚠*
+
+### Motivation for validation of JWT
+
+In order to prevent anyone other than the invoice recipient to view the invoice document; Vipps will provide a JWT token that the IPP/ISP is **required** to validate before allowing access to the invoice document. 
+
+If the ISP should be found in breach of this at any point, Vipps will take the whatever appropriate steps required to ensure a quick resolution to protect the confidential data of the invoice recipient. 
+***This includes, but is not limited to, preventing the ISP from using our services to send any new invoices.***
 
 ### Development instructions
 
-It is strongly recommended to read the API documentation to learn how to work with the JWT.
+It is **strongly** recommended to read the API documentation to learn how to work with the JWT.
+
+If you are unfamiliar with JWT and JWK you need to spend some time reading up on these technologies.
 
 ### Tests
 
