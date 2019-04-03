@@ -1,0 +1,5 @@
+@startuml
+skinparam monochrome true
+
+Title JWT validation flow
+
