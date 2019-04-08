@@ -79,6 +79,10 @@ install it using `pip`.
 
 # Swagger changelog
 
+## 0.3.42
+
+* Added information in the issuerIconUrl description: Issuer logo is not yet supported. 
+
 ## 0.3.41
 
 * ISP - Validation of due: Must be minimum 3 days in the future

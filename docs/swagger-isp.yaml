@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Vipps Invoice ISP API
-  version: '0.3.41'
+  version: '0.3.42'
   description: >-
 
     This is the API for Vipps eFaktura. While we have worked closely with
