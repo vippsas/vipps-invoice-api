@@ -79,6 +79,10 @@ install it using `pip`.
 
 # Swagger changelog
 
+## 0.3.43
+
+* InvoiceOut: Add new field externalReference
+
 ## 0.3.42
 
 * Added information in the issuerIconUrl description: Issuer logo is not yet supported. 
