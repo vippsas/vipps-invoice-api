@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Vipps Invoice IPP API
-  version: '0.3.41'
+  version: '0.3.43'
   description: >-
     This is the API for Vipps eFaktura. While we have worked closely with
     selected partners, we are more than happy to receive feedback, either with GitHub's
@@ -772,6 +772,10 @@ definitions:
         enum:
           - vipps
           - nets
+      externalReference:
+        type: string
+        description: An external reference to the invoice. For a Vipps eFaktura, this will be the Nets eFaktura reference.
+        example: '855533275'
       etag:
         type: string
         description: System generated property used for optimistic concurrency control.
