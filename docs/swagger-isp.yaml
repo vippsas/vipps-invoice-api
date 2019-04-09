@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Vipps Invoice ISP API
-  version: '0.3.42'
+  version: '0.3.43'
   description: >-
 
     This is the API for Vipps eFaktura. While we have worked closely with
@@ -647,6 +647,16 @@ definitions:
         format: date-time
         description: When an invoice was created
         example: '2018-03-13T15:00:00+00:00'
+      source:
+        type: string
+        description: original invoice source
+        enum:
+          - vipps
+          - nets
+      externalReference:
+        type: string
+        description: An external reference to the invoice. For a Vipps eFaktura, this will be the Nets eFaktura reference.
+        example: '855533275'  
       etag:
         type: string
         description: System generated property used for optimistic concurrency control.
