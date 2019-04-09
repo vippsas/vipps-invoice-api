@@ -39,7 +39,7 @@
   "paths": {
     "/recipients/tokens": {
       "post": {
-        "description": "Request a `recipientToken` by providing either the recipients Norwegian\nnational identification or mobile number.\n\nWe have created a few test users, please contact integration@vipps.no\nto get details for your test user.",
+        "description": "Request a `recipientToken` by providing either the recipients Norwegian\nnational identification or mobile number.\n\nWe have created a few test users, please contact [Vipps Integration](https://github.com/vippsas/vipps-developers/blob/master/contact.md)\nto get details for your test user.",
         "operationId": "Request_Recipient_Token_v1",
         "summary": "Request recipient token",
         "tags": [
