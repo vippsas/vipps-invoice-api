@@ -18,6 +18,7 @@ The main API documentaion is [vipps-invoice-api.md](https://github.com/vippsas/v
 ## Test users
 
 This test user can receive invoices, and approve, etc:
+Payment of invoices, both for Vipps Regninger and Vipps Faktura is not possible yet.
 
 | customerId | NIN (fødselsnummer) | MSISDN (phone number) | First name | Last name | Owner |
 | ---------- | ------------------- | --------------------- | ---------- | --------- | ----- |

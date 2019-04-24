@@ -221,14 +221,13 @@ This API returns the following HTTP statuses in the responses:
 | `403 Forbidden`         | Authentication ok, but credentials lacks authorization  |
 | `404 Not Found`         | The resource was not found                              |
 | `409 Conflict`          | Unsuccessful due to conflicting resource                |
-| `429 Too Many Requests` | There is currently a limit of max 200 calls per second\* |
-| `500 Server Error`      | An internal Vipps problem.                              |
+| `429 Too Many Requests` | There is currently a limit of max 400 calls per second  |
+| `500 Server Error`      | An internal Vipps problem                               |
 
 All error responses contains an `error` object in the body, with details of the problem. See full list of error messages [here.](vipps-problems.md)
 
 \*: The limit is cautiously set quite low in the production environment, as we want to
 monitor performance closely before increasing the limit.
-We count HTTP requests per `client_id` and product (ISP and IPP).
 For now, all HTTP requests are counted and rate-limited.
 We have previously requested data from integrators about volume, times, etc,
 but only received this from one integrator.
