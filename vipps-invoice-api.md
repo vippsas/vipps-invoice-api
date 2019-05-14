@@ -113,6 +113,8 @@ To get a token, follow
 | Actor       | An ISP, IPP or invoice recipient.                                                                                                                                                                                            |
 | Idempotency | The property of endpoints to be called multiple times without changing the result beyond the initial application.                                                                                                            |
 
+![alt text](https://github.com/vippsas/vipps-invoice-api/blob/master/images/vipps-efaktura-overview.png "Vipps eFaktura Overview")
+
 ## Time format and time zones
 
 We use the [RFC-3339](https://www.ietf.org/rfc/rfc3339.txt) format, which is a profile of _ISO 8601_. This format includes time zone information. As an IPP/ISP this means that date and time sent to the API *must* be specify the time zone. Having time zone information implies that the API can work with date and time in a consistent and predictable manner. Internally the RFC-3339 time format is stored relative to UTC.
