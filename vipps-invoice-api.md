@@ -113,7 +113,7 @@ To get a token, follow
 | Actor       | An ISP, IPP or invoice recipient.                                                                                                                                                                                            |
 | Idempotency | The property of endpoints to be called multiple times without changing the result beyond the initial application.                                                                                                            |
 
-![alt text](https://github.com/vippsas/vipps-invoice-api/blob/master/images/vipps-efaktura-overview.png "Vipps eFaktura Overview")
+![alt text](https://raw.githubusercontent.com/vippsas/vipps-invoice-api/master/images/vipps-efaktura-overview.PNG "Vipps eFaktura Overview")
 
 ## Time format and time zones
 
