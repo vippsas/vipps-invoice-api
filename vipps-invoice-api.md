@@ -108,12 +108,14 @@ To get a token, follow
 | ISP         | The invoice _service_ providers: Actors who submit invoices. Either for themselves or on behalf of their clients.                                                                                                            |
 | IPP         | The invoice _payment_ providers: Actors who handle invoices for the invoice recipients and execute payments, e.g. banks, the Vipps app.                                                                                      |
 | Recipient   | The end user that receives invoices, and pays them through the IPP.                                                                                                                                                          |
+| Issuer      | The organisation that sends the invoice, through the ISP, to the Recipient.                                                                                                                                                                     |
 | NIN         | A national identification number, e.g. SSN in Norway ("fødselsnummer", 11 digits).                                                                                                                                           |
 | MSISDN      | A number uniquely identifying a subscription in a GSM or a UMTS mobile network. Simply put, it is the mapping of the telephone number to the SIM card in a mobile phone. See [MSISDN](https://en.wikipedia.org/wiki/MSISDN). |
 | Actor       | An ISP, IPP or invoice recipient.                                                                                                                                                                                            |
 | Idempotency | The property of endpoints to be called multiple times without changing the result beyond the initial application.                                                                                                            |
 
 ![alt text](https://raw.githubusercontent.com/vippsas/vipps-invoice-api/master/images/vipps-efaktura-overview.PNG "Vipps eFaktura Overview")
+Important to note that the invoice document isn't required to be a PDF document. It can just as easily be an HTML page.
 
 ## Time format and time zones
 
