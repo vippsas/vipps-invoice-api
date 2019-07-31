@@ -2,7 +2,7 @@
 
 This is the API documentation for [**Vipps eFaktura**](https://www.vipps.no/produkter-og-tjenester/bedrift/send-regninger/send-regninger/).
 
-_Please note that Vipps eFaktura supersedes the older Vipps Faktura, both as a product and API. Vipps Faktura will be shut down on March 31 2019._
+_Please note that Vipps eFaktura supersedes the older Vipps Faktura, both as a product and API. Vipps Faktura was shut down on March 31 2019._
 
 Please use GitHub's built-in functionality for
 [issues](https://github.com/vippsas/vipps-invoice-api/issues),
