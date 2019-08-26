@@ -61,6 +61,7 @@ install it using `pip`.
 |BN Bank|Bulder Bank|
 |DNB|Etne Sparebank|
 |Fana Sparebank|Flekkefjord Sparebank|
+|Handelsbanken||
 |Haugesund Sparebank|Helgeland Sparebank|
 |Lillesands Sparebank|Luster Sparebank|
 |OBOS-banken|Sbanken|
