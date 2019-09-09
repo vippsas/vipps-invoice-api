@@ -9,7 +9,7 @@ Please use GitHub's built-in functionality for
 [pull requests](https://github.com/vippsas/vipps-invoice-api/pulls),
 or contact [Vipps Integration](https://github.com/vippsas/vipps-developers/blob/master/contact.md).
 
-Document version: 0.3.19.
+Document version: 0.3.20.
 
 # Overview
 
@@ -23,6 +23,7 @@ Document version: 0.3.19.
     - [Getting access to the Vipps Developer Portal](#getting-access-to-the-vipps-developer-portal)
     - [Getting an access token](#getting-an-access-token)
   - [Terminology](#terminology)
+  - [Vipps eFaktura flow](#vipps-efaktura-flow)
   - [Time format and time zones](#time-format-and-time-zones)
 - [Core functionality](#core-functionality)
   - [Send, receive and pay invoices](#send-receive-and-pay-invoices)
@@ -114,7 +115,9 @@ To get a token, follow
 | Actor       | An ISP, IPP or invoice recipient.                                                                                                                                                                                            |
 | Idempotency | The property of endpoints to be called multiple times without changing the result beyond the initial application.                                                                                                            |
 
-![alt text](https://raw.githubusercontent.com/vippsas/vipps-invoice-api/master/images/vipps-efaktura-overview.PNG "Vipps eFaktura Overview")
+## Vipps eFaktura flow
+
+![Vipps eFaktura flow](images/vipps-efaktura-overview.png)
 Important to note that the invoice document isn't required to be a PDF document. It can just as easily be an HTML page.
 
 ## Time format and time zones
@@ -161,7 +164,7 @@ We guarantee that any correctly received invoice is inserted exactly once.
 
 ## Invoice validation
 
-A quick syntactic validation is performed before accepting the invoice. The error messages should explain what is wrong. 
+A quick syntactic validation is performed before accepting the invoice. The error messages should explain what is wrong.
 Some rules to be aware of:
 
 * Due date must be at least 72 hours into the future.
@@ -171,8 +174,8 @@ Some rules to be aware of:
 * The account number must be 11 digits.
 * Min. amount must be less or equal to the amount.
 
-The next part of the validation of the invoice is an _asynchronous_ process. 
-This is because we have no possibility to guarantee, or even estimate, 
+The next part of the validation of the invoice is an _asynchronous_ process.
+This is because we have no possibility to guarantee, or even estimate,
 the response times for all required validation and risk check to be performed.
 
 Therefore, the invoice will be in a `created` state once it is inserted.
@@ -494,18 +497,18 @@ submit several invoices to the same recipient.
 
 # Recommended flow for sending multiple invoices
 
-It is not possible for Vipps to give generic advice that will 
-fit each integrator's context. Please note that each context is 
+It is not possible for Vipps to give generic advice that will
+fit each integrator's context. Please note that each context is
 different and require a unique approach. In the following section we give a very high-level overview of one way to send multiple invoices.
 
-There are several benefits to using an approach similar to this. 
+There are several benefits to using an approach similar to this.
 Overall it enables more control on how to deal with the different cases that can happen when sending invoices. It’s also a lot quicker and more efficient to process just the few that failed due to transient errors instead of sending 10 000 invoices again because you don’t know which ones failed. If an invoice is rejected by Vipps, it is simple with the recommended flow to send the invoice using another delivery mechanism (e.g. mail). It is also simpler to perform the recommended flow with live data. I.e. sending invoices directly instead of only a few times per day.
 
 The gist of it is as following:
   * Get all documents to send to Vipps (live or batched)
   * Start by sending all invoices making sure that you get a definitive status (i.e. not HTTP 5XX)
     * if HTTP 2XX -> continue
-    * if HTTP 4XX -> invoice is invalid 
+    * if HTTP 4XX -> invoice is invalid
     * if HTTP 5XX -> retry (with a back-off strategy)
   * When all are sent, start polling status on each invoice
   * If the status is no longer `created`, the invoice has been processed and is in either `pending` or `rejected` state
@@ -537,7 +540,7 @@ for each invoice in invoicesToInsert {
 
 // At this point all request are sent to our API, and will most
 // likely finish very fast. That means that most of the requests
-// in the next section will receive a definitive status 
+// in the next section will receive a definitive status
 // (i.e. not 'created') on the first request
 
 for each invoice in invoicesToInsert {
@@ -549,7 +552,7 @@ for each invoice in invoicesToInsert {
      // servers are available to perform the validation.
      // Increase retryDelay for each attempt.
      scheduleForRetry(invoice, retryDelay)
-  } 
+  }
   else if vippsInvoice.currentState == "rejected" {
     handleInvoiceRejection(invoice)
   } else if vippsInvoice.currentState == "pending" {
