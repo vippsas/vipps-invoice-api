@@ -83,6 +83,10 @@ install it using `pip`.
 
 # Swagger changelog
 
+## 0.3.44
+
+* add statistics to IPP invoice model
+
 ## 0.3.43
 
 * InvoiceOut: Add new field externalReference

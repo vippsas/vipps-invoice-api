@@ -1,14 +1,10 @@
 swagger: '2.0'
 info:
   title: Vipps Invoice IPP API
-  version: '0.3.43'
-  description: >-
-    This is the API for Vipps eFaktura. While we have worked closely with
-    selected partners, we are more than happy to receive feedback, either with GitHub's
-    issue functionality, or by email.
-
+  version: 0.3.44
+  description: |-
+    This is the API for Vipps eFaktura. While we have worked closely with selected partners, we are more than happy to receive feedback, either with GitHub's issue functionality, or by email.
     Please see https://github.com/vippsas/vipps-invoice-api for documentation
-
 host: apitest.vipps.no
 basePath: /vipps-ipp/v1
 tags:
@@ -60,14 +56,14 @@ paths:
           description: Recipient token
           schema:
             $ref: '#/definitions/RecipientsTokensPost200ApplicationJsonResponse'
-        '401':
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/MsError'
         '400':
           description: Bad Request
           schema:
             $ref: '#/definitions/Error'
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/MsError'
         '404':
           description: Recipient not Found
           schema:
@@ -93,7 +89,7 @@ paths:
       parameters:
         - name: state
           in: query
-          description: 'Filter invoices by state. Default is "pending".'
+          description: Filter invoices by state. Default is "pending".
           type: string
           default: pending
           enum:
@@ -147,7 +143,7 @@ paths:
       parameters:
         - name: state
           in: query
-          description: 'Filter invoices by state. Default is "pending".'
+          description: Filter invoices by state. Default is "pending".
           type: string
           default: pending
           enum:
@@ -204,7 +200,7 @@ paths:
           description: The unique invoice id.
           required: true
           type: string
-          pattern: "^([a-zA-Z-]+)\\.(\\d+)\\.([a-zA-Z0-9-]+)$"
+          pattern: '^([a-zA-Z-]+)\.(\d+)\.([a-zA-Z0-9-]+)$'
         - name: vippsinvoice-recipienttoken
           in: header
           description: Recipient token. Issued by Vipps. Valid for 15 minutes.
@@ -251,7 +247,7 @@ paths:
           description: The unique invoice id.
           required: true
           type: string
-          pattern: "^([a-zA-Z-]+)\\.(\\d+)\\.([a-zA-Z0-9-]+)$"
+          pattern: '^([a-zA-Z-]+)\.(\d+)\.([a-zA-Z0-9-]+)$'
         - name: If-Match
           in: header
           description: Property for optimistic concurrency control. Expects the etag of the last known invoice status. Status updates are only performed if the provided etag matches with the etag of the current status.
@@ -311,7 +307,7 @@ paths:
           description: The unique invoice id.
           required: true
           type: string
-          pattern: "^([a-zA-Z-]+)\\.(\\d+)\\.([a-zA-Z0-9-]+)$"
+          pattern: '^([a-zA-Z-]+)\.(\d+)\.([a-zA-Z0-9-]+)$'
         - name: If-Match
           in: header
           description: Property for optimistic concurrency control. Expects the etag of the last known invoice status. Status updates are only performed if the provided etag matches with the etag of the current status.
@@ -372,7 +368,7 @@ paths:
           description: The unique invoice id.
           required: true
           type: string
-          pattern: "^([a-zA-Z-]+)\\.(\\d+)\\.([a-zA-Z0-9-]+)$"
+          pattern: '^([a-zA-Z-]+)\.(\d+)\.([a-zA-Z0-9-]+)$'
         - name: If-Match
           in: header
           description: Property for optimistic concurrency control. Expects the etag of the last known invoice status. Status updates are only performed if the provided etag matches with the etag of the current status.
@@ -430,10 +426,10 @@ paths:
           description: The unique invoice id.
           required: true
           type: string
-          pattern: "^([a-zA-Z-]+)\\.(\\d+)\\.([a-zA-Z0-9-]+)$"
+          pattern: '^([a-zA-Z-]+)\.(\d+)\.([a-zA-Z0-9-]+)$'
         - name: mimeType
           in: query
-          description: Mime type to retrieve. E.g. application/pdf. If not specified, the first available mime-type from the following prioritized list will be selected (application/pdf, text/html, image/jpeg, image/png, *).
+          description: 'Mime type to retrieve. E.g. application/pdf. If not specified, the first available mime-type from the following prioritized list will be selected (application/pdf, text/html, image/jpeg, image/png, *).'
           type: string
         - name: vippsinvoice-recipienttoken
           in: header
@@ -479,7 +475,7 @@ paths:
           description: The unique invoice id.
           required: true
           type: string
-          pattern: "^([a-zA-Z-]+)\\.(\\d+)\\.([a-zA-Z0-9-]+)$"
+          pattern: '^([a-zA-Z-]+)\.(\d+)\.([a-zA-Z0-9-]+)$'
         - name: attachmentId
           in: path
           description: The unique attachment id.
@@ -521,9 +517,9 @@ paths:
           description: Server error. E.g. if JWT generation fails.
       produces:
         - application/json
-  "/public/jwk":
+  /public/jwk:
     get:
-      description: Get JSON Web Key Set. Use a JWK library to parse this into a public key. Base URL for this endpoint is https://invoice-api.vipps.no/vipps-invoice.
+      description: 'Get JSON Web Key Set. Use a JWK library to parse this into a public key. Base URL for this endpoint is https://invoice-api.vipps.no/vipps-invoice.'
       summary: Get JSON web key set.
       tags:
         - ISP
@@ -539,8 +535,8 @@ paths:
                   kid: bffd7b8cbb3bfa85cba71f5001b5e09822244922
                   kty: RSA
                   'n': 5Dkax7lxzotIVx5DQidS...
-                  x5t: "bffd7b8cbb3bfa85cba71f5001b5e09822244922"
-                  x5t#S256: "25eb881cbc57b8a953629b4065b8a7f735d8c316009e51822a710d8772a0985a"
+                  x5t: bffd7b8cbb3bfa85cba71f5001b5e09822244922
+                  'x5t#S256': 25eb881cbc57b8a953629b4065b8a7f735d8c316009e51822a710d8772a0985a
           schema:
             $ref: '#/definitions/JsonWebKeySet'
         '401':
@@ -551,9 +547,9 @@ paths:
           description: Rate limit exceeded
         '500':
           description: Internal server error
-  "/jwk":
+  /jwk:
     get:
-      description: "Deprecated. See /public/jwk"
+      description: Deprecated. See /public/jwk
       summary: Deprecated.
       tags:
         - IPP
@@ -569,8 +565,8 @@ paths:
                   kid: bffd7b8cbb3bfa85cba71f5001b5e09822244922
                   kty: RSA
                   'n': 5Dkax7lxzotIVx5DQidS...
-                  x5t: "bffd7b8cbb3bfa85cba71f5001b5e09822244922"
-                  x5t#S256: "25eb881cbc57b8a953629b4065b8a7f735d8c316009e51822a710d8772a0985a"
+                  x5t: bffd7b8cbb3bfa85cba71f5001b5e09822244922
+                  'x5t#S256': 25eb881cbc57b8a953629b4065b8a7f735d8c316009e51822a710d8772a0985a
           schema:
             $ref: '#/definitions/JsonWebKeySet'
         '401':
@@ -606,7 +602,7 @@ definitions:
     properties:
       id:
         type: string
-        example: "1"
+        example: '1'
       title:
         type: string
         example: Ferry
@@ -622,7 +618,7 @@ definitions:
       invoiceId:
         type: string
         example: orgno-no.999999999.20180001
-        pattern: "^([a-zA-Z-]+)\\.(\\d+)\\.([a-zA-Z0-9-]+)$"
+        pattern: '^([a-zA-Z-]+)\.(\d+)\.([a-zA-Z0-9-]+)$'
       paymentInformation:
         type: object
         properties:
@@ -660,11 +656,7 @@ definitions:
         example: 25043
       minAmount:
         type: integer
-        description: >-
-          Minimum allowed amount to pay by lowest subdivision (øre).
-          If this is set, it indicates that this invoice can be paid with any amount
-          between and including `minAmount` and `amount`. Note that the user always can
-          override this and pay any (positive) amount he or she wishes.
+        description: 'Minimum allowed amount to pay by lowest subdivision (øre). If this is set, it indicates that this invoice can be paid with any amount between and including `minAmount` and `amount`. Note that the user always can override this and pay any (positive) amount he or she wishes.'
         example: 25043
       subject:
         type: string
@@ -688,7 +680,7 @@ definitions:
           identValue:
             type: string
             description: The value used to identify the invoice recipient when the invoice was first issued.
-            example: "4740040040"
+            example: '4740040040'
           resolvedAt:
             type: string
             format: date-time
@@ -706,7 +698,7 @@ definitions:
           identValue:
             type: string
             description: The value used to identify the invoice provider.
-            example: "999999999"
+            example: '999999999'
       commercialInvoice:
         type: array
         description: 'Conceptually only one invoice, but it can have multiple representations. The issuer is advised to provide the commercial invoice in multiple formats (i.e. different MIME types) if possible. This will make it easier provide the user and IPP different ways of showing the invoice.'
@@ -715,7 +707,7 @@ definitions:
           properties:
             mimeType:
               type: string
-              description: MIME type of commercial invoice document. Supported MIME types - application/pdf (recommended), image/png, image/jpeg, image/jpg, text/html, text/plain
+              description: 'MIME type of commercial invoice document. Supported MIME types - application/pdf (recommended), image/png, image/jpeg, image/jpg, text/html, text/plain'
               example: application/pdf
       attachments:
         type: array
@@ -755,7 +747,7 @@ definitions:
             description: Amount the user has set to be paid by lowest subdivision (øre) (only for state 'approved')
           etag:
             type: string
-            description: "(*** DEPRECATED ***: Use the etag on invoice.) System generated property used for optimistic concurrency control."
+            description: '(*** DEPRECATED ***: Use the etag on invoice.) System generated property used for optimistic concurrency control.'
           problems:
             description: A list of problems causing the invoice to be rejected. (only for state 'rejected')
             type: array
@@ -774,12 +766,55 @@ definitions:
           - nets
       externalReference:
         type: string
-        description: An external reference to the invoice. For a Vipps eFaktura, this will be the Nets eFaktura reference.
+        description: 'An external reference to the invoice. For a Vipps eFaktura, this will be the Nets eFaktura reference.'
         example: '855533275'
       etag:
         type: string
         description: System generated property used for optimistic concurrency control.
-        example: "0a00075e-0000-0000-0000-5ba22c8b0000"
+        example: 0a00075e-0000-0000-0000-5ba22c8b0000
+      statistics: 
+        $ref: "#/definitions/InvoiceStatistics"
+  InvoiceStatistics:
+    type: object
+    properties:
+      deltaPrevious:  
+        type: object
+        properties:
+          "type":
+              description: |
+                Defines what kind of change has happens. Always use this to decide how to present the information.
+                The server might add a slight tolerance for small deltas. E.g. 1 øre diff might result in NO_CHANGE.
+              type: string
+              enum: [INCREASE,DECREASE,NO_CHANGE]
+              example: INCREASE
+          amount:
+            description: Number of øre change since the previous invoice. Always a positive number.
+            type: integer
+            minimum: 0
+            example: 24900
+          percentage:
+            description: Percentage change since the previous invoice. Always a positive number.
+            minimum: 0
+            maximum: 100
+            type: integer
+            example: 42
+      amountHistory:
+        description: This includes itself and all the previous invoices from the same issuer.
+        type: array
+        items:
+          $ref: "#/definitions/InvoiceAmountHistory"
+  InvoiceAmountHistory:
+    type: object
+    properties:
+      dueDate:
+        type: string
+        format: date-time
+        example: '2023-03-13T15:00:00+00:00'
+      amount:
+        description: Invoice amount in øre. Always a positive number.
+        type: integer
+        minimum: 0
+        example: 39900
   RecipientResolve:
     type: object
     properties:
@@ -819,7 +854,6 @@ definitions:
           correlationId:
             type: string
             description: An ID that can be used to find related log messages
-
   JsonWebKeySet:
     title: JSON Web Key Set
     type: object
@@ -860,7 +894,7 @@ definitions:
         type: string
       x5t:
         type: string
-      x5t#S256:
+      'x5t#S256':
         type: string
     required:
       - kty
@@ -870,7 +904,7 @@ definitions:
       - e
       - 'n'
       - x5t
-      - x5t#S256
+      - 'x5t#S256'
   RecipientsTokensPost200ApplicationJsonResponse:
     type: object
     properties:
@@ -899,7 +933,7 @@ definitions:
         example: 25043
       bankCode:
         type: string
-        pattern: "^\\d{4}$"
+        pattern: '^\d{4}$'
         description: Bank code of the bank account used to pay the invoice (bankregistreringsnummer)
         example: 3305
     required:
@@ -910,8 +944,8 @@ definitions:
     properties:
       bankCode:
         type: string
-        pattern: "^\\d{4}$"
-        description: Bank code (bankregistreringsnummer) of the bank changing the state of the invoice. If the invoice is in state approved, the bank changing the status have to be the same bank that approved originally.
+        pattern: '^\d{4}$'
+        description: 'Bank code (bankregistreringsnummer) of the bank changing the state of the invoice. If the invoice is in state approved, the bank changing the status have to be the same bank that approved originally.'
         example: 3305
   MsError:
     type: object
@@ -924,10 +958,10 @@ definitions:
             example: 401
           responseMessage:
             type: string
-            example: "IDX10503: Signature validation failed. Keys tried ..."
+            example: 'IDX10503: Signature validation failed. Keys tried ...'
       result:
         type: object
         properties:
           message:
             type: string
-            example: "IDX10503: Signature validation failed. Keys tried: ..."
+            example: 'IDX10503: Signature validation failed. Keys tried: ...'
