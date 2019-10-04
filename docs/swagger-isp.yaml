@@ -428,6 +428,12 @@ definitions:
           Minimum size: 82x82 pixels
           Maximum size: 512x512 pixels
         example: 'https://www.example.com/logos/lister.png'
+      issuerMessageToRecipient:
+        type: array
+        description: >-
+          A message from the issuer to the recipient regarding the invoice.
+        items:
+          $ref: '#/definitions/issuerMessage'  
       metadata:
           type: object
           description: >-
@@ -484,6 +490,24 @@ definitions:
         items:
           type: string
           example: application/pdf
+  issuerMessage:
+    description: A message from the issuer to the recipient
+    required:
+          - message
+    properties:
+      message:
+        type: string
+        example: This is an informational message from the issuer.
+      locale:
+        type: string
+        description: The locale of the message and url contents. Defaults to nb_no (Norwegian Bokmål)
+        enum:
+          - nb_NO
+          - en_GB
+        example: nb_NO
+      url:
+        type: string
+        example: 'https://issuer.com/invoices/2019-10/information.txt'        
   invoiceOut:
     description: >-
       Invoice document which is returned from our servers. The `invoiceId`
