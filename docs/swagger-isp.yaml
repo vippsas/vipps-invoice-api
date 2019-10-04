@@ -433,7 +433,7 @@ definitions:
         description: >-
           A message from the issuer to the recipient regarding the invoice.
         items:
-          $ref: '#/definitions/issuerMessage'  
+          $ref: '#/definitions/issuerMessage'
       metadata:
           type: object
           description: >-
@@ -631,6 +631,12 @@ definitions:
         type: string
         description: Not yet supported in the Vipps App. URL to invoice issuer's logo
         example: 'https://www.example.com/logos/lister.png'
+      issuerMessageToRecipient:
+        type: array
+        description: >-
+          A message from the issuer to the recipient regarding the invoice.
+        items:
+          $ref: '#/definitions/issuerMessage'  
       status:
         type: object
         required:

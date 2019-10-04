@@ -726,6 +726,12 @@ definitions:
         type: string
         description: Not yet supported in the Vipps App. URL to invoice issuer's logo
         example: 'https://www.example.com/logos/lister.png'
+      issuerMessageToRecipient:
+        type: array
+        description: >-
+          A message from the issuer to the recipient regarding the invoice.
+        items:
+          $ref: '#/definitions/issuerMessage'    
       status:
         type: object
         required:
@@ -780,6 +786,24 @@ definitions:
         type: string
         description: System generated property used for optimistic concurrency control.
         example: "0a00075e-0000-0000-0000-5ba22c8b0000"
+  issuerMessage:
+    description: A message from the issuer to the recipient
+    required:
+          - message
+    properties:
+      message:
+        type: string
+        example: This is an informational message from the issuer.
+      locale:
+        type: string
+        description: The locale of the message and url contents. Defaults to nb_no (Norwegian Bokmål)
+        enum:
+          - nb_NO
+          - en_GB
+        example: nb_NO
+      url:
+        type: string
+        example: 'https://issuer.com/invoices/2019-10/information.txt'              
   RecipientResolve:
     type: object
     properties:
