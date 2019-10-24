@@ -121,7 +121,7 @@
 								"tokens"
 							]
 						},
-						"description": "Request a `recipientToken` by providing either the recipients Norwegian\nnational identification or mobile number.\n\nWe have created a few test users, please contact [Vipps Integration](https://github.com/vippsas/vipps-developers/blob/master/contact.md)\nto get details for your test user."
+						"description": "Request a `recipientToken` by providing either the recipients Norwegian\nnational identification or mobile number.\n\nWe have created a few test users,, please contact us (https://github.com/vippsas/vipps-developers/blob/master/contact.md) to get details for your test user."
 					},
 					"response": []
 				},
@@ -172,7 +172,7 @@
 								"tokens"
 							]
 						},
-						"description": "Request a `recipientToken` by providing either the recipients Norwegian national identification or mobile number.\nWe have created a few test users, please contact [Vipps Integration](https://github.com/vippsas/vipps-developers/blob/master/contact.md) to get details for your test user."
+						"description": "Request a `recipientToken` by providing either the recipients Norwegian national identification or mobile number.\nWe have created a few test users, please contact Vipps Integration (https://github.com/vippsas/vipps-developers/blob/master/contact.md) to get details for your test user."
 					},
 					"response": []
 				}
