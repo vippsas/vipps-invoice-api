@@ -61,8 +61,8 @@ install it using `pip`.
 |BN Bank|Bulder Bank|
 |DNB|Etne Sparebank|
 |Fana Sparebank|Flekkefjord Sparebank|
-|Handelsbanken||
-|Haugesund Sparebank|Helgeland Sparebank|
+|Handelsbanken|Haugesund Sparebank|
+|Helgeland Sparebank|KLP Banken|
 |Lillesands Sparebank|Luster Sparebank|
 |OBOS-banken|Sbanken|
 |Skudenes og Aakra Sparebank|SpareBank 1 BV|
@@ -77,9 +77,6 @@ install it using `pip`.
 |Sparebanken Vest|Sparebanken Øst|
 |Spareskillingsbanken|Søgne og Greipstad Sparebank|
 |Voss Sparebank|
-              
-
-
 
 # Swagger changelog
 
