@@ -78,6 +78,11 @@ install it using `pip`.
 |Spareskillingsbanken|Søgne og Greipstad Sparebank|
 |Voss Sparebank|
 
+# Changes
+## 05.11.2019 
+- Updated information about when recipient token is issued
+- Removed `expired` status from documentation as it's no longer used.
+
 # Swagger changelog
 
 ## 0.3.43

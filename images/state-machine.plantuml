@@ -7,14 +7,15 @@ Title State machine for an invoice
 Created --> Pending : T1
 Created --> Rejected : T2
 Created --> Revoked : T3
-Pending --> Expired : T4
-Pending --> Deleted : T5
-Pending --> Approved : T6
-Pending --> Revoked : T7
-Approved --> Approved : T8
-Approved --> Pending : T9
-Approved --> Deleted : T10
-Expired --> [*]
+
+Pending --> Deleted : T4
+Pending --> Approved : T5
+Pending --> Revoked : T6
+
+Approved --> Approved : T7
+Approved --> Pending : T8
+Approved --> Deleted : T9
+
 Revoked --> [*]
 Deleted --> [*]
 Rejected --> [*]
