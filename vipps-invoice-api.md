@@ -484,7 +484,7 @@ Vipps _only_ returns a `recipientToken` for Vipps users that:
 * Have an active Ja-Takk-Til-Alle agreement (JTTA).
 
 The `recipientToken` is obtained by calling
-[`POST://recipients/tokens`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Request_Recipient_Token_v1).
+[`POST:/recipients/tokens`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Request_Recipient_Token_v1).
 This `recipientToken` can then be used in the request body to
 [`PUT:/invoices/{invoiceId}`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Send_Invoice_v1)
 to the specified recipient.
