@@ -398,7 +398,7 @@ For the sake of testing, `{invoiceRef}` could be a random number like `256203221
 resulting in this `invoiceId`: `orgno-no.918130047.256203221`.
 
 Please note that the organization number is validated using
-[modulus 11](https://www.brreg.no/om-oss-nn/oppgavene-vare/registera-vare/om-einingsregisteret/organisasjonsnummeret/).
+[modulus 11](https://www.brreg.no/om-oss/oppgavene-vare/alle-registrene-vare/om-enhetsregisteret/organisasjonsnummeret/).
 
 ## Variable Overview
 
