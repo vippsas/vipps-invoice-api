@@ -20,7 +20,7 @@ Document version: 0.3.20.
   - [Table of contents](#table-of-contents)
   - [External documentation](#external-documentation)
     - [Technical details about the API](#technical-details-about-the-api)
-    - [Getting access to the Vipps Developer Portal](#getting-access-to-the-vipps-developer-portal)
+    - [Getting access to Vipps developer keys](#getting-access-to-vipps-developer-keys)
     - [Getting an access token](#getting-an-access-token)
   - [Terminology](#terminology)
   - [Vipps eFaktura flow](#vipps-efaktura-flow)
@@ -89,7 +89,7 @@ Document version: 0.3.20.
 
 Swagger/OAS API documentation is available on GitHub: https://github.com/vippsas/vipps-invoice-api
 
-### Getting access to the Vipps Developer Portal
+### Getting access to Vipps developer keys
 
 See
 [Vipps: Getting Started](https://github.com/vippsas/vipps-developers/blob/master/vipps-getting-started.md)
@@ -99,8 +99,8 @@ for general information, including how to retrieve the API keys.
 
 A valid access token is required in order to call this API. This API is provided by
 a service called API Management in Azure - think of it as the gateway to the API.
-To get a token, follow
-[the guide for Vipps eCommerce API](https://github.com/vippsas/vipps-ecom-api/blob/master/vipps-ecom-api.md).
+To get a token, follow the 
+[Getting Started guide](https://github.com/vippsas/vipps-developers/blob/master/vipps-getting-started.md#get-an-access-token).
 
 ## Terminology
 
@@ -358,6 +358,9 @@ to set the `{{access-token}}` variable. See [the details](#api-access-token).
 ## Integrator checklist
 
 This [checklist](vipps-integrator-checklist.md) may be useful to look at before going into production.
+
+Before an ISP is granted full access to the production environment, Vipps Integration will run through the integrator checklist and verify that the ISPs implementation works as expected. We will ask for several test invoices during this verification process. These tests will be run in the production environment with whitelisting enabled for the ISP.   
+Whitelisting is a limited list of phone numbers to which the ISP is allowed to send invoices, usually people who work for the ISP or certain people at important customers. We don't test on NIN/SSN, only phone numbers.
 
 ### Change the status of an invoice
 
