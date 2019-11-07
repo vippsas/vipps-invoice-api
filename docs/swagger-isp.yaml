@@ -423,7 +423,7 @@ definitions:
       issuerIconUrl:
         type: string
         description: >-
-          Not yet supported in the Vipps App. URL to invoice issuer's logo. The URL must use the HTTPS protocol and not contain any tracking-scripts or user-tracking parameters.
+          URL to invoice issuer's logo. The URL must use the HTTPS protocol and not contain any tracking-scripts or user-tracking parameters.
           Supported image formats: SVG (Scalable Vector Graphics) and PNG (Portable Network Graphics).
           Minimum size: 82x82 pixels
           Maximum size: 512x512 pixels
@@ -605,7 +605,11 @@ definitions:
           $ref: '#/definitions/attachmentOut'
       issuerIconUrl:
         type: string
-        description: Not yet supported in the Vipps App. URL to invoice issuer's logo
+        description: >-
+          URL to invoice issuer's logo. The URL must use the HTTPS protocol and not contain any tracking-scripts or user-tracking parameters.
+          Supported image formats: SVG (Scalable Vector Graphics) and PNG (Portable Network Graphics).
+          Minimum size: 82x82 pixels
+          Maximum size: 512x512 pixels
         example: 'https://www.example.com/logos/lister.png'
       status:
         type: object
