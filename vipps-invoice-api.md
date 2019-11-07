@@ -20,7 +20,7 @@ Document version: 0.3.20.
   - [Table of contents](#table-of-contents)
   - [External documentation](#external-documentation)
     - [Technical details about the API](#technical-details-about-the-api)
-    - [Getting access to the Vipps Developer Portal](#getting-access-to-the-vipps-developer-portal)
+    - [Getting access to Vipps developer keys](#getting-access-to-vipps-developer-keys)
     - [Getting an access token](#getting-an-access-token)
   - [Terminology](#terminology)
   - [Vipps eFaktura flow](#vipps-efaktura-flow)
@@ -89,7 +89,7 @@ Document version: 0.3.20.
 
 Swagger/OAS API documentation is available on GitHub: https://github.com/vippsas/vipps-invoice-api
 
-### Getting access to the Vipps Developer Portal
+### Getting access to Vipps developer keys
 
 See
 [Vipps: Getting Started](https://github.com/vippsas/vipps-developers/blob/master/vipps-getting-started.md)
@@ -99,8 +99,8 @@ for general information, including how to retrieve the API keys.
 
 A valid access token is required in order to call this API. This API is provided by
 a service called API Management in Azure - think of it as the gateway to the API.
-To get a token, follow
-[the guide for Vipps eCommerce API](https://github.com/vippsas/vipps-ecom-api/blob/master/vipps-ecom-api.md).
+To get a token, follow the 
+[Getting Started guide](https://github.com/vippsas/vipps-developers/blob/master/vipps-getting-started.md#get-an-access-token).
 
 ## Terminology
 
@@ -207,10 +207,9 @@ filter the allowed payment methods according to Norwegian debt collection laws.
 | 1   | `created`  | Invoice has been inserted, but not yet validated, and not yet shown to the recipient |
 | 2   | `rejected` | Invoice could not be validated, and is rejected                                      |
 | 3   | `pending`  | Invoice needs to be processed by the recipient                                       |
-| 4   | `expired`  | Recipient did not process the invoice in time                                        |
-| 5   | `approved` | Invoice has been approved by recipient                                               |
-| 6   | `deleted`  | Invoice has been deleted                                                             |
-| 7   | `revoked`  | Invoice has been revoked by the ISP                                                  |
+| 4   | `approved` | Invoice has been approved by recipient                                               |
+| 5   | `deleted`  | Invoice has been deleted                                                             |
+| 6   | `revoked`  | Invoice has been revoked by the ISP                                                  |
 
 See the detailed state descriptions, and state transitions, at the end of this document.
 
@@ -360,6 +359,9 @@ to set the `{{access-token}}` variable. See [the details](#api-access-token).
 
 This [checklist](vipps-integrator-checklist.md) may be useful to look at before going into production.
 
+Before an ISP is granted full access to the production environment, Vipps Integration will run through the integrator checklist and verify that the ISPs implementation works as expected. We will ask for several test invoices during this verification process. These tests will be run in the production environment with whitelisting enabled for the ISP.   
+Whitelisting is a limited list of phone numbers to which the ISP is allowed to send invoices, usually people who work for the ISP or certain people at important customers. We don't test on NIN/SSN, only phone numbers.
+
 ### Change the status of an invoice
 
 These calls require
@@ -396,7 +398,7 @@ For the sake of testing, `{invoiceRef}` could be a random number like `256203221
 resulting in this `invoiceId`: `orgno-no.918130047.256203221`.
 
 Please note that the organization number is validated using
-[modulus 11](https://www.brreg.no/om-oss-nn/oppgavene-vare/registera-vare/om-einingsregisteret/organisasjonsnummeret/).
+[modulus 11](https://www.brreg.no/om-oss/oppgavene-vare/alle-registrene-vare/om-enhetsregisteret/organisasjonsnummeret/).
 
 ## Variable Overview
 
@@ -479,11 +481,10 @@ See [The API's public key: JWK (JSON Web Key)](#the-apis-public-key-jwk-json-web
 To submit an invoice, the client needs both an `access_token` (described above), and a `recipientToken`.
 
 Vipps _only_ returns a `recipientToken` for Vipps users that:
-* Have opted in to Vipps Regninger
-* Have a bank account that can be used to pay Vipps Regninger
+* Have an active Ja-Takk-Til-Alle agreement (JTTA).
 
 The `recipientToken` is obtained by calling
-[`POST://recipients/tokens`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Request_Recipient_Token_v1).
+[`POST:/recipients/tokens`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Request_Recipient_Token_v1).
 This `recipientToken` can then be used in the request body to
 [`PUT:/invoices/{invoiceId}`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Send_Invoice_v1)
 to the specified recipient.
@@ -838,14 +839,12 @@ For details on JWT, see the [RFC 7519](https://tools.ietf.org/html/rfc7519) or
 | 2   |            | `rejected` | Validation **failed**                                   |
 | 3   |            | `revoked`  | The invoice has been deleted by the ISP                 |
 | -   | `rejected` | --         | Final state                                             |
-| 4   | `pending`  | `expired`  | After grace period, the invoice cannot be modified      |
-| 5   |            | `deleted`  | The recipient deleted the invoice                       |
-| 6   |            | `approved` | The recipient approved invoice and payment is scheduled |
-| 7   |            | `revoked`  | The invoice has been deleted by the ISP                 |
-| -   | `expired`  | --         | Final state                                             |
-| 8   | `approved` | `approved` | The recipient has updated the payment details           |
-| 9   |            | `pending`  | The recipient has stopped the payment                   |
-| 10  |            | `deleted`  | Virtual transition composed of 9 + 5                    |
+| 4   | `pending`  | `deleted`  | The recipient deleted the invoice                       |
+| 5   |            | `approved` | The recipient approved invoice and payment is scheduled |
+| 6   |            | `revoked`  | The invoice has been deleted by the ISP                 |
+| 7   | `approved` | `approved` | The recipient has updated the payment details           |
+| 8   |            | `pending`  | The recipient has stopped the payment                   |
+| 9   |            | `deleted`  | Virtual transition composed of 9 + 5                    |
 | -   | `deleted`  | --         | Final state                                             |
 | -   | `revoked`  | --         | Final state                                             |
 
@@ -894,12 +893,7 @@ IPPs fetch invoices for a recipient.
 
 #### Transitions
 
-**Transition 4: `pending` -> `expired`**
-Without any user action, the invoice will become `expired` after the _due_ timestamp.
-
-plus a grace period of 14 days. An expired invoice _must not be paid_.
-
-**Transition 5: `pending` -> `deleted`**
+**Transition 4: `pending` -> `deleted`**
 
 A recipient can choose to delete an invoice. This is done by calling
 [`PUT:/invoice/{id}/deleted`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/Delete_Invoice_v1).
@@ -907,7 +901,7 @@ As described above there is a potential ambiguity to distinguish this call from
 the endpoint to _revoke_ an invoice. As described above, we use `PUT` verbs
 consistently.
 
-**Transition 6: `pending` -> `approved`**
+**Transition 5: `pending` -> `approved`**
 
 If a recipient pays an invoice, the IPP should call
 [`PUT:/invoices/{id}/status/approved`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/Change_Status_To_Approved_v1)
@@ -920,20 +914,13 @@ invoice.
 
 If no further actions are taken, this is the final state of the invoice.
 
-**Transition 7: `pending` -> `revoked`**
+**Transition 6: `pending` -> `revoked`**
 
 As long as the invoice is `pending`, an ISP can still revoke an invoice by calling
 [`PUT:/invoices/{id}/status/revoked`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Revoke_Invoice_v1)
 The invoice will then disappear from the recipient's list of pending invoices.
 
-## State 4: Expired
-
-If a pending invoice is not processed by the recipient, it will be set to `expired`
-after the due timestamp plus the grace period of 14 days has passed.
-
-This is a final state and does not allow any further state transitions.
-
-## State 5: Approved
+## State 4: Approved
 
 An `approved` invoice means that the recipient has actively approved the invoice
 by scheduling a payment through an IPP. The payment has to be scheduled within
@@ -947,14 +934,14 @@ the allowed range defined in the invoice.
 All transitions from the state `approved` can only be initiated by the same IPP
 that set the status to `approved`. This limitation is required.
 
-**Transition 8: `approved` -> `approved`**
+**Transition 7: `approved` -> `approved`**
 
 If the IPP allows for changing the payment details of an approved invoice,
 the status can be updated by calling
 [`PUT:/invoice/{id}/status/approved`](https://vippsas.github.io/vipps-invoice-api/ipp.html#/IPP/Change_Status_To_Approved_v1)
 again with the updated payment details.
 
-**Transition 9: `approved` -> `pending`**
+**Transition 8: `approved` -> `pending`**
 
 The user may want to change an `approved` invoice back to `pending`.
 This transition *can only be done by the same IPP who approved the invoice*.
@@ -963,7 +950,7 @@ invoice to approved does not accidentally pay the invoice. There is no way
 the approving IPP can get notified if another IPP would set the state back to
 pending.
 
-**Transition 10: `approved` -> `deleted`**
+**Transition 9: `approved` -> `deleted`**
 
 A user may directly delete an already approved invoice if the IPP allows
 changing the payment. This is done by calling
@@ -971,14 +958,14 @@ changing the payment. This is done by calling
 Deleting an invoice from this state means that the linked payment was _not_
 executed and/or is stopped. It is the IPPs responsibility to ensure that.
 
-## State 6: Deleted
+## State 5: Deleted
 
 The invoice has been deleted by the recipient. A `deleted` invoice can still be
 shown to a recipient once queries to display old/historical invoices are supported.
 
 This is a final state and does not allow any further state transitions.
 
-## State 7: Revoked
+## State 6: Revoked
 
 The invoice has been revoked by the issuer. A `revoked` invoice becomes invisible
 for the recipient.
