@@ -200,6 +200,17 @@ All invoices contain information about the _invoice type_, i.e. whether it
 is a regular invoice, a reminder or other. This enables payment providers to
 filter the allowed payment methods according to Norwegian debt collection laws.
 
+The field `invoiceType` decides what kind of document is sent to the user which
+again will affect how the invoice is displayed to the user.
+
+| #  | invoiceType              | Norwegian description  | Comment                     |
+| :- | :----------------------- | :--------------------- | :-------------------------- |
+| 1. | paymentReminder          | Purring                |                             |
+| 2. | debtCollectionWarning    | Inkassovarsel          |                             |
+| 3. | debtCollectionNotice     | Betalingsoppfordring   |                             |
+| 4. | noticeOfLegalProceedings | Rettslig varsel        | :warning:**Currently not supported** |
+| 5. | debtCollectionReminder   | Betalingsoppfølging    | :warning:**Currently not supported** |
+
 # Invoice states
 
 | #   | State      | Description                                                                          |
