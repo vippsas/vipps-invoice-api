@@ -203,6 +203,8 @@ filter the allowed payment methods according to Norwegian debt collection laws.
 The field `invoiceType` decides what kind of document is sent to the user which
 again will affect how the invoice is displayed to the user.
 
+**Note:** We accept both our type and Nets' type as ***input*** when sending debt collection types, however we currently ***only*** respond with our types (Column: `invoiceType`) as ***output*** when listing 'invoices' through our API.
+
 | #  | invoiceType              | Nets type           | Norwegian description | Comment                               |
 | :- | :----------------------- | :------------------ | :-------------------- | :------------------------------------ |
 | 1. | debtCollectionWarning    | DUNNING             | Purring               |                                       |
