@@ -207,7 +207,8 @@ again will affect how the invoice is displayed to the user.
 
 | #  | invoiceType              | Nets type           | Norwegian description | Comment                               |
 | :- | :----------------------- | :------------------ | :-------------------- | :------------------------------------ |
-| 0. | invoice                  | EFAKTURA            | eFaktura              | Regular invoice                       |
+|    | invoice                  | INVOICE             | eFaktura              | Regular invoice                       |
+|    | creditNote               | CREDIT_NOTE         | Kreditnota            | :warning:**Currently not supported**  |
 | 1. | debtCollectionWarning    | DUNNING             | Purring               |                                       |
 | 2. | debtCollectionNotice     | COLLECTION_NOTICE   | Inkassovarsel         |                                       |
 | 3. | debtCollectionReminder   | PAYMENT_REQUEST     | Betalingsoppfordring  | :warning:**Currently not supported**  |
