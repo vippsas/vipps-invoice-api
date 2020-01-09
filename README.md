@@ -54,7 +54,9 @@ install it using `pip`.
 
 ```pip install -r requirements.txt # Will install all requirements```
 
-# Banks Vipps eFaktura currently works with
+# Banks that can be used as a valid payment source in the Vipps app
+- These are the banks that can be used to **pay invoies in the app**.
+- A bank not mentioned on the list below will still be a place where a debtor can pay the invoice.
 
 |Bank|Bank|
 |---|---|
