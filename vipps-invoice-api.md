@@ -86,7 +86,7 @@ Document version: 0.3.20.
 
 ### Technical details about the API
 
-Swagger/OAS API documentation is available on GitHub: https://github.com/vippsas/vipps-invoice-api
+Swagger/OAS API documentation is available on [GitHub](https://github.com/vippsas/vipps-invoice-api#isp-invoice-service-provider)
 
 ### Getting access to Vipps developer keys
 
@@ -108,11 +108,11 @@ To get a token, follow the
 | ISP         | The invoice _service_ providers: Actors who submit invoices. Either for themselves or on behalf of their clients.                                                                                                            |
 | IPP         | The invoice _payment_ providers: Actors who handle invoices for the invoice recipients and execute payments, e.g. banks, the Vipps app.                                                                                      |
 | Recipient   | The end user that receives invoices, and pays them through the IPP.                                                                                                                                                          |
-| Issuer      | The organisation that sends the invoice, through the ISP, to the Recipient.                                                                                                                                                                     |
+| Issuer      | The organisation that sends the invoice, through the ISP, to the Recipient.                                                                                                                                                  |
 | NIN         | A national identification number, e.g. SSN in Norway ("fødselsnummer", 11 digits).                                                                                                                                           |
 | MSISDN      | A number uniquely identifying a subscription in a GSM or a UMTS mobile network. Simply put, it is the mapping of the telephone number to the SIM card in a mobile phone. See [MSISDN](https://en.wikipedia.org/wiki/MSISDN). |
 | Actor       | An ISP, IPP or invoice recipient.                                                                                                                                                                                            |
-| Idempotency | The property of endpoints to be called multiple times without changing the result beyond the initial application.                                                                                                            |
+| Idempotency | The property of endpoints to be called multiple times without changing the result beyond the initial application. See [Idempotence](https://en.wikipedia.org/wiki/Idempotence).                                              |
 
 ## Vipps eFaktura flow
 
