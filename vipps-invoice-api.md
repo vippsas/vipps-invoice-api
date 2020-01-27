@@ -116,7 +116,7 @@ To get a token, follow the
 
 ## Vipps eFaktura flow
 
-![alt Vipps eFaktura flow](images/vipps-efaktura-overview.png)
+![Vipps eFaktura flow](images/vipps-efaktura-overview.png)  
 Important to note that the invoice document isn't required to be a PDF document. It can just as easily be an HTML page.
 
 ## Time format and time zones
@@ -839,7 +839,7 @@ For details on JWT, see the [RFC 7519](https://tools.ietf.org/html/rfc7519) or
 
 # Detailed information about invoice states and transitions
 
-![Invoice States](images/state-machine.svg)
+![Invoice States](images/state-machine.svg)  
 
 ## State transitions
 
@@ -986,7 +986,7 @@ This is a final state and does not allow any further state transitions.
 
 ## Mapping from API to Vipps app
 
-![Vipps app payment screen](images/mapping-api-app.png)
+![Vipps app payment screen](images/mapping-api-app.png)  
 
 | Input field            | Displayed in the app screenshot | Type | Values                               | Comment  |
 | ---------------------- | ------------------------------- | ------------------------------------ | ------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------- |
