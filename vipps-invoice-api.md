@@ -116,7 +116,7 @@ To get a token, follow the
 
 ## Vipps eFaktura flow
 
-![Vipps eFaktura flow](images/vipps-efaktura-overview.png)
+![alt Vipps eFaktura flow](images/vipps-efaktura-overview.png)
 Important to note that the invoice document isn't required to be a PDF document. It can just as easily be an HTML page.
 
 ## Time format and time zones
