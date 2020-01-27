@@ -73,11 +73,10 @@ Document version: 0.3.20.
     - [State 2: Rejected](#state-2-rejected)
     - [State 3: Pending](#state-3-pending)
       - [Transitions](#transitions-1)
-  - [State 4: Expired](#state-4-expired)
-  - [State 5: Approved](#state-5-approved)
-    - [Transitions](#transitions-2)
-  - [State 6: Deleted](#state-6-deleted)
-  - [State 7: Revoked](#state-7-revoked)
+    - [State 4: Approved](#state-4-approved)
+      - [Transitions](#transitions-2)
+    - [State 5: Deleted](#state-5-deleted)
+    - [State 6: Revoked](#state-6-revoked)
 - [Screenshots](#screenshots)
   - [Mapping from API to Vipps app](#mapping-from-api-to-vipps-app)
     - [Example JSON payload](#example-json-payload)
@@ -931,7 +930,7 @@ As long as the invoice is `pending`, an ISP can still revoke an invoice by calli
 [`PUT:/invoices/{id}/status/revoked`](https://vippsas.github.io/vipps-invoice-api/isp.html#/ISP/Revoke_Invoice_v1)
 The invoice will then disappear from the recipient's list of pending invoices.
 
-## State 4: Approved
+### State 4: Approved
 
 An `approved` invoice means that the recipient has actively approved the invoice
 by scheduling a payment through an IPP. The payment has to be scheduled within
@@ -940,7 +939,7 @@ the allowed range defined in the invoice.
 
 **Note:** Status "approved" is no guarantee that the invoice will actually be paid, just that it's scheduled for payment. It might fail due to a number of reasons, including there not being sufficient funds on the user's bank account or the user simply deletes the invoice from their online banking system.
 
-### Transitions
+#### Transitions
 
 All transitions from the state `approved` can only be initiated by the same IPP
 that set the status to `approved`. This limitation is required.
@@ -969,21 +968,21 @@ changing the payment. This is done by calling
 Deleting an invoice from this state means that the linked payment was _not_
 executed and/or is stopped. It is the IPPs responsibility to ensure that.
 
-## State 5: Deleted
+### State 5: Deleted
 
 The invoice has been deleted by the recipient. A `deleted` invoice can still be
 shown to a recipient once queries to display old/historical invoices are supported.
 
 This is a final state and does not allow any further state transitions.
 
-## State 6: Revoked
+### State 6: Revoked
 
 The invoice has been revoked by the issuer. A `revoked` invoice becomes invisible
 for the recipient.
 
 This is a final state and does not allow any further state transitions.
 
-# Screenshots   
+## Screenshots
 
 ## Mapping from API to Vipps app
 
