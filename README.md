@@ -1,7 +1,7 @@
 # Vipps Invoice API
 
 This repository contains developer resources for the Vipps Invoice API.
-For more information, see [Vipps eFaktura](https://www.vipps.no/bedrift/vipps-regninger).
+For more information, see [Vipps eFaktura](https://www.vipps.no/produkter-og-tjenester/bedrift/send-regninger/send-regninger/).
 
 See the Vipps Developers repository for
 a "getting started" guide,
