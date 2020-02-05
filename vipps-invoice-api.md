@@ -29,7 +29,7 @@ Document version: 0.3.20.
   - [Send, receive and pay invoices](#send-receive-and-pay-invoices)
   - [Invoice validation](#invoice-validation)
   - [Managing and paying invoices](#managing-and-paying-invoices)
-  - [Debt collection](#debt-collection)
+  - [Invoice types](#invoice-types)
 - [Invoice states](#invoice-states)
 - [HTTP responses](#http-responses)
 - [Base URL](#base-url)
@@ -193,7 +193,7 @@ If a user approves an invoice, the payment provider has to mark this
 individual invoice as `approved` so that the invoice is not displayed as an
 open invoice in other services.
 
-## Debt collection
+## Invoice types
 
 All invoices contain information about the _invoice type_, i.e. whether it
 is a regular invoice, a reminder or other. This enables payment providers to
@@ -202,13 +202,18 @@ filter the allowed payment methods according to Norwegian debt collection laws.
 The field `invoiceType` decides what kind of document is sent to the user which
 again will affect how the invoice is displayed to the user.
 
-| #  | invoiceType              | Norwegian description  | Comment                     |
-| :- | :----------------------- | :--------------------- | :-------------------------- |
-| 1. | paymentReminder          | Purring                |                             |
-| 2. | debtCollectionWarning    | Inkassovarsel          |                             |
-| 3. | debtCollectionNotice     | Betalingsoppfordring   |                             |
-| 4. | noticeOfLegalProceedings | Rettslig varsel        | :warning:**Currently not supported** |
-| 5. | debtCollectionReminder   | Betalingsoppfølging    | :warning:**Currently not supported** |
+**Note:** We accept both our type and Nets' type as ***input*** when sending any of the invoice type in the table below.  
+However, we currently ***only*** respond with our types (Column: `invoiceType`) as ***output*** when listing ['invoices'](#get-invoices) through our API.
+
+| #  | invoiceType              | Nets type           | Norwegian description | Comment                               |
+| :- | :----------------------- | :------------------ | :-------------------- | :------------------------------------ |
+| 1. | invoice                  | INVOICE             | eFaktura              | Regular invoice                       |
+| 2. | creditNote               | CREDIT_NOTE         | Kreditnota            | :warning:**Currently not supported**  |
+| 3. | debtCollectionWarning    | DUNNING             | Purring               |                                       |
+| 4. | debtCollectionNotice     | COLLECTION_NOTICE   | Inkassovarsel         |                                       |
+| 5. | debtCollectionReminder   | PAYMENT_REQUEST     | Betalingsoppfordring  | :warning:**Currently not supported**  |
+| 6. | paymentReminder          | REMINDER            | Betalingspåminnelse   | :warning:**Currently not supported**  |
+| 7. | noticeOfLegalProceedings | ENFORCEMENT_WARNING | Rettslig varsel       | :warning:**Currently not supported**  |
 
 # Invoice states
 
