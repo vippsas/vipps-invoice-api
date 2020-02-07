@@ -9,7 +9,7 @@ Please use GitHub's built-in functionality for
 [pull requests](https://github.com/vippsas/vipps-invoice-api/pulls),
 or contact [Vipps Integration](https://github.com/vippsas/vipps-developers/blob/master/contact.md).
 
-Document version: 0.3.21.
+Document version: 0.3.22.
 
 # Overview
 
@@ -211,9 +211,9 @@ However, we currently ***only*** respond with our types (Column: `invoiceType`) 
 | 2. | creditNote               | CREDIT_NOTE         | Kreditnota            | :warning:**Currently not supported**  |
 | 3. | debtCollectionWarning    | DUNNING             | Purring               |                                       |
 | 4. | debtCollectionNotice     | COLLECTION_NOTICE   | Inkassovarsel         |                                       |
-| 5. | debtCollectionReminder   | PAYMENT_REQUEST     | Betalingsoppfordring  | :warning:**Currently not supported**  |
-| 6. | paymentReminder          | REMINDER            | Betalingspåminnelse   | :warning:**Currently not supported**  |
-| 7. | noticeOfLegalProceedings | ENFORCEMENT_WARNING | Rettslig varsel       | :warning:**Currently not supported**  |
+| 5. | debtCollectionReminder   | PAYMENT_REQUEST     | Betalingsoppfordring  |                                       |
+| 6. | paymentReminder          | REMINDER            | Betalingspåminnelse   |                                       |
+| 7. | noticeOfLegalProceedings | ENFORCEMENT_WARNING | Rettslig varsel       |                                       |
 
 # Invoice states
 
