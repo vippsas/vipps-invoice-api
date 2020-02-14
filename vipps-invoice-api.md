@@ -11,8 +11,6 @@ or contact [Vipps Integration](https://github.com/vippsas/vipps-developers/blob/
 
 Document version: 0.3.22.
 
-# Overview
-
 ## Table of contents
 
 - [Vipps Invoice API](#vipps-invoice-api)
