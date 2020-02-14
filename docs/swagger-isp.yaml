@@ -630,7 +630,7 @@ definitions:
               - approved
               - deleted
               - revoked
-            description: Status of the invoice. See the documentation in the introduction to this file.
+            description: Status of the invoice. See the documentation in the introduction to this file. 'expired' is DEPRECATED.
           due:
             type: string
             format: date-time
