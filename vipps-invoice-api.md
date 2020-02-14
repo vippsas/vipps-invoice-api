@@ -213,7 +213,7 @@ However, we currently ***only*** respond with our types (Column: `invoiceType`) 
 | 4. | debtCollectionNotice     | COLLECTION_NOTICE   | Inkassovarsel         |                                       |
 | 5. | debtCollectionReminder   | PAYMENT_REQUEST     | Betalingsoppfordring  |                                       |
 | 6. | paymentReminder          | REMINDER            | Betalingspåminnelse   |                                       |
-| 7. | noticeOfLegalProceedings | ENFORCEMENT_WARNING | Rettslig varsel       |                                       |
+| 7. | noticeOfLegalProceedings | ENFORCEMENT_WARNING | Varsel om tvangsfullbyrdelse |                                |
 
 # Invoice states
 
