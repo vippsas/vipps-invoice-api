@@ -1,5 +1,9 @@
 # Swagger changelog
 
+## 0.3.44
+
+* Added note about state `expired` being deprecated.
+
 ## 0.3.43
 
 * InvoiceOut: Add new field externalReference
