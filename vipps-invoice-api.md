@@ -164,7 +164,7 @@ We guarantee that any correctly received invoice is inserted exactly once.
 A quick syntactic validation is performed before accepting the invoice. The error messages should explain what is wrong.
 Some rules to be aware of:
 
-* Due date must be at least 72 hours into the future.
+* Due date must be at least 3 days into the future, in other words 48-72 hours depending on at what time the invoice is sent to Vipps.
 * Issuer name can't be longer than 40 characters.
 * KID numbers must validate against a MOD10 or MOD11 check and have 4-25 digits. `-` is allowed as the last character.
   * Note: A bank might still reject a KID upon payment. This can happen if the agreement has been cancelled.
