@@ -1,0 +1,444 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Vipps eFaktura ISP API",
+    "description": "TODO",
+    "version": "2.0.0"
+  },
+  "paths": {
+    "/v2/recipients/token/unique": {
+      "post": {
+        "tags": [
+          "Issue-token"
+        ],
+        "summary": "Request an issue-token for a uniquely identifiable recipient",
+        "description": "Will give a short-lived token for a given recipient that can be used to issue invoices from the specified issuer.",
+        "operationId": "GetIssueTokenByUniqueId",
+        "parameters": [
+          {
+            "name": "Correlation-ID",
+            "in": "header",
+            "description": "Used to uniquely identify the HTTP request. This ID is used to correlate the HTTP request between a client and server.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "a671cbb3-79e5-4146-b3f1-507a33d2e5ea"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetIssueTokenByUniqueIdRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetIssueTokenByUniqueIdRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetIssueTokenByUniqueIdRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetIssueTokenByUniqueIdRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Recipient with an active consent found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetIssueTokenByUniqueIdResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetIssueTokenByUniqueIdResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetIssueTokenByUniqueIdResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input (with reason)",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No recipient with active consent found"
+          }
+        }
+      }
+    },
+    "/v2/recipients/token/recipient-data": {
+      "post": {
+        "tags": [
+          "Issue-token"
+        ],
+        "summary": "Request an issue token using recipient data",
+        "description": "Will give a short-lived token for a given recipient that can be used to issue invoices from the specified organization.\nAccepts identifiers like email, mobile phone, address, etc. and will give a recipient token if a unique recipient can be identified",
+        "operationId": "GetIssueTokenByRecipientData",
+        "parameters": [
+          {
+            "name": "Correlation-ID",
+            "in": "header",
+            "description": "Used to uniquely identify the HTTP request. This ID is used to correlate the HTTP request between a client and server.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "a671cbb3-79e5-4146-b3f1-507a33d2e5ea"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetIssueTokenByRecipientDataRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetIssueTokenByRecipientDataRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetIssueTokenByRecipientDataRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetIssueTokenByRecipientDataRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Unique recipient with an active consent found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetIssueTokenByRecipientDataResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetIssueTokenByRecipientDataResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetIssueTokenByRecipientDataResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input (with reason)",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Valid recipient not found"
+          },
+          "409": {
+            "description": "Multiple users found, can not provide issue token"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "RecipientIdentifierType": {
+        "enum": [
+          "norwegianNIN",
+          "agreement"
+        ],
+        "type": "string",
+        "description": "An identifier that is one of the following either a National Identification Number (NIN)\r\nor a Nets' agreement reference. See the documentation for details on format."
+      },
+      "IssuerIdentifierType": {
+        "enum": [
+          "norwegianOrganizationNumber"
+        ],
+        "type": "string"
+      },
+      "GetIssueTokenByUniqueIdRequest": {
+        "required": [
+          "issuerIdentifierType",
+          "issuerIdentifierValue",
+          "recipientIdentifierType",
+          "recipientIdentifierValue"
+        ],
+        "type": "object",
+        "properties": {
+          "recipientIdentifierType": {
+            "$ref": "#/components/schemas/RecipientIdentifierType"
+          },
+          "recipientIdentifierValue": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Validation rules vary by 'RecipientIdentifierType'. See documentation for details.",
+            "nullable": true,
+            "example": "23106029172"
+          },
+          "issuerIdentifierType": {
+            "$ref": "#/components/schemas/IssuerIdentifierType"
+          },
+          "issuerIdentifierValue": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Validation rules vary by 'IssuerIdentifierType'. See documentation for details.",
+            "nullable": true,
+            "example": "918130047"
+          }
+        },
+        "additionalProperties": false
+      },
+      "GetIssueTokenByUniqueIdResponse": {
+        "type": "object",
+        "properties": {
+          "issueToken": {
+            "type": "string",
+            "description": "Token that can be used to act on behalf of the recipent.",
+            "nullable": true,
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ValidationProblemDetails": {
+        "type": "object",
+        "properties": {
+          "errors": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "nullable": true,
+            "readOnly": true
+          },
+          "type": {
+            "type": "string",
+            "nullable": true
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "detail": {
+            "type": "string",
+            "nullable": true
+          },
+          "instance": {
+            "type": "string",
+            "nullable": true
+          },
+          "extensions": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object",
+              "additionalProperties": false
+            },
+            "nullable": true,
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "WORK IN PROGRESS, MIGHT CHANGE LATER",
+        "default": {
+          "errors": {
+            "Msisdn": [
+              "The length of 'Msisdn' must be at least 10 characters. You entered 3 characters.",
+              "'Msisdn' is not in the correct format."
+            ]
+          },
+          "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+          "title": "One or more validation errors occurred.",
+          "status": 400,
+          "detail": "",
+          "instance": "",
+          "traceId": "|78d02853-451fa77a5db2a6a2."
+        },
+        "example": {
+          "errors": {
+            "Msisdn": [
+              "The length of 'Msisdn' must be at least 10 characters. You entered 3 characters.",
+              "'Msisdn' is not in the correct format."
+            ]
+          },
+          "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+          "title": "One or more validation errors occurred.",
+          "status": 400,
+          "detail": "",
+          "instance": "",
+          "traceId": "|78d02853-451fa77a5db2a6a2."
+        }
+      },
+      "GetIssueTokenByRecipientDataRequest": {
+        "required": [
+          "issuerIdentifierType",
+          "issuerIdentifierValue"
+        ],
+        "type": "object",
+        "properties": {
+          "issuerIdentifierType": {
+            "$ref": "#/components/schemas/IssuerIdentifierType"
+          },
+          "issuerIdentifierValue": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Validation rules vary by 'IssuerIdentifierType'. See documentation for details.",
+            "nullable": true,
+            "example": "918130047"
+          },
+          "msisdn": {
+            "pattern": "^[1-9]{1}[0-9]{3,14}$",
+            "type": "string",
+            "description": "Mobile phone number of the recipient in MSISDN format. (strong)",
+            "nullable": true,
+            "example": "4799912345"
+          },
+          "email": {
+            "pattern": "^\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$",
+            "type": "string",
+            "description": "Email address. (strong)",
+            "nullable": true,
+            "example": "ola@example.org"
+          },
+          "dateOfBirth": {
+            "type": "string",
+            "description": "Date of birth (yyyy-mm-dd)",
+            "nullable": true,
+            "example": "1986-03-24"
+          },
+          "addressLine1": {
+            "maxLength": 50,
+            "minLength": 3,
+            "type": "string",
+            "description": "Address line 1",
+            "nullable": true,
+            "example": "Testgata 42A"
+          },
+          "addressLine2": {
+            "maxLength": 50,
+            "minLength": 3,
+            "type": "string",
+            "description": "Address line 2",
+            "nullable": true,
+            "example": ""
+          },
+          "postCode": {
+            "maxLength": 4,
+            "minLength": 4,
+            "pattern": "^[0-9]*$",
+            "type": "string",
+            "description": "Post code",
+            "nullable": true,
+            "example": "8500"
+          },
+          "city": {
+            "maxLength": 30,
+            "minLength": 1,
+            "type": "string",
+            "description": "City",
+            "nullable": true,
+            "example": "Narvik"
+          },
+          "countryCode": {
+            "pattern": "^[A-Za-z]{2}$",
+            "type": "string",
+            "description": "Country code (Alpha 2 code from ISO-3166)",
+            "nullable": true,
+            "example": "NO"
+          },
+          "firstName": {
+            "maxLength": 50,
+            "minLength": 1,
+            "pattern": "^[\\w\\s\\p{P}\\.]*(?<!\\*)$",
+            "type": "string",
+            "description": "First name (does not accept wildcard search with '*')",
+            "nullable": true,
+            "example": "Ola"
+          },
+          "lastName": {
+            "maxLength": 50,
+            "minLength": 1,
+            "pattern": "^[\\w\\s\\p{P}\\.]*(?<!\\*)$",
+            "type": "string",
+            "description": "Last name (does not accept wildcard search with '*')",
+            "nullable": true,
+            "example": "Nordmann"
+          }
+        },
+        "additionalProperties": false
+      },
+      "GetIssueTokenByRecipientDataResponse": {
+        "type": "object",
+        "properties": {
+          "issueToken": {
+            "type": "string",
+            "description": "Token that can be used to act on behalf of the recipent.",
+            "nullable": true,
+            "readOnly": true,
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}
