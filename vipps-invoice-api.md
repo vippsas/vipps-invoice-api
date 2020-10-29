@@ -799,7 +799,7 @@ The response from `/public/jwk` is an array of keys, as follows:
 }
 ```
 
-> NOTE: As of Q4 2018, Vipps only have one key. One or more key will be added at a later time.
+> NOTE: A secondary key will be added on 12.11.2020, Vipps has up to this point only had one key.
 
 One of the keys in the output are always guaranteed to be valid. This enables Vipps to rotate keys if needed.
 
