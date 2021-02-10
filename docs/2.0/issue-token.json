@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "Vipps eFaktura ISP API",
-    "description": "Vipps eFaktura ISP API version 2.0 recipient token",
+    "description": "Vipps eFaktura ISP API version 2.0 issue token",
     "version": "2.0.0"
   },
   "paths": {
