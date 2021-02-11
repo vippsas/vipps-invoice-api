@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "Vipps eFaktura ISP API",
-    "description": "TODO",
+    "description": "Vipps eFaktura ISP API version 2.0 issue token",
     "version": "2.0.0"
   },
   "paths": {
@@ -23,21 +23,21 @@
               "type": "string"
             },
             "example": "a671cbb3-79e5-4146-b3f1-507a33d2e5ea"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization token is obtained from Access Token API: https://github.com/vippsas/vipps-accesstoken-api",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "VippsAccessToken eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkV4YW1wbGUiLCJpYXQiOjE1MTYyMzkwMjJ9.hzeK-fFKuavScl3weYW0YdBfVk8ebHMaDAFbNiKbWS0"
           }
         ],
         "requestBody": {
           "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "$ref": "#/components/schemas/GetIssueTokenByUniqueIdRequest"
-              }
-            },
             "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/GetIssueTokenByUniqueIdRequest"
-              }
-            },
-            "text/json": {
               "schema": {
                 "$ref": "#/components/schemas/GetIssueTokenByUniqueIdRequest"
               }
@@ -54,7 +54,7 @@
           "200": {
             "description": "Recipient with an active consent found",
             "content": {
-              "text/plain": {
+              "application/problem+json": {
                 "schema": {
                   "$ref": "#/components/schemas/GetIssueTokenByUniqueIdResponse"
                 }
@@ -62,37 +62,84 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/GetIssueTokenByUniqueIdResponse"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GetIssueTokenByUniqueIdResponse"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid input (with reason)",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ValidationProblemDetails"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ValidationProblemDetails"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ValidationProblemDetails"
                 }
               }
             }
           },
           "404": {
-            "description": "No recipient with active consent found"
+            "description": "No recipient with active consent found",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request. Likely a validation error.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "External service failed. Retry or try again later.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Access to the operation is not allowed.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
           }
         }
       }
@@ -114,21 +161,21 @@
               "type": "string"
             },
             "example": "a671cbb3-79e5-4146-b3f1-507a33d2e5ea"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization token is obtained from Access Token API: https://github.com/vippsas/vipps-accesstoken-api",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "VippsAccessToken eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkV4YW1wbGUiLCJpYXQiOjE1MTYyMzkwMjJ9.hzeK-fFKuavScl3weYW0YdBfVk8ebHMaDAFbNiKbWS0"
           }
         ],
         "requestBody": {
           "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "$ref": "#/components/schemas/GetIssueTokenByRecipientDataRequest"
-              }
-            },
             "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/GetIssueTokenByRecipientDataRequest"
-              }
-            },
-            "text/json": {
               "schema": {
                 "$ref": "#/components/schemas/GetIssueTokenByRecipientDataRequest"
               }
@@ -145,7 +192,7 @@
           "200": {
             "description": "Unique recipient with an active consent found",
             "content": {
-              "text/plain": {
+              "application/problem+json": {
                 "schema": {
                   "$ref": "#/components/schemas/GetIssueTokenByRecipientDataResponse"
                 }
@@ -153,40 +200,99 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/GetIssueTokenByRecipientDataResponse"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GetIssueTokenByRecipientDataResponse"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid input (with reason)",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ValidationProblemDetails"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ValidationProblemDetails"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ValidationProblemDetails"
                 }
               }
             }
           },
           "404": {
-            "description": "Valid recipient not found"
+            "description": "No recipient with active consent found",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
           },
           "409": {
-            "description": "Multiple users found, can not provide issue token"
+            "description": "Multiple users found, can not provide issue token",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request. Likely a validation error.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "External service failed. Retry or try again later.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Access to the operation is not allowed.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
           }
         }
       }
@@ -196,15 +302,15 @@
     "schemas": {
       "RecipientIdentifierType": {
         "enum": [
-          "norwegianNIN",
-          "agreement"
+          "NorwegianNIN",
+          "Agreement"
         ],
         "type": "string",
         "description": "An identifier that is one of the following either a National Identification Number (NIN)\r\nor a Nets' agreement reference. See the documentation for details on format."
       },
       "IssuerIdentifierType": {
         "enum": [
-          "norwegianOrganizationNumber"
+          "NorwegianOrganizationNumber"
         ],
         "type": "string"
       },
@@ -224,7 +330,6 @@
             "minLength": 1,
             "type": "string",
             "description": "Validation rules vary by 'RecipientIdentifierType'. See documentation for details.",
-            "nullable": true,
             "example": "23106029172"
           },
           "issuerIdentifierType": {
@@ -234,7 +339,6 @@
             "minLength": 1,
             "type": "string",
             "description": "Validation rules vary by 'IssuerIdentifierType'. See documentation for details.",
-            "nullable": true,
             "example": "918130047"
           }
         },
@@ -252,20 +356,36 @@
         },
         "additionalProperties": false
       },
+      "ProblemDetails": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "nullable": true
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "detail": {
+            "type": "string",
+            "nullable": true
+          },
+          "instance": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": { }
+      },
       "ValidationProblemDetails": {
         "type": "object",
         "properties": {
-          "errors": {
-            "type": "object",
-            "additionalProperties": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "nullable": true,
-            "readOnly": true
-          },
           "type": {
             "type": "string",
             "nullable": true
@@ -287,17 +407,19 @@
             "type": "string",
             "nullable": true
           },
-          "extensions": {
+          "errors": {
             "type": "object",
             "additionalProperties": {
-              "type": "object",
-              "additionalProperties": false
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
             },
             "nullable": true,
             "readOnly": true
           }
         },
-        "additionalProperties": false,
+        "additionalProperties": { },
         "description": "WORK IN PROGRESS, MIGHT CHANGE LATER",
         "default": {
           "errors": {
@@ -309,9 +431,8 @@
           "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
           "title": "One or more validation errors occurred.",
           "status": 400,
-          "detail": "",
-          "instance": "",
-          "traceId": "|78d02853-451fa77a5db2a6a2."
+          "detail": "...",
+          "instance": "..."
         },
         "example": {
           "errors": {
@@ -323,9 +444,8 @@
           "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
           "title": "One or more validation errors occurred.",
           "status": 400,
-          "detail": "",
-          "instance": "",
-          "traceId": "|78d02853-451fa77a5db2a6a2."
+          "detail": "...",
+          "instance": "..."
         }
       },
       "GetIssueTokenByRecipientDataRequest": {
@@ -342,18 +462,15 @@
             "minLength": 1,
             "type": "string",
             "description": "Validation rules vary by 'IssuerIdentifierType'. See documentation for details.",
-            "nullable": true,
             "example": "918130047"
           },
           "msisdn": {
-            "pattern": "^[1-9]{1}[0-9]{3,14}$",
             "type": "string",
             "description": "Mobile phone number of the recipient in MSISDN format. (strong)",
             "nullable": true,
             "example": "4799912345"
           },
           "email": {
-            "pattern": "^\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$",
             "type": "string",
             "description": "Email address. (strong)",
             "nullable": true,
@@ -366,40 +483,30 @@
             "example": "1986-03-24"
           },
           "addressLine1": {
-            "maxLength": 50,
-            "minLength": 3,
             "type": "string",
             "description": "Address line 1",
             "nullable": true,
             "example": "Testgata 42A"
           },
           "addressLine2": {
-            "maxLength": 50,
-            "minLength": 3,
             "type": "string",
             "description": "Address line 2",
             "nullable": true,
             "example": ""
           },
           "postCode": {
-            "maxLength": 4,
-            "minLength": 4,
-            "pattern": "^[0-9]*$",
             "type": "string",
             "description": "Post code",
             "nullable": true,
             "example": "8500"
           },
           "city": {
-            "maxLength": 30,
-            "minLength": 1,
             "type": "string",
             "description": "City",
             "nullable": true,
             "example": "Narvik"
           },
           "countryCode": {
-            "pattern": "^[A-Za-z]{2}$",
             "type": "string",
             "description": "Country code (Alpha 2 code from ISO-3166)",
             "nullable": true,
@@ -411,7 +518,6 @@
             "pattern": "^[\\w\\s\\p{P}\\.]*(?<!\\*)$",
             "type": "string",
             "description": "First name (does not accept wildcard search with '*')",
-            "nullable": true,
             "example": "Ola"
           },
           "lastName": {
@@ -420,7 +526,6 @@
             "pattern": "^[\\w\\s\\p{P}\\.]*(?<!\\*)$",
             "type": "string",
             "description": "Last name (does not accept wildcard search with '*')",
-            "nullable": true,
             "example": "Nordmann"
           }
         },
