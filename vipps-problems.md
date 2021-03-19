@@ -73,3 +73,4 @@ This is a list of all errors that can occure with respectively error messages an
 |`/invalid-invoice-id-issuer-ident-value`| Invalid issuer ident value in invoice id ||
 |`/input-validation-failed`| Validation of input failed | %d validation error(s) occurred. %s |
 |`/RFC3339-parse-error`| Error parsing input as RFC3339 | Could not parse %s as RFC3339. Make sure the format is correct. Example %s |
+|`invoice-rejected-by-partner`| Invoice was rejected by a partner | The usere is not registered with a JTTA/eFaktura 2.0 agreement at Nets. Might be due to user turning off JTTA between recipient/issue token is fetched and invoice being sent. Or synchronization issue (more likely).
